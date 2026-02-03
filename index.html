@@ -274,29 +274,31 @@ footer {
   .product h4 { font-size: 14px; }
   .product p { font-size: 14px; }
 }
-/* Logo and Musician Name Container */
+/* Container for logo + musician name */
 .logo-with-name {
   display: flex;
   align-items: center;
-  gap: 10px; /* space between logo and text */
+  gap: 15px;           /* space between logo and name */
+  padding-left: 20px;  /* more space from left edge */
+  padding-right: 20px; /* more space from right edge */
 }
 
-/* Small, professional, corporate logo */
+/* Small, corporate logo */
 .logo-with-name .logo {
-  height: 40px;          /* smaller, professional size */
-  width: 40px;           /* keep it square */
-  border-radius: 50%;    /* round logo */
-  object-fit: cover;     
+  height: 36px;         /* small, professional */
+  width: 36px;          /* square */
+  object-fit: cover;
+  border-radius: 50%;   /* rounded logo */
 }
 
-/* Professional corporate style name */
-.musician-name {
-  font-family: 'Playfair Display', serif; /* elegant serif font */
-  font-weight: 600;                       /* bold but premium */
-  font-size: 1.1rem;                      /* proportional to logo */
-  color: rgba(255, 255, 255, 0.95);      /* clean, subtle white */
-  letter-spacing: 0.5px;                  /* premium spacing */
-  text-transform: uppercase;              /* corporate style */
+/* Professional, premium musician name */
+.logo-with-name .musician-name {
+  font-family: 'Playfair Display', serif; /* elegant serif */
+  font-weight: 700;                        /* bold but classy */
+  font-size: 1.6rem;                       /* larger than logo */
+  color: rgba(255, 255, 255, 0.95);       /* subtle premium white */
+  letter-spacing: 1px;                     /* corporate spacing */
+  text-transform: uppercase;               /* professional style */
 }
 </style>
 </head>

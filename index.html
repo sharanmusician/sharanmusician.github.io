@@ -301,12 +301,12 @@ footer {
   text-overflow: ellipsis;                 /* if screen too small, truncate */
   overflow: hidden;
 }
-/* ================= DESKTOP HEADER: LOGO + NAME ================= */
+/* ================= DESKTOP HEADER: LOGO + NAME + SEARCH STRETCH ================= */
 @media (min-width: 769px) {
   header {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* logo+name on left, search/buttons on right */
+    justify-content: space-between;
     padding: 15px 40px;
     background: rgba(15,15,20,0.95);
     backdrop-filter: blur(10px);
@@ -323,7 +323,7 @@ footer {
   }
 
   .logo-with-name .logo img {
-    height: 36px;  /* smaller professional logo */
+    height: 36px;  /* professional logo size */
     width: 36px;
     object-fit: contain;
   }
@@ -331,18 +331,18 @@ footer {
   .logo-with-name .musician-name {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    font-size: 1.1rem;      /* desktop-optimized size */
+    font-size: 1.1rem;  /* desktop-optimized */
     color: rgba(255,255,255,0.95);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  /* Search bar stretches between name and header buttons */
+  /* Stretch search bar between name and header buttons */
   .search-bar {
-    flex: 1;
-    margin-left: 40px; /* space from logo+name */
-    margin-right: 20px;
+    flex: 1;            /* take remaining space */
+    margin-left: 20px;  /* space from name */
+    margin-right: 20px; /* space from header buttons */
     display: flex;
   }
 

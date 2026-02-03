@@ -283,74 +283,8 @@ footer {
   white-space: nowrap;                      /* prevent wrapping */  
   text-overflow: ellipsis;                 /* if screen too small, truncate */  
   overflow: hidden;  
-}  
-/* ================= DESKTOP HEADER: FIX SEARCH BAR GAP ================= */  
-@media (min-width: 769px) {  
+} 
   
-  header {  
-    display: flex;  
-    align-items: center;  
-    justify-content: space-between;  
-    padding: 12px 24px;  
-    background: rgba(15,15,20,0.95);  
-    backdrop-filter: blur(10px);  
-    position: sticky;  
-    top: 0;  
-    z-index: 1000;  
-  }  
-  
-  .logo-with-name {  
-    display: flex;  
-    align-items: center;  
-    gap: 8px;  
-    flex-shrink: 0;  
-  }  
-  
-  .logo-with-name .logo {  
-    height: 36px;  
-    width: 36px;  
-    object-fit: cover;  
-    border-radius: 50%;  
-  }  
-  
-  .logo-with-name .musician-name {  
-    font-family: 'Playfair Display', serif;  
-    font-weight: 700;  
-    font-size: 1rem;  
-    color: rgba(255,255,255,0.95);  
-    white-space: nowrap;  
-  }  
-  
-  /* 🔥 KEY FIX: SEARCH BAR TOUCHES MUSICIAN NAME */  
-  .search-bar {  
-    flex: 1;  
-    margin-left: 0;   /* REMOVED GAP */  
-    margin-right: 8px;  
-    display: flex;  
-  }  
-  
-  .search-bar input {  
-    flex: 1;  
-    padding: 10px 12px;  
-    font-size: 15px;  
-  }  
-  
-  .search-bar button {  
-    padding: 10px 16px;  
-    font-size: 15px;  
-  }  
-  
-  .header-buttons {  
-    display: flex;  
-  }  
-  
-  .header-buttons button {  
-    width: 80px;  
-    padding: 10px 0;  
-    font-size: 14px;  
-    text-align: center;  
-  }  
-}  
 /* ================= MOBILE: ONLY SEARCH BAR STICKY ================= */  
 @media (max-width: 768px) {  
   
@@ -490,76 +424,11 @@ footer {
     text-align: center;
   }
 }
-/* ================= DESKTOP VIEW OPTIMIZATION ONLY ================= */
+
+  /* ================= DESKTOP / PC FIX ================= */
 @media (min-width: 1024px) {
 
-  /* Constrain content for wide screens */
-  main {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 40px 32px;
-    grid-template-columns: 280px 1fr;
-  }
-
-  /* Sidebar behaves like a premium filter panel */
-  aside {
-    position: sticky;
-    top: 100px;              /* below header */
-    height: fit-content;
-  }
-
-  /* Hero text refinement */
-  .hero h1 {
-    font-size: 3.5rem;
-  }
-
-  .hero p {
-    font-size: 1.3rem;
-  }
-
-  /* Profiles section spacing */
-  .profiles-section {
-    padding-top: 8px;
-  }
-
-  .profile-slider {
-    padding-bottom: 14px;   /* space for scrollbar */
-  }
-
-  /* Products grid balance */
-  .products {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  .product img {
-    height: 210px;
-  }
-}
-/* =====================================================
-   ================ RESPONSIVE (CLEAN) =================
-   ===================================================== */
-
-/* MOBILE (already default) */
-/* nothing needed here */
-
-/* TABLET */
-@media (min-width: 768px) {
-  main {
-    padding: 32px;
-  }
-
-  .products {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-/* DESKTOP / PC */
-@media (min-width: 1024px) {
-
-  header {
-    padding: 14px 32px;
-  }
-
+  /* Center content on wide screens */
   main {
     max-width: 1400px;
     margin: 0 auto;
@@ -569,24 +438,27 @@ footer {
     gap: 40px;
   }
 
+  /* Sidebar behaves like a premium panel */
   aside {
     position: sticky;
     top: 110px;
     padding: 28px;
   }
 
+  /* Hero scale */
   .hero {
     max-height: 520px;
   }
 
   .hero h1 {
-    font-size: 3.8rem;
+    font-size: 3.6rem;
   }
 
   .hero p {
-    font-size: 1.35rem;
+    font-size: 1.3rem;
   }
 
+  /* Product grid balance */
   .products {
     grid-template-columns: repeat(4, 1fr);
     gap: 32px;
@@ -596,6 +468,7 @@ footer {
     height: 220px;
   }
 }
+  
 </style> 
 </head>  
 <body> 

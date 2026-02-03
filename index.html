@@ -306,24 +306,25 @@ footer {
   header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 12px 24px; /* compact, professional */
+    padding: 12px 24px;
     background: rgba(15,15,20,0.95);
     backdrop-filter: blur(10px);
     position: sticky;
     top: 0;
     z-index: 1000;
+    gap: 12px; /* tight spacing between sections */
   }
 
+  /* Logo + Musician Name */
   .logo-with-name {
     display: flex;
     align-items: center;
-    gap: 8px; /* tight professional gap */
-    flex-shrink: 0;
+    gap: 8px;
+    flex-shrink: 0; /* prevent shrinking */
   }
 
   .logo-with-name .logo img {
-    height: 36px;  /* professional small size */
+    height: 36px;  /* small, professional */
     width: 36px;
     object-fit: contain;
   }
@@ -331,40 +332,42 @@ footer {
   .logo-with-name .musician-name {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    font-size: 1rem; /* desktop-optimized */
+    font-size: 1rem;
     color: rgba(255,255,255,0.95);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  /* Stretch search bar fully between name and header buttons */
+  /* Search bar stretches to fill space */
   .search-bar {
-    flex: 1;            /* takes all remaining space */
-    margin-left: 8px;   /* very tight gap from name */
-    margin-right: 8px;  /* very tight gap from buttons */
+    flex: 1;          /* stretches fully */
     display: flex;
+    margin: 0;        /* no empty space around */
   }
 
   .search-bar input {
     flex: 1;
     padding: 10px 12px;
     font-size: 15px;
+    border-radius: 8px 0 0 8px;
   }
 
   .search-bar button {
     padding: 10px 16px;
     font-size: 15px;
+    border-radius: 0 8px 8px 0;
   }
 
-  /* Header buttons all same width */
+  /* Header buttons same width */
   .header-buttons {
     display: flex;
+    gap: 6px; /* small gap between buttons */
   }
 
   .header-buttons button {
-    width: 80px;        /* fixed professional width */
-    padding: 10px 0;    /* top-bottom padding only */
+    width: 80px;      /* equal width */
+    padding: 10px 0;
     font-size: 14px;
     text-align: center;
   }

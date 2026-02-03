@@ -20,33 +20,26 @@ a { text-decoration: none; color: inherit; }
 button { cursor: pointer; border: none; }
 
 /* ================= HEADER ================= */
-/* Top Header scrolls normally */
+/* Top header scrolls normally */
 .top-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 16px;
+  padding: 15px 40px;
   background: rgba(15,15,20,0.95);
 }
 
-/* Sticky Search Bar */
+/* Sticky search bar */
 .search-bar {
   position: sticky;
   top: 0;
   z-index: 1000;
   display: flex;
-  padding: 8px 16px;
+  margin: 0 40px;
+  max-width: 600px;
+  padding: 12px 0;
   gap: 8px;
   background: rgba(15,15,20,0.95);
-}
-
-.logo img { height: 60px; }
-
-.search-bar {
-  flex: 1;
-  display: flex;
-  margin: 0 20px;
-  max-width: 600px;
 }
 
 .search-bar input {
@@ -100,8 +93,8 @@ nav button {
   width: 100%;
   aspect-ratio: 16 / 9;
 
-  min-height: 260px;   /* safety */
-  max-height: 70vh;    /* allows desktop scaling */
+  min-height: 260px;
+  max-height: 70vh;
 
   display: flex;
   align-items: center;
@@ -203,23 +196,28 @@ footer {
    ========================================================= */
 @media (max-width: 768px) {
 
-  /* HEADER */
-  header {
+  /* Top header scrolls normally */
+  .top-header {
     flex-direction: column;
-    gap: 12px;
+    align-items: flex-start;
     padding: 12px 16px;
+    gap: 8px;
   }
 
   .logo img { height: 44px; }
 
+  /* Sticky search bar on mobile stays the same */
   .search-bar {
     margin: 0;
     max-width: 100%;
+    padding: 8px 16px;
   }
 
   .header-buttons {
     width: 100%;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
   }
 
   .header-buttons button {
@@ -248,28 +246,19 @@ footer {
     padding: 16px;
   }
 
-  /* SIDEBAR → FILTER BAR */
-  @media (max-width: 768px) {
-
-  /* Sidebar → vertical list */
+  /* Sidebar → vertical list on mobile */
   aside {
-    display: block; /* stack buttons vertically */
+    display: block; 
     padding: 12px 0;
-  }
-
-  aside button {
-    display: block;  /* full width */
-    width: 100%;
-    margin-bottom: 10px; /* spacing between buttons */
-    white-space: normal; /* wrap text if needed */
-  }
   }
 
   aside h3 { display: none; }
 
   aside button {
-    flex: none;
-    white-space: nowrap;
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    white-space: normal;
     padding: 10px 16px;
   }
 
@@ -288,9 +277,9 @@ footer {
 
 <body>
 
+<!-- ================= HEADER ================= -->
 <header>
-  <header>
-  <!-- Top Header: Logo + Buttons (scrolls normally) -->
+  <!-- Top Header scrolls normally -->
   <div class="top-header">
     <div class="logo"><img src="logo.png" alt="Sharan Store"></div>
     <div class="header-buttons">
@@ -305,8 +294,9 @@ footer {
     <input type="text" placeholder="Search products, music, lifestyle…">
     <button>Search</button>
   </div>
-  </header>
+</header>
 
+<!-- ================= NAV ================= -->
 <nav>
   <button>All</button>
   <button>Albums</button>
@@ -317,6 +307,7 @@ footer {
   <button>Merch</button>
 </nav>
 
+<!-- ================= HERO ================= -->
 <section class="hero">
   <div>
     <h1>Sharan Store</h1>
@@ -324,6 +315,7 @@ footer {
   </div>
 </section>
 
+<!-- ================= MAIN ================= -->
 <main>
   <aside>
     <button>Albums</button>
@@ -363,6 +355,7 @@ footer {
   </section>
 </main>
 
+<!-- ================= FOOTER ================= -->
 <footer>
   © 2026 Sharan Store | Ultra-Premium E-Commerce Platform
 </footer>

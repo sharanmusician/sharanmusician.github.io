@@ -301,82 +301,23 @@ footer {
   text-overflow: ellipsis;                 /* if screen too small, truncate */
   overflow: hidden;
 }
-/* ================= DESKTOP HEADER: PERFECTLY BALANCED ================= */
-/* ================= DESKTOP HEADER: SEARCH BAR FULL WIDTH ================= */
-@media (min-width: 769px) {
-  header {
-    display: flex;
-    align-items: center;
-    padding: 12px 24px;
-    background: rgba(15,15,20,0.95);
-    backdrop-filter: blur(10px);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-  }
+<header>
+  <div class="logo-with-name">
+    <div class="logo"><img src="logo.png" alt="Sharan Logo"></div>
+    <div class="musician-name">Sharan Musician</div>
+  </div>
 
-  /* Logo + Name */
-  .logo-with-name {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-shrink: 0;
-  }
+  <div class="search-bar">
+    <input type="text" placeholder="Search products, music, lifestyle…">
+    <button>Search</button>
+  </div>
 
-  .logo-with-name .logo img {
-    height: 36px;
-    width: 36px;
-    object-fit: contain;
-  }
-
-  .logo-with-name .musician-name {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 1rem;
-    color: rgba(255,255,255,0.95);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  /* Search bar fills all space between logo-name and buttons */
-  .search-bar {
-    flex: 1;             /* fills remaining space */
-    display: flex;
-    margin: 0 16px;      /* spacing from logo-name and header buttons */
-  }
-
-  .search-bar input {
-    flex: 1;
-    padding: 10px 12px;
-    font-size: 15px;
-    border-radius: 8px 0 0 8px;
-    background: rgba(255,255,255,0.08);
-    color: #fff;
-  }
-
-  .search-bar button {
-    padding: 10px 16px;
-    font-size: 15px;
-    border-radius: 0 8px 8px 0;
-    background: #1db954;
-    color: #fff;
-  }
-
-  /* Header buttons aligned to right, same size, equal spacing */
-  .header-buttons {
-    display: flex;
-    gap: 16px;
-  }
-
-  .header-buttons button {
-    flex: 1;        /* equal width */
-    max-width: 90px;
-    padding: 10px 0;
-    font-size: 14px;
-    text-align: center;
-  }
-      }
+  <div class="header-buttons">
+    <button>Account</button>
+    <button>Orders</button>
+    <button>Cart</button>
+  </div>
+</header>
 </style>
 </head>
 

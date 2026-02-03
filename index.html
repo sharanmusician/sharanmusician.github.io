@@ -301,7 +301,7 @@ footer {
   text-overflow: ellipsis;                 /* if screen too small, truncate */
   overflow: hidden;
 }
-/* ================= DESKTOP HEADER: PROFESSIONAL ALIGNMENT ================= */
+/* ================= DESKTOP HEADER: PERFECTLY BALANCED ================= */
 @media (min-width: 769px) {
   header {
     display: flex;
@@ -312,7 +312,8 @@ footer {
     position: sticky;
     top: 0;
     z-index: 1000;
-    gap: 12px; /* tight spacing between sections */
+    justify-content: space-between; /* spread items equally */
+    gap: 16px; /* spacing between blocks */
   }
 
   /* Logo + Musician Name */
@@ -320,11 +321,11 @@ footer {
     display: flex;
     align-items: center;
     gap: 8px;
-    flex-shrink: 0; /* prevent shrinking */
+    flex-shrink: 0;
   }
 
   .logo-with-name .logo img {
-    height: 36px;  /* small, professional */
+    height: 36px;
     width: 36px;
     object-fit: contain;
   }
@@ -339,11 +340,11 @@ footer {
     text-overflow: ellipsis;
   }
 
-  /* Search bar stretches to fill space */
+  /* Search bar stretches equally */
   .search-bar {
-    flex: 1;          /* stretches fully */
+    flex: 1; /* stretches to fill remaining space */
     display: flex;
-    margin: 0;        /* no empty space around */
+    margin: 0 16px; /* equal spacing from logo-name and header buttons */
   }
 
   .search-bar input {
@@ -359,14 +360,14 @@ footer {
     border-radius: 0 8px 8px 0;
   }
 
-  /* Header buttons same width */
+  /* Header buttons evenly spaced */
   .header-buttons {
     display: flex;
-    gap: 6px; /* small gap between buttons */
+    gap: 16px; /* equal horizontal spacing */
   }
 
   .header-buttons button {
-    width: 80px;      /* equal width */
+    width: 80px;      /* same width */
     padding: 10px 0;
     font-size: 14px;
     text-align: center;
@@ -378,10 +379,10 @@ footer {
 <body>
 
 <header>
-<div class="logo-with-name">
-  <img src="logo.png" alt="Sharan Store" class="logo">
-  <div class="musician-name">Sharan Musician</div>
-</div>
+  <div class="logo-with-name">
+    <div class="logo"><img src="logo.png" alt="Sharan Logo"></div>
+    <div class="musician-name">Sharan Musician</div>
+  </div>
 
   <div class="search-bar">
     <input type="text" placeholder="Search products, music, lifestyle…">
@@ -393,6 +394,7 @@ footer {
     <button>Orders</button>
     <button>Cart</button>
   </div>
+</header>
 </header>
 
 <nav>

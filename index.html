@@ -455,6 +455,26 @@ footer {
   margin-top: 8px;
   font-size: 13px;
   }
+/* ================= MOBILE PROFILES SLIDER FIX ================= */
+@media (max-width: 768px) {
+
+  .profiles-section {
+    width: 100vw;
+    margin-left: -16px;   /* counter main padding */
+    padding-left: 16px;
+  }
+
+  .profile-slider {
+    width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+  }
+
+  .profile-item {
+    flex: 0 0 72px;   /* FIXED width so only fit items show */
+  }
+
+}
 </style>
 </head>
 

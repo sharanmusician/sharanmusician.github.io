@@ -401,14 +401,28 @@ footer {
   margin-bottom: 16px;
 }
 
-.profiles-list {
+.profile-slider {
   display: flex;
-  gap: 24px;
-  align-items: center;
+  gap: 20px;
   overflow-x: auto;
   overflow-y: hidden;
-  white-space: nowrap;
   -webkit-overflow-scrolling: touch;
+  white-space: nowrap;
+  padding-bottom: 6px;
+}
+
+/* hide scrollbar – same as header slider */
+.profile-slider::-webkit-scrollbar {
+  display: none;
+}
+.profile-slider {
+  scrollbar-width: none;
+}
+
+/* each profile item */
+.profile-item {
+  flex: 0 0 auto;
+  text-align: center;
 }
 
 .profile-item {
@@ -484,31 +498,31 @@ footer {
 <section class="profiles-section">
   <h3 class="profiles-heading">Profiles</h3>
   
-<div class="profiles-list">
-    <a href="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=yoIQqs3PRHuJ8vTuQHa9Mw" target="_blank" class="profile-item">
-      <img src="spotify.jpg" alt="Spotify" />
-      <span>Spotify</span>
+<div class="profile-slider">
+    <a href="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=JitWb8x3T_SAFYE1w7jpEA" class="profile-item">
+    <img src="spotify.jpg" class="profile-circle">
+    <div class="Spotify">Spotify</div>
     </a>
 
-    <a href="https://g.co/kgs/gtv47AQ" target="_blank" class="profile-item">
-      <img src="google.jpg" alt="Google" />
-      <span>Google</span>
+    <a href="https://g.co/kgs/gtv47AQ" class="profile-item">
+    <img src="google.jpg" class="profile-circle">
+    <div class="Google">Google</div>
     </a>
   
-    <a href="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0" target="_blank" class="profile-item">
-      <img src="instagram.jpg" alt="Instagram" />
-      <span>Instagram</span>
+    <a href="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0" class="profile-item">
+    <img src="Instagram.jpg" class="profile-circle">
+    <div class="instagram">Instagram</div>
     </a>
 
-    <a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" target="_blank" class="profile-item">
-      <img src="facebook.jpg" alt="Facebook" />
-      <span>Facebook</span>
+    <a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" class="profile-item">
+    <img src="facebook.jpg" class="profile-circle">
+    <div class="Facebook">FaceBook</div>
     </a>
-
-      <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" target="_blank" class="profile-item">
-      <img src="x.jpg" alt="X (Twitter)" />
-      <span>X (Twitter)</span>
-      </a>
+  
+    <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" class="profile-item">
+    <img src="x.jpg" class="profile-circle">
+    <div class="X (Twitter)">X (Twitter)</div>
+    </a>
 
   </div>
 </section>

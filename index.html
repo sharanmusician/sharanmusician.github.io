@@ -92,27 +92,32 @@
             border-radius: 8px;
         }
 
-        /* ================= NAVIGATION ================= */
+        /* ================= NAVIGATION (VISIBLE UP TO NEWS) ================= */
         nav {
             display: flex;
-            gap: 30px;
-            padding: 14px 40px;
+            gap: 0; 
+            padding: 14px 20px;
             background: #111118;
             overflow-x: auto;
-            justify-content: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
         }
+        
+        nav::-webkit-scrollbar { display: none; } /* Chrome/Safari */
 
         nav button {
             background: none;
             color: #999;
             font-size: 14px;
-            white-space: nowrap;
+            padding: 8px 25px; /* Spacing controlled to push others out of view */
+            flex: 0 0 auto;
         }
 
         /* ================= HERO (FIXED TO 16:9) ================= */
         .hero {
             width: 100%;
-            aspect-ratio: 16 / 9; /* Strictly maintains 16:9 ratio */
+            aspect-ratio: 16 / 9;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -238,7 +243,8 @@
 
             .header-buttons button { flex: 1; text-align: center; font-size: 12px; padding: 10px 5px; }
 
-            nav { justify-content: flex-start; padding: 10px 15px; }
+            nav { justify-content: flex-start; padding: 10px 10px; }
+            nav button { padding: 8px 15px; } /* Slightly tighter on mobile to show News faster */
 
             main {
                 display: flex;
@@ -303,10 +309,11 @@
 <nav>  
     <button>All</button>
     <button>Albums</button>
-    <button>Tickets</button>
+    <button>Book Tickets</button>
     <button>News</button>
     <button>Merch</button>
     <button>About</button>
+    <button>Contact</button>
 </nav>
 
 <section class="hero">  

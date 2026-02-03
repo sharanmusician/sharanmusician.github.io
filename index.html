@@ -240,22 +240,6 @@ footer {
     padding: 16px;
   }
 
-  @media (max-width: 768px) {
-
-  /* Sidebar → vertical list */
-  aside {
-    display: block; /* stack buttons vertically */
-    padding: 12px 0;
-  }
-
-  aside button {
-    display: block;  /* full width */
-    width: 100%;
-    margin-bottom: 10px; /* spacing between buttons */
-    white-space: normal; /hu* wrap text if needed */
-  }
-  }
-
   aside h3 { display: none; }
 
   aside button {
@@ -332,7 +316,7 @@ footer {
 
   .logo-with-name .musician-name {
     font-family: 'Playfair Display', serif;
-    font-weight: 700;
+    font-weight: 700; 
     font-size: 1rem;
     color: rgba(255,255,255,0.95);
     white-space: nowrap;
@@ -455,59 +439,26 @@ footer {
   margin-top: 8px;
   font-size: 13px;
   }
-/* ================= MOBILE PROFILES SLIDER FIX ================= */
+
+  /* ================= MOBILE: CENTER CATEGORY BUTTONS CLEAN ================= */
 @media (max-width: 768px) {
 
-  .profiles-section {
-    width: 100vw;
-    margin-left: -16px;   /* counter main padding */
-    padding-left: 16px;
-  }
-
-  .profile-slider {
-    width: 100%;
-    overflow-x: auto;
-    flex-wrap: nowrap;
-  }
-
-  .profile-item {
-    flex: 0 0 72px;   /* FIXED width so only fit items show */
-  }
-
-}
-@media (max-width: 768px) {
   aside {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
     display: flex;
     flex-direction: column;
-    align-items: center;   /* CENTER */
-    margin-left: 0;        /* RESET */
-    margin-right: 0;
+    align-items: center;
   }
 
   aside button {
-    width: 90%;
+    width: 100%;
     max-width: 360px;
+    margin: 0 auto 12px auto;
     text-align: center;
   }
-}
-@media (max-width: 768px) {
-  aside {
-    margin: 0 auto;
-    width: 100%;
-    max-width: 100%;
-    padding: 0;
-  }
 
-  aside button {
-    width: calc(100% - 32px); /* respects main padding */
-    margin: 0 auto 10px auto;
-  }
-}
-@media (max-width: 768px) {
-  aside button {
-    margin-left: auto;
-    margin-right: auto;
-  }
 }
 </style>
 </head>

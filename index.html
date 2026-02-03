@@ -301,14 +301,13 @@ footer {
   text-overflow: ellipsis;                 /* if screen too small, truncate */
   overflow: hidden;
 }
-/* ================= DESKTOP HEADER: LOGO + NAME + SEARCH STRETCH ================= */
 /* ================= DESKTOP HEADER: PROFESSIONAL ALIGNMENT ================= */
 @media (min-width: 769px) {
   header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 24px; /* tighter padding, professional */
+    padding: 12px 24px; /* compact, professional */
     background: rgba(15,15,20,0.95);
     backdrop-filter: blur(10px);
     position: sticky;
@@ -341,9 +340,9 @@ footer {
 
   /* Stretch search bar fully between name and header buttons */
   .search-bar {
-    flex: 1;            /* take remaining space */
-    margin-left: 12px;  /* tight spacing from name */
-    margin-right: 12px; /* tight spacing from header buttons */
+    flex: 1;            /* takes all remaining space */
+    margin-left: 8px;   /* very tight gap from name */
+    margin-right: 8px;  /* very tight gap from buttons */
     display: flex;
   }
 
@@ -358,15 +357,16 @@ footer {
     font-size: 15px;
   }
 
-  /* Header buttons stay professional */
+  /* Header buttons all same width */
   .header-buttons {
     display: flex;
-    gap: 8px; /* tight spacing */
   }
 
   .header-buttons button {
-    padding: 10px 16px;
+    width: 80px;        /* fixed professional width */
+    padding: 10px 0;    /* top-bottom padding only */
     font-size: 14px;
+    text-align: center;
   }
 }
 </style>

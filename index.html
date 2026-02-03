@@ -54,9 +54,23 @@
         .header-buttons { display: flex; gap: 12px; }
         .header-buttons button { padding: 10px 18px; background: rgba(255,255,255,0.08); color: #fff; border-radius: 8px; font-size: 13px; }
 
-        /* ================= NAVIGATION ================= */
-        nav { display: flex; width: 100%; background: #111118; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
-        nav button { background: none; color: #999; font-size: 14px; flex: 0 0 25%; text-align: center; padding: 20px 0; }
+        /* ================= NAVIGATION (DESKTOP: FULL | MOBILE: SLIDER) ================= */
+        nav { 
+            display: flex; 
+            width: 100%; 
+            background: #111118; 
+            overflow-x: auto; 
+            white-space: nowrap; 
+            -webkit-overflow-scrolling: touch; 
+            justify-content: center; /* Centered on desktop */
+        }
+        nav button { 
+            background: none; 
+            color: #999; 
+            font-size: 14px; 
+            padding: 20px 30px; 
+            flex: 0 0 auto; /* Default: take only needed space */
+        }
 
         /* ================= HERO (16:9) ================= */
         .hero { width: 100%; aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://via.placeholder.com/1600x900") center/cover; }
@@ -65,7 +79,7 @@
         /* ================= MAIN CONTENT ================= */
         main { display: grid; grid-template-columns: 280px 1fr; gap: 50px; padding: 60px 40px; max-width: 1500px; margin: 0 auto; }
 
-        /* BOXED CATEGORY */
+        /* CATEGORY BOX */
         .category-box {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.07);
@@ -75,12 +89,13 @@
             position: sticky;
             top: 100px;
         }
+        .category-box h4 { margin-bottom: 15px; font-size: 13px; color: #555; text-transform: uppercase; }
         .category-box button { display: block; width: 100%; padding: 14px 18px; margin-bottom: 10px; background: rgba(255, 255, 255, 0.04); color: #ccc; border-radius: 10px; text-align: left; }
 
         /* PROFILES (Cuts off at YouTube) */
         .profiles-section { margin-bottom: 60px; }
         .profile-slider { display: flex; overflow-x: auto; padding-bottom: 15px; -webkit-overflow-scrolling: touch; }
-        .profile-item { flex: 0 0 25%; text-align: center; } /* 25% ensures exactly 4 items show (up to YouTube) */
+        .profile-item { flex: 0 0 25%; text-align: center; } 
         .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; }
         .profile-item div { font-size: 12px; color: #aaa; }
 
@@ -95,20 +110,19 @@
             .logo-with-name { margin-bottom: 15px; }
             .search-bar { margin: 0; width: 100%; margin-bottom: 15px; }
             
-            nav button { flex: 0 0 25%; } /* Keeps news cutoff */
+            /* Mobile Nav: Forces the cutoff at News */
+            nav { justify-content: flex-start; }
+            nav button { flex: 0 0 25%; padding: 15px 0; } 
 
-            main { display: flex; flex-direction: column; padding: 20px 15px; gap: 40px; }
+            main { display: flex; flex-direction: column; padding: 20px 15px; gap: 30px; }
             
-            .category-box { 
-                position: relative; 
-                top: 0; 
-                order: 3; /* Placed below products on mobile */
-                width: 100%; 
-            }
-            .profiles-section { order: 1; }
+            /* Mobile Order: Categories -> Profiles -> Products */
+            .category-box { order: 1; position: relative; top: 0; width: 100%; }
             .content-area { order: 2; width: 100%; }
+            .profiles-section { order: 1; margin-bottom: 40px; }
+            .products-section { order: 2; }
 
-            .profile-item { flex: 0 0 25%; } /* Keeps youtube cutoff */
+            .profile-item { flex: 0 0 25%; } 
             .products { grid-template-columns: 1fr 1fr; gap: 12px; }
             .product img { height: 140px; }
         }
@@ -123,12 +137,10 @@
         <img src="logo.png" alt="Sharan Musician" class="logo">  
         <div class="musician-name">Sharan Musician</div>  
     </div>
-
     <div class="search-bar">  
         <input type="text" placeholder="Search...">  
         <button>Search</button>  
     </div>
-
     <div class="header-buttons">  
         <button>Account</button>  
         <button>Cart</button>  
@@ -145,7 +157,7 @@
 
 <main>  
     <div class="category-box">  
-        <h4 style="margin-bottom: 15px; font-size: 13px; color: #555; text-transform: uppercase;">Categories</h4>
+        <h4>Categories</h4>
         <button>Albums</button>  
         <button>Live Tickets</button>  
         <button>Learning</button>  
@@ -166,22 +178,26 @@
             </div>  
         </section>
 
-        <section class="products">  
-            <div class="product">
-                <img src="https://via.placeholder.com/300x180">
-                <h4 style="font-size: 16px;">Latest Single</h4>
-                <p style="color: #1db954; font-weight: 700;">₹1,499</p>
+        <section class="products-section">
+            <h3 style="margin-bottom:20px; font-weight: 500;">Latest Products</h3>
+            <div class="products">  
+                <div class="product">
+                    <img src="https://via.placeholder.com/300x180">
+                    <h4 style="font-size: 16px;">New Single</h4>
+                    <p style="color: #1db954;">₹1,499</p>
+                </div>
+                <div class="product">
+                    <img src="https://via.placeholder.com/300x180">
+                    <h4 style="font-size: 16px;">Tour Merch</h4>
+                    <p style="color: #1db954;">₹2,499</p>
+                </div>
             </div>
-            <div class="product">
-                <img src="https://via.placeholder.com/300x180">
-                <h4 style="font-size: 16px;">Concert Tee</h4>
-                <p style="color: #1db954; font-weight: 700;">₹2,999</p>
-            </div>
-        </section>  
+        </section>
     </div>
 </main>
 
 <footer>© 2026 Sharan Musician | High-Fidelity Music Experience</footer>
 
 </body>
-</html>
+    </html>
+    

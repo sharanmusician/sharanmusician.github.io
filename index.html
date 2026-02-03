@@ -390,28 +390,6 @@ footer {
     position: static;
   }
 }
-/* ================= MOBILE: PERMANENT NAV SLIDE INDICATOR ================= */
-@media (max-width: 768px) {
-
-  nav {
-    position: relative;
-    padding-bottom: 18px; /* space for indicator */
-  }
-
-  /* Permanent grey dash */
-  nav::after {
-    content: "";
-    position: absolute;
-    bottom: 6px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 48px;
-    height: 4px;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 0.35);
-    pointer-events: none;
-  }
-    }
 </style>
 </head>
 

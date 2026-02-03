@@ -93,7 +93,6 @@
             z-index: 1;
         }
 
-        /* Centered Instagram Style Mute Button */
         .mute-btn {
             position: absolute;
             top: 50%;
@@ -112,7 +111,7 @@
             justify-content: center;
             border: 1px solid rgba(255, 255, 255, 0.2);
             transition: opacity 0.4s ease, transform 0.2s ease;
-            pointer-events: none; /* Let clicks pass through to the hero div */
+            pointer-events: none; 
             opacity: 1;
         }
 
@@ -205,10 +204,7 @@
 </div>
 
 <div class="action-bar">
-    <div class="action-bar">
-    <a href="https://drive.google.com/file/d/1XlcuW7xXiWI3mA-1v3acfVazkDMhGthc/view?usp=drivesdk" target="_blank">
-        <button>Catalogue</button>
-    </a>
+    <button>Account</button>  
     <button>Orders</button>  
     <button>Cart</button>  
 </div>
@@ -243,7 +239,10 @@
         <button>Reserve Your Seat</button>  
         <button>Music Courses</button>  
         <button>Merchandise</button>  
-        <button>Community</button>  
+        <button>Community</button>
+        <a href="https://drive.google.com/file/d/1XlcuW7xXiWI3mA-1v3acfVazkDMhGthc/view?usp=drivesdk" target="_blank">
+            <button style="background: #1db954; color: white;">Catalogue</button>
+        </a>
     </div>
 
     <div class="content-area">
@@ -256,7 +255,6 @@
                 <a href="https://youtube.com/@sharan.musician?si=wZlASMES3BCSoclb" target="_blank" class="profile-item"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
                 <a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" target="_blank" class="profile-item"><img src="facebook.jpg" alt="FaceBook"><div>FaceBook</div></a>
                 <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" target="_blank" class="profile-item"><img src="x.jpg" alt="X"><div>Twitter</div></a>
-                <a href="https://www.imdb.com/name/nm17859010/?ref_=ext_shr" target="_blank" class="profile-item"><img src="imdb.jpg" alt="IMDb"><div>IMDb</div></a>
             </div>  
         </section>
 
@@ -300,24 +298,21 @@
         clearTimeout(hideTimeout);
         
         if (video.muted) {
-            // Unmuting
             video.muted = false;
             muteIcon.innerHTML = `<path d="${unmutedPath}"></path>`;
             muteBtn.classList.remove('hidden');
             
-            // Auto-hide icon after 0.5 seconds (Instagram style)
+            // Auto-hide icon after 0.5 seconds
             hideTimeout = setTimeout(() => {
                 muteBtn.classList.add('hidden');
             }, 500); 
         } else {
-            // Muting
             video.muted = true;
             muteIcon.innerHTML = `<path d="${mutedPath}"></path>`;
             muteBtn.classList.remove('hidden');
         }
     }
 
-    // Handle tap/click on the entire hero section
     heroWrapper.addEventListener('click', toggleMute);
 </script>
 

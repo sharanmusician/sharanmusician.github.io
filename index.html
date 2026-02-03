@@ -535,10 +535,31 @@ footer {
     height: 210px;
   }
 }
-/* ================= DESKTOP / PC OPTIMIZATION ================= */
+/* =====================================================
+   ================ RESPONSIVE (CLEAN) =================
+   ===================================================== */
+
+/* MOBILE (already default) */
+/* nothing needed here */
+
+/* TABLET */
+@media (min-width: 768px) {
+  main {
+    padding: 32px;
+  }
+
+  .products {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* DESKTOP / PC */
 @media (min-width: 1024px) {
 
-  /* Overall layout */
+  header {
+    padding: 14px 32px;
+  }
+
   main {
     max-width: 1400px;
     margin: 0 auto;
@@ -548,21 +569,12 @@ footer {
     gap: 40px;
   }
 
-  /* Sidebar */
   aside {
     position: sticky;
-    top: 120px;
+    top: 110px;
     padding: 28px;
-    border-radius: 14px;
-    background: #111118;
   }
 
-  aside button {
-    font-size: 15px;
-    padding: 12px 16px;
-  }
-
-  /* Hero */
   .hero {
     max-height: 520px;
   }
@@ -575,36 +587,13 @@ footer {
     font-size: 1.35rem;
   }
 
-  /* Profiles */
-  .profiles-section {
-    padding-top: 8px;
-  }
-
-  .profiles-heading {
-    font-size: 20px;
-  }
-
-  .profile-slider {
-    padding-bottom: 16px;
-  }
-
-  /* Products grid */
   .products {
-    display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 32px;
   }
 
   .product img {
     height: 220px;
-  }
-
-  .product h4 {
-    font-size: 16px;
-  }
-
-  .product p {
-    font-size: 15px;
   }
 }
 </style> 

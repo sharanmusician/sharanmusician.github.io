@@ -492,10 +492,15 @@ footer {
 }
 @media (max-width: 768px) {
   aside {
-    margin-left: -16px;
-    margin-right: -16px;
-    padding-left: 16px;
-    padding-right: 16px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+  }
+
+  aside button {
+    width: calc(100% - 32px); /* respects main padding */
+    margin: 0 auto 10px auto;
   }
 }
 @media (max-width: 768px) {

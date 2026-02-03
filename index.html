@@ -73,11 +73,12 @@
         }
         nav button:hover { color: #1db954; }
 
-        /* ================= HERO BANNER ================= */
+        /* ================= HERO BANNER (16:9 RATIO) ================= */
         .hero {
             width: 100%;
-            height: 450px;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://via.placeholder.com/1600x600/111/fff?text=Sharan+Musician+Experience') center/cover;
+            aspect-ratio: 16 / 9; /* Precise 16:9 Ratio */
+            max-height: 80vh; /* Prevents overflow on large screens */
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://via.placeholder.com/1920x1080/111/fff?text=Sharan+Musician+Experience') center/cover;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -86,10 +87,11 @@
         }
         .hero-content h1 {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
+            font-size: clamp(1.5rem, 6vw, 3.5rem); /* Responsive font sizing */
             color: #fff;
             text-transform: uppercase;
             letter-spacing: 2px;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
         }
 
         /* ================= MAIN LAYOUT ================= */
@@ -127,13 +129,9 @@
             .top-bar { padding: 10px 15px; flex-direction: column; gap: 12px; }
             .action-bar { padding: 10px 15px; justify-content: space-between; }
             .action-bar button { flex: 1; width: auto; }
-            
             nav { justify-content: flex-start; }
             nav button { flex: 0 0 25%; padding: 15px 0; } 
             
-            .hero { height: 250px; }
-            .hero-content h1 { font-size: 1.8rem; }
-
             main { display: flex; flex-direction: column; padding: 20px; gap: 30px; }
             
             .category-box { order: 1; position: relative; width: 100%; }
@@ -245,5 +243,4 @@
 </footer>
 
 </body>
-            </html>
-            
+</html>

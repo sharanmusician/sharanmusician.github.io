@@ -301,33 +301,84 @@ footer {
   text-overflow: ellipsis;                 /* if screen too small, truncate */
   overflow: hidden;
 }
-<header>
-  <div class="logo-with-name">
-    <div class="logo"><img src="logo.png" alt="Sharan Logo"></div>
-    <div class="musician-name">Sharan Musician</div>
-  </div>
+/* ================= DESKTOP HEADER: PROFESSIONAL ALIGNMENT ================= */
+@media (min-width: 769px) {
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px; /* compact, professional */
+    background: rgba(15,15,20,0.95);
+    backdrop-filter: blur(10px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
 
-  <div class="search-bar">
-    <input type="text" placeholder="Search products, music, lifestyle…">
-    <button>Search</button>
-  </div>
+  .logo-with-name {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* tight professional gap */
+    flex-shrink: 0;
+  }
 
-  <div class="header-buttons">
-    <button>Account</button>
-    <button>Orders</button>
-    <button>Cart</button>
-  </div>
-</header>
+  .logo-with-name .logo img {
+    height: 36px;  /* professional small size */
+    width: 36px;
+    object-fit: contain;
+  }
+
+  .logo-with-name .musician-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1rem; /* desktop-optimized */
+    color: rgba(255,255,255,0.95);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  /* Stretch search bar fully between name and header buttons */
+  .search-bar {
+    flex: 1;            /* takes all remaining space */
+    margin-left: 8px;   /* very tight gap from name */
+    margin-right: 8px;  /* very tight gap from buttons */
+    display: flex;
+  }
+
+  .search-bar input {
+    flex: 1;
+    padding: 10px 12px;
+    font-size: 15px;
+  }
+
+  .search-bar button {
+    padding: 10px 16px;
+    font-size: 15px;
+  }
+
+  /* Header buttons all same width */
+  .header-buttons {
+    display: flex;
+  }
+
+  .header-buttons button {
+    width: 80px;        /* fixed professional width */
+    padding: 10px 0;    /* top-bottom padding only */
+    font-size: 14px;
+    text-align: center;
+  }
+}
 </style>
 </head>
 
 <body>
 
 <header>
-  <div class="logo-with-name">
-    <div class="logo"><img src="logo.png" alt="Sharan Logo"></div>
-    <div class="musician-name">Sharan Musician</div>
-  </div>
+<div class="logo-with-name">
+  <img src="logo.png" alt="Sharan Store" class="logo">
+  <div class="musician-name">Sharan Musician</div>
+</div>
 
   <div class="search-bar">
     <input type="text" placeholder="Search products, music, lifestyle…">
@@ -339,7 +390,6 @@ footer {
     <button>Orders</button>
     <button>Cart</button>
   </div>
-</header>
 </header>
 
 <nav>

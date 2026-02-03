@@ -15,7 +15,7 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-        a { text-decoration: none; color: inherit; }
+        a { text-decoration: none; color: inherit; transition: color 0.2s ease; }
         button { cursor: pointer; border: none; transition: all 0.2s ease; }
 
         /* ================= SCROLLBARS ================= */
@@ -25,7 +25,7 @@
             border-radius: 10px; 
         }
 
-        /* ================= HEADER (DESKTOP OPTIMIZED) ================= */
+        /* ================= HEADER ================= */
         header {
             display: flex;
             align-items: center;
@@ -44,11 +44,7 @@
         .logo-with-name .logo { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; }
         .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; }
 
-        .search-bar { 
-            flex: 1; 
-            display: flex; 
-            max-width: 600px; /* Reduced to give buttons room */
-        }
+        .search-bar { flex: 1; display: flex; max-width: 600px; }
         .search-bar input { 
             flex: 1; padding: 10px 18px; background: transparent; 
             color: #fff; border-radius: 8px 0 0 8px; 
@@ -58,24 +54,12 @@
 
         .header-buttons { display: flex; gap: 8px; flex-shrink: 0; }
         .header-buttons button { 
-            width: 95px; /* Precise equal sizing to prevent overflow */
-            padding: 10px 0; 
-            background: rgba(255,255,255,0.08); 
-            color: #fff; 
-            border-radius: 6px; 
-            font-size: 13px;
-            text-align: center;
+            width: 95px; padding: 10px 0; background: rgba(255,255,255,0.08); 
+            color: #fff; border-radius: 6px; font-size: 13px; text-align: center;
         }
 
         /* ================= NAVIGATION ================= */
-        nav { 
-            display: flex; 
-            width: 100%; 
-            background: #111118; 
-            overflow-x: auto; 
-            white-space: nowrap; 
-            justify-content: center;
-        }
+        nav { display: flex; width: 100%; background: #111118; overflow-x: auto; white-space: nowrap; justify-content: center; }
         nav button { background: none; color: #999; font-size: 14px; padding: 18px 25px; flex: 0 0 auto; }
 
         /* ================= HERO ================= */
@@ -88,51 +72,78 @@
         .category-box {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 12px;
-            padding: 18px;
-            height: fit-content;
-            position: sticky;
-            top: 90px;
+            border-radius: 12px; padding: 18px; height: fit-content; position: sticky; top: 90px;
         }
         .category-box h4 { font-size: 12px; text-transform: uppercase; color: #666; letter-spacing: 1px; margin-bottom: 15px; }
         .category-box button { display: block; width: 100%; padding: 12px 15px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.04); color: #ccc; border-radius: 8px; text-align: left; font-size: 14px; }
 
-        /* ================= PROFILES SLIDER (RESPONSIVE VIEWPORT) ================= */
+        /* ================= PROFILES SLIDER ================= */
         .profiles-section { margin-bottom: 50px; }
-        .profile-slider { 
-            display: flex; 
-            overflow-x: auto; 
-            padding-bottom: 12px;
-            -webkit-overflow-scrolling: touch;
-        }
-        /* Desktop: 5 items visible (Spotify to FaceBook) */
+        .profile-slider { display: flex; overflow-x: auto; padding-bottom: 12px; -webkit-overflow-scrolling: touch; }
         .profile-item { flex: 0 0 20%; text-align: center; } 
         .profile-item img { width: 60px; height: 60px; border-radius: 50%; background: #16161d; padding: 10px; margin-bottom: 8px; }
         .profile-item div { font-size: 12px; color: #aaa; }
 
-        /* PRODUCTS */
+        /* ================= PRODUCTS ================= */
         .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
         .product { background: #12121a; border-radius: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.05); }
         .product img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 12px; }
 
+        /* ================= CORPORATE FOOTER ================= */
+        footer {
+            padding: 80px 40px 40px;
+            background: #08080c;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            font-size: 13px;
+            color: #999;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            font-weight: 500;
+        }
+
+        .footer-links a:hover { color: #1db954; }
+
+        .copyright {
+            font-size: 12px;
+            color: #555;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            text-transform: uppercase;
+        }
+
+        .footer-brand {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 10px;
+            display: block;
+        }
+
         /* ================= MOBILE FIXES ================= */
         @media (max-width: 900px) {
-            header { flex-direction: column; padding: 15px; gap: 12px; }
-            .search-bar { width: 100%; margin: 0; }
+            header { flex-direction: column; padding: 15px; }
             .header-buttons { width: 100%; }
             .header-buttons button { flex: 1; width: auto; }
-
             nav { justify-content: flex-start; }
             nav button { flex: 0 0 25%; padding: 15px 0; } 
-
             main { display: flex; flex-direction: column; padding: 20px; gap: 30px; }
             .category-box { order: 1; position: relative; top: 0; }
-            .content-area { order: 2; }
-            
-            /* Mobile: 4 items visible (Up to YouTube) */
             .profile-item { flex: 0 0 25%; } 
-            
             .products { grid-template-columns: 1fr 1fr; gap: 12px; }
+            footer { padding: 60px 20px 30px; }
+            .footer-links { gap: 15px; }
         }
     </style>
 </head>
@@ -143,12 +154,10 @@
         <img src="logo.png" alt="Logo" class="logo">  
         <div class="musician-name">Sharan Musician</div>  
     </div>
-
     <div class="search-bar">  
         <input type="text" placeholder="Search gear or music...">  
         <button>Search</button>  
     </div>
-
     <div class="header-buttons">  
         <button>Account</button>  
         <button>Orders</button>  
@@ -205,7 +214,18 @@
     </div>
 </main>
 
-<footer>© 2026 Sharan Musician | High-Fidelity Music Experience</footer>
+<footer>
+    <span class="footer-brand">SHARAN MUSICIAN</span>
+    <div class="footer-links">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Shipping Info</a>
+        <a href="#">Contact Support</a>
+    </div>
+    <div class="copyright">
+        © 2026 Sharan Musician. All Rights Reserved.
+    </div>
+</footer>
 
 </body>
 </html>

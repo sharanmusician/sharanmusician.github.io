@@ -4,108 +4,296 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sharan Store | Premium Lifestyle & Music</title>
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
 <style>
-/* GLOBAL */
-* { box-sizing: border-box; margin:0; padding:0; }
-body { font-family:'Inter',sans-serif; background:#0b0b0f; color:#f5f5f5; line-height:1.6; }
-a { text-decoration:none; color:inherit; }
-button { cursor:pointer; }
+/* ================= GLOBAL ================= */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0b0b0f;
+  color: #f5f5f5;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+a { text-decoration: none; color: inherit; }
+button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
 
-/* HEADER */
+/* ================= PAGE WRAPPER ================= */
+.page-wrapper {
+  width: 1440px;
+  margin: 0 auto;
+}
+
+/* ================= HEADER ================= */
 header {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:15px 40px; background:rgba(15,15,20,0.95); backdrop-filter:blur(10px);
-  position:sticky; top:0; z-index:1000; box-shadow:0 4px 20px rgba(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 40px;
+  background: rgba(15,15,20,0.95);
+  backdrop-filter: blur(10px);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
-.logo img { height:60px; }
-.search-bar { flex:1; display:flex; margin:0 20px; max-width:600px; }
+
+.logo img { height: 60px; }
+
+.search-bar {
+  flex: 1;
+  display: flex;
+  margin: 0 20px;
+  max-width: 600px;
+}
+
 .search-bar input {
-  flex:1; padding:12px 18px; border:none; border-radius:8px 0 0 8px; outline:none;
-  background:rgba(255,255,255,0.05); color:#fff; font-size:16px;
+  flex: 1;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 8px 0 0 8px;
+  outline: none;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  font-size: 16px;
 }
+
 .search-bar button {
-  padding:12px 20px; border:none; border-radius:0 8px 8px 0;
-  background:#1db954; color:#fff; font-weight:600; transition:0.3s;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  background: #1db954;
+  color: #fff;
+  font-weight: 600;
+  transition: 0.3s;
 }
-.search-bar button:hover { background:#1ed760; }
-.header-buttons { display:flex; align-items:center; }
+
+.search-bar button:hover { background: #1ed760; }
+
+.header-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .header-buttons button {
-  margin-left:15px; padding:10px 20px; border:none; border-radius:8px;
-  background:#1db954; color:#fff; font-weight:500; transition:0.3s;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #1db954;
+  color: #fff;
+  font-weight: 500;
+  transition: 0.3s;
 }
-.header-buttons button:hover { background:#1ed760; }
 
-/* NAVIGATION */
-nav { display:flex; gap:20px; padding:12px 40px; background:#111118; overflow-x:auto; }
-nav button { background:none; border:none; color:#f5f5f5; font-weight:500; font-size:15px; cursor:pointer; padding:8px 12px; transition:0.3s; }
-nav button:hover { border-bottom:2px solid #1db954; }
+.header-buttons button:hover { background: #1ed760; }
 
-/* HERO */
+/* ================= NAV ================= */
+nav {
+  display: flex;
+  gap: 20px;
+  padding: 12px 40px;
+  background: #111118;
+  overflow-x: auto;
+}
+
+nav button {
+  background: none;
+  border: none;
+  color: #f5f5f5;
+  font-weight: 500;
+  font-size: 15px;
+  padding: 8px 12px;
+}
+
+nav button:hover {
+  border-bottom: 2px solid #1db954;
+}
+
+/* ================= HERO (16:9) ================= */
 .hero {
-  height:500px; display:flex; align-items:center; justify-content:center;
-  background:url('https://via.placeholder.com/1600x500') center/cover no-repeat; text-align:center; position:relative;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  max-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url('https://via.placeholder.com/1600x900') center/cover no-repeat;
+  text-align: center;
+  overflow: hidden;
 }
+
 .hero::after {
-  content:""; position:absolute; top:0; left:0; width:100%; height:100%;
-  background:linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.6));
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.55),
+    rgba(0,0,0,0.65)
+  );
 }
-.hero h1 { position:relative; font-family:'Playfair Display',serif; font-size:3.5rem; color:#fff; z-index:1; text-shadow:2px 2px 12px rgba(0,0,0,0.6);}
-.hero p { position:relative; z-index:1; font-size:1.3rem; margin-top:10px; color:#ddd; }
 
-/* MAIN LAYOUT */
-main { display:grid; grid-template-columns:250px 1fr; gap:30px; padding:40px; }
+.hero h1 {
+  position: relative;
+  font-family: 'Playfair Display', serif;
+  font-size: 3rem;
+  z-index: 1;
+}
 
-/* SIDEBAR */
-aside { background:#111118; padding:25px; border-radius:12px; box-shadow:0 8px 30px rgba(0,0,0,0.5); }
-aside h3 { margin-bottom:20px; font-weight:600; font-size:18px; }
+.hero p {
+  position: relative;
+  z-index: 1;
+  font-size: 1.1rem;
+  color: #ddd;
+}
+
+/* ================= MAIN LAYOUT ================= */
+main {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 30px;
+  padding: 40px;
+}
+
+/* ================= SIDEBAR ================= */
+aside {
+  background: #111118;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.5);
+}
+
+aside h3 {
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
 aside button {
-  display:block; margin-bottom:12px; padding:10px 12px; width:100%; text-align:left;
-  border:none; border-radius:8px; background:rgba(255,255,255,0.05); color:#fff; transition:0.3s;
+  display: block;
+  width: 100%;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  text-align: left;
+  border: none;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  transition: 0.3s;
 }
-aside button:hover { background:#1db954; }
 
-/* PRODUCT GRID */
-.products { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:25px; }
+aside button:hover { background: #1db954; }
+
+/* ================= PRODUCTS ================= */
+.products {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 25px;
+}
+
 .product {
-  background:rgba(255,255,255,0.05); border-radius:12px; padding:15px;
-  display:flex; flex-direction:column; gap:12px; transition: transform 0.3s, box-shadow 0.3s;
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: 0.3s;
 }
-.product:hover { transform:translateY(-8px); box-shadow:0 12px 30px rgba(0,0,0,0.6); }
-.product img { width:100%; height:180px; object-fit:cover; border-radius:10px; }
-.product h4 { font-size:16px; font-weight:600; color:#fff; }
-.product p { font-size:15px; font-weight:500; color:#1db954; }
-.product button { padding:10px; border:none; border-radius:8px; background:#1db954; color:#fff; font-weight:600; transition:0.3s; }
-.product button:hover { background:#1ed760; }
 
-/* FOOTER */
-footer { margin-top:60px; padding:50px; text-align:center; background:#111118; color:#ccc; font-size:14px; }
+.product:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+}
 
-/* MOBILE OPTIMIZATION - Keep exact layout, scale everything */
-@media(max-width:768px){
-  html { font-size:0.85rem; }
-  main { grid-template-columns:150px 1fr; gap:15px; padding:15px; }
-  aside { padding:12px; }
-  .products { gap:12px; }
-  .product img { height:120px; }
-  .hero h1 { font-size:2.2rem; }
-  .hero p { font-size:1rem; }
-  header { padding:10px 15px; }
-  .search-bar input, .search-bar button { padding:8px; font-size:0.9rem; }
-  .header-buttons button { padding:8px; margin-left:8px; font-size:0.9rem; }
-  nav { padding:8px 15px; gap:8px; }
-  nav button { font-size:0.9rem; padding:6px 8px; }
+.product img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.product h4 { font-size: 16px; }
+.product p { color: #1db954; font-weight: 500; }
+
+.product button {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  background: #1db954;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ================= FOOTER ================= */
+footer {
+  margin-top: 60px;
+  padding: 50px;
+  text-align: center;
+  background: #111118;
+  color: #ccc;
+  font-size: 14px;
+}
+
+/* ================= MOBILE (DESKTOP SCALE + HEADER FIX) ================= */
+@media (max-width: 768px) {
+
+  body { overflow-x: hidden; }
+
+  .page-wrapper {
+    transform: scale(0.28);
+    transform-origin: top left;
+    width: 1440px;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .logo {
+    display: flex;
+    justify-content: center;
+  }
+
+  .logo img { height: 48px; }
+
+  .search-bar {
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .header-buttons {
+    justify-content: space-between;
+  }
+
+  .header-buttons button {
+    flex: 1;
+  }
 }
 </style>
 </head>
+
 <body>
+<div class="page-wrapper">
 
 <header>
-  <div class="logo"><img src="logo.png" alt="Sharan Store Logo"></div>
+  <div class="logo">
+    <img src="logo.png" alt="Sharan Store Logo">
+  </div>
+
   <div class="search-bar">
     <input type="text" placeholder="Search products, music, lifestyle...">
     <button>Search</button>
   </div>
+
   <div class="header-buttons">
     <button>Account</button>
     <button>Orders</button>
@@ -149,18 +337,21 @@ footer { margin-top:60px; padding:50px; text-align:center; background:#111118; c
       <p>₹12,999</p>
       <button>Add to Cart</button>
     </div>
+
     <div class="product">
       <img src="https://via.placeholder.com/300x180">
       <h4>Designer Jacket</h4>
       <p>₹8,499</p>
       <button>Add to Cart</button>
     </div>
+
     <div class="product">
       <img src="https://via.placeholder.com/300x180">
       <h4>Music Album</h4>
       <p>₹1,499</p>
       <button>Add to Cart</button>
     </div>
+
     <div class="product">
       <img src="https://via.placeholder.com/300x180">
       <h4>Luxury Sneakers</h4>
@@ -174,5 +365,6 @@ footer { margin-top:60px; padding:50px; text-align:center; background:#111118; c
   © 2026 Sharan Store | Ultra-Premium E-Commerce Platform
 </footer>
 
+</div>
 </body>
 </html>

@@ -228,6 +228,16 @@ footer {
   
   .hero h1 { font-size: 1.8rem; }  
   .hero p { font-size: 1rem; }  
+
+  
+  @media (max-width: 768px) {
+
+  /* MAIN */
+  main {
+    grid-template-columns: 1fr;
+    padding: 16px;
+    justify-items: center; /* ✅ ADD THIS LINE */
+  }
   
   aside h3 { display: none; }  
   
@@ -413,6 +423,12 @@ footer {
   text-align: center;  
 }  
   
+/* each profile item */  
+.profile-item {  
+  flex: 0 0 auto;  
+  text-align: center;  
+}  
+  
 .profile-item {  
   text-decoration: none;  
   text-align: center;  
@@ -473,43 +489,7 @@ footer {
     margin-bottom: 10px;
     text-align: center;
   }
-/* ================= DESKTOP OPTIMIZATION ================= */
-@media (min-width: 1024px) {
-
-  /* Main layout refinement */
-  main {
-    max-width: 1400px;        /* prevents ultra-wide stretching */
-    margin: 0 auto;
-    padding: 40px 24px;
-    grid-template-columns: 260px 1fr;
   }
-
-  /* Sidebar */
-  aside {
-    position: sticky;
-    top: 90px;               /* below header */
-    height: fit-content;
-  }
-
-  /* Profiles section */
-  .profiles-section {
-    padding: 24px 0;
-  }
-
-  .profile-slider {
-    padding-bottom: 12px;    /* space for scrollbar */
-  }
-
-  /* Products grid */
-  .products {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
-  /* Product card consistency */
-  .product img {
-    height: 200px;
-  }
-}
 </style> 
 </head>  
 <body> 

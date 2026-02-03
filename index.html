@@ -401,22 +401,31 @@ footer {
   margin-bottom: 16px;
 }
 
+/* Profiles horizontal slider */
 .profile-slider {
   display: flex;
+  flex-wrap: nowrap;              /* CRITICAL: prevent wrapping */
   gap: 20px;
   overflow-x: auto;
   overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
-  white-space: nowrap;
-  padding-bottom: 6px;
+  scroll-behavior: smooth;
+  padding: 8px 0;
+  max-width: 100%;
 }
 
-/* hide scrollbar – same as header slider */
+/* hide scrollbar (clean UI) */
 .profile-slider::-webkit-scrollbar {
   display: none;
 }
 .profile-slider {
   scrollbar-width: none;
+}
+
+/* each profile item stays fixed size */
+.profile-item {
+  flex: 0 0 auto;                 /* CRITICAL: prevents auto-fit */
+  text-align: center;
 }
 
 /* each profile item */

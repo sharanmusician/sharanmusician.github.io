@@ -301,6 +301,30 @@ footer {
   text-overflow: ellipsis;                 /* if screen too small, truncate */
   overflow: hidden;
 }
+/* Desktop-only logo + name styling */
+@media (min-width: 769px) {
+  .logo-with-name {
+    display: flex;
+    align-items: center;
+    gap: 12px; /* space between logo and name */
+  }
+
+  .logo-with-name .logo {
+    height: 36px;   /* small professional logo */
+    width: 36px;
+  }
+
+  .logo-with-name .musician-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.2rem;  /* smaller for desktop */
+    color: rgba(255,255,255,0.95);
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
 </style>
 </head>
 

@@ -3,106 +3,158 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sharan Store | Premium E-Commerce</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<title>Sharan Store | Premium Lifestyle & Music</title>
+<meta name="description" content="Sharan Store - Ultra-Premium E-Commerce, Lifestyle, Music, Gifts, Clothing">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+
 <style>
-/* GLOBAL */
-* {margin:0; padding:0; box-sizing:border-box;}
-body {font-family:'Inter',sans-serif; background:#f2f2f2; color:#111; line-height:1.5;}
-a {text-decoration:none; color:inherit;}
-button {cursor:pointer;}
+  /* GLOBAL STYLES */
+  * { box-sizing: border-box; margin:0; padding:0; }
+  body { font-family:'Inter', sans-serif; background:#0b0b0f; color:#f5f5f5; line-height:1.6; }
+  a { text-decoration:none; color:inherit; }
 
-/* HEADER */
-header {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:15px 40px; background:#fff; box-shadow:0 2px 6px rgba(0,0,0,0.1);
-  position:sticky; top:0; z-index:1000;
-}
-header .logo img {height:50px;}
-header .search-bar {flex:1; display:flex; margin:0 20px; max-width:500px;}
-header .search-bar input {
-  flex:1; padding:10px 15px; border:1px solid #ccc; border-right:none; border-radius:4px 0 0 4px;
-}
-header .search-bar button {
-  padding:10px 15px; border:1px solid #ccc; border-left:none; border-radius:0 4px 4px 0;
-  background:#111; color:#fff;
-}
-header .header-buttons button {
-  margin-left:10px; padding:10px 15px; border:none; background:#111; color:#fff; border-radius:4px;
-}
+  /* HEADER */
+  header {
+    display:flex; align-items:center; justify-content:space-between;
+    padding:15px 40px; background:rgba(15,15,20,0.95); backdrop-filter:blur(10px);
+    position:sticky; top:0; z-index:1000; box-shadow:0 4px 20px rgba(0,0,0,0.4);
+  }
+  .logo img { height:60px; }
+  .search-bar { flex:1; display:flex; margin:0 20px; max-width:600px; }
+  .search-bar input {
+    flex:1; padding:12px 18px; border:none; border-radius:8px 0 0 8px; outline:none;
+    background:rgba(255,255,255,0.05); color:#fff; font-size:16px;
+  }
+  .search-bar button {
+    padding:12px 20px; border:none; border-radius:0 8px 8px 0; cursor:pointer;
+    background:#1db954; color:#fff; font-weight:600; transition:0.3s;
+  }
+  .search-bar button:hover { background:#1ed760; }
+  .header-buttons {
+    display:flex; align-items:center;
+  }
+  .header-buttons button {
+    margin-left:15px; padding:10px 20px; border:none; border-radius:8px;
+    background:#1db954; color:#fff; font-weight:500; cursor:pointer; transition:0.3s;
+  }
+  .header-buttons button:hover { background:#1ed760; }
 
-/* NAVIGATION */
-nav {
-  display:flex; gap:20px; padding:10px 40px; background:#222; color:#fff; font-weight:500; overflow-x:auto;
-}
-nav button {background:none; border:none; color:#fff; padding:8px 10px; transition:0.2s;}
-nav button:hover {border-bottom:2px solid #1db954;}
+  /* NAVIGATION */
+  nav {
+    display:flex; gap:20px; padding:12px 40px; background:#111118;
+    overflow-x:auto;
+  }
+  nav button {
+    background:none; border:none; color:#f5f5f5; font-weight:500; font-size:15px;
+    cursor:pointer; padding:8px 12px; transition:0.3s;
+  }
+  nav button:hover { border-bottom:2px solid #1db954; }
 
-/* HERO */
-.hero {
-  height:400px; display:flex; align-items:center; justify-content:center;
-  background:url('https://via.placeholder.com/1600x400') center/cover no-repeat; position:relative;
-}
-.hero::after {
-  content:""; position:absolute; top:0; left:0; width:100%; height:100%;
-  background:rgba(0,0,0,0.4);
-}
-.hero-content {position:relative; text-align:center; color:#fff;}
-.hero-content h1 {font-family:'Playfair Display',serif; font-size:3rem; font-weight:700;}
-.hero-content p {margin-top:10px; font-size:1.2rem;}
+  /* HERO */
+  .hero {
+    height:500px; display:flex; align-items:center; justify-content:center;
+    background:url('https://via.placeholder.com/1600x500') center/cover no-repeat;
+    text-align:center; position:relative;
+  }
+  .hero::after {
+    content:""; position:absolute; top:0; left:0; width:100%; height:100%;
+    background:linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0.6));
+  }
+  .hero h1 {
+    position:relative; font-family:'Playfair Display', serif; font-size:3.5rem;
+    color:#fff; z-index:1; text-shadow:2px 2px 12px rgba(0,0,0,0.6);
+  }
+  .hero p {
+    position:relative; z-index:1; font-size:1.3rem; margin-top:10px; color:#ddd;
+  }
 
-/* MAIN GRID */
-main {
-  display:grid; grid-template-columns:250px 1fr; gap:30px; padding:40px;
-}
+  /* MAIN LAYOUT */
+  main {
+    display:grid; grid-template-columns:250px 1fr; gap:30px; padding:40px;
+  }
 
-/* SIDEBAR */
-aside {
-  background:#fff; padding:20px; border-radius:8px; box-shadow:0 4px 12px rgba(0,0,0,0.05);
-}
-aside h3 {margin-bottom:15px; font-weight:600;}
-aside button {
-  display:block; width:100%; text-align:left; margin-bottom:10px;
-  padding:10px; border:none; background:#f8f8f8; border-radius:4px;
-  transition:0.2s;
-}
-aside button:hover {background:#1db954; color:#fff;}
+  /* SIDEBAR */
+  aside {
+    background:#111118; padding:25px; border-radius:12px;
+    box-shadow:0 8px 30px rgba(0,0,0,0.5);
+  }
+  aside h3 { margin-bottom:20px; font-weight:600; font-size:18px; }
+  aside button {
+    display:block; margin-bottom:12px; padding:10px 12px;
+    width:100%; text-align:left; border:none; border-radius:8px;
+    background:rgba(255,255,255,0.05); color:#fff; cursor:pointer;
+    transition:0.3s;
+  }
+  aside button:hover { background:#1db954; }
 
-/* PRODUCTS GRID */
-.products {
-  display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:25px;
-}
-.product {
-  background:#fff; border-radius:8px; padding:15px; display:flex; flex-direction:column; gap:10px;
-  transition:transform 0.2s, box-shadow 0.2s;
-}
-.product:hover {transform:translateY(-5px); box-shadow:0 8px 20px rgba(0,0,0,0.2);}
-.product img {width:100%; height:180px; object-fit:cover; border-radius:6px;}
-.product h4 {font-size:16px; font-weight:600;}
-.product p {font-size:15px; font-weight:500; color:#1db954;}
-.product button {padding:10px; border:none; border-radius:6px; background:#111; color:#fff; font-weight:600;}
-.product button:hover {background:#1ed760;}
+  /* PRODUCT GRID */
+  .products {
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:25px;
+  }
+  .product {
+    background:rgba(255,255,255,0.05); border-radius:12px; padding:15px;
+    display:flex; flex-direction:column; gap:12px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .product:hover { transform:translateY(-8px); box-shadow:0 12px 30px rgba(0,0,0,0.6); }
+  .product img { width:100%; height:180px; object-fit:cover; border-radius:10px; }
+  .product h4 { font-size:16px; font-weight:600; color:#fff; }
+  .product p { font-size:15px; font-weight:500; color:#1db954; }
+  .product button {
+    padding:10px; border:none; border-radius:8px;
+    background:#1db954; color:#fff; font-weight:600; cursor:pointer;
+    transition:0.3s;
+  }
+  .product button:hover { background:#1ed760; }
 
-/* FOOTER */
-footer {margin-top:60px; padding:40px; text-align:center; background:#222; color:#ccc; font-size:14px;}
+  /* FOOTER */
+  footer {
+    margin-top:60px; padding:50px; text-align:center; background:#111118;
+    color:#ccc; font-size:14px;
+  }
 
-/* RESPONSIVE */
-@media(max-width:1024px){main{grid-template-columns:1fr;} aside{display:none;}}
-@media(max-width:600px){
-  header{flex-direction:column; gap:10px;}
-  .search-bar{width:100%; margin:0;}
-  nav{padding:10px 20px; gap:10px;}
-}
+  /* RESPONSIVE */
+  @media(max-width:1024px){ main{grid-template-columns:1fr;} aside{display:none;} }
+
+  @media(max-width:600px){
+    header{flex-direction:column; gap:15px;}
+    .search-bar{width:100%; margin:0;}
+    
+    /* HEADER BUTTONS MOBILE FIX */
+    .header-buttons {
+      flex-wrap: wrap;           /* allow wrapping */
+      justify-content: center;
+      gap: 10px;                 /* consistent spacing */
+      width:100%;
+    }
+    .header-buttons button {
+      flex: 1 1 120px;           /* grow/shrink equally */
+      margin:0;                   /* remove left margin */
+      padding:10px;               /* uniform padding */
+    }
+
+    /* Search bar input/button smaller */
+    .search-bar input, .search-bar button {
+      font-size:14px;
+      padding:10px;
+    }
+
+    /* Navigation smaller */
+    nav{ gap:10px; padding:10px 15px; }
+    nav button{ font-size:13px; padding:6px 10px; }
+  }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="logo"><img src="logo.png" alt="Logo"></div>
+  <div class="logo"><img src="logo.png" alt="Sharan Store Logo"></div>
+
   <div class="search-bar">
-    <input type="text" placeholder="Search products, music...">
+    <input type="text" placeholder="Search products, music, lifestyle...">
     <button>Search</button>
   </div>
+
   <div class="header-buttons">
     <button>Account</button>
     <button>Orders</button>
@@ -121,9 +173,9 @@ footer {margin-top:60px; padding:40px; text-align:center; background:#222; color
 </nav>
 
 <section class="hero">
-  <div class="hero-content">
+  <div>
     <h1>Sharan Store</h1>
-    <p>Premium Lifestyle & Music E-Commerce</p>
+    <p>Luxury Lifestyle & Premium Music E-Commerce</p>
   </div>
 </section>
 
@@ -141,25 +193,25 @@ footer {margin-top:60px; padding:40px; text-align:center; background:#222; color
 
   <section class="products">
     <div class="product">
-      <img src="https://via.placeholder.com/300x180" alt="Product">
+      <img src="https://via.placeholder.com/300x180">
       <h4>Premium Headphones</h4>
       <p>₹12,999</p>
       <button>Add to Cart</button>
     </div>
     <div class="product">
-      <img src="https://via.placeholder.com/300x180" alt="Product">
+      <img src="https://via.placeholder.com/300x180">
       <h4>Designer Jacket</h4>
       <p>₹8,499</p>
       <button>Add to Cart</button>
     </div>
     <div class="product">
-      <img src="https://via.placeholder.com/300x180" alt="Product">
+      <img src="https://via.placeholder.com/300x180">
       <h4>Music Album</h4>
       <p>₹1,499</p>
       <button>Add to Cart</button>
     </div>
     <div class="product">
-      <img src="https://via.placeholder.com/300x180" alt="Product">
+      <img src="https://via.placeholder.com/300x180">
       <h4>Luxury Sneakers</h4>
       <p>₹9,999</p>
       <button>Add to Cart</button>
@@ -168,8 +220,8 @@ footer {margin-top:60px; padding:40px; text-align:center; background:#222; color
 </main>
 
 <footer>
-  © 2026 Sharan Store | Ultra-Premium E-Commerce
+  © 2026 Sharan Store | Ultra-Premium E-Commerce Platform
 </footer>
 
 </body>
-</html>
+    </html>

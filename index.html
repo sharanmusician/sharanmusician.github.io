@@ -252,7 +252,7 @@ footer {
     display: block;  /* full width */
     width: 100%;
     margin-bottom: 10px; /* spacing between buttons */
-    white-space: normal; /* wrap text if needed */
+    white-space: normal; /hu* wrap text if needed */
   }
   }
 
@@ -405,6 +405,10 @@ footer {
   display: flex;
   gap: 24px;
   align-items: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
 }
 
 .profile-item {
@@ -495,6 +499,11 @@ footer {
       <img src="facebook.jpg" alt="Facebook" />
       <span>Facebook</span>
     </a>
+
+      <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" target="_blank" class="profile-item">
+      <img src="x.jpg" alt="X (Twitter)" />
+      <span>X (Twitter)</span>
+      </a>
 
   </div>
 </section>

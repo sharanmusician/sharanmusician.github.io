@@ -240,22 +240,6 @@ footer {
     padding: 16px;
   }
 
-  @media (max-width: 768px) {
-
-  /* Sidebar → vertical list */
-  aside {
-    display: block; /* stack buttons vertically */
-    padding: 12px 0;
-  }
-
-  aside button {
-    display: block;  /* full width */
-    width: 100%;
-    margin-bottom: 10px; /* spacing between buttons */
-    white-space: normal; /hu* wrap text if needed */
-  }
-  }
-
   aside h3 { display: none; }
 
   aside button {
@@ -473,22 +457,6 @@ footer {
   .profile-item {
     flex: 0 0 72px;   /* FIXED width so only fit items show */
   }
-
-}
-@media (max-width: 768px) {
-  aside {
-    display: flex;
-    flex-direction: column;
-    align-items: center;   /* CENTER */
-    margin-left: 0;        /* RESET */
-    margin-right: 0;
-  }
-
-  aside button {
-    width: 90%;
-    max-width: 360px;
-    text-align: center;
-  }
 }
 /* ================= MOBILE: CENTER COMPLETE CATEGORY BOX ================= */
 @media (max-width: 768px) {
@@ -504,8 +472,23 @@ footer {
     width: 100%;
     text-align: center;
   }
-
 }
+  /* ================= MOBILE: CENTER COMPLETE CATEGORY BOX ================= */
+@media (max-width: 768px) {
+
+  aside {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto 24px;
+    padding: 16px;
+  }
+
+  aside button {
+    width: 100%;
+    text-align: center;
+  }
+
+    }
 </style>
 </head>
 

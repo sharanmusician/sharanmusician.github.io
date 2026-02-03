@@ -390,6 +390,45 @@ footer {
     position: static;
   }
 }
+.profiles-section {
+  background-color: #1e1e1e;
+  padding: 24px 16px;
+}
+
+.profiles-heading {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.profiles-list {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.profile-item {
+  text-decoration: none;
+  text-align: center;
+  color: #cfcfcf;
+  width: 72px;
+}
+
+.profile-item img {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: #2a2a2a;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.profile-item span {
+  display: block;
+  margin-top: 8px;
+  font-size: 13px;
+  }
 </style>
 </head>
 
@@ -438,6 +477,27 @@ footer {
     <button>Merchandise</button>
     <button>Community</button>
   </aside>
+
+<section class="profiles-section">
+  <h3 class="profiles-heading">Profiles</h3>
+
+  <div class="profiles-list">
+    <a href="https://instagram.com/YOUR_USERNAME" target="_blank" class="profile-item">
+      <img src="instagram.svg" alt="Instagram" />
+      <span>Instagram</span>
+    </a>
+
+    <a href="https://open.spotify.com/artist/YOUR_ID" target="_blank" class="profile-item">
+      <img src="spotify.svg" alt="Spotify" />
+      <span>Spotify</span>
+    </a>
+
+    <a href="https://facebook.com/YOUR_PAGE" target="_blank" class="profile-item">
+      <img src="facebook.svg" alt="Facebook" />
+      <span>Facebook</span>
+    </a>
+  </div>
+</section>
 
   <section class="products">
     <div class="product">

@@ -89,11 +89,16 @@ nav button {
 
 /* ================= HERO ================= */
 .hero {
+  width: 100%;
   aspect-ratio: 16 / 9;
-  max-height: 420px;
+
+  min-height: 260px;   /* safety */
+  max-height: 70vh;    /* allows desktop scaling */
+
   display: flex;
   align-items: center;
   justify-content: center;
+
   background: url("https://via.placeholder.com/1600x900") center / cover no-repeat;
   position: relative;
   text-align: center;

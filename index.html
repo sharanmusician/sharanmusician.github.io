@@ -73,25 +73,69 @@
         }
         nav button:hover { color: #1db954; }
 
-        /* ================= HERO BANNER (16:9) ================= */
+        /* ================= HERO VIDEO BANNER ================= */
         .hero {
+            position: relative;
             width: 100%;
             aspect-ratio: 16 / 9;
             max-height: 80vh;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://via.placeholder.com/1920x1080/111/fff?text=Sharan+Musician+Experience') center/cover;
+            overflow: hidden;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            margin-bottom: 20px;
         }
-        .hero-content h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.5rem, 6vw, 3.5rem);
-            color: #fff;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.6);
+        
+        .hero video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Professional Mute Button */
+        .mute-btn {
+            position: absolute;
+            bottom: 25px;
+            right: 25px;
+            z-index: 10;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            color: white;
+            border-radius: 50%;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: background 0.3s;
+        }
+        .mute-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .mute-btn svg {
+            width: 18px;
+            height: 18px;
+            fill: currentColor;
         }
 
         /* ================= MAIN LAYOUT ================= */
@@ -117,7 +161,7 @@
         .product { background: #12121a; border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); }
         .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
 
-        /* ================= MINIMAL FOOTER ================= */
+        /* ================= FOOTER ================= */
         footer { 
             padding: 40px 20px; 
             background: #08080c; 
@@ -157,6 +201,7 @@
             .content-area { order: 2; width: 100%; }
             .profile-item { flex: 0 0 25%; } 
             .products { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .mute-btn { bottom: 15px; right: 15px; width: 32px; height: 32px; }
         }
     </style>
 </head>
@@ -190,9 +235,16 @@
 </nav>
 
 <section class="hero">
-    <div class="hero-content">
-        <h1>Official Sharan Store</h1>
-    </div>
+    <video autoplay muted loop playsinline id="heroVideo">
+        <source src="hero.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    
+    <button class="mute-btn" id="muteToggle" aria-label="Mute Toggle">
+        <svg id="muteIcon" viewBox="0 0 24 24">
+            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"></path>
+        </svg>
+    </button>
 </section>
 
 <main>
@@ -209,24 +261,12 @@
         <section class="profiles-section">  
             <h3 style="margin-bottom:20px; font-weight: 500;">Profiles</h3>
             <div class="profile-slider">  
-                <a href="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=pRXJonnGRHWT5XegBTw-eA" target="_blank" rel="noopener noreferrer" class="profile-item">
-                    <img src="spotify.jpg" alt="Spotify"><div>Spotify</div>
-                </a>
-                <a href="https://g.co/kgs/gtv47AQ" target="_blank" rel="noopener noreferrer" class="profile-item">
-                    <img src="google.jpg" alt="Google"><div>Google</div>
-                </a>
-                <a href="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0" target="_blank" rel="noopener noreferrer" class="profile-item">
-                    <img src="instagram.jpg" alt="Instagram"><div>Instagram</div>
-                </a>
-                <a href="https://youtube.com/@sharan.musician?si=wZlASMES3BCSoclb" target="_blank" rel="noopener noreferrer" class="profile-item">
-                    <img src="youtube.jpg" alt="YouTube"><div>YouTube</div>
-                </a>
-                <a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" target="_blank" rel="noopener noreferrer" class="profile-item">
-                    <img src="facebook.jpg" alt="FaceBook"><div>FaceBook</div>
-                </a>
-                <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" target="_blank" rel="noopener noreferrer" class="profile-item">
-                    <img src="x.jpg" alt="X"><div>Twitter</div>
-                </a>
+                <a href="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=pRXJonnGRHWT5XegBTw-eA" target="_blank" class="profile-item"><img src="spotify.jpg" alt="Spotify"><div>Spotify</div></a>
+                <a href="https://g.co/kgs/gtv47AQ" target="_blank" class="profile-item"><img src="google.jpg" alt="Google"><div>Google</div></a>
+                <a href="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0" target="_blank" class="profile-item"><img src="instagram.jpg" alt="Instagram"><div>Instagram</div></a>
+                <a href="https://youtube.com/@sharan.musician?si=wZlASMES3BCSoclb" target="_blank" class="profile-item"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
+                <a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" target="_blank" class="profile-item"><img src="facebook.jpg" alt="FaceBook"><div>FaceBook</div></a>
+                <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" target="_blank" class="profile-item"><img src="x.jpg" alt="X"><div>Twitter</div></a>
             </div>  
         </section>
 
@@ -255,6 +295,26 @@
     </div>
     <div class="copyright">© 2026 Sharan Musician. All Rights Reserved.</div>
 </footer>
+
+<script>
+    const video = document.getElementById('heroVideo');
+    const muteBtn = document.getElementById('muteToggle');
+    const muteIcon = document.getElementById('muteIcon');
+
+    // SVG paths for icons
+    const mutedPath = "M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z";
+    const unmutedPath = "M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z";
+
+    muteBtn.addEventListener('click', () => {
+        if (video.muted) {
+            video.muted = false;
+            muteIcon.innerHTML = `<path d="${unmutedPath}"></path>`;
+        } else {
+            video.muted = true;
+            muteIcon.innerHTML = `<path d="${mutedPath}"></path>`;
+        }
+    });
+</script>
 
 </body>
 </html>

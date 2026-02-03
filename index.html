@@ -489,7 +489,52 @@ footer {
     margin-bottom: 10px;
     text-align: center;
   }
+}
+/* ================= DESKTOP VIEW OPTIMIZATION ONLY ================= */
+@media (min-width: 1024px) {
+
+  /* Constrain content for wide screens */
+  main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 32px;
+    grid-template-columns: 280px 1fr;
   }
+
+  /* Sidebar behaves like a premium filter panel */
+  aside {
+    position: sticky;
+    top: 100px;              /* below header */
+    height: fit-content;
+  }
+
+  /* Hero text refinement */
+  .hero h1 {
+    font-size: 3.5rem;
+  }
+
+  .hero p {
+    font-size: 1.3rem;
+  }
+
+  /* Profiles section spacing */
+  .profiles-section {
+    padding-top: 8px;
+  }
+
+  .profile-slider {
+    padding-bottom: 14px;   /* space for scrollbar */
+  }
+
+  /* Products grid balance */
+  .products {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .product img {
+    height: 210px;
+  }
+}
 </style> 
 </head>  
 <body> 

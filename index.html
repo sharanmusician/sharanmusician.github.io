@@ -2,172 +2,217 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Sharan Musician | Composer & Producer</title>
+  <title>Sharan Store</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- SEO -->
-  <meta name="description" content="Sharan Musician – Composer, Music Producer & Performer. Original compositions, film music and live performances.">
-  <meta name="keywords" content="Sharan Musician, Composer, Music Producer, Film Music, Independent Artist">
-
-  <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      font-family: Arial, sans-serif;
     }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #0b0b0b;
-      color: #eaeaea;
-      line-height: 1.6;
-    }
-
+    /* HEADER */
     header {
-      height: 100vh;
       display: flex;
       align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 40px;
+      gap: 20px;
+      padding: 10px 20px;
+      border-bottom: 1px solid #ddd;
     }
 
-    header h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 3rem;
-      font-weight: 600;
-      letter-spacing: 1px;
+    .logo img {
+      height: 40px;
     }
 
-    header p {
-      margin-top: 15px;
-      font-size: 1.1rem;
-      color: #b3b3b3;
+    .search-bar {
+      flex: 1;
+      display: flex;
     }
 
-    section {
-      max-width: 1000px;
-      margin: auto;
-      padding: 80px 30px;
+    .search-bar input {
+      flex: 1;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-right: none;
     }
 
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      margin-bottom: 30px;
+    .search-bar button {
+      padding: 8px 15px;
+      border: 1px solid #ccc;
+      cursor: pointer;
     }
 
-    .about {
-      font-size: 1.05rem;
-      color: #cfcfcf;
+    .header-buttons button {
+      margin-left: 10px;
+      padding: 8px 12px;
+      cursor: pointer;
     }
 
-    .services {
+    /* NAV */
+    nav {
+      display: flex;
+      gap: 15px;
+      padding: 10px 20px;
+      border-bottom: 1px solid #eee;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    /* MAIN */
+    main {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
+      grid-template-columns: 220px 1fr;
+      gap: 20px;
+      padding: 20px;
     }
 
-    .card {
-      background: #141414;
-      padding: 25px;
-      border-radius: 8px;
+    /* SIDEBAR */
+    aside {
+      border-right: 1px solid #eee;
+      padding-right: 15px;
     }
 
-    .card h3 {
+    aside h3 {
       margin-bottom: 10px;
-      font-weight: 500;
+      font-size: 16px;
     }
 
+    aside button {
+      display: block;
+      margin-bottom: 8px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    /* PRODUCT GRID */
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .product {
+      border: 1px solid #ddd;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .product img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .product button {
+      padding: 8px;
+      cursor: pointer;
+    }
+
+    /* FOOTER */
     footer {
-      border-top: 1px solid #222;
-      padding: 40px;
+      margin-top: 40px;
+      padding: 20px;
       text-align: center;
-      font-size: 0.9rem;
-      color: #777;
+      border-top: 1px solid #ddd;
+      font-size: 14px;
     }
 
-    a {
-      color: #ffffff;
-      text-decoration: none;
-      border-bottom: 1px solid #444;
-    }
+    @media (max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+      }
 
-    a:hover {
-      border-color: #fff;
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 2.2rem;
+      aside {
+        border-right: none;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- HERO -->
+  <!-- HEADER -->
   <header>
-    <div>
-      <h1>Sharan Musician</h1>
-      <p>Composer • Music Producer • Performer</p>
+    <div class="logo">
+      <img src="logo.png" alt="Logo">
+    </div>
+
+    <div class="search-bar">
+      <input type="text" placeholder="Search products">
+      <button>Search</button>
+    </div>
+
+    <div class="header-buttons">
+      <button>Account</button>
+      <button>Orders</button>
+      <button>Cart</button>
     </div>
   </header>
 
-  <!-- ABOUT -->
-  <section>
-    <h2 class="section-title">About</h2>
-    <p class="about">
-      Sharan Musician is a composer and music producer creating original compositions
-      for films, independent projects, and live performances. Inspired by cinematic
-      storytelling, sound design, and modern Indian music aesthetics.
-    </p>
-  </section>
+  <!-- NAV -->
+  <nav>
+    <button>All</button>
+    <button>Gifts</button>
+    <button>Clothing</button>
+    <button>Shoes</button>
+    <button>Accessories</button>
+  </nav>
 
-  <!-- SERVICES -->
-  <section>
-    <h2 class="section-title">Works & Services</h2>
+  <!-- MAIN -->
+  <main>
 
-    <div class="services">
-      <div class="card">
-        <h3>Film Composition</h3>
-        <p>Original background scores and songs for films and visual media.</p>
+    <!-- SIDEBAR -->
+    <aside>
+      <h3>Categories</h3>
+      <button>Gift Items</button>
+      <button>Men</button>
+      <button>Women</button>
+      <button>Footwear</button>
+      <button>Lifestyle</button>
+    </aside>
+
+    <!-- PRODUCTS -->
+    <section class="products">
+
+      <div class="product">
+        <img src="https://via.placeholder.com/300">
+        <h4>Product Name</h4>
+        <p>₹999</p>
+        <button>Add to Cart</button>
       </div>
 
-      <div class="card">
-        <h3>Music Production</h3>
-        <p>Studio production, arrangement, mixing and creative direction.</p>
+      <div class="product">
+        <img src="https://via.placeholder.com/300">
+        <h4>Product Name</h4>
+        <p>₹1499</p>
+        <button>Add to Cart</button>
       </div>
 
-      <div class="card">
-        <h3>Independent Releases</h3>
-        <p>Original singles, albums and experimental sound projects.</p>
+      <div class="product">
+        <img src="https://via.placeholder.com/300">
+        <h4>Product Name</h4>
+        <p>₹799</p>
+        <button>Add to Cart</button>
       </div>
 
-      <div class="card">
-        <h3>Live Performances</h3>
-        <p>Stage shows, collaborations and curated live music experiences.</p>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- CONTACT -->
-  <section>
-    <h2 class="section-title">Contact</h2>
-    <p>
-      For collaborations and professional enquiries:<br><br>
-      <a href="mailto:contact@sharanmusician.com">contact@sharanmusician.com</a>
-    </p>
-  </section>
+  </main>
 
   <!-- FOOTER -->
   <footer>
-    © 2026 Sharan Musician. All Rights Reserved.
+    © 2026 Sharan Store
   </footer>
 
 </body>
-    </html>
+</html>

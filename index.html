@@ -348,6 +348,22 @@ aside button {
   margin-top: 8px;  
   font-size: 13px;  
   }
+/* Make only search bar sticky */
+.search-wrapper {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(15,15,20,0.95);
+  padding: 8px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+/* Optional: small spacing for top-header */
+.top-header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
 /* ===== MOBILE FIX ===== */
 main {
   display: block;
@@ -412,19 +428,28 @@ aside {
 </style> 
 </head>  
 <body> 
-<header>  
-<div class="logo-with-name">  
-  <img src="logo.png" alt="Sharan Store" class="logo">  
-  <div class="musician-name">Sharan Musician</div>  
-</div>    <div class="search-bar">  
-    <input type="text" placeholder="Search products, music, lifestyle…">  
-    <button>Search</button>  
-  </div>    <div class="header-buttons">  
-    <button>Account</button>  
-    <button>Orders</button>  
-    <button>Cart</button>  
-  </div>  
-</header>  <nav>  
+<header>
+  <div class="top-header">
+    <div class="logo-with-name">  
+      <img src="logo.png" alt="Sharan Store" class="logo">  
+      <div class="musician-name">Sharan Musician</div>  
+    </div>    
+
+    <div class="header-buttons">  
+      <button>Account</button>  
+      <button>Orders</button>  
+      <button>Cart</button>  
+    </div>  
+  </div>
+
+  <div class="search-wrapper">
+    <div class="search-bar">  
+      <input type="text" placeholder="Search products, music, lifestyle…">  
+      <button>Search</button>  
+    </div>
+  </div>
+</header>
+<nav>  
   <button>All</button>  
   <button>Albums</button>  
   <button>Book Tickets</button>  

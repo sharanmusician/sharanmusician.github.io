@@ -38,9 +38,11 @@
 
         .search-bar { flex: 1; display: flex; max-width: 600px; }
         .search-bar input { flex: 1; padding: 10px 18px; background: transparent; color: #fff; border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); border-right: none; outline: none; }
+        
+        /* THE GREEN BRAND COLOR */
         .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; }
 
-        /* ================= ACTION BAR ================= */
+        /* ================= ACTION BAR (MATCHED TO GREEN) ================= */
         .action-bar {
             display: flex;
             justify-content: flex-end;
@@ -49,8 +51,18 @@
             gap: 10px;
         }
         .action-bar button { 
-            width: 100px; padding: 10px 0; background: rgba(255,255,255,0.06); 
-            color: #fff; border-radius: 6px; font-size: 13px; text-align: center;
+            width: 100px; 
+            padding: 10px 0; 
+            background: #1db954; /* Exact Green Match */
+            color: #fff; 
+            border-radius: 6px; 
+            font-size: 13px; 
+            text-align: center;
+            font-weight: 600;
+        }
+        .action-bar button:hover {
+            background: #1aa34a; /* Slightly darker green on hover */
+            transform: translateY(-1px);
         }
 
         /* ================= NAVIGATION (CENTERED) ================= */
@@ -149,7 +161,7 @@
         @media (max-width: 900px) {
             .top-bar { padding: 10px 15px; flex-direction: column; gap: 12px; }
             .action-bar { padding: 10px 15px; justify-content: space-between; }
-            .action-bar button { flex: 1; width: auto; }
+            .action-bar button { flex: 1; width: auto; max-width: 100px; }
             nav { justify-content: flex-start; }
             nav button { flex: 0 0 25%; padding: 15px 0; } 
             main { display: flex; flex-direction: column; padding: 20px; gap: 30px; }
@@ -257,5 +269,4 @@
 </footer>
 
 </body>
-    </html>
-    
+</html>

@@ -448,28 +448,44 @@ footer {
     height: 220px;
   }
 }
-/* ===== DESKTOP HARD LOCK (DOES NOT AFFECT MOBILE) ===== */
-@media (min-width: 1024px) {
-  main {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 40px;
-  }
-}
 
-/* ===== DESKTOP FINAL FIX ===== */
+/* ================= DESKTOP / PC FIX ================= */
 @media (min-width: 1024px) {
-  body {
-    overflow-x: hidden;
-  }
 
   main {
     max-width: 1400px;
     margin: 0 auto;
+    padding: 48px 32px;
     display: grid;
     grid-template-columns: 280px 1fr;
     gap: 40px;
-    padding: 40px;
+  }
+
+  aside {
+    position: sticky;
+    top: 110px;
+    padding: 28px;
+  }
+
+  .hero {
+    max-height: 520px;
+  }
+
+  .hero h1 {
+    font-size: 3.6rem;
+  }
+
+  .hero p {
+    font-size: 1.3rem;
+  }
+
+  .products {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 32px;
+  }
+
+  .product img {
+    height: 220px;
   }
 }
   

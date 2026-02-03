@@ -278,27 +278,28 @@ footer {
 .logo-with-name {
   display: flex;
   align-items: center;
-  gap: 15px;           /* space between logo and name */
-  padding-left: 20px;  /* more space from left edge */
-  padding-right: 20px; /* more space from right edge */
+  gap: 18px;               /* space between logo and name */
+  min-width: 250px;        /* horizontal space for logo + name */
 }
 
-/* Small, corporate logo */
+/* Small, clean logo */
 .logo-with-name .logo {
-  height: 36px;         /* small, professional */
-  width: 36px;          /* square */
+  height: 36px;             /* small height */
+  width: 36px;              /* square */
   object-fit: cover;
-  border-radius: 50%;   /* rounded logo */
+  border-radius: 50%;       /* circular logo */
 }
 
 /* Professional, premium musician name */
 .logo-with-name .musician-name {
   font-family: 'Playfair Display', serif; /* elegant serif */
   font-weight: 700;                        /* bold but classy */
-  font-size: 1.6rem;                       /* larger than logo */
-  color: rgba(255, 255, 255, 0.95);       /* subtle premium white */
-  letter-spacing: 1px;                     /* corporate spacing */
-  text-transform: uppercase;               /* professional style */
+  font-size: 1.8rem;                       /* noticeable, fits one line */
+  color: rgba(255, 255, 255, 0.95);       /* clean premium white */
+  letter-spacing: 0.5px;                   /* subtle corporate spacing */
+  white-space: nowrap;                      /* prevent wrapping */
+  text-overflow: ellipsis;                 /* if screen too small, truncate */
+  overflow: hidden;
 }
 </style>
 </head>

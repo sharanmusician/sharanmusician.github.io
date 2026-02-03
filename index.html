@@ -17,9 +17,8 @@
         }
         a { text-decoration: none; color: inherit; }
         button { cursor: pointer; border: none; transition: all 0.2s ease; }
-        button:hover { opacity: 0.9; }
 
-        /* ================= HEADER & SEARCH (DESKTOP OPTIMIZED) ================= */
+        /* ================= HEADER & SEARCH ================= */
         header {
             display: flex;
             align-items: center;
@@ -45,7 +44,6 @@
             width: 48px;
             object-fit: cover;
             border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .musician-name {
@@ -54,7 +52,6 @@
             font-size: 1.5rem;
             color: #fff;
             white-space: nowrap;
-            letter-spacing: 0.5px;
         }
 
         .search-bar {
@@ -70,7 +67,6 @@
             background: rgba(255,255,255,0.06);
             color: #fff;
             border-radius: 10px 0 0 10px;
-            font-size: 15px;
             border: 1px solid rgba(255,255,255,0.1);
             border-right: none;
             outline: none;
@@ -82,9 +78,6 @@
             color: #fff;
             border-radius: 0 10px 10px 0;
             font-weight: 700;
-            text-transform: uppercase;
-            font-size: 13px;
-            letter-spacing: 1px;
         }
 
         .header-buttons {
@@ -97,12 +90,6 @@
             background: rgba(255,255,255,0.08);
             color: #fff;
             border-radius: 8px;
-            font-size: 14px;
-            font-weight: 500;
-        }
-
-        .header-buttons button:last-child {
-            background: #1db954;
         }
 
         /* ================= NAVIGATION ================= */
@@ -113,47 +100,29 @@
             background: #111118;
             overflow-x: auto;
             justify-content: center;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         nav button {
             background: none;
             color: #999;
             font-size: 14px;
-            font-weight: 500;
-            padding: 5px 0;
             white-space: nowrap;
-            position: relative;
         }
-
-        nav button:hover { color: #fff; }
 
         /* ================= HERO ================= */
         .hero {
             width: 100%;
-            height: 50vh;
+            height: 45vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://via.placeholder.com/1600x900") center / cover no-repeat;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url("https://via.placeholder.com/1600x900") center/cover;
             text-align: center;
         }
 
-        .hero h1 {
-            font-family: 'Playfair Display', serif;
-            font-size: 4.5rem;
-            margin-bottom: 10px;
-            color: #fff;
-        }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4rem; }
 
-        .hero p {
-            font-size: 1.4rem;
-            color: #ddd;
-            font-weight: 300;
-            letter-spacing: 2px;
-        }
-
-        /* ================= MAIN CONTENT (DESKTOP GRID) ================= */
+        /* ================= MAIN CONTENT (DESKTOP) ================= */
         main {
             display: grid;
             grid-template-columns: 280px 1fr;
@@ -163,7 +132,6 @@
             margin: 0 auto;
         }
 
-        /* SIDEBAR */
         aside {
             position: sticky;
             top: 100px;
@@ -179,54 +147,34 @@
             color: #ddd;
             border-radius: 12px;
             text-align: left;
-            font-size: 15px;
-            border: 1px solid transparent;
-        }
-
-        aside button:hover { 
-            background: rgba(255,255,255,0.08); 
-            border-color: rgba(255,255,255,0.1);
-            color: #fff;
         }
 
         /* PROFILES SECTION */
-        .profiles-section {
-            margin-bottom: 50px;
-        }
-
-        .profiles-heading {
-            margin-bottom: 25px;
-            font-size: 22px;
-            font-family: 'Playfair Display', serif;
-        }
-
         .profile-slider {
             display: flex;
-            gap: 28px;
+            gap: 25px;
             overflow-x: auto;
             padding-bottom: 15px;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
         }
 
         .profile-item {
-            flex: 0 0 auto;
+            flex: 0 0 80px; /* Force items to stay in a row */
             text-align: center;
-            width: 85px;
-            transition: transform 0.3s ease;
+            scroll-snap-align: start;
         }
-        
-        .profile-item:hover { transform: translateY(-5px); }
 
         .profile-item img {
-            width: 68px;
-            height: 68px;
+            width: 65px;
+            height: 65px;
             border-radius: 50%;
             background: #16161d;
-            padding: 14px;
-            margin-bottom: 10px;
-            border: 1px solid rgba(255,255,255,0.08);
+            padding: 12px;
+            margin-bottom: 8px;
         }
 
-        .profile-item div { font-size: 13px; color: #999; }
+        .profile-item div { font-size: 12px; color: #aaa; }
 
         /* PRODUCTS GRID */
         .products {
@@ -237,17 +185,9 @@
 
         .product {
             background: #12121a;
-            border: 1px solid rgba(255,255,255,0.05);
             border-radius: 20px;
             padding: 24px;
-            transition: all 0.3s ease;
-        }
-
-        .product:hover { 
-            transform: translateY(-8px); 
-            background: #181823;
-            border-color: rgba(255,255,255,0.15);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.05);
         }
 
         .product img {
@@ -255,63 +195,93 @@
             height: 220px;
             object-fit: cover;
             border-radius: 14px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
-
-        .product h4 { font-size: 19px; margin-bottom: 10px; color: #fff; }
-        .product p { color: #1db954; font-weight: 700; font-size: 1.2rem; margin-bottom: 15px; }
 
         .product button {
             width: 100%;
-            padding: 13px;
+            padding: 12px;
             background: #1db954;
             color: #fff;
             border-radius: 10px;
             font-weight: 700;
-            font-size: 14px;
         }
 
-        /* ================= FOOTER ================= */
-        footer {
-            padding: 80px 40px;
-            text-align: center;
-            background: #08080c;
-            color: #555;
-            font-size: 14px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
-
-        /* ================= MOBILE OPTIMIZATION (STRICTLY UNTOUCHED BEHAVIOR) ================= */
+        /* ================= MOBILE OPTIMIZATION (THE FIX) ================= */
         @media (max-width: 768px) {
-            header { 
-                flex-direction: column; 
-                padding: 12px 16px; 
-                position: relative; /* Header scrolls on mobile per your requirement */
+            header {
+                flex-direction: column;
+                padding: 15px;
+                position: relative;
             }
-            
-            .search-bar { 
-                margin: 15px 0; 
-                width: 100%; 
-                position: sticky; 
-                top: 0; 
+
+            .logo-with-name { margin-bottom: 10px; }
+
+            .search-bar {
+                margin: 0;
+                width: 100%;
+                position: sticky;
+                top: 0;
                 z-index: 1100;
                 background: #0b0b0f;
                 padding: 10px 0;
             }
 
-            .logo-with-name .musician-name { font-size: 1.2rem; }
+            .header-buttons {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 10px;
+            }
 
-            nav { justify-content: flex-start; padding: 10px 20px; }
+            .header-buttons button { flex: 1; text-align: center; font-size: 12px; padding: 10px 5px; }
 
-            main { grid-template-columns: 1fr; padding: 20px; }
+            nav { justify-content: flex-start; padding: 10px 15px; }
 
-            aside { position: static; display: flex; overflow-x: auto; gap: 10px; padding-bottom: 10px; }
-            aside button { margin-bottom: 0; white-space: nowrap; width: auto; padding: 10px 16px; font-size: 14px; }
+            /* Grid to Single Column on Mobile */
+            main {
+                display: flex;
+                flex-direction: column;
+                padding: 20px 15px;
+            }
 
-            .hero h1 { font-size: 2.5rem; }
-            .products { grid-template-columns: 1fr 1fr; gap: 15px; }
-            .product { padding: 12px; border-radius: 12px; }
-            .product img { height: 150px; }
+            /* CATEGORY BOXES: ONE AFTER ANOTHER BELOW */
+            aside {
+                position: static;
+                order: 2; /* Moves categories below the profiles */
+                margin-top: 30px;
+            }
+
+            aside button {
+                width: 100%;
+                margin-bottom: 10px;
+                text-align: center;
+                background: rgba(255,255,255,0.08);
+            }
+
+            /* PROFILES: KEEP SLIDING */
+            .profiles-section {
+                order: 1;
+                width: 100%;
+            }
+
+            .profile-slider {
+                padding-bottom: 10px;
+            }
+
+            /* PRODUCTS */
+            .content-area { order: 3; margin-top: 20px; }
+            .products { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .product { padding: 12px; }
+            .product img { height: 140px; }
+            .product h4 { font-size: 14px; }
+        }
+
+        footer {
+            padding: 50px;
+            text-align: center;
+            background: #08080c;
+            color: #555;
+            border-top: 1px solid rgba(255,255,255,0.05);
         }
     </style>
 </head>
@@ -324,7 +294,7 @@
     </div>
 
     <div class="search-bar">  
-        <input type="text" placeholder="Search products, music, lifestyle…">  
+        <input type="text" placeholder="Search products...">  
         <button>Search</button>  
     </div>
 
@@ -336,20 +306,16 @@
 </header>
 
 <nav>  
-    <button>All</button>  
-    <button>Albums</button>  
-    <button>Book Tickets</button>  
-    <button>News</button>  
-    <button>Merch</button>  
-    <button>About</button>  
-    <button>Contact</button>  
+    <button>All</button>
+    <button>Albums</button>
+    <button>Tickets</button>
+    <button>News</button>
+    <button>Merch</button>
+    <button>About</button>
 </nav>
 
 <section class="hero">  
-    <div>  
-        <h1>Sharan Store</h1>  
-        <p>Luxury Lifestyle & Premium Music</p>  
-    </div>  
+    <h1>Sharan Store</h1>  
 </section>
 
 <main>  
@@ -363,68 +329,35 @@
 
     <div class="content-area">
         <section class="profiles-section">  
-            <h3 class="profiles-heading">Profiles</h3>
+            <h3 style="margin-bottom:15px">Profiles</h3>
             <div class="profile-slider">  
-                <a href="#" class="profile-item">  
-                    <img src="spotify.jpg" alt="Spotify">  
-                    <div>Spotify</div>  
-                </a>
-                <a href="#" class="profile-item">  
-                    <img src="google.jpg" alt="Google">  
-                    <div>Google</div>  
-                </a>  
-                <a href="#" class="profile-item">  
-                    <img src="instagram.jpg" alt="Instagram">  
-                    <div>Instagram</div>  
-                </a>  
-                <a href="#" class="profile-item">  
-                    <img src="youtube.jpg" alt="YouTube">  
-                    <div>YouTube</div>  
-                </a>  
-                <a href="#" class="profile-item">  
-                    <img src="facebook.jpg" alt="Facebook">  
-                    <div>FaceBook</div>  
-                </a>  
-                <a href="#" class="profile-item">  
-                    <img src="x.jpg" alt="X">  
-                    <div>X (Twitter)</div>  
-                </a>
+                <a href="#" class="profile-item"><img src="spotify.jpg"><div>Spotify</div></a>
+                <a href="#" class="profile-item"><img src="google.jpg"><div>Google</div></a>
+                <a href="#" class="profile-item"><img src="instagram.jpg"><div>Instagram</div></a>
+                <a href="#" class="profile-item"><img src="youtube.jpg"><div>YouTube</div></a>
+                <a href="#" class="profile-item"><img src="facebook.jpg"><div>FaceBook</div></a>
+                <a href="#" class="profile-item"><img src="x.jpg"><div>Twitter</div></a>
             </div>  
         </section>
 
         <section class="products">  
-            <div class="product">  
-                <img src="https://via.placeholder.com/300x180">  
-                <h4>Premium Headphones</h4>  
-                <p>₹12,999</p>  
-                <button>Add to Cart</button>  
-            </div>  
-            <div class="product">  
-                <img src="https://via.placeholder.com/300x180">  
-                <h4>Designer Jacket</h4>  
-                <p>₹8,499</p>  
-                <button>Add to Cart</button>  
-            </div>  
-            <div class="product">  
-                <img src="https://via.placeholder.com/300x180">  
-                <h4>Music Album</h4>  
-                <p>₹1,499</p>  
-                <button>Add to Cart</button>  
-            </div>  
-            <div class="product">  
-                <img src="https://via.placeholder.com/300x180">  
-                <h4>Luxury Sneakers</h4>  
-                <p>₹9,999</p>  
-                <button>Add to Cart</button>  
-            </div>  
+            <div class="product">
+                <img src="https://via.placeholder.com/300x180">
+                <h4>Premium Headphones</h4>
+                <p>₹12,999</p>
+                <button>Add</button>
+            </div>
+            <div class="product">
+                <img src="https://via.placeholder.com/300x180">
+                <h4>Designer Jacket</h4>
+                <p>₹8,499</p>
+                <button>Add</button>
+            </div>
         </section>  
     </div>
 </main>
 
-<footer>  
-    © 2026 Sharan Musician | Royal Red Bull Media  
-</footer>
+<footer>© 2026 Sharan Musician</footer>
 
 </body>
-                    </html>
-                    
+</html>

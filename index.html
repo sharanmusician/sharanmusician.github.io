@@ -355,8 +355,14 @@ main {
 }
 
 aside {
-  display: none;
-}
+  display: block;           /* show sidebar on mobile */
+  position: relative;       /* remove sticky effect */
+  top: auto;
+  margin: 16px 0;           /* spacing above and below */
+  padding: 16px;            /* comfortable padding */
+  border-radius: 12px;      /* same as desktop */
+  background: #111118;      /* same dark background */
+  }
 
 .content {
   width: 100%;

@@ -243,37 +243,29 @@ footer {
 
 /* ================= MOBILE (DESKTOP SCALE + HEADER FIX) ================= */
 /* ================= REAL MOBILE OPTIMIZATION ================= */
+/* ================= TRUE MOBILE OPTIMIZATION ================= */
 @media (max-width: 768px) {
 
+  /* BASE */
   body {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   /* HEADER */
   header {
     flex-direction: column;
     align-items: stretch;
-    padding: 12px 16px;
     gap: 12px;
+    padding: 12px 16px;
   }
 
   .logo {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    justify-content: center;
   }
 
   .logo img {
-    height: 44px;
-  }
-
-  .header-buttons {
-    gap: 8px;
-  }
-
-  .header-buttons button {
-    padding: 8px 12px;
-    font-size: 13px;
+    height: 46px;
   }
 
   /* SEARCH */
@@ -283,22 +275,35 @@ footer {
   }
 
   .search-bar input {
-    font-size: 14px;
-    padding: 10px 14px;
+    font-size: 16px;
+    padding: 12px 14px;
   }
 
   .search-bar button {
-    padding: 10px 16px;
+    padding: 12px 18px;
+    font-size: 15px;
+  }
+
+  /* HEADER BUTTONS */
+  .header-buttons {
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .header-buttons button {
+    flex: 1;
+    padding: 12px 0;
+    font-size: 14px;
   }
 
   /* NAV */
   nav {
-    padding: 8px 12px;
+    padding: 10px 14px;
     gap: 12px;
   }
 
   nav button {
-    font-size: 13px;
+    font-size: 14px;
     white-space: nowrap;
   }
 
@@ -308,25 +313,25 @@ footer {
   }
 
   .hero h1 {
-    font-size: 1.8rem;
+    font-size: 1.9rem;
   }
 
   .hero p {
-    font-size: 0.9rem;
+    font-size: 1rem;
   }
 
-  /* MAIN LAYOUT */
+  /* MAIN */
   main {
     grid-template-columns: 1fr;
     padding: 16px;
   }
 
-  /* SIDEBAR → FILTER BAR */
+  /* SIDEBAR → FILTER ROW */
   aside {
     display: flex;
+    gap: 12px;
     overflow-x: auto;
-    gap: 10px;
-    padding: 10px;
+    padding: 12px 8px;
   }
 
   aside h3 {
@@ -335,37 +340,41 @@ footer {
 
   aside button {
     flex: none;
+    padding: 10px 16px;
     white-space: nowrap;
-    padding: 8px 14px;
   }
 
   /* PRODUCTS */
   .products {
     grid-template-columns: repeat(2, 1fr);
-    gap: 14px;
+    gap: 16px;
+  }
+
+  .product {
+    padding: 14px;
   }
 
   .product img {
-    height: 140px;
+    height: 150px;
   }
 
   .product h4 {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .product p {
-    font-size: 14px;
+    font-size: 15px;
   }
 
   .product button {
-    padding: 8px;
-    font-size: 14px;
+    padding: 12px;
+    font-size: 15px;
   }
 
   /* FOOTER */
   footer {
-    padding: 30px 16px;
-    font-size: 13px;
+    padding: 32px 16px;
+    font-size: 14px;
   }
 }
 </style>

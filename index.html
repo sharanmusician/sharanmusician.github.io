@@ -18,7 +18,7 @@
         a { text-decoration: none; color: inherit; transition: all 0.2s ease; }
         button { cursor: pointer; border: none; transition: all 0.2s ease; }
 
-        /* ================= STICKY TOP BAR ================= */
+        /* ================= STICKY TOP BAR (LOGO & SEARCH) ================= */
         .top-bar {
             display: flex;
             align-items: center;
@@ -38,11 +38,9 @@
 
         .search-bar { flex: 1; display: flex; max-width: 600px; }
         .search-bar input { flex: 1; padding: 10px 18px; background: transparent; color: #fff; border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); border-right: none; outline: none; }
-        
-        /* THE GREEN BRAND COLOR */
         .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; }
 
-        /* ================= ACTION BAR (MATCHED TO GREEN) ================= */
+        /* ================= ACTION BAR ================= */
         .action-bar {
             display: flex;
             justify-content: flex-end;
@@ -51,18 +49,8 @@
             gap: 10px;
         }
         .action-bar button { 
-            width: 100px; 
-            padding: 10px 0; 
-            background: #1db954; /* Exact Green Match */
-            color: #fff; 
-            border-radius: 6px; 
-            font-size: 13px; 
-            text-align: center;
-            font-weight: 600;
-        }
-        .action-bar button:hover {
-            background: #1aa34a; /* Slightly darker green on hover */
-            transform: translateY(-1px);
+            width: 100px; padding: 10px 0; background: rgba(255,255,255,0.06); 
+            color: #fff; border-radius: 6px; font-size: 13px; text-align: center;
         }
 
         /* ================= NAVIGATION (CENTERED) ================= */
@@ -85,11 +73,11 @@
         }
         nav button:hover { color: #1db954; }
 
-        /* ================= HERO BANNER (16:9) ================= */
+        /* ================= HERO BANNER (16:9 RATIO) ================= */
         .hero {
             width: 100%;
-            aspect-ratio: 16 / 9;
-            max-height: 80vh;
+            aspect-ratio: 16 / 9; /* Precise 16:9 Ratio */
+            max-height: 80vh; /* Prevents overflow on large screens */
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://via.placeholder.com/1920x1080/111/fff?text=Sharan+Musician+Experience') center/cover;
             display: flex;
             align-items: center;
@@ -99,7 +87,7 @@
         }
         .hero-content h1 {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(1.5rem, 6vw, 3.5rem);
+            font-size: clamp(1.5rem, 6vw, 3.5rem); /* Responsive font sizing */
             color: #fff;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -129,44 +117,27 @@
         .product { background: #12121a; border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); }
         .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
 
-        /* ================= MINIMAL FOOTER ================= */
-        footer { 
-            padding: 40px 20px; 
-            background: #08080c; 
-            border-top: 1px solid rgba(255,255,255,0.05); 
-            text-align: center; 
-        }
-        .footer-links { 
-            display: flex; 
-            justify-content: center; 
-            gap: 40px; 
-            margin-bottom: 20px; 
-        }
-        .footer-links a { 
-            font-size: 13px; 
-            color: #888; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            font-weight: 500;
-        }
-        .footer-links a:hover { color: #fff; }
-        .copyright { 
-            font-size: 11px; 
-            color: #444; 
-            letter-spacing: 1px; 
-            text-transform: uppercase; 
-        }
+        /* ================= FOOTER ================= */
+        footer { padding: 80px 40px 40px; background: #08080c; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
+        .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #fff; margin-bottom: 10px; display: block; }
+        .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap; }
+        .footer-links a { font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 1.2px; }
+        .copyright { font-size: 11px; color: #444; letter-spacing: 1px; text-transform: uppercase; margin-top: 20px; }
 
         /* ================= MOBILE FIXES ================= */
         @media (max-width: 900px) {
             .top-bar { padding: 10px 15px; flex-direction: column; gap: 12px; }
             .action-bar { padding: 10px 15px; justify-content: space-between; }
-            .action-bar button { flex: 1; width: auto; max-width: 100px; }
+            .action-bar button { flex: 1; width: auto; }
             nav { justify-content: flex-start; }
             nav button { flex: 0 0 25%; padding: 15px 0; } 
+            
             main { display: flex; flex-direction: column; padding: 20px; gap: 30px; }
-            .category-box { order: 1; width: 100%; }
+            
+            .category-box { order: 1; position: relative; width: 100%; }
             .content-area { order: 2; width: 100%; }
+            .profiles-section { margin-bottom: 30px; }
+            
             .profile-item { flex: 0 0 25%; } 
             .products { grid-template-columns: 1fr 1fr; gap: 12px; }
         }
@@ -261,9 +232,12 @@
 </main>
 
 <footer>
+    <span class="footer-brand">SHARAN MUSICIAN</span>
     <div class="footer-links">
-        <a href="#">Contact</a>
-        <a href="#">About</a>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Shipping</a>
+        <a href="#">Support</a>
     </div>
     <div class="copyright">© 2026 Sharan Musician. All Rights Reserved.</div>
 </footer>

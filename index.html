@@ -274,15 +274,36 @@ footer {
   .product h4 { font-size: 14px; }
   .product p { font-size: 14px; }
 }
+  /* Logo and musician name in one row */
+.logo-with-name {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* space between logo and name */
+}
+
+.logo-with-name .logo {
+  height: 60px; /* keep your original logo size */
+  border-radius: 50%; /* round logo */
+  object-fit: cover;
+}
+
+.musician-name {
+  font-family: 'Playfair Display', serif; /* premium & elegant */
+  font-size: 1.25rem; /* slightly bigger than normal text */
+  font-weight: 600;   /* bold but elegant */
+  color: rgba(255,255,255,0.9); /* subtle professional white */
+  letter-spacing: 1px; /* premium spacing */
+  text-transform: uppercase; /* corporate look */
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<div class="logo-container">
-  <div class="logo-tagline">Sharan Musician</div>
-  <div class="logo"><img src="logo.png" alt="Sharan Store"></div>
+<div class="logo-with-name">
+  <img src="logo.png" alt="Sharan Store" class="logo">
+  <div class="musician-name">Sharan Musician</div>
 </div>
 
   <div class="search-bar">

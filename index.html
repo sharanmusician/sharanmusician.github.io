@@ -92,29 +92,30 @@
             border-radius: 8px;
         }
 
-        /* ================= NAVIGATION (VISIBLE UP TO NEWS) ================= */
+        /* ================= NAVIGATION (CUT OFF AT NEWS) ================= */
         nav {
             display: flex;
-            gap: 0; 
-            padding: 14px 20px;
+            padding: 14px 0;
             background: #111118;
             overflow-x: auto;
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
-            scrollbar-width: none; /* Firefox */
+            scrollbar-width: none;
         }
         
-        nav::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+        nav::-webkit-scrollbar { display: none; }
 
         nav button {
             background: none;
             color: #999;
-            font-size: 14px;
-            padding: 8px 25px; /* Spacing controlled to push others out of view */
-            flex: 0 0 auto;
+            font-size: 15px;
+            /* Flex-basis forces buttons to take specific width to hide Merch */
+            flex: 0 0 25%; 
+            text-align: center;
+            padding: 8px 0;
         }
 
-        /* ================= HERO (FIXED TO 16:9) ================= */
+        /* ================= HERO (16:9) ================= */
         .hero {
             width: 100%;
             aspect-ratio: 16 / 9;
@@ -125,12 +126,9 @@
             text-align: center;
         }
 
-        .hero h1 { 
-            font-family: 'Playfair Display', serif; 
-            font-size: clamp(2rem, 8vw, 4rem); 
-        }
+        .hero h1 { font-family: 'Playfair Display', serif; font-size: 4rem; }
 
-        /* ================= MAIN CONTENT (DESKTOP) ================= */
+        /* ================= MAIN CONTENT ================= */
         main {
             display: grid;
             grid-template-columns: 280px 1fr;
@@ -157,20 +155,16 @@
             text-align: left;
         }
 
-        /* PROFILES SECTION */
         .profile-slider {
             display: flex;
             gap: 25px;
             overflow-x: auto;
             padding-bottom: 15px;
-            scroll-snap-type: x mandatory;
-            -webkit-overflow-scrolling: touch;
         }
 
         .profile-item {
             flex: 0 0 80px;
             text-align: center;
-            scroll-snap-align: start;
         }
 
         .profile-item img {
@@ -184,7 +178,6 @@
 
         .profile-item div { font-size: 12px; color: #aaa; }
 
-        /* PRODUCTS GRID */
         .products {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -217,73 +210,25 @@
 
         /* ================= MOBILE OPTIMIZATION ================= */
         @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                padding: 15px;
-                position: relative;
-            }
-
-            .logo-with-name { margin-bottom: 10px; }
-
-            .search-bar {
-                margin: 0;
-                width: 100%;
-                position: sticky;
-                top: 0;
-                z-index: 1100;
-                background: #0b0b0f;
-                padding: 10px 0;
-            }
-
-            .header-buttons {
-                width: 100%;
-                justify-content: space-between;
-                margin-top: 10px;
-            }
-
+            header { flex-direction: column; padding: 15px; position: relative; }
+            .search-bar { margin: 0; width: 100%; position: sticky; top: 0; z-index: 1100; background: #0b0b0f; padding: 10px 0; }
+            .header-buttons { width: 100%; justify-content: space-between; margin-top: 10px; }
             .header-buttons button { flex: 1; text-align: center; font-size: 12px; padding: 10px 5px; }
 
-            nav { justify-content: flex-start; padding: 10px 10px; }
-            nav button { padding: 8px 15px; } /* Slightly tighter on mobile to show News faster */
+            nav button { flex: 0 0 30%; } /* Shows roughly 3.3 items (up to News) */
 
-            main {
-                display: flex;
-                flex-direction: column;
-                padding: 20px 15px;
-            }
+            main { display: flex; flex-direction: column; padding: 20px 15px; }
+            aside { position: static; order: 2; margin-top: 30px; }
+            aside button { width: 100%; margin-bottom: 10px; text-align: center; background: rgba(255,255,255,0.08); }
 
-            aside {
-                position: static;
-                order: 2;
-                margin-top: 30px;
-            }
-
-            aside button {
-                width: 100%;
-                margin-bottom: 10px;
-                text-align: center;
-                background: rgba(255,255,255,0.08);
-            }
-
-            .profiles-section {
-                order: 1;
-                width: 100%;
-            }
-
+            .profiles-section { order: 1; width: 100%; }
             .content-area { order: 3; margin-top: 20px; }
             .products { grid-template-columns: 1fr 1fr; gap: 12px; }
             .product { padding: 12px; }
             .product img { height: 140px; }
-            .product h4 { font-size: 14px; }
         }
 
-        footer {
-            padding: 50px;
-            text-align: center;
-            background: #08080c;
-            color: #555;
-            border-top: 1px solid rgba(255,255,255,0.05);
-        }
+        footer { padding: 50px; text-align: center; background: #08080c; color: #555; }
     </style>
 </head>
 <body>
@@ -293,12 +238,10 @@
         <img src="logo.png" alt="Sharan Store" class="logo">  
         <div class="musician-name">Sharan Musician</div>  
     </div>
-
     <div class="search-bar">  
         <input type="text" placeholder="Search products...">  
         <button>Search</button>  
     </div>
-
     <div class="header-buttons">  
         <button>Account</button>  
         <button>Orders</button>  
@@ -309,7 +252,7 @@
 <nav>  
     <button>All</button>
     <button>Albums</button>
-    <button>Book Tickets</button>
+    <button>Tickets</button>
     <button>News</button>
     <button>Merch</button>
     <button>About</button>
@@ -362,4 +305,5 @@
 <footer>© 2026 Sharan Musician</footer>
 
 </body>
-</html>
+                                                                                        </html>
+                                                                                        

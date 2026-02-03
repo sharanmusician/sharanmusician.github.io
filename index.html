@@ -474,38 +474,20 @@ footer {
     flex: 0 0 72px;   /* FIXED width so only fit items show */
   }
 
-/* ================= MOBILE: CENTER CATEGORY BOX (FINAL) ================= */
+}
 @media (max-width: 768px) {
   aside {
     display: flex;
     flex-direction: column;
-    align-items: center;     /* center buttons */
-    justify-content: center;
-    margin: 0 auto;          /* center box */
-    width: 100%;
-    max-width: 420px;        /* premium centered width */
-    padding: 16px;
+    align-items: flex-end;
+    margin-left: auto;
   }
 
   aside button {
-    width: 100%;             /* uniform buttons */
+    width: 90%;
     max-width: 360px;
     text-align: center;
   }
-
-}
-/* SHOW SCROLL INDICATOR (DASH) FOR PROFILES LIKE HEADER */
-.profile-slider {
-  scrollbar-width: thin;        /* Firefox */
-}
-
-.profile-slider::-webkit-scrollbar {
-  height: 4px;                  /* makes the dash visible */
-}
-
-.profile-slider::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.4);
-  border-radius: 4px;
 }
 </style>
 </head>

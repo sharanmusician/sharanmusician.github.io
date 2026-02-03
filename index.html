@@ -119,12 +119,20 @@ nav button {
 }  
   
 /* ================= MAIN ================= */  
-main {  
-  display: grid;  
-  grid-template-columns: 250px 1fr;  
-  gap: 30px;  
-  padding: 40px;  
-}  
+/* DESKTOP DEFAULT (LOCKED) */
+main {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 40px;
+  padding: 48px 32px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
   
 /* ================= SIDEBAR ================= */  
 aside {  
@@ -176,6 +184,17 @@ aside button {
   color: #fff;  
   border-radius: 8px;  
 }  
+
+.profiles-section {
+  margin-bottom: 32px;
+}
+
+@media (min-width: 769px) {
+  .profile-slider {
+    overflow-x: visible;
+    justify-content: flex-start;
+  }
+}
   
 /* ================= FOOTER ================= */  
 footer {  
@@ -256,60 +275,6 @@ footer {
   text-overflow: ellipsis;                 /* if screen too small, truncate */  
   overflow: hidden;  
 } 
-
-/* ===== MOBILE GRID OVERRIDE (CRITICAL FIX) ===== */
-@media (max-width: 768px) {
-  main {
-    display: block;
-    padding: 16px;
-  }
-}
-  
-/* ================= MOBILE: ONLY SEARCH BAR STICKY ================= */  
-@media (max-width: 768px) {  
-  
-  /* Header should scroll normally */  
-  header {  
-    position: static;  
-  }  
-  
-  /* Search bar stays fixed */  
-  .search-bar {  
-    position: sticky;  
-    top: 0;  
-    z-index: 1001;  
-    background: rgba(15,15,20,0.98);  
-    padding: 8px 0;  
-  }  
-  
-  /* Buttons should scroll */  
-  .header-buttons {  
-    position: static;  
-  }  
-}  
-.profiles-section {  
-  padding: 24px 0;  
-}  
-  
-.profiles-heading {  
-  color: #ffffff;  
-  font-size: 18px;  
-  font-weight: 500;  
-  margin-bottom: 16px;  
-}  
-  
-/* Profiles horizontal slider */  
-.profile-slider {  
-  display: flex;  
-  flex-wrap: nowrap;              /* CRITICAL: prevent wrapping */  
-  gap: 20px;  
-  overflow-x: auto;  
-  overflow-y: hidden;  
-  -webkit-overflow-scrolling: touch;  
-  scroll-behavior: smooth;  
-  padding: 8px 0;  
-  max-width: 100%;  
-}  
   
 /* ================= SLIDER INDICATOR (HEADER COLOR MATCH) ================= */
 .profile-slider {
@@ -317,6 +282,19 @@ footer {
   scrollbar-color: rgba(255,255,255,0.35) transparent; /* Firefox */
 }
 
+.profile-slider {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+}
+
+.profile-item {
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+  
 /* Chrome, Edge, Safari */
 .profile-slider::-webkit-scrollbar {
   height: 4px;
@@ -330,18 +308,6 @@ footer {
   background-color: rgba(255,255,255,0.35); /* SAME family as header */
   border-radius: 10px;
 }
-  
-/* each profile item stays fixed size */  
-.profile-item {  
-  flex: 0 0 auto;                 /* CRITICAL: prevents auto-fit */  
-  text-align: center;  
-}  
-  
-/* each profile item */  
-.profile-item {  
-  flex: 0 0 auto;  
-  text-align: center;  
-}  
   
 .profile-item {  
   text-decoration: none;  
@@ -363,92 +329,9 @@ footer {
   display: block;  
   margin-top: 8px;  
   font-size: 13px;  
-  }  
-/* ================= MOBILE PROFILES SLIDER FIX ================= */  
-@media (max-width: 768px) {  
-  
-  .profiles-section {  
-    width: 100vw;  
-    margin-left: -16px;   /* counter main padding */  
-    padding-left: 16px;  
-  }  
-  
-  .profile-slider {  
-    width: 100%;  
-    overflow-x: auto;  
-    flex-wrap: nowrap;  
-  }  
-  
-  .profile-item {  
-    flex: 0 0 72px;   /* FIXED width so only fit items show */  
-  }  
-}  
-  /* ================= MOBILE: CATEGORY FIX (NO OVERFLOW) ================= */
-@media (max-width: 768px) {
-
-  main {
-    padding: 0;              /* remove side padding */
-  }
-
-  aside {
-    width: 100%;
-    padding: 16px;
-    border-radius: 0;
-    background: #111118;
-  }
-
-  aside button {
-    width: 100%;
-    max-width: 100%;
-    margin-bottom: 10px;
-    text-align: center;
   }
 }
-
-  /* ================= DESKTOP / PC FIX ================= */
-@media (min-width: 1024px) {
-
-  /* Center content on wide screens */
-  main {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 48px 32px;
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 40px;
-  }
-
-  /* Sidebar behaves like a premium panel */
-  aside {
-    position: sticky;
-    top: 110px;
-    padding: 28px;
-  }
-
-  /* Hero scale */
-  .hero {
-    max-height: 520px;
-  }
-
-  .hero h1 {
-    font-size: 3.6rem;
-  }
-
-  .hero p {
-    font-size: 1.3rem;
-  }
-
-  /* Product grid balance */
-  .products {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 32px;
-  }
-
-  .product img {
-    height: 220px;
-  }
-}
-
+  
 /* ================= DESKTOP / PC FIX ================= */
 @media (min-width: 1024px) {
 
@@ -517,72 +400,91 @@ footer {
     <h1>Sharan Store</h1>  
     <p>Luxury Lifestyle & Premium Music</p>  
   </div>  
-</section>  <main>  
+</section>
+<main>  
   <aside>  
     <button>Albums</button>  
     <button>Reserve Your Seat</button>  
     <button>Music Courses</button>  
     <button>Merchandise</button>  
     <button>Community</button>  
-  </aside>  <section class="profiles-section">  
-  <h3 class="profiles-heading">Profiles</h3>  <div class="profile-slider">  
-    <a href="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=JitWb8x3T_SAFYE1w7jpEA" class="profile-item">  
-    <img src="spotify.jpg" class="profile-circle">  
-    <div class="Spotify">Spotify</div>  
-    </a>  <a href="https://g.co/kgs/gtv47AQ" class="profile-item">  
-<img src="google.jpg" class="profile-circle">  
-<div class="Google">Google</div>  
-</a>  
+  </aside>  
 
-<a href="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0" class="profile-item">  
-<img src="instagram.jpg" class="profile-circle">  
-<div class="Instagram">Instagram</div>  
-</a>  
+  <div class="content">
 
+    <section class="profiles-section">  
+      <h3 class="profiles-heading">Profiles</h3>
+        
+      <div class="profile-slider">  
 
-<a href="https://youtube.com/@sharan.musician?si=iwEk5iucxoASGuPX" class="profile-item">  
-<img src="youtube.jpg" class="profile-circle">  
-<div class="YouTube">YouTube</div>  
-</a>  
+        <a href="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=Z685AEMDQwCgGYgkRchmGQ" class="profile-item">
+          <img src="spotify.jpg" class="profile-circle">
+          <span>Spotify</span>
+        </a>
 
-<a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" class="profile-item">  
-<img src="facebook.jpg" class="profile-circle">  
-<div class="Facebook">FaceBook</div>  
-</a>  
+        <a href="https://g.co/kgs/gtv47AQ" class="profile-item">
+          <img src="google.jpg" class="profile-circle">
+          <span>Google</span>
+        </a>
 
-<a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" class="profile-item">  
-<img src="x.jpg" class="profile-circle">  
-<div class="X (Twitter)">X (Twitter)</div>  
-</a>
+        <a href="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0" class="profile-item">
+          <img src="instagram.jpg" class="profile-circle">
+          <span>Instagram</span>
+        </a>
 
-  </div>  
-</section>    <section class="products">  
-    <div class="product">  
-      <img src="https://via.placeholder.com/300x180">  
-      <h4>Premium Headphones</h4>  
-      <p>₹12,999</p>  
-      <button>Add to Cart</button>  
-    </div>  
-    <div class="product">  
-      <img src="https://via.placeholder.com/300x180">  
-      <h4>Designer Jacket</h4>  
-      <p>₹8,499</p>  
-      <button>Add to Cart</button>  
-    </div>  
-    <div class="product">  
-      <img src="https://via.placeholder.com/300x180">  
-      <h4>Music Album</h4>  
-      <p>₹1,499</p>  
-      <button>Add to Cart</button>  
-    </div>  
-    <div class="product">  
-      <img src="https://via.placeholder.com/300x180">  
-      <h4>Luxury Sneakers</h4>  
-      <p>₹9,999</p>  
-      <button>Add to Cart</button>  
-    </div>  
-  </section>  
-</main>  <footer>  
+        <a href="https://youtube.com/@sharan.musician?si=iwEk5iucxoASGuPX" class="profile-item">
+          <img src="youtube.jpg" class="profile-circle">
+          <span>YouTube</span>
+        </a>
+
+        <a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" class="profile-item">
+          <img src="facebook.jpg" class="profile-circle">
+          <span>FaceBook</span>
+        </a>
+
+        <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" class="profile-item">
+          <img src="x.jpg" class="profile-circle">
+          <span>X (Twitter)</span>
+        </a>
+
+      </div>  
+    </section>
+
+    <section class="products">  
+
+      <div class="product">  
+        <img src="https://via.placeholder.com/300x180">  
+        <h4>Premium Headphones</h4>  
+        <p>₹12,999</p>  
+        <button>Add to Cart</button>  
+      </div>  
+
+      <div class="product">  
+        <img src="https://via.placeholder.com/300x180">  
+        <h4>Designer Jacket</h4>  
+        <p>₹8,499</p>  
+        <button>Add to Cart</button>  
+      </div>  
+
+      <div class="product">  
+        <img src="https://via.placeholder.com/300x180">  
+        <h4>Music Album</h4>  
+        <p>₹1,499</p>  
+        <button>Add to Cart</button>  
+      </div>  
+
+      <div class="product">  
+        <img src="https://via.placeholder.com/300x180">  
+        <h4>Luxury Sneakers</h4>  
+        <p>₹9,999</p>  
+        <button>Add to Cart</button>  
+      </div>  
+
+    </section>  
+
+  </div>
+</main>
+  <footer>  
   © 2026 Sharan Musician | Royal Red Bull Media  
 </footer>  </body>  
   </html>

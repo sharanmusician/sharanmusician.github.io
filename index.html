@@ -488,6 +488,19 @@ footer {
     text-align: center; /* text centered */
   }
 }
+/* SHOW SCROLL INDICATOR (DASH) FOR PROFILES LIKE HEADER */
+.profile-slider {
+  scrollbar-width: thin;        /* Firefox */
+}
+
+.profile-slider::-webkit-scrollbar {
+  height: 4px;                  /* makes the dash visible */
+}
+
+.profile-slider::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.4);
+  border-radius: 4px;
+}
 </style>
 </head>
 

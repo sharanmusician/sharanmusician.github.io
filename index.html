@@ -397,15 +397,15 @@ footer {
   max-width: 100%;  
 }  
   
-/* ================= VISIBLE SLIDER INDICATOR ================= */
+/* ================= SLIDER INDICATOR (HEADER COLOR MATCH) ================= */
 .profile-slider {
-  scrollbar-width: thin;                 /* Firefox */
-  scrollbar-color: #1db954 transparent;  /* Firefox */
+  scrollbar-width: thin; 
+  scrollbar-color: rgba(255,255,255,0.35) transparent; /* Firefox */
 }
 
 /* Chrome, Edge, Safari */
 .profile-slider::-webkit-scrollbar {
-  height: 4px;                           /* horizontal indicator */
+  height: 4px;
 }
 
 .profile-slider::-webkit-scrollbar-track {
@@ -413,7 +413,7 @@ footer {
 }
 
 .profile-slider::-webkit-scrollbar-thumb {
-  background-color: #1db954;             /* brand green */
+  background-color: rgba(255,255,255,0.35); /* SAME family as header */
   border-radius: 10px;
 }
   

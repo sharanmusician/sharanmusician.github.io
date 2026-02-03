@@ -240,12 +240,20 @@ footer {
     padding: 16px;
   }
 
-  /* SIDEBAR → FILTER BAR */
+  @media (max-width: 768px) {
+
+  /* Sidebar → vertical list */
   aside {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding: 10px;
+    display: block; /* stack buttons vertically */
+    padding: 12px 0;
+  }
+
+  aside button {
+    display: block;  /* full width */
+    width: 100%;
+    margin-bottom: 10px; /* spacing between buttons */
+    white-space: normal; /* wrap text if needed */
+  }
   }
 
   aside h3 { display: none; }

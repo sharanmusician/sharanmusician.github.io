@@ -368,6 +368,28 @@ footer {
     text-align: center;
   }
 }
+/* ================= MOBILE: ONLY SEARCH BAR STICKY ================= */
+@media (max-width: 768px) {
+
+  /* Header should scroll normally */
+  header {
+    position: static;
+  }
+
+  /* Search bar stays fixed */
+  .search-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1001;
+    background: rgba(15,15,20,0.98);
+    padding: 8px 0;
+  }
+
+  /* Buttons should scroll */
+  .header-buttons {
+    position: static;
+  }
+}
 </style>
 </head>
 

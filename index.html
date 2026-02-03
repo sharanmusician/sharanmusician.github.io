@@ -83,47 +83,46 @@
             margin-bottom: 20px;
             background: #000;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
         
         .hero video {
             width: 100%;
             height: 100%;
             display: block;
-            object-fit: contain; /* No crop, no zoom */
+            object-fit: contain;
             z-index: 1;
         }
 
-        /* Centered Instagram-Style Mute Button */
+        /* Centered Instagram Style Mute Button */
         .mute-btn {
             position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             z-index: 10;
-            background: rgba(0, 0, 0, 0.3); /* Very transparent center */
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             color: white;
             border-radius: 50%;
-            width: 65px;
-            height: 65px;
+            width: 60px;
+            height: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
             border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: opacity 0.3s ease, transform 0.2s ease;
-            pointer-events: none; /* Clicks go to heroWrapper */
+            transition: opacity 0.4s ease, transform 0.2s ease;
+            pointer-events: none; /* Let clicks pass through to the hero div */
             opacity: 1;
         }
 
         .mute-btn.hidden {
             opacity: 0;
-            transform: scale(0.8);
         }
 
         .mute-btn svg {
-            width: 30px;
-            height: 30px;
+            width: 28px;
+            height: 28px;
             fill: currentColor;
         }
 
@@ -157,17 +156,37 @@
             border-top: 1px solid rgba(255,255,255,0.05); 
             text-align: center; 
         }
-        .footer-links { display: flex; justify-content: center; gap: 40px; margin-bottom: 20px; }
-        .footer-links a { font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
-        .copyright { font-size: 11px; color: #444; letter-spacing: 1px; text-transform: uppercase; }
+        .footer-links { 
+            display: flex; 
+            justify-content: center; 
+            gap: 40px; 
+            margin-bottom: 20px; 
+        }
+        .footer-links a { 
+            font-size: 13px; 
+            color: #888; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            font-weight: 500;
+        }
+        .footer-links a:hover { color: #fff; }
+        .copyright { 
+            font-size: 11px; 
+            color: #444; 
+            letter-spacing: 1px; 
+            text-transform: uppercase; 
+        }
 
         @media (max-width: 900px) {
             .top-bar { padding: 10px 15px; flex-direction: column; gap: 12px; }
             .action-bar { padding: 10px 15px; justify-content: space-between; }
+            .action-bar button { flex: 1; width: auto; }
+            nav { justify-content: flex-start; }
             nav button { flex: 0 0 25%; padding: 15px 0; } 
             main { display: flex; flex-direction: column; padding: 20px; gap: 30px; }
             .category-box { order: 1; width: 100%; }
             .content-area { order: 2; width: 100%; }
+            .profile-item { flex: 0 0 25%; } 
             .products { grid-template-columns: 1fr 1fr; gap: 12px; }
         }
     </style>
@@ -228,12 +247,12 @@
         <section class="profiles-section">  
             <h3 style="margin-bottom:20px; font-weight: 500;">Profiles</h3>
             <div class="profile-slider">  
-                <a href="https://spotify.com" target="_blank" class="profile-item"><img src="spotify.jpg" alt="Spotify"><div>Spotify</div></a>
-                <a href="https://google.com" target="_blank" class="profile-item"><img src="google.jpg" alt="Google"><div>Google</div></a>
-                <a href="https://instagram.com/sharan.musician" target="_blank" class="profile-item"><img src="instagram.jpg" alt="Instagram"><div>Instagram</div></a>
-                <a href="https://youtube.com" target="_blank" class="profile-item"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
-                <a href="https://facebook.com" target="_blank" class="profile-item"><img src="facebook.jpg" alt="FaceBook"><div>FaceBook</div></a>
-                <a href="https://twitter.com/SharanMusician" target="_blank" class="profile-item"><img src="x.jpg" alt="X"><div>Twitter</div></a>
+                <a href="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=pRXJonnGRHWT5XegBTw-eA" target="_blank" class="profile-item"><img src="spotify.jpg" alt="Spotify"><div>Spotify</div></a>
+                <a href="https://g.co/kgs/gtv47AQ" target="_blank" class="profile-item"><img src="google.jpg" alt="Google"><div>Google</div></a>
+                <a href="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0" target="_blank" class="profile-item"><img src="instagram.jpg" alt="Instagram"><div>Instagram</div></a>
+                <a href="https://youtube.com/@sharan.musician?si=wZlASMES3BCSoclb" target="_blank" class="profile-item"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
+                <a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" target="_blank" class="profile-item"><img src="facebook.jpg" alt="FaceBook"><div>FaceBook</div></a>
+                <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" target="_blank" class="profile-item"><img src="x.jpg" alt="X"><div>Twitter</div></a>
             </div>  
         </section>
 
@@ -241,12 +260,12 @@
             <h3 style="margin-bottom:20px; font-weight: 500;">Featured Items</h3>
             <div class="products">  
                 <div class="product">
-                    <img src="https://via.placeholder.com/300x210" alt="Vinyl">
+                    <img src="https://via.placeholder.com/300x210">
                     <h4>Official Vinyl</h4>
                     <p style="color: #1db954; font-weight: 700;">₹3,499</p>
                 </div>
                 <div class="product">
-                    <img src="https://via.placeholder.com/300x210" alt="Hoodie">
+                    <img src="https://via.placeholder.com/300x210">
                     <h4>Premium Hoodie</h4>
                     <p style="color: #1db954; font-weight: 700;">₹2,299</p>
                 </div>
@@ -270,35 +289,31 @@
     const muteIcon = document.getElementById('muteIcon');
     let hideTimeout;
 
-    // SVG Paths
     const mutedPath = "M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z";
     const unmutedPath = "M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z";
 
     function toggleMute() {
-        // Clear any existing timer
         clearTimeout(hideTimeout);
         
-        // Show the button immediately when tapped
-        muteBtn.classList.remove('hidden');
-
         if (video.muted) {
-            // UNMUTE
+            // Unmuting
             video.muted = false;
             muteIcon.innerHTML = `<path d="${unmutedPath}"></path>`;
+            muteBtn.classList.remove('hidden');
             
-            // HIDE in 0.5 seconds after unmuting
+            // Auto-hide icon after 0.5 seconds (Instagram style)
             hideTimeout = setTimeout(() => {
                 muteBtn.classList.add('hidden');
-            }, 500);
+            }, 500); 
         } else {
-            // MUTE
+            // Muting
             video.muted = true;
             muteIcon.innerHTML = `<path d="${mutedPath}"></path>`;
-            // Mute icon stays visible so user knows why it's silent
+            muteBtn.classList.remove('hidden');
         }
     }
 
-    // Attach event to the whole video area
+    // Handle tap/click on the entire hero section
     heroWrapper.addEventListener('click', toggleMute);
 </script>
 

@@ -457,36 +457,24 @@ footer {
     flex: 0 0 72px;   /* FIXED width so only fit items show */  
   }  
 }  
-/* ================= MOBILE: CENTER COMPLETE CATEGORY BOX ================= */  
-@media (max-width: 768px) {  
-  
-  aside {  
-    width: 100%;  
-    max-width: 420px;        /* controls box width */  
-    margin: 0 auto 24px;    /* CENTER the whole box */  
-    padding: 16px;  
-  }  
-  
-  aside button {  
-    width: 100%;  
-    text-align: center;  
-  }  
-}  
-  /* ================= MOBILE: CENTER COMPLETE CATEGORY BOX ================= */  
-@media (max-width: 768px) {  
-  
-  aside {  
-    width: 100%;  
-    max-width: 420px;  
-    margin: 0 auto 24px;  
-    padding: 16px;  
-  }  
-  
-  aside button {  
-    width: 100%;  
-    text-align: center;  
-  }  
-}  
+/* ================= MOBILE: FULL WIDTH CATEGORY BACKGROUND ================= */
+@media (max-width: 768px) {
+
+  aside {
+    width: 100vw;                 /* FULL SCREEN WIDTH */
+    margin-left: calc(50% - 50vw);/* BREAK OUT OF MAIN PADDING */
+    margin-right: calc(50% - 50vw);
+    padding: 16px;
+    border-radius: 0;             /* full-width look */
+    background: #111118;
+  }
+
+  aside button {
+    max-width: 420px;             /* CONTENT CENTERED */
+    margin: 0 auto 10px;
+    text-align: center;
+  }
+  }
 
 </style>  </head>  <body>  <header>  
 <div class="logo-with-name">  

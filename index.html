@@ -274,26 +274,29 @@ footer {
   .product h4 { font-size: 14px; }
   .product p { font-size: 14px; }
 }
-  /* Logo and musician name in one row */
+/* Logo and Musician Name Container */
 .logo-with-name {
   display: flex;
   align-items: center;
-  gap: 12px; /* space between logo and name */
+  gap: 10px; /* space between logo and text */
 }
 
+/* Small, professional, corporate logo */
 .logo-with-name .logo {
-  height: 60px; /* keep your original logo size */
-  border-radius: 50%; /* round logo */
-  object-fit: cover;
+  height: 40px;          /* smaller, professional size */
+  width: 40px;           /* keep it square */
+  border-radius: 50%;    /* round logo */
+  object-fit: cover;     
 }
 
+/* Professional corporate style name */
 .musician-name {
-  font-family: 'Playfair Display', serif; /* premium & elegant */
-  font-size: 1.25rem; /* slightly bigger than normal text */
-  font-weight: 600;   /* bold but elegant */
-  color: rgba(255,255,255,0.9); /* subtle professional white */
-  letter-spacing: 1px; /* premium spacing */
-  text-transform: uppercase; /* corporate look */
+  font-family: 'Playfair Display', serif; /* elegant serif font */
+  font-weight: 600;                       /* bold but premium */
+  font-size: 1.1rem;                      /* proportional to logo */
+  color: rgba(255, 255, 255, 0.95);      /* clean, subtle white */
+  letter-spacing: 0.5px;                  /* premium spacing */
+  text-transform: uppercase;              /* corporate style */
 }
 </style>
 </head>

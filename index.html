@@ -18,14 +18,14 @@
         a { text-decoration: none; color: inherit; }
         button { cursor: pointer; border: none; transition: all 0.2s ease; }
 
-        /* ================= SCROLLBARS (SUBTLE) ================= */
+        /* ================= SCROLLBARS ================= */
         nav::-webkit-scrollbar, .profile-slider::-webkit-scrollbar { height: 3px; }
         nav::-webkit-scrollbar-thumb, .profile-slider::-webkit-scrollbar-thumb { 
             background: rgba(255, 255, 255, 0.2); 
             border-radius: 10px; 
         }
 
-        /* ================= HEADER ================= */
+        /* ================= HEADER (DESKTOP OPTIMIZED) ================= */
         header {
             display: flex;
             align-items: center;
@@ -37,31 +37,34 @@
             top: 0;
             z-index: 1000;
             border-bottom: 1px solid rgba(255,255,255,0.08);
+            gap: 20px;
         }
 
-        .logo-with-name { display: flex; align-items: center; gap: 15px; flex-shrink: 0; }
-        .logo-with-name .logo { height: 48px; width: 48px; border-radius: 50%; object-fit: cover; }
-        .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.4rem; }
+        .logo-with-name { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+        .logo-with-name .logo { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; }
+        .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; }
 
-        .search-bar { flex: 1; display: flex; margin: 0 40px; max-width: 500px; }
+        .search-bar { 
+            flex: 1; 
+            display: flex; 
+            max-width: 600px; /* Reduced to give buttons room */
+        }
         .search-bar input { 
-            flex: 1; padding: 12px 20px; background: transparent; 
-            color: #fff; border-radius: 10px 0 0 10px; 
+            flex: 1; padding: 10px 18px; background: transparent; 
+            color: #fff; border-radius: 8px 0 0 8px; 
             border: 1px solid rgba(255,255,255,0.15); border-right: none; outline: none; 
         }
-        .search-bar button { padding: 12px 25px; background: #1db954; color: #fff; border-radius: 0 10px 10px 0; font-weight: 700; }
+        .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; }
 
-        /* HEADER BUTTONS (EQUAL SIZE) */
-        .header-buttons { display: flex; gap: 10px; flex-shrink: 0; width: 330px; }
+        .header-buttons { display: flex; gap: 8px; flex-shrink: 0; }
         .header-buttons button { 
-            flex: 1; /* Makes all buttons same width */
+            width: 95px; /* Precise equal sizing to prevent overflow */
             padding: 10px 0; 
             background: rgba(255,255,255,0.08); 
             color: #fff; 
-            border-radius: 8px; 
+            border-radius: 6px; 
             font-size: 13px;
             text-align: center;
-            min-width: 100px;
         }
 
         /* ================= NAVIGATION ================= */
@@ -73,84 +76,76 @@
             white-space: nowrap; 
             justify-content: center;
         }
-        nav button { background: none; color: #999; font-size: 14px; padding: 20px 30px; flex: 0 0 auto; }
+        nav button { background: none; color: #999; font-size: 14px; padding: 18px 25px; flex: 0 0 auto; }
 
-        /* ================= HERO (16:9) ================= */
+        /* ================= HERO ================= */
         .hero { width: 100%; aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://via.placeholder.com/1600x900") center/cover; }
         .hero h1 { font-family: 'Playfair Display', serif; font-size: 3.5rem; }
 
         /* ================= MAIN CONTENT ================= */
-        main { display: grid; grid-template-columns: 280px 1fr; gap: 50px; padding: 60px 40px; max-width: 1500px; margin: 0 auto; }
+        main { display: grid; grid-template-columns: 260px 1fr; gap: 40px; padding: 40px; max-width: 1400px; margin: 0 auto; }
 
         .category-box {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 16px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 18px;
             height: fit-content;
             position: sticky;
-            top: 100px;
+            top: 90px;
         }
-        .category-box button { display: block; width: 100%; padding: 14px 18px; margin-bottom: 10px; background: rgba(255, 255, 255, 0.04); color: #ccc; border-radius: 10px; text-align: left; }
+        .category-box h4 { font-size: 12px; text-transform: uppercase; color: #666; letter-spacing: 1px; margin-bottom: 15px; }
+        .category-box button { display: block; width: 100%; padding: 12px 15px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.04); color: #ccc; border-radius: 8px; text-align: left; font-size: 14px; }
 
-        /* PROFILES (DESKTOP: FULL | MOBILE: SLIDER) */
-        .profiles-section { margin-bottom: 60px; }
+        /* ================= PROFILES SLIDER (RESPONSIVE VIEWPORT) ================= */
+        .profiles-section { margin-bottom: 50px; }
         .profile-slider { 
             display: flex; 
-            flex-wrap: wrap; /* Wraps on desktop */
-            gap: 25px; 
-            justify-content: flex-start;
+            overflow-x: auto; 
+            padding-bottom: 12px;
+            -webkit-overflow-scrolling: touch;
         }
-        .profile-item { flex: 0 0 100px; text-align: center; } 
-        .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; }
+        /* Desktop: 5 items visible (Spotify to FaceBook) */
+        .profile-item { flex: 0 0 20%; text-align: center; } 
+        .profile-item img { width: 60px; height: 60px; border-radius: 50%; background: #16161d; padding: 10px; margin-bottom: 8px; }
         .profile-item div { font-size: 12px; color: #aaa; }
 
-        .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
-        .product { background: #12121a; border-radius: 20px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); }
-        .product img { width: 100%; height: 220px; object-fit: cover; border-radius: 14px; margin-bottom: 15px; }
+        /* PRODUCTS */
+        .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
+        .product { background: #12121a; border-radius: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .product img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 12px; }
 
         /* ================= MOBILE FIXES ================= */
-        @media (max-width: 768px) {
-            header { flex-direction: column; padding: 15px; }
-            .logo-with-name { margin-bottom: 15px; }
-            .search-bar { margin: 0; width: 100%; margin-bottom: 15px; }
+        @media (max-width: 900px) {
+            header { flex-direction: column; padding: 15px; gap: 12px; }
+            .search-bar { width: 100%; margin: 0; }
             .header-buttons { width: 100%; }
+            .header-buttons button { flex: 1; width: auto; }
 
             nav { justify-content: flex-start; }
             nav button { flex: 0 0 25%; padding: 15px 0; } 
 
-            main { display: flex; flex-direction: column; padding: 20px 15px; gap: 30px; }
-            
+            main { display: flex; flex-direction: column; padding: 20px; gap: 30px; }
             .category-box { order: 1; position: relative; top: 0; }
             .content-area { order: 2; }
-            .profiles-section { order: 1; margin-bottom: 40px; }
             
-            /* Profile Slider for Mobile */
-            .profile-slider { 
-                flex-wrap: nowrap; 
-                overflow-x: auto; 
-                -webkit-overflow-scrolling: touch; 
-                padding-bottom: 10px;
-            }
-            .profile-item { flex: 0 0 25%; } /* Shows 4 (up to YouTube) */
+            /* Mobile: 4 items visible (Up to YouTube) */
+            .profile-item { flex: 0 0 25%; } 
             
             .products { grid-template-columns: 1fr 1fr; gap: 12px; }
-            .product img { height: 140px; }
         }
-
-        footer { padding: 40px; text-align: center; color: #555; border-top: 1px solid rgba(255,255,255,0.05); }
     </style>
 </head>
 <body>
 
 <header>  
     <div class="logo-with-name">  
-        <img src="logo.png" alt="Sharan Musician" class="logo">  
+        <img src="logo.png" alt="Logo" class="logo">  
         <div class="musician-name">Sharan Musician</div>  
     </div>
 
     <div class="search-bar">  
-        <input type="text" placeholder="Search...">  
+        <input type="text" placeholder="Search gear or music...">  
         <button>Search</button>  
     </div>
 
@@ -171,17 +166,17 @@
 
 <main>  
     <div class="category-box">  
-        <h4 style="margin-bottom: 15px;">Categories</h4>
-        <button>Albums</button>  
-        <button>Live Tickets</button>  
-        <button>Learning</button>  
-        <button>Official Merch</button>  
-        <button>Fan Club</button>  
+        <h4>Store Sections</h4>
+        <button>Music Albums</button>  
+        <button>Event Tickets</button>  
+        <button>Masterclasses</button>  
+        <button>Clothing Line</button>  
+        <button>Fan Portal</button>  
     </div>
 
     <div class="content-area">
         <section class="profiles-section">  
-            <h3 style="margin-bottom:20px; font-weight: 500;">Profiles</h3>
+            <h3 style="margin-bottom:20px; font-weight: 500;">Official Profiles</h3>
             <div class="profile-slider">  
                 <a href="#" class="profile-item"><img src="spotify.jpg"><div>Spotify</div></a>
                 <a href="#" class="profile-item"><img src="google.jpg"><div>Google</div></a>
@@ -193,17 +188,17 @@
         </section>
 
         <section class="products-section">
-            <h3 style="margin-bottom:20px; font-weight: 500;">Latest Products</h3>
+            <h3 style="margin-bottom:20px; font-weight: 500;">Featured Items</h3>
             <div class="products">  
                 <div class="product">
                     <img src="https://via.placeholder.com/300x180">
-                    <h4 style="font-size: 16px;">Tour Hoodie</h4>
-                    <p style="color: #1db954; font-weight: 700;">₹2,499</p>
+                    <h4 style="font-size: 15px;">Collector Vinyl</h4>
+                    <p style="color: #1db954; font-weight: 700;">₹3,499</p>
                 </div>
                 <div class="product">
                     <img src="https://via.placeholder.com/300x180">
-                    <h4 style="font-size: 16px;">Vinyl Record</h4>
-                    <p style="color: #1db954; font-weight: 700;">₹3,299</p>
+                    <h4 style="font-size: 15px;">Official Headwear</h4>
+                    <p style="color: #1db954; font-weight: 700;">₹1,299</p>
                 </div>
             </div>
         </section>
@@ -213,5 +208,4 @@
 <footer>© 2026 Sharan Musician | High-Fidelity Music Experience</footer>
 
 </body>
-    </html>
-    
+</html>

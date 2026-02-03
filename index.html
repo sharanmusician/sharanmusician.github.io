@@ -92,15 +92,16 @@
             border-radius: 8px;
         }
 
-        /* ================= NAVIGATION (CUT OFF AT NEWS) ================= */
+        /* ================= NAVIGATION (VISIBLE UP TO NEWS ONLY) ================= */
         nav {
             display: flex;
-            padding: 14px 0;
+            width: 100%;
             background: #111118;
             overflow-x: auto;
             white-space: nowrap;
             -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
         }
         
         nav::-webkit-scrollbar { display: none; }
@@ -108,14 +109,16 @@
         nav button {
             background: none;
             color: #999;
-            font-size: 15px;
-            /* Flex-basis forces buttons to take specific width to hide Merch */
+            font-size: 14px;
+            /* 4 buttons fill 100% (25% each), pushing the 5th (Merch) out */
             flex: 0 0 25%; 
             text-align: center;
-            padding: 8px 0;
+            padding: 15px 0;
         }
 
-        /* ================= HERO (16:9) ================= */
+        nav button:hover { color: #fff; }
+
+        /* ================= HERO (FIXED TO 16:9) ================= */
         .hero {
             width: 100%;
             aspect-ratio: 16 / 9;
@@ -128,7 +131,7 @@
 
         .hero h1 { font-family: 'Playfair Display', serif; font-size: 4rem; }
 
-        /* ================= MAIN CONTENT ================= */
+        /* ================= MAIN CONTENT (DESKTOP) ================= */
         main {
             display: grid;
             grid-template-columns: 280px 1fr;
@@ -155,11 +158,13 @@
             text-align: left;
         }
 
+        /* PROFILES SECTION */
         .profile-slider {
             display: flex;
             gap: 25px;
             overflow-x: auto;
             padding-bottom: 15px;
+            -webkit-overflow-scrolling: touch;
         }
 
         .profile-item {
@@ -178,6 +183,7 @@
 
         .profile-item div { font-size: 12px; color: #aaa; }
 
+        /* PRODUCTS GRID */
         .products {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -210,25 +216,72 @@
 
         /* ================= MOBILE OPTIMIZATION ================= */
         @media (max-width: 768px) {
-            header { flex-direction: column; padding: 15px; position: relative; }
-            .search-bar { margin: 0; width: 100%; position: sticky; top: 0; z-index: 1100; background: #0b0b0f; padding: 10px 0; }
-            .header-buttons { width: 100%; justify-content: space-between; margin-top: 10px; }
+            header {
+                flex-direction: column;
+                padding: 15px;
+                position: relative;
+            }
+
+            .logo-with-name { margin-bottom: 10px; }
+
+            .search-bar {
+                margin: 0;
+                width: 100%;
+                position: sticky;
+                top: 0;
+                z-index: 1100;
+                background: #0b0b0f;
+                padding: 10px 0;
+            }
+
+            .header-buttons {
+                width: 100%;
+                justify-content: space-between;
+                margin-top: 10px;
+            }
+
             .header-buttons button { flex: 1; text-align: center; font-size: 12px; padding: 10px 5px; }
 
-            nav button { flex: 0 0 30%; } /* Shows roughly 3.3 items (up to News) */
+            /* Navigation maintains the "News" cutoff on mobile */
+            nav button { flex: 0 0 25%; }
 
-            main { display: flex; flex-direction: column; padding: 20px 15px; }
-            aside { position: static; order: 2; margin-top: 30px; }
-            aside button { width: 100%; margin-bottom: 10px; text-align: center; background: rgba(255,255,255,0.08); }
+            main {
+                display: flex;
+                flex-direction: column;
+                padding: 20px 15px;
+            }
 
-            .profiles-section { order: 1; width: 100%; }
+            aside {
+                position: static;
+                order: 2;
+                margin-top: 30px;
+            }
+
+            aside button {
+                width: 100%;
+                margin-bottom: 10px;
+                text-align: center;
+                background: rgba(255,255,255,0.08);
+            }
+
+            .profiles-section {
+                order: 1;
+                width: 100%;
+            }
+
             .content-area { order: 3; margin-top: 20px; }
             .products { grid-template-columns: 1fr 1fr; gap: 12px; }
             .product { padding: 12px; }
             .product img { height: 140px; }
         }
 
-        footer { padding: 50px; text-align: center; background: #08080c; color: #555; }
+        footer {
+            padding: 50px;
+            text-align: center;
+            background: #08080c;
+            color: #555;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
     </style>
 </head>
 <body>
@@ -238,10 +291,12 @@
         <img src="logo.png" alt="Sharan Store" class="logo">  
         <div class="musician-name">Sharan Musician</div>  
     </div>
+
     <div class="search-bar">  
         <input type="text" placeholder="Search products...">  
         <button>Search</button>  
     </div>
+
     <div class="header-buttons">  
         <button>Account</button>  
         <button>Orders</button>  
@@ -252,7 +307,7 @@
 <nav>  
     <button>All</button>
     <button>Albums</button>
-    <button>Tickets</button>
+    <button>Book Tickets</button>
     <button>News</button>
     <button>Merch</button>
     <button>About</button>
@@ -305,5 +360,5 @@
 <footer>© 2026 Sharan Musician</footer>
 
 </body>
-                                                                                        </html>
-                                                                                        
+            </html>
+            

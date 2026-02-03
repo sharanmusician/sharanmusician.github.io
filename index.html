@@ -246,7 +246,25 @@ footer {
   }  
   
   .hero h1 { font-size: 1.8rem; }  
-  .hero p { font-size: 1rem; }  
+  .hero p { font-size: 1rem; } 
+
+/* ===== MOBILE CATEGORY / SIDEBAR FIX ===== */
+aside {
+  display: block;           /* make sure it's visible */
+  position: relative;       /* not sticky on mobile */
+  top: auto;                /* remove sticky top */
+  margin: 16px 0;           /* spacing from other content */
+  padding: 16px;            /* nice padding for mobile */
+  border-radius: 12px;      /* same as desktop */
+  background: #111118;      /* same dark background */
+}
+
+aside button {
+  width: 100%;              /* full width for mobile */
+  margin-bottom: 10px;      /* spacing between buttons */
+  padding: 12px 16px;       /* comfortable touch size */
+  font-size: 16px;          /* readable text */
+}
 
 /* Container for logo + musician name */  
 .logo-with-name {  

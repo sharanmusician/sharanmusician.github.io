@@ -228,12 +228,16 @@ footer {
   
   .hero h1 { font-size: 1.8rem; }  
   .hero p { font-size: 1rem; }  
+
   
-  /* MAIN */  
-  main {  
-    grid-template-columns: 1fr;  
-    padding: 16px;  
-  }  
+  @media (max-width: 768px) {
+
+  /* MAIN */
+  main {
+    grid-template-columns: 1fr;
+    padding: 16px;
+    justify-items: center; /* ✅ ADD THIS LINE */
+  }
   
   aside h3 { display: none; }  
   
@@ -483,22 +487,7 @@ footer {
     text-align: center;  
   }  
 }  
-  /* ================= MOBILE: CENTER COMPLETE CATEGORY BOX ================= */  
-@media (max-width: 768px) {  
-  
-  aside {  
-    width: 100%;  
-    max-width: 420px;  
-    margin: 0 auto 24px;  
-    padding: 16px;  
-  }  
-  
-  aside button {  
-    width: 100%;  
-    text-align: center;  
-  }  
-  
-}  
+
 </style>  </head>  <body>  <header>  
 <div class="logo-with-name">  
   <img src="logo.png" alt="Sharan Store" class="logo">  

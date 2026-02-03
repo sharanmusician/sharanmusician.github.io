@@ -18,7 +18,7 @@
         a { text-decoration: none; color: inherit; }
         button { cursor: pointer; border: none; transition: all 0.2s ease; }
 
-        /* ================= STICKY TOP BAR (LOGO & SEARCH ONLY) ================= */
+        /* ================= STICKY TOP BAR ================= */
         .top-bar {
             display: flex;
             align-items: center;
@@ -32,35 +32,40 @@
             border-bottom: 1px solid rgba(255,255,255,0.08);
             gap: 40px;
         }
-
         .logo-with-name { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
         .logo-with-name .logo { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; }
         .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; }
 
         .search-bar { flex: 1; display: flex; max-width: 600px; }
-        .search-bar input { 
-            flex: 1; padding: 10px 18px; background: transparent; 
-            color: #fff; border-radius: 8px 0 0 8px; 
-            border: 1px solid rgba(255,255,255,0.15); border-right: none; outline: none; 
-        }
+        .search-bar input { flex: 1; padding: 10px 18px; background: transparent; color: #fff; border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); border-right: none; outline: none; }
         .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; }
 
-        /* ================= SCROLLABLE ACTION BAR (ORDERS, ETC) ================= */
-        .action-bar {
-            display: flex;
-            justify-content: flex-end;
-            padding: 12px 40px;
-            background: #0b0b0f;
-            gap: 8px;
-        }
-        .action-bar button { 
-            width: 100px; padding: 10px 0; background: rgba(255,255,255,0.06); 
-            color: #fff; border-radius: 6px; font-size: 13px; text-align: center;
-        }
+        /* ================= ACTION BAR ================= */
+        .action-bar { display: flex; justify-content: flex-end; padding: 12px 40px; background: #0b0b0f; gap: 8px; }
+        .action-bar button { width: 100px; padding: 10px 0; background: rgba(255,255,255,0.06); color: #fff; border-radius: 6px; font-size: 13px; text-align: center; }
 
-        /* ================= NAVIGATION ================= */
-        nav { display: flex; width: 100%; background: #111118; overflow-x: auto; white-space: nowrap; justify-content: center; }
-        nav button { background: none; color: #999; font-size: 14px; padding: 18px 25px; flex: 0 0 auto; }
+        /* ================= NAVIGATION (UNIFORM SPACING) ================= */
+        nav { 
+            display: flex; 
+            width: 100%; 
+            background: #111118; 
+            overflow-x: auto; 
+            white-space: nowrap; 
+            -webkit-overflow-scrolling: touch;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        
+        /* Desktop: Same width for all to ensure perfect spacing */
+        nav button { 
+            background: none; 
+            color: #999; 
+            font-size: 14px; 
+            padding: 20px 0; 
+            flex: 0 0 14.28%; /* Divides 100% by 7 items for exact uniform spacing */
+            text-align: center;
+            border-bottom: 2px solid transparent;
+        }
+        nav button:hover { color: #fff; }
 
         /* ================= HERO ================= */
         .hero { width: 100%; aspect-ratio: 16 / 9; display: flex; align-items: center; justify-content: center; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("https://via.placeholder.com/1600x900") center/cover; }
@@ -69,19 +74,13 @@
         /* ================= MAIN CONTENT ================= */
         main { display: grid; grid-template-columns: 260px 1fr; gap: 40px; padding: 40px; max-width: 1400px; margin: 0 auto; }
 
-        .category-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 12px; padding: 18px; height: fit-content;
-        }
+        .category-box { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 12px; padding: 18px; height: fit-content; }
         .category-box h4 { font-size: 12px; text-transform: uppercase; color: #666; letter-spacing: 1px; margin-bottom: 15px; }
         .category-box button { display: block; width: 100%; padding: 12px 15px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.04); color: #ccc; border-radius: 8px; text-align: left; font-size: 14px; }
 
         /* ================= PROFILES SLIDER ================= */
         .profiles-section { margin-bottom: 50px; }
         .profile-slider { display: flex; overflow-x: auto; padding-bottom: 12px; -webkit-overflow-scrolling: touch; }
-        
-        /* Profile Layout: Desktop 5 items | Mobile 4 items */
         .profile-item { flex: 0 0 20%; text-align: center; } 
         .profile-item img { width: 60px; height: 60px; border-radius: 50%; background: #16161d; padding: 10px; margin-bottom: 8px; }
         .profile-item div { font-size: 12px; color: #aaa; }
@@ -91,13 +90,8 @@
         .product { background: #12121a; border-radius: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.05); }
         .product img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 12px; }
 
-        /* ================= CORPORATE FOOTER ================= */
-        footer {
-            padding: 80px 40px 40px;
-            background: #08080c;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            text-align: center;
-        }
+        /* ================= FOOTER ================= */
+        footer { padding: 80px 40px 40px; background: #08080c; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
         .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #fff; margin-bottom: 10px; display: block; }
         .footer-links { display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap; }
         .footer-links a { font-size: 12px; color: #777; text-transform: uppercase; letter-spacing: 1.2px; }
@@ -109,11 +103,12 @@
             .action-bar { padding: 10px 15px; justify-content: space-between; }
             .action-bar button { flex: 1; width: auto; }
             
+            /* Mobile Nav: Forces exactly 4 items (25% each) for uniform slide */
             nav { justify-content: flex-start; }
             nav button { flex: 0 0 25%; padding: 15px 0; } 
             
             main { display: flex; flex-direction: column; padding: 20px; gap: 30px; }
-            .profile-item { flex: 0 0 25%; } /* Shows 4 (up to YouTube) */
+            .profile-item { flex: 0 0 25%; } 
             .products { grid-template-columns: 1fr 1fr; gap: 12px; }
         }
     </style>
@@ -126,7 +121,7 @@
         <div class="musician-name">Sharan Musician</div>  
     </div>
     <div class="search-bar">  
-        <input type="text" placeholder="Search gear or music...">  
+        <input type="text" placeholder="Search products...">  
         <button>Search</button>  
     </div>
 </div>
@@ -138,7 +133,13 @@
 </div>
 
 <nav>  
-    <button>All</button><button>Albums</button><button>Book Tickets</button><button>News</button><button>Merch</button><button>About</button><button>Contact</button>
+    <button>All</button>
+    <button>Albums</button>
+    <button>Tickets</button>
+    <button>News</button>
+    <button>Merch</button>
+    <button>About</button>
+    <button>Contact</button>
 </nav>
 
 <section class="hero">  
@@ -148,23 +149,23 @@
 <main>  
     <div class="category-box">  
         <h4>Store Sections</h4>
-        <button>Albums</button>  
-        <button>Reserve Your Seat</button>  
-        <button>Music Courses</button>  
-        <button>Merchandise</button>  
-        <button>Community</button>  
+        <button>Music Albums</button>  
+        <button>Event Tickets</button>  
+        <button>Masterclasses</button>  
+        <button>Clothing Line</button>  
+        <button>Fan Portal</button>  
     </div>
 
     <div class="content-area">
         <section class="profiles-section">  
             <h3 style="margin-bottom:20px; font-weight: 500;">Official Profiles</h3>
             <div class="profile-slider">  
-                <a href="#" class="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=VYG5aRDwSpCO9H-5TU5d0g"><img src="spotify.jpg"><div>Spotify</div></a>
-                <a href="#" class="https://g.co/kgs/gtv47AQ"><img src="google.jpg"><div>Google</div></a>
-                <a href="#" class="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0"><img src="instagram.jpg"><div>Instagram</div></a>
-                <a href="#" class="https://youtube.com/@sharan.musician?si=r-vM0ByhGZyRS3Mn"><img src="youtube.jpg"><div>YouTube</div></a>
-                <a href="#" class="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg"><img src="facebook.jpg"><div>FaceBook</div></a>
-                <a href="#" class="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09"><img src="x.jpg"><div>Twitter</div></a>
+                <a href="#" class="profile-item"><img src="spotify.jpg"><div>Spotify</div></a>
+                <a href="#" class="profile-item"><img src="google.jpg"><div>Google</div></a>
+                <a href="#" class="profile-item"><img src="instagram.jpg"><div>Instagram</div></a>
+                <a href="#" class="profile-item"><img src="youtube.jpg"><div>YouTube</div></a>
+                <a href="#" class="profile-item"><img src="facebook.jpg"><div>FaceBook</div></a>
+                <a href="#" class="profile-item"><img src="x.jpg"><div>Twitter</div></a>
             </div>  
         </section>
 

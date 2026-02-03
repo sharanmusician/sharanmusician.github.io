@@ -256,6 +256,14 @@ footer {
   text-overflow: ellipsis;                 /* if screen too small, truncate */  
   overflow: hidden;  
 } 
+
+/* ===== MOBILE GRID OVERRIDE (CRITICAL FIX) ===== */
+@media (max-width: 768px) {
+  main {
+    display: block;
+    padding: 16px;
+  }
+}
   
 /* ================= MOBILE: ONLY SEARCH BAR STICKY ================= */  
 @media (max-width: 768px) {  

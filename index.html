@@ -397,13 +397,25 @@ footer {
   max-width: 100%;  
 }  
   
-/* hide scrollbar (clean UI) */  
-.profile-slider::-webkit-scrollbar {  
-  display: none;  
-}  
-.profile-slider {  
-  scrollbar-width: none;  
-}  
+/* ================= VISIBLE SLIDER INDICATOR ================= */
+.profile-slider {
+  scrollbar-width: thin;                 /* Firefox */
+  scrollbar-color: #1db954 transparent;  /* Firefox */
+}
+
+/* Chrome, Edge, Safari */
+.profile-slider::-webkit-scrollbar {
+  height: 4px;                           /* horizontal indicator */
+}
+
+.profile-slider::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.profile-slider::-webkit-scrollbar-thumb {
+  background-color: #1db954;             /* brand green */
+  border-radius: 10px;
+}
   
 /* each profile item stays fixed size */  
 .profile-item {  

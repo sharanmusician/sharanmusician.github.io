@@ -535,6 +535,73 @@ footer {
     height: 210px;
   }
 }
+/* =========================================================
+   ================= DESKTOP / PC OPTIMIZATION ONLY =========
+   ========================================================= */
+@media (min-width: 1024px) {
+
+  /* Prevent ultra-wide stretching */
+  main {
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 48px 32px;
+    grid-template-columns: 260px 1fr;
+    align-items: flex-start;
+  }
+
+  /* Sidebar behaves like a premium panel */
+  aside {
+    position: sticky;
+    top: 110px; /* below header */
+    padding: 28px;
+  }
+
+  aside button {
+    font-size: 15px;
+    padding: 12px 14px;
+  }
+
+  /* Hero typography balance */
+  .hero h1 {
+    font-size: 3.6rem;
+    margin-bottom: 8px;
+  }
+
+  .hero p {
+    font-size: 1.35rem;
+  }
+
+  /* Profiles section alignment */
+  .profiles-section {
+    padding-top: 0;
+  }
+
+  .profiles-heading {
+    font-size: 20px;
+  }
+
+  .profile-slider {
+    padding-bottom: 16px; /* scrollbar breathing space */
+  }
+
+  /* Products grid – desktop balance */
+  .products {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+  }
+
+  .product img {
+    height: 220px;
+  }
+
+  .product h4 {
+    font-size: 16px;
+  }
+
+  .product p {
+    font-size: 15px;
+  }
+    }
 </style> 
 </head>  
 <body> 

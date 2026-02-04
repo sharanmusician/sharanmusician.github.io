@@ -133,9 +133,9 @@
         /* ================= LUXURY NEWS WIRE SECTION ================= */
         .premium-news-card {
             margin-top: 60px;
-            padding: 35px;
+            padding: 30px;
             background: #111116;
-            border-top: 2px solid #1db954;
+            border-left: 1px solid rgba(255,255,255,0.05);
             border-radius: 4px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             position: relative;
@@ -143,56 +143,60 @@
         .news-wire-meta {
             display: flex;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
+            align-items: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            padding-bottom: 15px;
         }
         .wire-label {
-            font-size: 10px;
-            letter-spacing: 4px;
+            font-size: 9px;
+            letter-spacing: 5px;
             text-transform: uppercase;
             color: #1db954;
             font-weight: 800;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
-        .pulse { width: 5px; height: 5px; background: #1db954; border-radius: 50%; animation: blink 1.5s infinite; }
-        @keyframes blink { 50% { opacity: 0; } }
+        .pulse { width: 4px; height: 4px; background: #1db954; border-radius: 50%; box-shadow: 0 0 8px #1db954; }
 
-        /* ULTRA SMALL PROFESSIONAL DATE */
+        /* SIDE DATE - SMALL & PROFESSIONAL */
         .news-date-side {
             font-family: 'JetBrains Mono', monospace;
             font-size: 9px;
-            color: #444;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            background: rgba(255,255,255,0.03);
-            padding: 4px 8px;
-            border-radius: 2px;
+            color: #555;
+            background: rgba(255,255,255,0.02);
+            padding: 3px 10px;
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 100px;
         }
 
-        .news-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #fff; margin-bottom: 15px; letter-spacing: -0.5px; line-height: 1.1; }
-        .news-desc { color: #8a8a8e; font-size: 1rem; line-height: 1.7; margin-bottom: 25px; max-width: 90%; }
+        .news-title { font-family: 'Playfair Display', serif; font-size: 2.1rem; color: #fff; margin-bottom: 12px; letter-spacing: -0.5px; line-height: 1.1; font-weight: 600; }
+        .news-desc { color: #8a8a8e; font-size: 0.95rem; line-height: 1.8; margin-bottom: 30px; max-width: 95%; }
 
-        /* MINI LUXURY BUTTON */
+        /* ULTRA SLEEK MINI BUTTON */
         .btn-archive-mini {
-            background: transparent;
-            color: #666;
-            padding: 6px 14px;
-            border: 1px solid #333;
-            border-radius: 3px;
-            font-size: 9px;
+            background: linear-gradient(145deg, #1a1a1e, #111116);
+            color: #f5f5f5;
+            padding: 8px 18px;
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 4px;
+            font-size: 10px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 700;
-            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            letter-spacing: 1.5px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3), inset 1px 1px 1px rgba(255,255,255,0.05);
+            transition: all 0.2s ease;
         }
         .btn-archive-mini:hover {
-            color: #fff;
-            border-color: #666;
-            background: rgba(255,255,255,0.02);
-            letter-spacing: 3px;
+            border-color: #1db954;
+            transform: translateY(-1px);
+            box-shadow: 0 5px 15px rgba(29, 185, 84, 0.1);
         }
+        .btn-archive-mini span { color: #1db954; font-size: 12px; }
 
         /* ================= FOOTER ================= */
         footer { padding: 40px 20px; background: #08080c; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
@@ -207,8 +211,7 @@
             main { display: flex; flex-direction: column; padding: 20px; }
             .profile-item { flex: 0 0 25%; } 
             .products { grid-template-columns: 1fr 1fr; }
-            .news-title { font-size: 1.7rem; }
-            .news-wire-meta { flex-direction: column; gap: 10px; }
+            .news-title { font-size: 1.6rem; }
         }
     </style>
 </head>
@@ -266,18 +269,12 @@
         <section class="profiles-section">  
             <h3 style="margin-bottom:20px; font-weight: 500;">Profiles</h3>
             <div class="profile-slider custom-scroll">  
-                <a href="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=pRXJonnGRHWT5XegBTw-eA" target="_blank" class="profile-item"><img src="spotify.jpg" alt="Spotify"><div>Spotify</div></a>
-                <a href="https://g.co/kgs/gtv47AQ" target="_blank" class="profile-item"><img src="google.jpg" alt="Google"><div>Google</div></a>
-                <a href="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0" target="_blank" class="profile-item"><img src="instagram.jpg" alt="Instagram"><div>Instagram</div></a>
-                <a href="https://youtube.com/@sharan.musician?si=wZlASMES3BCSoclb" target="_blank" class="profile-item"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
-                <a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" target="_blank" class="profile-item"><img src="facebook.jpg" alt="FaceBook"><div>FaceBook</div></a>
-                <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" target="_blank" class="profile-item"><img src="x.jpg" alt="X (Twitter)"><div>X (Twitter)</div></a>
-                <a href="https://www.imdb.com/name/nm17859010/?ref_=ext_shr" target="_blank" class="profile-item"><img src="imdb.jpg" alt="IMDb"><div>IMDb</div></a>
-                <a href="https://music.apple.com/us/artist/sharan-musician/1671976313" target="_blank" class="profile-item"><img src="applemusic.jpg" alt="Apple Music"><div>Apple Music</div></a>
-                <a href="https://music.amazon.in/artists/B0BVRTY3NT/sharan-musician?marketplaceId=A21TJRUUN4KGV&musicTerritory=IN&ref=dm_sh_gweJQXn29RCPnuig7hXbrTAHB" target="_blank" class="profile-item"><img src="amazonmusic.jpg" alt="Amazon Music"><div>Amazon Music</div></a>
-                <a href="https://www.jiosaavn.com/artist/sharan-musician-songs/VgKiJSk2Acg_" target="_blank" class="profile-item"><img src="jiosaavn.jpg" alt="JioSaavn"><div>JioSaavn</div></a>
-                <a href="https://gaana.com/artist/sharan-musician" target="_blank" class="profile-item"><img src="gaana.jpg" alt="Gaana"><div>Gaana</div></a>
-                <a href="https://music.youtube.com/channel/UC0MZGJWNgvN5NR0P07joNKA?si=VovJo-lE_uh7GwKz" target="_blank" class="profile-item"><img src="youtubemusic.jpg" alt="YouTube Music"><div>YouTube Music</div></a>
+                <a href="#" class="profile-item"><img src="spotify.jpg"><div>Spotify</div></a>
+                <a href="#" class="profile-item"><img src="google.jpg"><div>Google</div></a>
+                <a href="#" class="profile-item"><img src="instagram.jpg"><div>Instagram</div></a>
+                <a href="#" class="profile-item"><img src="youtube.jpg"><div>YouTube</div></a>
+                <a href="#" class="profile-item"><img src="facebook.jpg"><div>FaceBook</div></a>
+                <a href="#" class="profile-item"><img src="x.jpg"><div>X (Twitter)</div></a>
             </div>  
         </section>
 
@@ -299,17 +296,17 @@
 
         <div class="premium-news-card">
             <div class="news-wire-meta">
-                <div class="wire-label"><div class="pulse"></div> Official Wire</div>
+                <div class="wire-label"><div class="pulse"></div> Media Wire</div>
                 <div id="date-inject" class="news-date-side">Loading...</div>
             </div>
             
             <div id="news-inject">
                 <h2 class="news-title">...</h2>
-                <p class="news-desc">Connecting to secure bulletin source...</p>
+                <p class="news-desc">Reading data stream...</p>
             </div>
 
             <a href="news.html">
-                <button class="btn-archive-mini">Access Full Archive</button>
+                <button class="btn-archive-mini">Archive <span>→</span></button>
             </a>
         </div>
     </div>
@@ -358,5 +355,4 @@
 </script>
 
 </body>
-    </html>
-    
+</html>

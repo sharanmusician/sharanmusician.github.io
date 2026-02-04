@@ -72,10 +72,10 @@
             background: #111118; 
             border-bottom: 1px solid rgba(255,255,255,0.03);
             padding-bottom: 2px;
-            justify-content: space-evenly; /* Equally spaced on PC */
+            justify-content: space-evenly; 
         }
         nav button, nav a { 
-            flex: 1; /* Allows items to grow equally on PC */
+            flex: 1; 
             text-align: center;
         }
         nav button { 
@@ -217,11 +217,18 @@
             nav { 
                 overflow-x: auto; 
                 white-space: nowrap; 
-                justify-content: flex-start; /* Reset justification for slide */
+                justify-content: flex-start; 
             }
+            /* MOBILE HEIGHT ADJUSTMENT START */
             nav button, nav a { 
-                flex: 0 0 25%; /* Fixed width for 4 items slide */
+                flex: 0 0 25%; 
+                padding: 10px 0; /* Slimmer height for mobile menu items */
             }
+            nav button {
+                padding: 10px 0; 
+                font-size: 13px; /* Slightly smaller text for better mobile fit */
+            }
+            /* MOBILE HEIGHT ADJUSTMENT END */
             
             main { display: flex; flex-direction: column; padding: 20px; }
             .profile-item { flex: 0 0 25%; } 
@@ -389,5 +396,4 @@
 </script>
 
 </body>
-        </html>
-    
+</html>

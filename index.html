@@ -30,37 +30,38 @@
             top: 0;
             z-index: 1100;
             border-bottom: 1px solid rgba(255,255,255,0.08);
-            gap: 40px;
+            gap: 20px; /* Reduced gap for better desktop fit */
         }
         .logo-with-name { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
         .logo-with-name .logo { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; }
-        .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; }
+        .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; white-space: nowrap; }
 
-        .search-bar { flex: 1; display: flex; max-width: 600px; }
-        .search-bar input { flex: 1; padding: 10px 18px; background: transparent; color: #fff; border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); border-right: none; outline: none; }
-        .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; }
+        .search-bar { flex: 1; display: flex; max-width: 500px; } /* Slightly reduced max-width */
+        .search-bar input { flex: 1; padding: 10px 18px; background: transparent; color: #fff; border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); border-right: none; outline: none; min-width: 0; }
+        .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; white-space: nowrap; }
 
         /* ================= ACTION BAR ================= */
         .action-bar {
             display: grid;
-            grid-template-columns: repeat(3, 100px); /* Forces identical 100px width */
-            justify-content:调节 flex-end;
+            /* Changed to auto-fit with min-width to prevent overflow while keeping sizes same */
+            grid-template-columns: repeat(3, minmax(110px, max-content)); 
             justify-content: flex-end;
             padding: 12px 40px;
             background: #0b0b0f;
             gap: 10px;
         }
         .action-bar button, .action-bar a { 
-            width: 100%; /* Spans the grid column */
+            width: 100%; 
         }
         .action-bar button { 
-            height: 38px; /* Fixed uniform height */
-            padding: 0; 
+            height: 38px; 
+            padding: 0 15px; /* Added horizontal padding for text safety */
             background: rgba(255,255,255,0.06); 
             color: #fff; border-radius: 6px; font-size: 13px; 
             display: flex;
             align-items: center;
             justify-content: center;
+            white-space: nowrap;
         }
 
         /* ================= NAVIGATION ================= */
@@ -136,7 +137,15 @@
         }
 
         /* ================= MAIN LAYOUT ================= */
-        main { display: grid; grid-template-columns: 260px 1fr; gap: 40px; padding: 40px; max-width: 1450px; margin: 0 auto; }
+        main { 
+            display: grid; 
+            grid-template-columns: 260px 1fr; 
+            gap: 40px; 
+            padding: 40px; 
+            max-width: 1450px; 
+            margin: 0 auto;
+            width: 100%; /* Ensures it stays within screen */
+        }
 
         .category-box {
             background: rgba(255, 255, 255, 0.02);
@@ -147,11 +156,17 @@
         .category-box button { display: block; width: 100%; padding: 12px 15px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.04); color: #ccc; border-radius: 8px; text-align: left; font-size: 14px; }
 
         /* ================= PROFILES SECTION ================= */
-        .profiles-section { margin-bottom: 50px; }
-        .profile-slider { display: flex; overflow-x: auto; padding-bottom: 12px; -webkit-overflow-scrolling: touch; }
-        .profile-item { flex: 0 0 20%; text-align: center; } 
+        .profiles-section { margin-bottom: 50px; width: 100%; overflow: hidden; }
+        .profile-slider { 
+            display: flex; 
+            overflow-x: auto; 
+            padding-bottom: 15px; 
+            -webkit-overflow-scrolling: touch; 
+            gap: 15px;
+        }
+        .profile-item { flex: 0 0 auto; width: 90px; text-align: center; } 
         .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.1); }
-        .profile-item div { font-size: 12px; color: #aaa; }
+        .profile-item div { font-size: 12px; color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
         /* ================= PRODUCTS ================= */
         .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
@@ -188,13 +203,13 @@
 
         @media (max-width: 900px) {
             .top-bar { padding: 10px 15px; flex-direction: column; gap: 12px; }
-            .action-bar { padding: 10px 15px; grid-template-columns: repeat(3, 1fr); }
+            .action-bar { padding: 10px 15px; grid-template-columns: repeat(3, 1fr); justify-content: stretch; }
             nav { justify-content: flex-start; }
             nav button { flex: 0 0 25%; padding: 15px 0; } 
             main { display: flex; flex-direction: column; padding: 20px; gap: 30px; }
             .category-box { order: 1; width: 100%; }
             .content-area { order: 2; width: 100%; }
-            .profile-item { flex: 0 0 25%; } 
+            .profile-item { width: 80px; } 
             .products { grid-template-columns: 1fr 1fr; gap: 12px; }
         }
     </style>
@@ -329,4 +344,5 @@
 </script>
 
 </body>
-</html>
+                    </html>
+                    

@@ -130,20 +130,20 @@
         .product { background: #12121a; border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); }
         .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
 
-        /* ================= LUXURY NEWS SECTION ================= */
+        /* ================= PREMIUM NEWS SECTION ================= */
         .news-bulletin {
             margin-top: 60px;
-            padding: 50px;
-            background: #000;
+            padding: 45px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
             border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 4px; /* Sharp professional edges */
-            position: relative;
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
         .news-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
         }
         .status-indicator {
             display: flex;
@@ -152,59 +152,66 @@
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             color: #1db954;
         }
         .live-dot {
             height: 8px; width: 8px;
             background: #1db954;
             border-radius: 50%;
-            box-shadow: 0 0 12px #1db954;
+            box-shadow: 0 0 15px rgba(29, 185, 84, 0.6);
+            animation: pulse 2s infinite;
         }
-        
-        /* THE LUXURY GHOST BUTTON */
-        .archive-btn-premium {
-            padding: 10px 24px;
-            background: transparent;
-            color: #ffffff;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            font-size: 11px;
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
+
+        /* PROFESSIONAL GLOSSY BUTTON */
+        .archive-btn-lux {
+            position: relative;
+            padding: 12px 28px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 50px;
+            font-size: 12px;
             font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            border-radius: 2px;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            letter-spacing: 1.5px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
         }
-        .archive-btn-premium:hover {
+        .archive-btn-lux:hover {
             background: #ffffff;
-            color: #000000;
-            border-color: #ffffff;
-            transform: translateY(-2px);
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255,255,255,0.2);
         }
 
         .news-header-text {
             font-family: 'Playfair Display', serif;
-            font-size: 2.8rem;
-            line-height: 1.1;
+            font-size: 2.6rem;
+            line-height: 1.2;
             margin-bottom: 20px;
             color: #ffffff;
-            letter-spacing: -1px;
+            font-weight: 700;
         }
         .news-body-text {
             font-size: 1.1rem;
-            color: #888;
-            max-width: 800px;
+            color: #b0b0b0;
+            max-width: 850px;
             line-height: 1.8;
-            font-weight: 300;
+            font-weight: 400;
         }
 
         /* ================= FOOTER ================= */
         footer { padding: 40px 20px; background: #08080c; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
         .copyright { font-size: 11px; color: #444; text-transform: uppercase; }
 
+        /* ================= MOBILE OPTIMIZATIONS ================= */
         @media (max-width: 900px) {
-            .news-bulletin { padding: 30px 20px; }
+            .news-bulletin { padding: 30px; border-radius: 16px; }
             .news-header-text { font-size: 1.8rem; }
+            .archive-btn-lux { padding: 10px 20px; font-size: 10px; }
         }
     </style>
 </head>
@@ -293,11 +300,11 @@
 
         <section class="news-bulletin">
             <div class="news-top">
-                <div class="status-indicator"><div class="live-dot"></div> Press Release</div>
-                <a href="news.html"><button class="archive-btn-premium">View All Releases</button></a>
+                <div class="status-indicator"><div class="live-dot"></div> Latest News</div>
+                <a href="news.html"><button class="archive-btn-lux">View All Releases</button></a>
             </div>
-            <div id="bulletin-inject">
-                <h2 class="news-header-text">Loading...</h2>
+            <div id="instant-news-box">
+                <h2 class="news-header-text">...</h2>
                 <p class="news-body-text"></p>
             </div>
         </section>
@@ -309,21 +316,20 @@
 <script src="newsdata.js"></script>
 
 <script>
-    // ZERO LATENCY LOAD
-    (function injectNews() {
+    // SUDDEN LOAD LOGIC (No delay searching)
+    (function() {
         if (typeof newsArchive !== 'undefined' && newsArchive.length > 0) {
-            // Force load the first index [0] immediately
-            const latest = newsArchive[0]; 
-            const box = document.getElementById('bulletin-inject');
-            box.innerHTML = `
-                <h2 class="news-header-text">${latest.heading}</h2>
-                <p class="news-body-text">${latest.content}</p>
-            `;
+            // Find specific sl 1
+            const item = newsArchive.find(x => x.sl === 1);
+            if(item) {
+                document.getElementById('instant-news-box').innerHTML = `
+                    <h2 class="news-header-text">${item.heading}</h2>
+                    <p class="news-body-text">${item.content}</p>
+                `;
+            }
         }
     })();
-</script>
 
-<script>
     const video = document.getElementById('heroVideo');
     const heroWrapper = document.getElementById('heroWrapper');
     const muteBtn = document.getElementById('muteToggle');
@@ -336,8 +342,16 @@
         if(!video.muted) hideTimeout = setTimeout(() => muteBtn.classList.add('hidden'), 800);
     }
     heroWrapper.addEventListener('click', toggleMute);
+
+    const navButtons = document.querySelectorAll('#mainNav button');
+    navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            navButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
+    });
 </script>
 
 </body>
-                                                                                                                                </html>
-                                                                                                                                
+                                                                                                                                      </html>
+                                                                                                                                      

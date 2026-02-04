@@ -14,8 +14,7 @@
             color: #f5f5f5;
             line-height: 1.6;
             overflow-x: hidden;
-            
-            /* STRICT LOCK: Prevents selection on entire page */
+            /* STRICT LOCK */
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -29,127 +28,61 @@
         .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
         .custom-scroll { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) rgba(255,255,255,0.03); }
 
-        /* ================= STICKY TOP BAR ================= */
+        /* ================= TOP BAR ================= */
         .top-bar {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 40px;
-            background: rgba(15,15,20,0.98);
-            backdrop-filter: blur(12px);
-            position: sticky;
-            top: 0;
-            z-index: 1100;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
-            gap: 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 15px 40px; background: rgba(15,15,20,0.98);
+            backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 1100;
+            border-bottom: 1px solid rgba(255,255,255,0.08); gap: 20px;
         }
         .logo-with-name { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
         .logo-with-name .logo { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; }
         .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; white-space: nowrap; }
-
         .search-bar { flex: 1; display: flex; max-width: 500px; }
         .search-bar input { 
             flex: 1; padding: 10px 18px; background: transparent; color: #fff; 
             border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); 
-            border-right: none; outline: none; min-width: 0; 
-            user-select: text; -webkit-user-select: text;
+            border-right: none; outline: none; user-select: text; -webkit-user-select: text;
         }
-        .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; white-space: nowrap; }
+        .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; }
 
         /* ================= ACTION BAR ================= */
         .action-bar {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(115px, 1fr)); 
-            justify-content: flex-end;
-            padding: 12px 40px;
-            background: #0b0b0f;
-            gap: 10px;
-            max-width: 1450px;
-            margin: 0 auto;
+            display: grid; grid-template-columns: repeat(3, minmax(115px, 1fr)); 
+            justify-content: flex-end; padding: 12px 40px; gap: 10px;
+            max-width: 1450px; margin: 0 auto;
         }
-        .action-bar button { 
-            width: 100%; height: 38px; padding: 0 10px; 
-            background: rgba(255,255,255,0.06); 
-            color: #fff; border-radius: 6px; font-size: 13px; 
-            display: flex; align-items: center; justify-content: center;
-        }
+        .action-bar button { width: 100%; height: 38px; background: rgba(255,255,255,0.06); color: #fff; border-radius: 6px; font-size: 13px; }
 
         /* ================= NAVIGATION ================= */
-        nav { 
-            display: flex; 
-            width: 100%; 
-            background: #111118; 
-            border-bottom: 1px solid rgba(255,255,255,0.03);
-            justify-content: space-evenly; 
-        }
-        nav button, nav a { flex: 1; text-align: center; }
+        nav { display: flex; width: 100%; background: #111118; border-bottom: 1px solid rgba(255,255,255,0.03); justify-content: space-evenly; }
         nav button { background: none; color: #999; font-size: 14px; padding: 12px 0; width: 100%; }
         nav button.active { color: #1db954; font-weight: 700; }
 
         /* ================= HERO ================= */
-        .hero {
-            position: relative; width: 100%; aspect-ratio: 16 / 9;
-            max-height: 80vh; overflow: hidden; margin-bottom: 20px;
-            background: #000; cursor: pointer;
-            -webkit-tap-highlight-color: transparent; 
-        }
+        .hero { position: relative; width: 100%; aspect-ratio: 16 / 9; max-height: 80vh; overflow: hidden; margin-bottom: 20px; background: #000; cursor: pointer; }
         .hero video { width: 100%; height: 100%; display: block; object-fit: contain; }
-        .mute-btn {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            z-index: 10; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px);
-            color: white; border-radius: 50%; width: 60px; height: 60px;
-            display: flex; align-items: center; justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.2); opacity: 1; transition: opacity 0.3s;
-            pointer-events: none; 
-        }
+        .mute-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; background: rgba(0,0,0,0.4); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; opacity: 1; transition: 0.3s; pointer-events: none; }
         .mute-btn.hidden { opacity: 0; }
 
-        /* ================= MAIN LAYOUT ================= */
-        main { 
-            display: grid; 
-            grid-template-columns: 260px 1fr; 
-            gap: 40px; padding: 40px; 
-            max-width: 1450px; margin: 0 auto;
-            width: 100%;
-        }
-
-        .category-box {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 12px; padding: 18px; height: fit-content;
-        }
+        /* ================= MAIN ================= */
+        main { display: grid; grid-template-columns: 260px 1fr; gap: 40px; padding: 40px; max-width: 1450px; margin: 0 auto; width: 100%; }
+        .category-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 18px; height: fit-content; }
         .category-box h4 { font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 1.5px; margin-bottom: 15px; }
-        .category-box button { display: block; width: 100%; padding: 12px 15px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.04); color: #ccc; border-radius: 8px; text-align: left; font-size: 14px; }
+        .category-box button { display: block; width: 100%; padding: 12px 15px; margin-bottom: 8px; background: rgba(255,255,255,0.04); color: #ccc; border-radius: 8px; text-align: left; font-size: 14px; }
 
-        /* ================= PROFILES ================= */
+        /* ================= CARDS & BEHAVIOR ================= */
         .profile-slider { display: flex; overflow-x: auto; padding-bottom: 15px; }
-        .profile-item { flex: 0 0 20%; text-align: center; transition: all 0.4s ease; border-radius: 12px; padding: 10px 0; border: 1px solid transparent; } 
+        .profile-item { flex: 0 0 20%; text-align: center; transition: all 0.4s ease; border-radius: 12px; padding: 10px 0; } 
         .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.1); }
-        .profile-item div { font-size: 12px; color: #aaa; }
-
-        /* ================= PRODUCTS & NEWS ================= */
+        
         .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
-        .product { 
-            background: #12121a; border-radius: 16px; padding: 24px; 
-            border: 1px solid rgba(255,255,255,0.05); 
-            transition: all 0.4s ease; cursor: pointer;
-        }
+        .product { background: #12121a; border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s ease; cursor: pointer; }
         .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
 
-        /* THE MEDIA DISPATCH CARD */
-        .premium-news-card {
-            margin-top: 60px;
-            padding: 40px;
-            background: #0d0d11;
-            border: 1px solid rgba(255,255,255,0.05);
-            border-left: 2px solid #1db954;
-            border-radius: 4px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-            transition: all 0.4s ease;
-            cursor: pointer;
-        }
+        .premium-news-card { margin-top: 60px; padding: 40px; background: #0d0d11; border: 1px solid rgba(255,255,255,0.05); border-left: 2px solid #1db954; border-radius: 4px; transition: all 0.4s ease; cursor: pointer; position: relative; }
 
-        /* SHARED GLOW & ELEVATION EFFECT */
+        /* GLOBAL GLOW EFFECT */
         .product.active-glow, 
         .premium-news-card.active-glow, 
         .profile-item.active-glow {
@@ -163,11 +96,8 @@
         .live-badge { color: #1db954; font-weight: 800; font-size: 9px; letter-spacing: 4px; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
         .dot { width: 6px; height: 6px; background: #1db954; border-radius: 50%; animation: pulse-blink 1.5s infinite; }
         @keyframes pulse-blink { 50% { opacity: 0.4; } }
-        
-        .news-date-side { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #444; }
         .news-title { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: #fff; margin-bottom: 15px; }
         .news-desc { color: #888; font-size: 1.05rem; line-height: 1.8; margin-bottom: 30px; }
-        
         .btn-pro-dispatch { background: #141418; color: #f5f5f5; padding: 10px 22px; border: 1px solid #252529; border-radius: 4px; font-size: 10px; text-transform: uppercase; font-weight: 700; }
 
         footer { padding: 40px 20px; background: #08080c; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
@@ -236,12 +166,18 @@
         <section class="profiles-section">  
             <h3 style="margin-bottom:20px; font-weight: 500;">Profiles</h3>
             <div class="profile-slider custom-scroll">  
-                <a href="#" class="profile-item" onclick="highlightItem(this)"><img src="spotify.jpg" alt="Spotify"><div>Spotify</div></a>
-                <a href="#" class="profile-item" onclick="highlightItem(this)"><img src="google.jpg" alt="Google"><div>Google</div></a>
-                <a href="#" class="profile-item" onclick="highlightItem(this)"><img src="instagram.jpg" alt="Instagram"><div>Instagram</div></a>
-                <a href="#" class="profile-item" onclick="highlightItem(this)"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
-                <a href="#" class="profile-item" onclick="highlightItem(this)"><img src="facebook.jpg" alt="FaceBook"><div>FaceBook</div></a>
-                <a href="#" class="profile-item" onclick="highlightItem(this)"><img src="imdb.jpg" alt="IMDb"><div>IMDb</div></a>
+                <a href="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=pRXJonnGRHWT5XegBTw-eA" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="spotify.jpg" alt="Spotify"><div>Spotify</div></a>
+                <a href="https://g.co/kgs/gtv47AQ" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="google.jpg" alt="Google"><div>Google</div></a>
+                <a href="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="instagram.jpg" alt="Instagram"><div>Instagram</div></a>
+                <a href="https://youtube.com/@sharan.musician?si=wZlASMES3BCSoclb" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
+                <a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="facebook.jpg" alt="FaceBook"><div>FaceBook</div></a>
+                <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="x.jpg" alt="X"><div>X (Twitter)</div></a>
+                <a href="https://www.imdb.com/name/nm17859010/?ref_=ext_shr" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="imdb.jpg" alt="IMDb"><div>IMDb</div></a>
+                <a href="https://music.apple.com/us/artist/sharan-musician/1671976313" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="applemusic.jpg" alt="Apple Music"><div>Apple Music</div></a>
+                <a href="https://music.amazon.in/artists/B0BVRTY3NT/sharan-musician" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="amazonmusic.jpg" alt="Amazon"><div>Amazon Music</div></a>
+                <a href="https://www.jiosaavn.com/artist/sharan-musician-songs/VgKiJSk2Acg_" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="jiosaavn.jpg" alt="JioSaavn"><div>JioSaavn</div></a>
+                <a href="https://gaana.com/artist/sharan-musician" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="gaana.jpg" alt="Gaana"><div>Gaana</div></a>
+                <a href="https://music.youtube.com/channel/UC0MZGJWNgvN5NR0P07joNKA?si=VovJo-lE_uh7GwKz" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="youtubemusic.jpg" alt="YouTube Music"><div>YouTube Music</div></a>
             </div>  
         </section>
 
@@ -294,11 +230,7 @@
 
 <script>
     function highlightItem(element) {
-        // Universal clear
-        document.querySelectorAll('.product, .premium-news-card, .profile-item').forEach(el => {
-            el.classList.remove('active-glow');
-        });
-        // Apply to clicked
+        document.querySelectorAll('.product, .premium-news-card, .profile-item').forEach(el => el.classList.remove('active-glow'));
         element.classList.add('active-glow');
     }
 
@@ -315,4 +247,5 @@
 </script>
 
 </body>
-</html>
+    </html>
+                        

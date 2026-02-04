@@ -130,38 +130,73 @@
         .product { background: #12121a; border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); }
         .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
 
-        /* ================= UPDATED FOOTER (EXACT SIZE) ================= */
+        /* ================= NEWS SECTION STYLES ================= */
+        .news-section { margin-top: 60px; }
+        .news-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .news-card:hover {
+            border-color: rgba(29, 185, 84, 0.3);
+            transform: translateY(-3px);
+            background: rgba(255,255,255,0.04);
+        }
+        .news-meta {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #1db954;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .news-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            margin-bottom: 15px;
+            line-height: 1.2;
+            color: #fff;
+        }
+        .news-excerpt {
+            color: #999;
+            font-size: 15px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 20px;
+            max-width: 800px;
+        }
+        .view-all-btn {
+            font-size: 12px;
+            color: #1db954;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ================= UPDATED FOOTER ================= */
         footer { 
             width: 100%; 
             text-align: center; 
-            font-size: 10px; /* Matching size */
+            font-size: 10px; 
             color: #444; 
             padding: 40px 20px 20px; 
             background: #08080c; 
             border-top: 1px solid rgba(255,255,255,0.05); 
         }
-
-        .legal-row { 
-            margin-bottom: 8px; 
-            display: flex; 
-            justify-content: center; 
-            gap: 20px; 
-        }
-
-        .legal-row a { 
-            color: #555; 
-            text-decoration: none; 
-            transition: color 0.2s;
-        }
-
+        .legal-row { margin-bottom: 8px; display: flex; justify-content: center; gap: 20px; }
+        .legal-row a { color: #555; text-decoration: none; transition: color 0.2s; }
         .legal-row a:hover { color: #1db954; }
-
-        .merchant-line { 
-            font-weight: 600; 
-            color: #555; 
-            margin-bottom: 5px; 
-            text-transform: uppercase;
-        }
+        .merchant-line { font-weight: 600; color: #555; margin-bottom: 5px; text-transform: uppercase; }
 
         /* ================= MOBILE OPTIMIZATIONS ================= */
         @media (max-width: 900px) {
@@ -172,6 +207,7 @@
             main { display: flex; flex-direction: column; padding: 20px; }
             .profile-item { flex: 0 0 25%; } 
             .products { grid-template-columns: 1fr 1fr; }
+            .news-title { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -265,6 +301,16 @@
                 </div>
             </div>
         </section>
+
+        <section class="news-section">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px;">
+                <h3 style="font-weight: 500;">Latest News</h3>
+                <a href="news.html" class="view-all-btn">Discover All News <span>→</span></a>
+            </div>
+            <div id="news-feed">
+                <p style="color: #444; font-size: 13px;">Syncing with Global Feed...</p>
+            </div>
+        </section>
     </div>
 </main>
 
@@ -300,6 +346,55 @@
             btn.classList.add('active');
         });
     });
+
+    // GOOGLE SHEETS NEWS INTEGRATION
+    const SHEET_ID = 'YOUR_SHEET_ID_HERE'; // Replace with your Sheet ID
+    const SHEET_TAB_NAME = 'Sheet1';
+    const csvUrl = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${SHEET_TAB_NAME}`;
+
+    async function loadNews() {
+        try {
+            const response = await fetch(csvUrl);
+            const data = await response.text();
+            const rows = data.split('\n').slice(1); // Skip header row
+            const container = document.getElementById('news-feed');
+            container.innerHTML = '';
+
+            let liveCount = 0;
+            rows.forEach(row => {
+                // Regex handles commas inside quotes in CSV
+                const columns = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+                if (columns.length < 4) return;
+
+                const date = columns[0].replace(/"/g, '');
+                const heading = columns[1].replace(/"/g, '');
+                const content = columns[2].replace(/"/g, '');
+                const status = columns[3].replace(/"/g, '').toLowerCase().trim();
+
+                // Only show top 2 "live" news items on index
+                if (status === 'live' && liveCount < 2) {
+                    const card = `
+                        <div class="news-card">
+                            <div class="news-meta">${date}</div>
+                            <h4 class="news-title">${heading}</h4>
+                            <p class="news-excerpt">${content}</p>
+                            <a href="news.html" style="color: #fff; font-size: 11px; font-weight: 600; border-bottom: 1px solid #1db954; padding-bottom: 2px;">Read Full Article</a>
+                        </div>
+                    `;
+                    container.innerHTML += card;
+                    liveCount++;
+                }
+            });
+
+            if (liveCount === 0) {
+                container.innerHTML = '<p style="color: #444;">No current updates available.</p>';
+            }
+        } catch (e) {
+            console.error("Error loading news", e);
+        }
+    }
+
+    loadNews();
 </script>
 
 </body>

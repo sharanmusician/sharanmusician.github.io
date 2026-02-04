@@ -21,6 +21,12 @@
             color: var(--text-main);
             font-family: 'Inter', -apple-system, sans-serif;
             -webkit-font-smoothing: antialiased;
+            
+            /* STRICT LOCK: Prevents text selection and copying across the entire page */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         /* Fixed Navigation */

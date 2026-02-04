@@ -30,20 +30,19 @@
             top: 0;
             z-index: 1100;
             border-bottom: 1px solid rgba(255,255,255,0.08);
-            gap: 20px; /* Reduced gap for better desktop fit */
+            gap: 20px;
         }
         .logo-with-name { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
         .logo-with-name .logo { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; }
         .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; white-space: nowrap; }
 
-        .search-bar { flex: 1; display: flex; max-width: 500px; } /* Slightly reduced max-width */
+        .search-bar { flex: 1; display: flex; max-width: 500px; }
         .search-bar input { flex: 1; padding: 10px 18px; background: transparent; color: #fff; border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); border-right: none; outline: none; min-width: 0; }
         .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; white-space: nowrap; }
 
         /* ================= ACTION BAR ================= */
         .action-bar {
             display: grid;
-            /* Changed to auto-fit with min-width to prevent overflow while keeping sizes same */
             grid-template-columns: repeat(3, minmax(110px, max-content)); 
             justify-content: flex-end;
             padding: 12px 40px;
@@ -55,7 +54,7 @@
         }
         .action-bar button { 
             height: 38px; 
-            padding: 0 15px; /* Added horizontal padding for text safety */
+            padding: 0 15px; 
             background: rgba(255,255,255,0.06); 
             color: #fff; border-radius: 6px; font-size: 13px; 
             display: flex;
@@ -126,15 +125,9 @@
             opacity: 1;
         }
 
-        .mute-btn.hidden {
-            opacity: 0;
-        }
+        .mute-btn.hidden { opacity: 0; }
 
-        .mute-btn svg {
-            width: 28px;
-            height: 28px;
-            fill: currentColor;
-        }
+        .mute-btn svg { width: 28px; height: 28px; fill: currentColor; }
 
         /* ================= MAIN LAYOUT ================= */
         main { 
@@ -144,7 +137,7 @@
             padding: 40px; 
             max-width: 1450px; 
             margin: 0 auto;
-            width: 100%; /* Ensures it stays within screen */
+            width: 100%; 
         }
 
         .category-box {
@@ -155,18 +148,24 @@
         .category-box h4 { font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 1.5px; margin-bottom: 15px; }
         .category-box button { display: block; width: 100%; padding: 12px 15px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.04); color: #ccc; border-radius: 8px; text-align: left; font-size: 14px; }
 
-        /* ================= PROFILES SECTION ================= */
-        .profiles-section { margin-bottom: 50px; width: 100%; overflow: hidden; }
+        /* ================= PROFILES SECTION (UPDATED) ================= */
+        .profiles-section { margin-bottom: 50px; width: 100%; }
         .profile-slider { 
             display: flex; 
             overflow-x: auto; 
             padding-bottom: 15px; 
             -webkit-overflow-scrolling: touch; 
-            gap: 15px;
+            scrollbar-width: none; /* Hides scrollbar on Firefox */
         }
-        .profile-item { flex: 0 0 auto; width: 90px; text-align: center; } 
+        .profile-slider::-webkit-scrollbar { display: none; } /* Hides scrollbar on Chrome/Safari */
+
+        .profile-item { 
+            flex: 0 0 16.66%; /* Shows 6 items in PC view (up to Twitter) */
+            text-align: center; 
+            transition: transform 0.2s;
+        } 
         .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.1); }
-        .profile-item div { font-size: 12px; color: #aaa; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .profile-item div { font-size: 12px; color: #aaa; white-space: nowrap; }
 
         /* ================= PRODUCTS ================= */
         .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
@@ -186,20 +185,9 @@
             gap: 40px; 
             margin-bottom: 20px; 
         }
-        .footer-links a { 
-            font-size: 13px; 
-            color: #888; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-            font-weight: 500;
-        }
+        .footer-links a { font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 500; }
         .footer-links a:hover { color: #fff; }
-        .copyright { 
-            font-size: 11px; 
-            color: #444; 
-            letter-spacing: 1px; 
-            text-transform: uppercase; 
-        }
+        .copyright { font-size: 11px; color: #444; letter-spacing: 1px; text-transform: uppercase; }
 
         @media (max-width: 900px) {
             .top-bar { padding: 10px 15px; flex-direction: column; gap: 12px; }
@@ -209,7 +197,10 @@
             main { display: flex; flex-direction: column; padding: 20px; gap: 30px; }
             .category-box { order: 1; width: 100%; }
             .content-area { order: 2; width: 100%; }
-            .profile-item { width: 80px; } 
+            
+            /* UPDATED FOR MOBILE: Show exactly 4 items (up to YouTube) */
+            .profile-item { flex: 0 0 25%; } 
+            
             .products { grid-template-columns: 1fr 1fr; gap: 12px; }
         }
     </style>
@@ -324,12 +315,10 @@
 
     function toggleMute() {
         clearTimeout(hideTimeout);
-        
         if (video.muted) {
             video.muted = false;
             muteIcon.innerHTML = `<path d="${unmutedPath}"></path>`;
             muteBtn.classList.remove('hidden');
-            
             hideTimeout = setTimeout(() => {
                 muteBtn.classList.add('hidden');
             }, 500); 
@@ -344,5 +333,5 @@
 </script>
 
 </body>
-                    </html>
-                    
+    </html>
+    

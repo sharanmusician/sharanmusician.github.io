@@ -3,190 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>News | Sharan Musician</title>
+    <title>Official News | Sharan Musician</title>
     <style>
         :root {
-            --bg: #050505;
-            --surface: #121212;
+            --bg: #000000;
+            --surface: #111111;
             --accent: #00ce64;
             --text-main: #ffffff;
-            --text-muted: rgba(255, 255, 255, 0.5);
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.08);
+            --text-muted: #888888;
+            --border: rgba(255, 255, 255, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             background-color: var(--bg);
             color: var(--text-main);
             font-family: 'Inter', -apple-system, sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* High-End Navigation */
-        .header-nav {
+        /* High-End Header Navigation */
+        .top-nav {
             position: sticky;
             top: 0;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 18px 24px;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(20px);
+            padding: 20px 6%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
             z-index: 1000;
         }
 
-        .back-link {
+        .btn-home {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
             display: flex;
             align-items: center;
-            gap: 8px;
-            color: var(--text-main);
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 600;
-            padding: 8px 16px;
-            border-radius: 50px;
-            background: var(--glass);
+            gap: 10px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background: var(--surface);
             border: 1px solid var(--border);
-            transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            transition: 0.3s;
         }
 
-        .back-link:hover {
-            background: var(--accent);
-            color: #000;
-            transform: translateX(-4px);
+        .btn-home:hover {
+            border-color: var(--accent);
+            background: #1a1a1a;
         }
 
-        /* News Container */
-        .news-wrapper {
-            max-width: 900px;
-            margin: 40px auto;
-            padding: 0 20px;
+        /* Feed Styling */
+        .feed-container {
+            max-width: 800px;
+            margin: 60px auto;
+            padding: 0 24px;
         }
 
-        .page-title {
-            font-size: clamp(2rem, 8vw, 3.5rem);
+        .brand-heading {
+            font-size: 48px;
             font-weight: 800;
             letter-spacing: -2px;
             margin-bottom: 40px;
-            background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.4) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            text-align: left;
         }
 
-        #news-feed {
+        #news-list {
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 20px;
         }
 
-        /* Professional News Item */
-        .news-item {
+        /* Professional News Card */
+        .news-card {
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 32px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
+            border-radius: 20px;
+            padding: 30px;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s;
         }
 
-        .news-item:hover {
+        .news-card:hover {
             border-color: var(--accent);
-            background: #181818;
+            transform: translateY(-5px);
         }
 
-        .news-item::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 4px; height: 0%;
-            background: var(--accent);
-            transition: 0.4s;
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
         }
 
-        .news-item:hover::before { height: 100%; }
-
-        .item-date {
-            font-size: 12px;
-            font-weight: 700;
+        .tag {
             color: var(--accent);
+            font-size: 11px;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-            display: block;
+            letter-spacing: 1.5px;
         }
 
-        .item-heading {
-            font-size: 24px;
+        .date {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .card-heading {
+            font-size: 22px;
             font-weight: 700;
             margin-bottom: 12px;
-            line-height: 1.3;
+            color: var(--text-main);
         }
 
-        .item-content {
-            color: var(--text-muted);
+        .card-content {
             font-size: 16px;
-            font-weight: 400;
+            line-height: 1.6;
+            color: var(--text-muted);
         }
 
-        /* Loading Animation */
-        .skeleton {
-            height: 200px;
-            background: var(--surface);
-            border-radius: 24px;
-            animation: pulse 1.5s infinite;
-        }
-
-        @keyframes pulse {
-            0% { opacity: 0.5; }
-            50% { opacity: 0.8; }
-            100% { opacity: 0.5; }
+        @media (max-width: 600px) {
+            .brand-heading { font-size: 32px; }
+            .news-card { padding: 20px; }
         }
     </style>
 </head>
 <body>
 
-    <nav class="header-nav">
-        <a href="index.html" class="back-link">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            Back
+    <nav class="top-nav">
+        <a href="index.html" class="btn-home">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Home
         </a>
-        <div style="font-size: 12px; font-weight: 900; letter-spacing: 3px; color: var(--accent);">SM.STUDIOS</div>
+        <div style="font-weight: 900; font-size: 12px; color: var(--accent);">SM ARCHIVE</div>
     </nav>
 
-    <main class="news-wrapper">
-        <h1 class="page-title">The Journal</h1>
-        
-        <div id="news-feed">
-            <div class="skeleton"></div>
-            <div class="skeleton"></div>
-        </div>
+    <main class="feed-container">
+        <h1 class="brand-heading">The Newsroom</h1>
+        <div id="news-list">
+            </div>
     </main>
 
     <script src="newsdata.js"></script>
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const feed = document.getElementById('news-feed');
+            const list = document.getElementById('news-list');
             
-            // Check if newsData exists in your newsdata.js file
-            // Assuming your newsdata.js looks like: const newsData = [{...}, {...}]
-            if (typeof newsData !== 'undefined' && Array.isArray(newsData)) {
-                feed.innerHTML = newsData.map(post => `
-                    <article class="news-item">
-                        <span class="item-date">${post.date || 'LATEST UPDATE'}</span>
-                        <h2 class="item-heading">${post.heading}</h2>
-                        <div class="item-content">${post.content}</div>
-                    </article>
+            // Checking if newsArchive is available and filtered by status "true"
+            if (typeof newsArchive !== 'undefined') {
+                const activeNews = newsArchive.filter(item => item.status === "true");
+                
+                list.innerHTML = activeNews.map(item => `
+                    <div class="news-card">
+                        <div class="card-meta">
+                            <span class="tag">${item.heading}</span>
+                            <span class="date">${item.date}</span>
+                        </div>
+                        <h2 class="card-heading">${item.content.substring(0, 45)}...</h2>
+                        <p class="card-content">${item.content}</p>
+                    </div>
                 `).join('');
             } else {
-                feed.innerHTML = `
-                    <div class="news-item">
-                        <h2 class="item-heading">System Error</h2>
-                        <p class="item-content">Verify that 'newsData' is defined correctly in newsdata.js.</p>
-                    </div>`;
+                list.innerHTML = `<p style="color:red;">Error: newsdata.js not connected.</p>`;
             }
         });
     </script>

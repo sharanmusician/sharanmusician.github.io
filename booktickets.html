@@ -25,6 +25,12 @@
             align-items: center;
             color: var(--text-white);
             padding: 40px 24px 20px;
+
+            /* STRICT LOCK: Prevents text selection and copying across the entire page */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
         }
 
         .main-container {
@@ -46,6 +52,19 @@
             text-align: center;
             box-shadow: 0 15px 35px rgba(0,0,0,0.6);
             animation: slideUp 0.6s ease-out;
+            
+            /* BEHAVIOR PREP */
+            transition: all 0.4s ease;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* EXACT BEHAVIOR: Glow + Elevation on touch */
+        .ticket-card.active-glow {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 30px rgba(0, 255, 127, 0.2);
+            background: rgba(0, 255, 127, 0.02);
+            transform: translateY(-5px);
         }
 
         .brand-logo {
@@ -108,7 +127,7 @@
 <body>
 
     <div class="main-container">
-        <div class="ticket-card">
+        <div class="ticket-card" onclick="this.classList.toggle('active-glow')">
             <img src="logo.png" alt="Sharan Musician" class="brand-logo">
             
             <h1>No Active Events</h1>

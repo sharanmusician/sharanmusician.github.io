@@ -202,7 +202,11 @@
         @media (max-width: 900px) {
             .top-bar { padding: 10px 15px; flex-direction: column; }
             .action-bar { padding: 10px 15px; grid-template-columns: repeat(3, 1fr); }
+            nav { justify-content: flex-start; }
+            nav button { flex: 0 0 25%; padding: 15px 5px; font-size: 12px; }
             main { display: flex; flex-direction: column; padding: 20px; }
+            .profile-item { flex: 0 0 25%; } 
+            .products { grid-template-columns: 1fr 1fr; }
             .news-title { font-size: 1.8rem; }
             .premium-news-card { padding: 25px; }
         }
@@ -316,6 +320,7 @@
 <script src="newsdata.js"></script>
 
 <script>
+    // SUDDEN LOAD LOGIC: Triggers immediately as script is parsed
     (function() {
         if (typeof newsArchive !== 'undefined') {
             const item = newsArchive.find(n => n.sl === 1);
@@ -324,7 +329,9 @@
                     <h2 class="news-title">${item.heading}</h2>
                     <p class="news-desc">${item.content}</p>
                 `;
-                document.getElementById('date-inject').innerText = item.date.toUpperCase();
+                // Inject the date for the Pro Dispatch style
+                const dateEl = document.getElementById('date-inject');
+                if (dateEl) dateEl.innerText = item.date.toUpperCase();
             }
         }
     })();

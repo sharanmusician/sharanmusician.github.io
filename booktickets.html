@@ -12,6 +12,7 @@
             --text-white: #ffffff;
             --text-grey: #8e8e93;
             --input-border: #2c2c2e;
+            --transition-speed: 0.4s;
         }
 
         body {
@@ -40,7 +41,7 @@
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
-            transition: 0.3s;
+            transition: var(--transition-speed);
             border: 1px solid var(--input-border);
             padding: 10px 20px;
             border-radius: 4px;
@@ -64,6 +65,7 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            position: relative;
         }
 
         .booking-card {
@@ -71,9 +73,44 @@
             width: 100%;
             max-width: 480px;
             padding: 50px;
-            border-radius: 4px; /* Sharp professional edges */
+            border-radius: 4px; 
             box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-            border-top: 4px solid var(--accent-green); /* Visual branding line */
+            border-top: 4px solid var(--accent-green);
+            position: relative;
+            transition: opacity var(--transition-speed);
+        }
+
+        /* --- NO EVENT STATE --- */
+        .no-event-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            width: 80%;
+            display: none; /* Controlled by Script */
+        }
+
+        .no-event-overlay h2 {
+            font-size: 14px;
+            letter-spacing: 5px;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .no-event-overlay p {
+            color: var(--text-white);
+            font-size: 18px;
+            font-weight: 200;
+            letter-spacing: 1px;
+        }
+
+        .is-inactive .booking-card {
+            opacity: 0.15;
+            pointer-events: none;
+            filter: grayscale(1);
         }
 
         h1 {
@@ -86,7 +123,7 @@
 
         .subtitle {
             color: var(--text-grey);
-            font-size: 12px;
+            font-size: 11px;
             letter-spacing: 1px;
             text-transform: uppercase;
             margin-bottom: 40px;
@@ -124,14 +161,9 @@
             border-color: var(--accent-green);
         }
 
-        /* --- SYMMETRICAL ROW --- */
-        .input-row {
-            display: flex;
-            gap: 20px; /* Equal spacing */
-        }
-
-        .input-row .form-group {
-            flex: 1; /* This forces both to be exactly 50% width */
+        /* Full Width Symmetrical Input */
+        .full-input {
+            width: 100%;
         }
 
         /* --- THE BUTTON --- */
@@ -156,7 +188,7 @@
         }
     </style>
 </head>
-<body>
+<body id="mainBody">
 
     <nav class="premium-nav">
         <a href="index.html" class="home-btn">
@@ -165,32 +197,44 @@
         </a>
     </nav>
 
-    <div class="container">
+    <div class="container" id="contentContainer">
+        <div class="no-event-overlay" id="messageBox">
+            <h2>Notice</h2>
+            <p>There are no active concerts or events scheduled at this moment. Please check back later.</p>
+        </div>
+
         <div class="booking-card">
             <h1>Ticket Access</h1>
-            <span class="subtitle">Secure your experience with Sharan Musician</span>
+            <span class="subtitle">Official Portal for Sharan Musician Events</span>
 
             <form>
                 <div class="form-group">
                     <label>Full Name</label>
-                    <input type="text" placeholder="SHARAN" required>
+                    <input type="text" placeholder="NAME" required>
                 </div>
 
-                <div class="input-row">
-                    <div class="form-group">
-                        <label>Quantity</label>
-                        <input type="number" value="1" min="1">
-                    </div>
-                    <div class="form-group">
-                        <label>Date</label>
-                        <input type="date" required>
-                    </div>
+                <div class="form-group">
+                    <label>Pass Quantity</label>
+                    <input type="number" value="1" min="1" class="full-input">
                 </div>
 
-                <button type="submit" class="confirm-btn">Finalize Booking</button>
+                <button type="submit" class="confirm-btn">Confirm Reservation</button>
             </form>
         </div>
     </div>
+
+    <script>
+        /* --- MASTER TOGGLE: Change this to true or false --- */
+        const isEventActive = false; 
+
+        const container = document.getElementById('contentContainer');
+        const messageBox = document.getElementById('messageBox');
+
+        if (!isEventActive) {
+            container.classList.add('is-inactive');
+            messageBox.style.display = 'block';
+        }
+    </script>
 
 </body>
 </html>

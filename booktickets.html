@@ -6,239 +6,164 @@
     <title>Elite Access | Sharan Musician</title>
     <style>
         :root {
-            --bg-black: #0c0c0e;        
-            --card-charcoal: #1a1a1c;  
-            --accent-green: #00a859;   
-            --text-white: #ffffff;
-            --text-grey: #8e8e93;
-            --input-border: #2c2c2e;
+            --bg-black: #0c0c0e; --card-charcoal: #1a1a1c; --accent-green: #00a859;
+            --text-white: #ffffff; --text-grey: #8e8e93; --input-border: #2c2c2e;
         }
 
         body {
-            background-color: var(--bg-black);
-            color: var(--text-white);
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding-bottom: 50px;
+            background-color: var(--bg-black); color: var(--text-white);
+            font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden;
         }
 
-        /* --- TOP STATUS BAR --- */
+        /* Top Luxury Status Bar */
         .status-bar {
-            background: #111;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            font-size: 11px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-bottom: 1px solid var(--input-border);
-            color: var(--accent-green);
+            background: #111; padding: 15px 5%; display: flex; justify-content: space-between;
+            font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+            border-bottom: 1px solid var(--input-border); color: var(--accent-green);
         }
 
-        /* --- NAVIGATION --- */
-        .premium-nav { padding: 25px 5%; }
-        .home-btn {
-            text-decoration: none;
-            color: white;
-            font-size: 12px;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border: 1px solid var(--input-border);
-            padding: 8px 18px;
-            transition: 0.3s;
-        }
-        .home-btn:hover { border-color: var(--accent-green); color: var(--accent-green); }
+        .container { display: flex; justify-content: center; padding: 40px 20px; }
 
-        /* --- BOOKING CARD --- */
-        .container { display: flex; justify-content: center; padding: 20px; position: relative; }
-        
+        /* The 20Cr Card */
         .booking-card {
-            background-color: var(--card-charcoal);
-            width: 100%;
-            max-width: 500px;
-            padding: 40px;
-            border-radius: 4px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-            border-top: 4px solid var(--accent-green);
-            position: relative;
+            background-color: var(--card-charcoal); width: 100%; max-width: 500px;
+            padding: 40px; border-radius: 4px; border-top: 4px solid var(--accent-green);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6); position: relative;
         }
 
-        .event-details-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 30px;
-            background: #111;
-            padding: 20px;
-            border: 1px solid var(--input-border);
-        }
+        .step-title { font-size: 22px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 30px; text-align: center; }
 
-        .detail-item span { display: block; font-size: 9px; color: var(--text-grey); margin-bottom: 5px; }
-        .detail-item strong { font-size: 14px; color: var(--text-white); }
-
-        /* --- PAYMENT SECTION --- */
-        .payment-zone {
-            text-align: center;
-            border: 1px dashed var(--accent-green);
-            padding: 20px;
-            margin: 25px 0;
-            background: rgba(0, 168, 89, 0.05);
-        }
-
-        .qr-placeholder {
-            width: 150px;
-            height: 150px;
-            background: white; /* Replace with your actual QR Image */
-            margin: 0 auto 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: black;
-            font-weight: bold;
-        }
-
-        /* --- FORM ELEMENTS --- */
-        .form-group { margin-bottom: 20px; }
-        label { display: block; font-size: 10px; color: var(--text-grey); text-transform: uppercase; margin-bottom: 8px; }
+        /* Form Styling */
+        .form-group { margin-bottom: 15px; }
+        label { display: block; font-size: 9px; color: var(--text-grey); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
         input {
             width: 100%; background: #000; border: 1px solid var(--input-border);
-            padding: 12px; color: white; border-radius: 2px; box-sizing: border-box;
+            padding: 14px; color: white; border-radius: 2px; box-sizing: border-box; font-size: 14px;
         }
+        input:focus { outline: none; border-color: var(--accent-green); }
 
-        .confirm-btn {
+        .btn-prime {
             width: 100%; background: var(--accent-green); color: white; border: none;
-            padding: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
-            cursor: pointer; transition: 0.3s;
+            padding: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px;
+            cursor: pointer; margin-top: 20px; transition: 0.3s;
+        }
+        .btn-prime:hover { background: #008f4c; letter-spacing: 5px; }
+
+        /* Payment Layer */
+        #paymentLayer, #verificationLayer, #ticketLayer { display: none; text-align: center; }
+        
+        .qr-frame {
+            background: white; padding: 15px; width: 220px; margin: 0 auto 20px; border-radius: 8px;
+        }
+        .qr-frame img { width: 100%; height: auto; display: block; }
+
+        /* Ticket Design */
+        .ticket-box {
+            background: white; color: black; padding: 30px; border-radius: 12px;
+            text-align: left; border: 2px dashed #000; margin-bottom: 20px;
         }
 
-        /* --- NO TICKETS / INACTIVE OVERLAY --- */
-        #soldOutOverlay {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(12, 12, 14, 0.95);
-            display: none; flex-direction: column; align-items: center;
-            justify-content: center; text-align: center; z-index: 100;
+        /* Animation */
+        .loader {
+            border: 3px solid #333; border-top: 3px solid var(--accent-green);
+            border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite;
+            margin: 20px auto;
         }
-
-        /* --- TICKET ISSUANCE (HIDDEN INITIALLY) --- */
-        #issuedTicket {
-            display: none;
-            background: white; color: black; padding: 30px;
-            margin-top: 20px; border-radius: 10px; border: 2px dashed #000;
-        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
     <div class="status-bar">
-        <div id="liveStatus">STATUS: LOADING...</div>
-        <div id="ticketCount">AVAILABILITY: --</div>
+        <div id="statusTxt">SYSTEM: ACTIVE</div>
+        <div id="priceTxt">PRICE: ₹1,499</div>
+        <div id="countTxt">TICKETS LEFT: 24</div>
     </div>
 
-    <nav class="premium-nav">
-        <a href="index.html" class="home-btn">Home</a>
-    </nav>
-
     <div class="container">
-        <div class="booking-card" id="bookingForm">
-            <div id="soldOutOverlay">
-                <h2 style="color: var(--accent-green); letter-spacing: 5px;">ACCESS DENIED</h2>
-                <p>All tickets for this session have been acquired.</p>
-            </div>
-
-            <h1>Concert Access</h1>
+        <div class="booking-card">
             
-            <div class="event-details-grid">
-                <div class="detail-item"><span>DATE</span><strong id="displayDate">--</strong></div>
-                <div class="detail-item"><span>TIME</span><strong id="displayTime">--</strong></div>
-                <div class="detail-item"><span>UNIT PRICE</span><strong id="displayPrice">--</strong></div>
-                <div class="detail-item"><span>LOCATION</span><strong>Premium Lounge</strong></div>
+            <div id="regLayer">
+                <div class="step-title">Register Access</div>
+                <form id="regForm">
+                    <div class="form-group"><label>Full Name</label><input type="text" id="name" required></div>
+                    <div class="form-group"><label>College Name</label><input type="text" id="college" required></div>
+                    <div class="form-group"><label>Email Address</label><input type="email" id="email" required></div>
+                    <div class="form-group"><label>Phone Number</label><input type="tel" id="phone" required></div>
+                    <div class="form-group"><label>Quantity</label><input type="number" id="qty" value="1" min="1"></div>
+                    <button type="submit" class="btn-prime">Proceed to Payment</button>
+                </form>
             </div>
 
-            <form id="ticketForm">
-                <div class="form-group">
-                    <label>Client Name</label>
-                    <input type="text" id="userName" placeholder="ENTER NAME" required>
+            <div id="paymentLayer">
+                <div class="step-title">Scan to Pay</div>
+                <p style="font-size: 12px; color: var(--text-grey);">Scan the QR below via GPay to complete your booking.</p>
+                <div class="qr-frame">
+                    <img src="qr.jpg" alt="GPay QR Code">
                 </div>
-
-                <div class="form-group">
-                    <label>Ticket Quantity</label>
-                    <input type="number" id="userQty" value="1" min="1" required>
-                </div>
-
-                <div class="payment-zone">
-                    <label style="color: var(--accent-green);">Step 1: Scan & Pay</label>
-                    <div class="qr-placeholder">
-                        <img src="YOUR_GPAY_QR_LINK_HERE.png" alt="GPAY QR" style="width:100%; height:100%;">
-                    </div>
-                    <label>Step 2: Upload Screenshot</label>
-                    <input type="file" id="paymentProof" required style="border:none; padding: 10px 0;">
-                </div>
-
-                <button type="submit" class="confirm-btn">Verify & Issue Ticket</button>
-            </form>
-
-            <div id="issuedTicket">
-                <h2 style="margin-top:0;">CONCERT PASS</h2>
-                <hr>
-                <p><strong>NAME:</strong> <span id="t_name"></span></p>
-                <p><strong>TICKETS:</strong> <span id="t_qty"></span></p>
-                <p><strong>STATUS:</strong> VERIFIED</p>
-                <p style="font-size: 10px; color: #666;">ID: #SM-2026-X99</p>
-                <button onclick="window.print()" style="padding: 5px 10px; cursor: pointer;">Print Ticket</button>
+                <button onclick="startVerification()" class="btn-prime">I Have Paid</button>
             </div>
+
+            <div id="verificationLayer">
+                <div class="step-title">Verifying</div>
+                <div class="loader"></div>
+                <p>Connecting to secure payment gateway...</p>
+                <p style="font-size: 10px; color: var(--accent-green);">MATCHING TRANSACTION ID...</p>
+            </div>
+
+            <div id="ticketLayer">
+                <div class="step-title">Pass Issued</div>
+                <div class="ticket-box" id="captureTicket">
+                    <h2 style="margin:0; color: var(--accent-green);">SHARAN MUSICIAN LIVE</h2>
+                    <p style="font-size: 10px; margin-bottom: 20px;">OFFICIAL ENTRY PASS #<span id="t_id"></span></p>
+                    <p><strong>GUEST:</strong> <span id="t_name"></span></p>
+                    <p><strong>COLLEGE:</strong> <span id="t_college"></span></p>
+                    <p><strong>PASSES:</strong> <span id="t_qty"></span> Units</p>
+                    <p style="margin-top:20px; font-size: 12px; font-weight: bold; border-top: 1px solid #ddd; padding-top: 10px;">STATUS: VERIFIED & PAID</p>
+                </div>
+                <button onclick="downloadAndReset()" class="btn-prime">Download & Finish</button>
+            </div>
+
         </div>
     </div>
 
     <script>
-        // ==========================================
-        // MASTER CONFIGURATION (20Cr Logic)
-        // ==========================================
-        const CONFIG = {
-            isEventActive: true,     // TRUE or FALSE
-            pricePerTicket: "₹1,999",
-            eventDate: "March 15, 2026",
-            eventTime: "20:00 IST",
-            totalTickets: 10,        // Total available
-            ticketsSold: 10          // Change this to test "Sold Out" state
-        };
-
-        // UI Initializer
-        window.onload = () => {
-            document.getElementById('displayDate').innerText = CONFIG.eventDate;
-            document.getElementById('displayTime').innerText = CONFIG.eventTime;
-            document.getElementById('displayPrice').innerText = CONFIG.pricePerTicket;
-            document.getElementById('ticketCount').innerText = `AVAILABILITY: ${CONFIG.totalTickets - CONFIG.ticketsSold} LEFT`;
-            
-            const liveStatus = document.getElementById('liveStatus');
-            if (!CONFIG.isEventActive || CONFIG.ticketsSold >= CONFIG.totalTickets) {
-                document.getElementById('soldOutOverlay').style.display = 'flex';
-                liveStatus.innerText = "STATUS: CLOSED";
-                liveStatus.style.color = "red";
-            } else {
-                liveStatus.innerText = "STATUS: ACTIVE";
-            }
-        };
-
-        // Automated Issuance Logic
-        document.getElementById('ticketForm').onsubmit = function(e) {
+        // Master Logic
+        const regForm = document.getElementById('regForm');
+        
+        regForm.onsubmit = (e) => {
             e.preventDefault();
-            
-            // Simulation of Verification (Professional Delay)
-            const btn = document.querySelector('.confirm-btn');
-            btn.innerText = "VERIFYING PAYMENT...";
-            btn.style.opacity = "0.5";
-
-            setTimeout(() => {
-                document.getElementById('ticketForm').style.display = 'none';
-                document.getElementById('issuedTicket').style.display = 'block';
-                
-                document.getElementById('t_name').innerText = document.getElementById('userName').value;
-                document.getElementById('t_qty').innerText = document.getElementById('userQty').value;
-                
-                alert("Payment Verified. Your Digital Ticket has been issued.");
-            }, 2500);
+            document.getElementById('regLayer').style.display = 'none';
+            document.getElementById('paymentLayer').style.display = 'block';
         };
+
+        function startVerification() {
+            document.getElementById('paymentLayer').style.display = 'none';
+            document.getElementById('verificationLayer').style.display = 'block';
+
+            // Professional delay to simulate bank verification
+            setTimeout(() => {
+                issueTicket();
+            }, 3000);
+        }
+
+        function issueTicket() {
+            document.getElementById('verificationLayer').style.display = 'none';
+            document.getElementById('ticketLayer').style.display = 'block';
+
+            // Map data to ticket
+            document.getElementById('t_name').innerText = document.getElementById('name').value;
+            document.getElementById('t_college').innerText = document.getElementById('college').value;
+            document.getElementById('t_qty').innerText = document.getElementById('qty').value;
+            document.getElementById('t_id').innerText = Math.floor(100000 + Math.random() * 900000);
+        }
+
+        function downloadAndReset() {
+            alert("Downloading Ticket...");
+            // Logic to reset the page for the next user
+            window.location.reload(); 
+        }
     </script>
 </body>
-</html>
+    </html>
+    

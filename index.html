@@ -14,8 +14,7 @@
             color: #f5f5f5;
             line-height: 1.6;
             overflow-x: hidden;
-            
-            /* STRICT LOCK: No selection allowed on page */
+            /* STRICT LOCK */
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -29,7 +28,7 @@
         .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
         .custom-scroll { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) rgba(255,255,255,0.03); }
 
-        /* ================= STICKY TOP BAR ================= */
+        /* ================= TOP BAR ================= */
         .top-bar {
             display: flex; align-items: center; justify-content: space-between;
             padding: 15px 40px; background: rgba(15,15,20,0.98);
@@ -39,20 +38,19 @@
         .logo-with-name { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
         .logo-with-name .logo { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; }
         .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; white-space: nowrap; }
-
         .search-bar { flex: 1; display: flex; max-width: 500px; }
         .search-bar input { 
             flex: 1; padding: 10px 18px; background: transparent; color: #fff; 
             border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); 
-            border-right: none; outline: none; min-width: 0; 
+            border-right: none; outline: none; user-select: text; -webkit-user-select: text;
         }
-        .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; white-space: nowrap; }
+        .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; }
 
         /* ================= ACTION BAR ================= */
         .action-bar {
             display: grid; grid-template-columns: repeat(3, minmax(115px, 1fr)); 
-            justify-content: flex-end; padding: 12px 40px; background: #0b0b0f;
-            gap: 10px; max-width: 1450px; margin: 0 auto;
+            justify-content: flex-end; padding: 12px 40px; gap: 10px;
+            max-width: 1450px; margin: 0 auto;
         }
         .action-bar button { width: 100%; height: 38px; background: rgba(255,255,255,0.06); color: #fff; border-radius: 6px; font-size: 13px; }
 
@@ -64,46 +62,44 @@
         /* ================= HERO ================= */
         .hero { position: relative; width: 100%; aspect-ratio: 16 / 9; max-height: 80vh; overflow: hidden; margin-bottom: 20px; background: #000; cursor: pointer; }
         .hero video { width: 100%; height: 100%; display: block; object-fit: contain; }
-        .mute-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; background: rgba(0, 0, 0, 0.4); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; opacity: 1; transition: opacity 0.3s; pointer-events: none; }
+        .mute-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; background: rgba(0,0,0,0.4); border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; opacity: 1; transition: 0.3s; pointer-events: none; }
         .mute-btn.hidden { opacity: 0; }
 
-        /* ================= MAIN LAYOUT ================= */
+        /* ================= MAIN ================= */
         main { display: grid; grid-template-columns: 260px 1fr; gap: 40px; padding: 40px; max-width: 1450px; margin: 0 auto; width: 100%; }
-        .category-box { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 12px; padding: 18px; height: fit-content; }
+        .category-box { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.07); border-radius: 12px; padding: 18px; height: fit-content; }
         .category-box h4 { font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 1.5px; margin-bottom: 15px; }
-        .category-box button { display: block; width: 100%; padding: 12px 15px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.04); color: #ccc; border-radius: 8px; text-align: left; font-size: 14px; }
+        .category-box button { display: block; width: 100%; padding: 12px 15px; margin-bottom: 8px; background: rgba(255,255,255,0.04); color: #ccc; border-radius: 8px; text-align: left; font-size: 14px; }
 
-        /* ================= SHARED GLOW & ELEVATION BEHAVIOR ================= */
-        .product, .premium-news-card, .profile-item { transition: all 0.4s ease; cursor: pointer; }
+        /* ================= CARDS & BEHAVIOR ================= */
+        .profile-slider { display: flex; overflow-x: auto; padding-bottom: 15px; }
+        .profile-item { flex: 0 0 20%; text-align: center; transition: all 0.4s ease; border-radius: 12px; padding: 10px 0; } 
+        .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.1); }
+        
+        .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
+        .product { background: #12121a; border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s ease; cursor: pointer; }
+        .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
 
-        .product.active-glow, .premium-news-card.active-glow, .profile-item.active-glow {
+        .premium-news-card { margin-top: 60px; padding: 40px; background: #0d0d11; border: 1px solid rgba(255,255,255,0.05); border-left: 2px solid #1db954; border-radius: 4px; transition: all 0.4s ease; cursor: pointer; position: relative; }
+
+        /* GLOBAL GLOW EFFECT */
+        .product.active-glow, 
+        .premium-news-card.active-glow, 
+        .profile-item.active-glow {
             border-color: #1db954 !important;
             box-shadow: 0 0 30px rgba(29, 185, 84, 0.3) !important;
-            background: rgba(29, 185, 84, 0.05) !important;
+            background: rgba(29, 185, 84, 0.03) !important;
             transform: translateY(-8px) !important;
         }
 
-        /* ================= PROFILES ================= */
-        .profile-slider { display: flex; overflow-x: auto; padding-bottom: 15px; }
-        .profile-item { flex: 0 0 20%; text-align: center; border-radius: 12px; padding: 10px; border: 1px solid transparent; } 
-        .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.1); }
-        .profile-item div { font-size: 12px; color: #aaa; white-space: nowrap; }
-
-        /* ================= PRODUCTS ================= */
-        .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
-        .product { background: #12121a; border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); }
-        .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
-
-        /* ================= NEWS CARD ================= */
-        .premium-news-card { margin-top: 60px; padding: 40px; background: #0d0d11; border-left: 2px solid #1db954; border-radius: 4px; box-shadow: 0 30px 60px rgba(0,0,0,0.5); }
         .news-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
         .live-badge { color: #1db954; font-weight: 800; font-size: 9px; letter-spacing: 4px; text-transform: uppercase; display: flex; align-items: center; gap: 10px; }
         .dot { width: 6px; height: 6px; background: #1db954; border-radius: 50%; animation: pulse-blink 1.5s infinite; }
         @keyframes pulse-blink { 50% { opacity: 0.4; } }
-        .news-title { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: #fff; margin-bottom: 15px; font-weight: 700; }
+        .news-title { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: #fff; margin-bottom: 15px; }
         .news-desc { color: #888; font-size: 1.05rem; line-height: 1.8; margin-bottom: 30px; }
+        .btn-pro-dispatch { background: #141418; color: #f5f5f5; padding: 10px 22px; border: 1px solid #252529; border-radius: 4px; font-size: 10px; text-transform: uppercase; font-weight: 700; }
 
-        /* ================= FOOTER ================= */
         footer { padding: 40px 20px; background: #08080c; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
         .copyright { font-size: 11px; color: #444; text-transform: uppercase; }
 
@@ -137,7 +133,7 @@
 
 <nav class="custom-scroll" id="mainNav">  
     <button class="active">All</button>
-    <button>Projects</button>
+    <a href="projects.html"><button>Projects</button></a>
     <a href="booktickets.html"><button>Book Tickets</button></a>
     <a href="news.html"><button>News</button></a>
     <a href="merchandise.html"><button>Merch</button></a>
@@ -149,13 +145,17 @@
     <video autoplay muted loop playsinline id="heroVideo">
         <source src="hero.mp4" type="video/mp4">
     </video>
-    <div class="mute-btn" id="muteToggle"><div id="muteIconContainer"></div></div>
+    <div class="mute-btn" id="muteToggle">
+        <div id="muteIconContainer">
+            <svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"></path></svg>
+        </div>
+    </div>
 </section>
 
 <main>
     <div class="category-box">  
         <h4>Sections</h4>
-        <button>Albums</button>  
+        <a href="albums.html"><button>Albums</button></a>  
         <a href="booktickets.html"><button>Reserve Your Seat</button></a>
         <a href="musiccourses.html"><button>Music Courses</button></a>  
         <a href="merchandise.html"><button>Merchandise</button></a>  
@@ -172,6 +172,12 @@
                 <a href="https://youtube.com/@sharan.musician?si=wZlASMES3BCSoclb" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
                 <a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="facebook.jpg" alt="FaceBook"><div>FaceBook</div></a>
                 <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="x.jpg" alt="X"><div>X (Twitter)</div></a>
+                <a href="https://www.imdb.com/name/nm17859010/?ref_=ext_shr" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="imdb.jpg" alt="IMDb"><div>IMDb</div></a>
+                <a href="https://music.apple.com/us/artist/sharan-musician/1671976313" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="applemusic.jpg" alt="Apple Music"><div>Apple Music</div></a>
+                <a href="https://music.amazon.in/artists/B0BVRTY3NT/sharan-musician" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="amazonmusic.jpg" alt="Amazon"><div>Amazon Music</div></a>
+                <a href="https://www.jiosaavn.com/artist/sharan-musician-songs/VgKiJSk2Acg_" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="jiosaavn.jpg" alt="JioSaavn"><div>JioSaavn</div></a>
+                <a href="https://gaana.com/artist/sharan-musician" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="gaana.jpg" alt="Gaana"><div>Gaana</div></a>
+                <a href="https://music.youtube.com/channel/UC0MZGJWNgvN5NR0P07joNKA?si=VovJo-lE_uh7GwKz" target="_blank" class="profile-item" onclick="highlightItem(this)"><img src="youtubemusic.jpg" alt="YouTube Music"><div>YouTube Music</div></a>
             </div>  
         </section>
 
@@ -200,43 +206,46 @@
                 <h2 class="news-title">...</h2>
                 <p class="news-desc">Initializing feed protocols...</p>
             </div>
-            <a href="news.html"><button class="btn-pro-dispatch">ALL UPDATES<span>→</span></button></a>
+            <script src="newsdata.js"></script>
+            <script>
+                (function() {
+                    if (typeof newsArchive !== 'undefined') {
+                        const item = newsArchive.find(n => n.sl === 1);
+                        if (item) {
+                            document.getElementById('instant-inject').innerHTML = `
+                                <h2 class="news-title">${item.heading}</h2>
+                                <p class="news-desc">${item.content}</p>
+                            `;
+                            document.getElementById('date-inject').innerText = item.date.toUpperCase();
+                        }
+                    }
+                })();
+            </script>
+            <a href="news.html"><button class="btn-pro-dispatch">ALL UPDATES <span>→</span></button></a>
         </div>
     </div>
 </main>
 
 <footer><div class="copyright">© 2026 Sharan Musician | All Rights Reserved.</div></footer>
 
-<script src="newsdata.js"></script>
 <script>
-    (function() {
-        if (typeof newsArchive !== 'undefined') {
-            const item = newsArchive.find(n => n.sl === 1);
-            if (item) {
-                document.getElementById('instant-inject').innerHTML = `<h2 class="news-title">${item.heading}</h2><p class="news-desc">${item.content}</p>`;
-                document.getElementById('date-inject').innerText = item.date.toUpperCase();
-            }
-        }
-    })();
-
-    // UNIVERSAL HIGHLIGHT LOGIC (Applied to Products, News, and Profiles)
     function highlightItem(element) {
-        document.querySelectorAll('.product, .premium-news-card, .profile-item').forEach(p => p.classList.remove('active-glow'));
+        document.querySelectorAll('.product, .premium-news-card, .profile-item').forEach(el => el.classList.remove('active-glow'));
         element.classList.add('active-glow');
     }
 
     const video = document.getElementById('heroVideo');
     const heroWrapper = document.getElementById('heroWrapper');
+    const muteBtn = document.getElementById('muteToggle');
     const muteIconContainer = document.getElementById('muteIconContainer');
-    const muteSVG = `<svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"></path></svg>`;
-    const unmuteSVG = `<svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>`;
 
-    muteIconContainer.innerHTML = muteSVG;
-    heroWrapper.addEventListener('click', () => {
+    function toggleMute() {
         video.muted = !video.muted;
-        muteIconContainer.innerHTML = video.muted ? muteSVG : unmuteSVG;
-    });
+        muteBtn.classList.toggle('hidden', video.muted);
+    }
+    heroWrapper.addEventListener('click', toggleMute);
 </script>
 
 </body>
-</html>
+    </html>
+    

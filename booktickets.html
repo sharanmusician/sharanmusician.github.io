@@ -22,6 +22,7 @@
         .custom-scroll::-webkit-scrollbar { height: 3px; display: block; }
         .custom-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
         .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        .custom-scroll { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) rgba(255,255,255,0.03); }
 
         /* ================= STICKY TOP BAR ================= */
         .top-bar {
@@ -36,8 +37,9 @@
             z-index: 1100;
             border-bottom: 1px solid rgba(255,255,255,0.08);
         }
-        .logo-with-name { display: flex; align-items: center; gap: 12px; }
-        .logo-with-name .logo { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; }
+        /* Logo links back to home */
+        .logo-link { display: flex; align-items: center; gap: 12px; cursor: pointer; }
+        .logo-link .logo { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; }
         .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; }
 
         /* ================= NAVIGATION ================= */
@@ -53,8 +55,9 @@
         }
         nav button { background: none; color: #999; font-size: 14px; padding: 20px 25px; flex: 0 0 auto; }
         nav button.active { color: #1db954; font-weight: 700; }
+        nav button:hover { color: #fff; }
 
-        /* ================= TICKETS HERO ================= */
+        /* ================= TICKETS CONTENT ================= */
         .tickets-container {
             max-width: 1200px;
             margin: 80px auto;
@@ -130,6 +133,7 @@
         @media (max-width: 900px) {
             .top-bar { padding: 15px 20px; }
             nav { justify-content: flex-start; }
+            /* Adjusted to accommodate the extra 'Home' button */
             nav button { flex: 0 0 25%; padding: 15px 5px; font-size: 12px; }
             .status-card h1 { font-size: 1.8rem; }
             .tickets-container { margin: 40px auto; padding: 0 20px; }
@@ -139,26 +143,29 @@
 <body>
 
 <div class="top-bar">  
-    <div class="logo-with-name">  
+    <a href="index.html" class="logo-link">
         <img src="logo.png" alt="Sharan Logo" class="logo">  
         <div class="musician-name">Sharan Musician</div>  
-    </div>
+    </a>
 </div>
 
 <nav class="custom-scroll">  
+    <button onclick="location.href='index.html'">Home</button>
     <button onclick="location.href='index.html'">All</button>
     <button onclick="location.href='index.html'">Projects</button>
     <button class="active">Book Tickets</button>
     <button onclick="location.href='index.html'">News</button>
     <button onclick="location.href='index.html'">Merch</button>
     <button onclick="location.href='index.html'">About</button>
-    <button onclick="location.href='index.html'">Contact</button>
 </nav>
 
 <div class="tickets-container">
     <div class="status-card">
         <div class="icon-box">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path></svg>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path>
+                <path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path>
+            </svg>
         </div>
         <h1>No Active Tours</h1>
         <p>Currently, there are no scheduled concerts or live events. Sharan is back in the studio crafting new sounds. Check back soon for tour dates.</p>
@@ -171,5 +178,4 @@
 </footer>
 
 </body>
-  </html>
-  
+</html>

@@ -42,7 +42,6 @@
         .logo-with-name .logo { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; }
         .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; white-space: nowrap; }
 
-        /* GREEN SEARCH BUTTON */
         .search-bar { flex: 1; display: flex; max-width: 500px; }
         .search-bar input { flex: 1; padding: 10px 18px; background: transparent; color: #fff; border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); border-right: none; outline: none; min-width: 0; }
         .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; white-space: nowrap; }
@@ -115,12 +114,7 @@
         /* ================= PROFILES SECTION ================= */
         .content-area { min-width: 0; }
         .profiles-section { margin-bottom: 50px; width: 100%; }
-        .profile-slider { 
-            display: flex; 
-            overflow-x: auto; 
-            padding-bottom: 15px; 
-            -webkit-overflow-scrolling: touch;
-        }
+        .profile-slider { display: flex; overflow-x: auto; padding-bottom: 15px; }
         .profile-item { flex: 0 0 20%; text-align: center; } 
         .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.1); }
         .profile-item div { font-size: 12px; color: #aaa; white-space: nowrap; }
@@ -130,95 +124,74 @@
         .product { background: #12121a; border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); }
         .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
 
-        /* ================= DYNAMIC NEWS SECTION ================= */
+        /* ================= ULTRA PROFESSIONAL NEWS SECTION ================= */
         .news-container {
             margin-top: 60px;
-            padding: 40px;
-            background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 24px;
+            padding: 45px;
+            background: linear-gradient(165deg, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 100%);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
             position: relative;
-            overflow: hidden;
         }
         .news-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 20px;
         }
-        .news-label {
-            font-size: 10px;
+        .news-tag {
+            font-size: 9px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             color: #1db954;
             font-weight: 700;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
         .pulse-dot {
-            height: 8px; width: 8px;
+            height: 6px; width: 6px;
             background: #1db954;
             border-radius: 50%;
-            box-shadow: 0 0 12px #1db954;
-            animation: pulse-glow 2s infinite;
+            box-shadow: 0 0 10px #1db954;
+            animation: pulse-simple 2s infinite;
         }
-        @keyframes pulse-glow {
-            0% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(1.3); }
-            100% { opacity: 1; transform: scale(1); }
-        }
+        @keyframes pulse-simple { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        
         .news-heading {
             font-family: 'Playfair Display', serif;
-            font-size: 2.2rem;
+            font-size: 2rem;
             margin-bottom: 15px;
-            color: #ffffff;
-            line-height: 1.2;
+            color: #fff;
+            letter-spacing: -0.5px;
         }
         .news-content {
-            color: #aaa;
-            font-size: 1.05rem;
-            max-width: 800px;
+            color: #888;
+            font-size: 1rem;
+            max-width: 750px;
             line-height: 1.8;
-            font-weight: 300;
+            font-weight: 400;
         }
-        .btn-press-archive {
-            background: #ffffff;
-            color: #000;
-            padding: 12px 28px;
-            border-radius: 50px;
-            font-size: 12px;
+        .archive-link {
+            font-size: 11px;
             font-weight: 700;
+            color: #555;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 25px;
-            display: inline-block;
+            letter-spacing: 1.5px;
+            transition: color 0.3s ease;
         }
-        .news-bg-letter {
-            position: absolute;
-            right: -40px;
-            bottom: -60px;
-            font-size: 20rem;
-            font-family: 'Playfair Display';
-            color: rgba(255,255,255,0.02);
-            pointer-events: none;
-            user-select: none;
-        }
+        .archive-link:hover { color: #1db954; }
 
-        /* ================= FOOTER ================= */
         footer { padding: 40px 20px; background: #08080c; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
         .copyright { font-size: 11px; color: #444; text-transform: uppercase; }
 
-        /* ================= MOBILE OPTIMIZATIONS ================= */
         @media (max-width: 900px) {
             .top-bar { padding: 10px 15px; flex-direction: column; }
-            .action-bar { padding: 10px 15px; grid-template-columns: repeat(3, 1fr); }
-            nav { justify-content: flex-start; }
-            nav button { flex: 0 0 25%; padding: 15px 5px; font-size: 12px; }
             main { display: flex; flex-direction: column; padding: 20px; }
-            .profile-item { flex: 0 0 25%; } 
-            .products { grid-template-columns: 1fr 1fr; }
-            .news-heading { font-size: 1.6rem; }
+            .news-container { padding: 30px 20px; }
+            .news-heading { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -236,9 +209,7 @@
 </div>
 
 <div class="action-bar">
-    <a href="https://drive.google.com/drive/folders/1C-cp90aqIc3ECZ7BM0imJD_4NuKFY8X0" target="_blank">
-        <button>Catalogue</button>
-    </a>
+    <a href="https://drive.google.com/drive/folders/1C-cp90aqIc3ECZ7BM0imJD_4NuKFY8X0" target="_blank"><button>Catalogue</button></a>
     <button>Event Booking</button>  
     <button>Cart</button>  
 </div>
@@ -246,9 +217,7 @@
 <nav class="custom-scroll" id="mainNav">  
     <button class="active">All</button>
     <button>Projects</button>
-    <a href="booktickets.html">
-    <button>Book Tickets</button>
-    </a>
+    <a href="booktickets.html"><button>Book Tickets</button></a>
     <button>News</button>
     <button>Merch</button>
     <button>About</button>
@@ -256,9 +225,7 @@
 </nav>
 
 <section class="hero" id="heroWrapper">
-    <video autoplay muted loop playsinline id="heroVideo">
-        <source src="hero.mp4" type="video/mp4">
-    </video>
+    <video autoplay muted loop playsinline id="heroVideo"><source src="hero.mp4" type="video/mp4"></video>
     <div class="mute-btn" id="muteToggle">
         <svg id="muteIcon" viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"></path></svg>
     </div>
@@ -268,14 +235,10 @@
     <div class="category-box">  
         <h4>Sections</h4>
         <button>Albums</button>  
-        <a href="booktickets.html">
-    <button>Reserve Your Seat</button>
-        </a>
+        <a href="booktickets.html"><button>Reserve Your Seat</button></a>
         <button>Music Courses</button>  
         <button>Merchandise</button>  
-        <a href="community.html">
-        <button>Community</button>
-        </a>
+        <a href="community.html"><button>Community</button></a>
     </div>
 
     <div class="content-area">
@@ -315,56 +278,33 @@
 
         <section class="news-container">
             <div class="news-header">
-                <div class="news-label">
-                    <div class="pulse-dot"></div>
-                    Latest Bulletin
-                </div>
-                <div id="newsDate" style="font-size: 11px; color: #555; font-weight: 500;">-- --- ----</div>
+                <div class="news-tag"><div class="pulse-dot"></div> Global Bulletin</div>
+                <a href="news.html" class="archive-link">Press Archive &rarr;</a>
             </div>
             
-            <div id="newsContentWrapper">
-                <h2 id="displayHeading" class="news-heading">Synchronizing News...</h2>
-                <p id="displayBody" class="news-content">Connecting to Sharan Musician press server.</p>
-                <a href="news.html" class="btn-press-archive">Press Archive</a>
+            <div id="dynamicNews">
+                <h2 id="newsTitle" class="news-heading">Synchronizing...</h2>
+                <p id="newsBody" class="news-content">Authenticating news feed.</p>
             </div>
-
-            <div class="news-bg-letter">S</div>
         </section>
     </div>
 </main>
 
-<footer>
-    <div class="copyright">© 2026 Sharan Musician | All Rights Reserved.</div>
-</footer>
+<footer><div class="copyright">© 2026 Sharan Musician | All Rights Reserved.</div></footer>
 
 <script src="newsdata.js"></script>
-
 <script>
-    /* Professional News Logic: Find Sl No 1 where status is Live (true) */
-    function initNews() {
-        const headingEl = document.getElementById('displayHeading');
-        const contentEl = document.getElementById('displayBody');
-        const dateEl = document.getElementById('newsDate');
-
+    function loadNews() {
         if (typeof newsArchive !== 'undefined' && newsArchive.length > 0) {
-            // Filter to find the first entry that is Live (status: "live")
-            const activeNews = newsArchive.find(item => item.status === "live");
-
-            if (activeNews) {
-                headingEl.innerText = activeNews.heading;
-                contentEl.innerText = activeNews.content;
-                dateEl.innerText = activeNews.date;
-            } else {
-                // If no "live" status found, fallback to the very first item
-                headingEl.innerText = newsArchive[0].heading;
-                contentEl.innerText = newsArchive[0].content;
-                dateEl.innerText = newsArchive[0].date;
+            // Find the first item where status is exactly "live"
+            const activeEntry = newsArchive.find(item => item.status === "live");
+            if (activeEntry) {
+                document.getElementById('newsTitle').innerText = activeEntry.heading;
+                document.getElementById('newsBody').innerText = activeEntry.content;
             }
         }
     }
-
-    // Run news initialization on load
-    window.onload = initNews;
+    window.onload = loadNews;
 
     const video = document.getElementById('heroVideo');
     const heroWrapper = document.getElementById('heroWrapper');
@@ -387,7 +327,6 @@
         });
     });
 </script>
-
 </body>
-    </html>
-    
+                                                                                                                                   </html>
+                                                                                                                                   

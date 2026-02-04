@@ -84,16 +84,17 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease; /* Match the smooth transition from booking page */
             cursor: pointer;
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* THE PERSISTENT GLOW CLASS */
+        /* EXACT BEHAVIOR FROM EVENTBOOKING: Glow + Elevation */
         .news-card.active-glow {
             border-color: var(--accent);
-            box-shadow: 0 0 25px rgba(0, 206, 100, 0.2);
+            box-shadow: 0 0 30px rgba(0, 206, 100, 0.2);
             background: rgba(0, 206, 100, 0.02);
+            transform: translateY(-5px); /* This is the elevation you requested */
         }
 
         .card-meta {
@@ -176,13 +177,10 @@
             }
         });
 
-        // FUNCTION TO HANDLE THE PERSISTENT GLOW
+        // Exact behavior logic: Clear previous and set new active state
         function highlightCard(element) {
-            // Remove glow from any card that has it
-            document.querySelectorAll('.news-card').forEach(card => {
-                card.classList.remove('active-glow');
-            });
-            // Add glow to the one just touched
+            const allCards = document.querySelectorAll('.news-card');
+            allCards.forEach(card => card.classList.remove('active-glow'));
             element.classList.add('active-glow');
         }
     </script>

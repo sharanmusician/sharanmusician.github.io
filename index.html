@@ -130,14 +130,13 @@
         .product { background: #12121a; border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); }
         .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
 
-        /* ================= NEWS SECTION DESIGN ================= */
+        /* ================= DYNAMIC NEWS BULLETIN ================= */
         .news-bulletin {
             margin-top: 60px;
             padding: 40px;
-            background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 20px;
-            position: relative;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 16px;
         }
         .news-top {
             display: flex;
@@ -164,6 +163,23 @@
         }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
         
+        /* PROFESSIONAL BUTTON STYLE */
+        .all-news-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .all-news-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
         .news-header-text {
             font-family: 'Playfair Display', serif;
             font-size: 2.2rem;
@@ -177,19 +193,6 @@
             max-width: 850px;
             font-weight: 300;
             line-height: 1.8;
-        }
-        .all-news-link {
-            font-size: 11px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #555;
-            border-bottom: 1px solid transparent;
-            transition: all 0.3s ease;
-        }
-        .all-news-link:hover {
-            color: #1db954;
-            border-bottom: 1px solid #1db954;
         }
 
         /* ================= FOOTER ================= */
@@ -306,11 +309,11 @@
                     <div class="live-dot"></div>
                     Latest Bulletin
                 </div>
-                <a href="news.html" class="all-news-link">Full Archive &rarr;</a>
+                <a href="news.html"><button class="all-news-btn">Full Archive</button></a>
             </div>
-            <div id="news-content-display">
-                <h2 class="news-header-text" id="target-heading">Synchronizing News...</h2>
-                <p class="news-body-text" id="target-body">Connecting to secure press feed.</p>
+            <div id="news-injection">
+                <h2 class="news-header-text">...</h2>
+                <p class="news-body-text"></p>
             </div>
         </section>
     </div>
@@ -323,27 +326,23 @@
 <script src="newsdata.js"></script>
 
 <script>
-    // Logic to find Sl No 1 that is Status: Live
-    function initGlobalNews() {
-        const heading = document.getElementById('target-heading');
-        const body = document.getElementById('target-body');
-
+    (function() {
         if (typeof newsArchive !== 'undefined' && newsArchive.length > 0) {
-            // Priority 1: Find item where sl is 1 AND status is "live"
-            // Priority 2: Find any item that is "live"
-            const activeNews = newsArchive.find(item => item.sl === 1 && item.status === "live") 
-                            || newsArchive.find(item => item.status === "live");
-
+            // Finding the first item that is Sl No 1 and Live
+            const activeNews = newsArchive.find(item => item.sl === 1 && item.status === "live") || newsArchive.find(item => item.status === "live");
+            
             if (activeNews) {
-                heading.innerText = activeNews.heading;
-                body.innerText = activeNews.content;
+                const container = document.getElementById('news-injection');
+                container.innerHTML = `
+                    <h2 class="news-header-text">${activeNews.heading}</h2>
+                    <p class="news-body-text">${activeNews.content}</p>
+                `;
             }
         }
-    }
+    })();
+</script>
 
-    // Initialize on window load
-    window.addEventListener('load', initGlobalNews);
-
+<script>
     const video = document.getElementById('heroVideo');
     const heroWrapper = document.getElementById('heroWrapper');
     const muteBtn = document.getElementById('muteToggle');
@@ -367,5 +366,5 @@
 </script>
 
 </body>
-        </html>
-        
+    </html>
+    

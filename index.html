@@ -18,7 +18,6 @@
         a { text-decoration: none; color: inherit; transition: all 0.2s ease; }
         button { cursor: pointer; border: none; transition: all 0.2s ease; outline: none; }
 
-        /* Consistent Grey Sliding Indicator Style */
         .custom-scroll::-webkit-scrollbar { height: 3px; display: block; }
         .custom-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
         .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
@@ -42,7 +41,6 @@
         .logo-with-name .logo { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; }
         .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; white-space: nowrap; }
 
-        /* GREEN SEARCH BUTTON */
         .search-bar { flex: 1; display: flex; max-width: 500px; }
         .search-bar input { flex: 1; padding: 10px 18px; background: transparent; color: #fff; border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); border-right: none; outline: none; min-width: 0; }
         .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; white-space: nowrap; }
@@ -133,67 +131,36 @@
         /* ================= NEWS SECTION STYLES ================= */
         .news-section { margin-top: 60px; }
         .news-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 25px; }
-        .news-container { display: flex; flex-direction: column; gap: 20px; }
         .news-card {
             background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
             border: 1px solid rgba(255,255,255,0.05);
             border-radius: 12px;
             padding: 30px;
+            margin-bottom: 20px;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .news-card:hover {
-            background: rgba(255,255,255,0.05);
             border-color: rgba(29, 185, 84, 0.4);
             transform: translateX(5px);
+            background: rgba(255,255,255,0.05);
         }
         .news-date { font-size: 11px; color: #1db954; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; }
         .news-headline { font-family: 'Playfair Display', serif; font-size: 1.8rem; line-height: 1.2; margin-bottom: 12px; color: #fff; }
         .news-body { color: #999; font-size: 14px; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .all-news-btn { font-size: 12px; font-weight: 700; color: #1db954; text-transform: uppercase; letter-spacing: 1px; }
 
-        /* ================= UPDATED FOOTER ================= */
         footer { 
-            width: 100%; 
-            text-align: center; 
-            font-size: 10px; 
-            color: #444; 
-            padding: 40px 20px 20px; 
-            background: #08080c; 
-            border-top: 1px solid rgba(255,255,255,0.05); 
+            width: 100%; text-align: center; font-size: 10px; color: #444; padding: 40px 20px 20px; 
+            background: #08080c; border-top: 1px solid rgba(255,255,255,0.05); 
         }
-
-        .legal-row { 
-            margin-bottom: 8px; 
-            display: flex; 
-            justify-content: center; 
-            gap: 20px; 
-        }
-
-        .legal-row a { 
-            color: #555; 
-            text-decoration: none; 
-            transition: color 0.2s;
-        }
-
+        .legal-row { margin-bottom: 8px; display: flex; justify-content: center; gap: 20px; }
         .legal-row a:hover { color: #1db954; }
 
-        .merchant-line { 
-            font-weight: 600; 
-            color: #555; 
-            margin-bottom: 5px; 
-            text-transform: uppercase;
-        }
-
-        /* ================= MOBILE OPTIMIZATIONS ================= */
         @media (max-width: 900px) {
             .top-bar { padding: 10px 15px; flex-direction: column; }
             .action-bar { padding: 10px 15px; grid-template-columns: repeat(3, 1fr); }
             nav { justify-content: flex-start; }
-            nav button { flex: 0 0 25%; padding: 15px 5px; font-size: 12px; }
             main { display: flex; flex-direction: column; padding: 20px; }
-            .profile-item { flex: 0 0 25%; } 
             .products { grid-template-columns: 1fr 1fr; }
-            .news-headline { font-size: 1.4rem; }
         }
     </style>
 </head>
@@ -221,9 +188,7 @@
 <nav class="custom-scroll" id="mainNav">  
     <button class="active">All</button>
     <button>Projects</button>
-    <a href="booktickets.html">
-        <button>Book Tickets</button>
-    </a>
+    <a href="booktickets.html"><button>Book Tickets</button></a>
     <button>News</button>
     <button>Merch</button>
     <button>About</button>
@@ -243,32 +208,22 @@
     <div class="category-box">  
         <h4>Sections</h4>
         <button>Albums</button>  
-        <a href="booktickets.html">
-            <button>Reserve Your Seat</button>
-        </a>
+        <a href="booktickets.html"><button>Reserve Your Seat</button></a>
         <button>Music Courses</button>  
         <button>Merchandise</button>  
-        <a href="community.html">
-            <button>Community</button>
-        </a>
+        <a href="community.html"><button>Community</button></a>
     </div>
 
     <div class="content-area">
         <section class="profiles-section">  
             <h3 style="margin-bottom:20px; font-weight: 500;">Profiles</h3>
             <div class="profile-slider custom-scroll">  
-                <a href="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=pRXJonnGRHWT5XegBTw-eA" target="_blank" class="profile-item"><img src="spotify.jpg" alt="Spotify"><div>Spotify</div></a>
-                <a href="https://g.co/kgs/gtv47AQ" target="_blank" class="profile-item"><img src="google.jpg" alt="Google"><div>Google</div></a>
-                <a href="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0" target="_blank" class="profile-item"><img src="instagram.jpg" alt="Instagram"><div>Instagram</div></a>
-                <a href="https://youtube.com/@sharan.musician?si=wZlASMES3BCSoclb" target="_blank" class="profile-item"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
-                <a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" target="_blank" class="profile-item"><img src="facebook.jpg" alt="FaceBook"><div>FaceBook</div></a>
-                <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" target="_blank" class="profile-item"><img src="x.jpg" alt="X (Twitter)"><div>X (Twitter)</div></a>
-                <a href="https://www.imdb.com/name/nm17859010/?ref_=ext_shr" target="_blank" class="profile-item"><img src="imdb.jpg" alt="IMDb"><div>IMDb</div></a>
-                <a href="https://music.apple.com/us/artist/sharan-musician/1671976313" target="_blank" class="profile-item"><img src="applemusic.jpg" alt="Apple Music"><div>Apple Music</div></a>
-                <a href="https://music.amazon.in/artists/B0BVRTY3NT/sharan-musician?marketplaceId=A21TJRUUN4KGV&musicTerritory=IN&ref=dm_sh_gweJQXn29RCPnuig7hXbrTAHB" target="_blank" class="profile-item"><img src="amazonmusic.jpg" alt="Amazon Music"><div>Amazon Music</div></a>
-                <a href="https://www.jiosaavn.com/artist/sharan-musician-songs/VgKiJSk2Acg_" target="_blank" class="profile-item"><img src="jiosaavn.jpg" alt="JioSaavn"><div>JioSaavn</div></a>
-                <a href="https://gaana.com/artist/sharan-musician" target="_blank" class="profile-item"><img src="gaana.jpg" alt="Gaana"><div>Gaana</div></a>
-                <a href="https://music.youtube.com/channel/UC0MZGJWNgvN5NR0P07joNKA?si=VovJo-lE_uh7GwKz" target="_blank" class="profile-item"><img src="youtubemusic.jpg" alt="YouTube Music"><div>YouTube Music</div></a>
+                <a href="#" class="profile-item"><img src="spotify.jpg"><div>Spotify</div></a>
+                <a href="#" class="profile-item"><img src="google.jpg"><div>Google</div></a>
+                <a href="#" class="profile-item"><img src="instagram.jpg"><div>Instagram</div></a>
+                <a href="#" class="profile-item"><img src="youtube.jpg"><div>YouTube</div></a>
+                <a href="#" class="profile-item"><img src="facebook.jpg"><div>FaceBook</div></a>
+                <a href="#" class="profile-item"><img src="x.jpg"><div>X (Twitter)</div></a>
             </div>  
         </section>
 
@@ -290,11 +245,11 @@
 
         <section class="news-section">
             <div class="news-header">
-                <h3 style="font-weight: 500;">Headline Chronicles</h3>
-                <a href="news.html" class="all-news-btn">Full Archive &rarr;</a>
+                <h3 style="font-weight: 500;">Latest News</h3>
+                <a href="news.html" style="font-size: 12px; color: #1db954; font-weight: 700;">VIEW ALL →</a>
             </div>
-            <div id="news-container" class="news-container">
-                <p style="color: #333; font-size: 13px;">Synchronizing news feed...</p>
+            <div id="news-container">
+                <p style="color: #333; font-size: 13px;">Checking for updates...</p>
             </div>
         </section>
     </div>
@@ -307,17 +262,15 @@
         <a href="refunds.html">Refunds</a>
         <a href="contact.html">Contact</a>
     </div>
-    <div class="Royal Red Bull Media">Royal Red Bull Media</div>
     <div class="copyright">© 2026 SHARAN MUSICIAN | ALL RIGHTS RESERVED.</div>
 </footer>
 
 <script>
-    // Hero Video Logic
+    // Existing Video/Nav Script
     const video = document.getElementById('heroVideo');
     const heroWrapper = document.getElementById('heroWrapper');
     const muteBtn = document.getElementById('muteToggle');
     let hideTimeout;
-
     function toggleMute() {
         clearTimeout(hideTimeout);
         video.muted = !video.muted;
@@ -326,7 +279,6 @@
     }
     heroWrapper.addEventListener('click', toggleMute);
 
-    // Nav Logic
     const navButtons = document.querySelectorAll('#mainNav button');
     navButtons.forEach(btn => {
         btn.addEventListener('click', () => {
@@ -335,58 +287,56 @@
         });
     });
 
-    // NEWS FEED LOGIC (From Google Sheet)
-    const SHEET_URL = 'https://docs.google.com/spreadsheets/d/16JggVcLoc0um32_0zFfWBeBdnF8ou6WYwO994FeLaCM/gviz/tq?tqx=out:csv';
+    // UPDATED NEWS FETCH (ULTRA RELIABLE)
+    const SHEET_ID = '16JggVcLoc0um32_0zFfWBeBdnF8ou6WYwO994FeLaCM';
+    const TAB_NAME = 'Sheet1'; // Ensure this matches your tab name exactly
+    const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${TAB_NAME}`;
 
-    async function fetchNews() {
+    async function loadNews() {
         try {
-            const response = await fetch(SHEET_URL);
-            const text = await response.text();
+            const response = await fetch(CSV_URL);
+            if (!response.ok) throw new Error('Network error');
+            const data = await response.text();
             
-            // Basic CSV Parse (splits by line and handles quotes)
-            const rows = text.split('\n').map(row => row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/));
+            // Advanced CSV parsing to handle quotes/commas correctly
+            const rows = data.split(/\r?\n/).map(row => {
+                return row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(cell => cell.replace(/^"|"$/g, '').trim());
+            });
+
             const container = document.getElementById('news-container');
             container.innerHTML = '';
+            let count = 0;
 
-            let shownCount = 0;
-            // Loop through rows (skip header row 0)
-            for(let i = 1; i < rows.length; i++) {
-                if(shownCount >= 2) break; // Only show 2 news items on homepage
-
-                const row = rows[i];
-                // Columns: 0:Date, 1:Heading, 2:Content, 3:Status
-                const date = row[0] ? row[0].replace(/"/g, '') : '';
-                const heading = row[1] ? row[1].replace(/"/g, '') : '';
-                const content = row[2] ? row[2].replace(/"/g, '') : '';
-                const status = row[3] ? row[3].replace(/"/g, '').toLowerCase().trim() : '';
-
-                if(status === 'live') {
+            // Start from row 1 (ignore header)
+            for (let i = 1; i < rows.length; i++) {
+                const [date, heading, content, status] = rows[i];
+                
+                // Only show if status is "Live" (case-insensitive)
+                if (status && status.toLowerCase() === 'live' && count < 2) {
                     const card = `
                         <div class="news-card">
                             <div class="news-date">${date}</div>
                             <h4 class="news-headline">${heading}</h4>
                             <p class="news-body">${content}</p>
-                            <a href="news.html" style="display:inline-block; margin-top:15px; font-size:11px; border-bottom:1px solid #1db954; padding-bottom:2px; color:#fff; font-weight:600;">READ MORE</a>
+                            <a href="news.html" style="color:#1db954; font-size:11px; font-weight:700; margin-top:15px; display:inline-block; border-bottom:1px solid #1db954;">READ FULL STORY</a>
                         </div>
                     `;
-                    container.insertAdjacentHTML('beforeend', card);
-                    shownCount++;
+                    container.innerHTML += card;
+                    count++;
                 }
             }
 
-            if(shownCount === 0) {
-                container.innerHTML = '<p style="color:#444; font-size:13px;">No live announcements at the moment.</p>';
+            if (count === 0) {
+                container.innerHTML = '<p style="color:#444;">Stay tuned for upcoming news.</p>';
             }
-
-        } catch (error) {
-            console.error("News Load Error:", error);
-            document.getElementById('news-container').innerHTML = '<p style="color:#444;">Feed offline.</p>';
+        } catch (err) {
+            console.error("Fetch failed:", err);
+            document.getElementById('news-container').innerHTML = '<p style="color:#444;">Unable to load news feed.</p>';
         }
     }
 
-    fetchNews();
+    loadNews();
 </script>
 
 </body>
-        </html>
-        
+</html>

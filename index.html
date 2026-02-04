@@ -18,6 +18,7 @@
         a { text-decoration: none; color: inherit; transition: all 0.2s ease; }
         button { cursor: pointer; border: none; transition: all 0.2s ease; outline: none; }
 
+        /* Consistent Grey Sliding Indicator Style */
         .custom-scroll::-webkit-scrollbar { height: 3px; display: block; }
         .custom-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
         .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
@@ -41,6 +42,7 @@
         .logo-with-name .logo { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; }
         .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; white-space: nowrap; }
 
+        /* GREEN SEARCH BUTTON */
         .search-bar { flex: 1; display: flex; max-width: 500px; }
         .search-bar input { flex: 1; padding: 10px 18px; background: transparent; color: #fff; border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); border-right: none; outline: none; min-width: 0; }
         .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; white-space: nowrap; }
@@ -120,63 +122,56 @@
             -webkit-overflow-scrolling: touch;
         }
         .profile-item { flex: 0 0 20%; text-align: center; } 
-        .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s; }
-        .profile-item:hover img { transform: scale(1.1); border-color: #1db954; }
-        .profile-item div { font-size: 11px; color: #aaa; white-space: nowrap; }
+        .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.1); }
+        .profile-item div { font-size: 12px; color: #aaa; white-space: nowrap; }
 
         /* ================= PRODUCTS ================= */
         .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
         .product { background: #12121a; border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); }
         .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
 
-        /* ================= 20CR NEWS LAYOUT ================= */
+        /* ================= PRO DISPATCH NEWS SECTION ================= */
         .premium-news-card {
             margin-top: 60px;
-            padding: 30px;
+            padding: 40px;
             background: #0d0d11;
             border-left: 2px solid #1db954;
             border-radius: 4px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.5);
             position: relative;
         }
-        .news-wire-meta {
+        .news-header-flex {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
-        .wire-label {
+        .live-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
             font-size: 9px;
             letter-spacing: 4px;
             text-transform: uppercase;
             color: #1db954;
             font-weight: 800;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
-        .pulse { width: 4px; height: 4px; background: #1db954; border-radius: 50%; box-shadow: 0 0 10px #1db954; animation: blink 1.5s infinite; }
-        @keyframes blink { 50% { opacity: 0.3; } }
+        .dot { width: 6px; height: 6px; background: #1db954; border-radius: 50%; box-shadow: 0 0 10px #1db954; animation: pulse-blink 1.5s infinite; }
+        @keyframes pulse-blink { 50% { opacity: 0.4; } }
 
         .news-date-side {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 9px;
+            font-size: 10px;
             color: #444;
-            background: rgba(255,255,255,0.02);
-            padding: 3px 12px;
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 2px;
+            letter-spacing: 1px;
         }
 
-        .news-title { font-family: 'Playfair Display', serif; font-size: 2.3rem; color: #fff; margin-bottom: 12px; letter-spacing: -0.8px; line-height: 1.1; font-weight: 700; }
-        .news-desc { color: #888; font-size: 0.95rem; line-height: 1.8; margin-bottom: 30px; max-width: 90%; }
-
-        /* PROFESSIONAL DISPATCH BUTTON */
-        .btn-dispatch {
-            background: transparent;
-            color: #666;
-            padding: 6px 14px;
-            border: 1px solid #222;
+        /* THE PRO DISPATCH BUTTON */
+        .btn-pro-dispatch {
+            background: #141418;
+            color: #f5f5f5;
+            padding: 8px 18px;
+            border: 1px solid #252529;
             border-radius: 2px;
             font-size: 9px;
             text-transform: uppercase;
@@ -184,25 +179,31 @@
             font-weight: 700;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
         }
-        .btn-dispatch:hover {
-            color: #fff;
-            border-color: #555;
-            background: rgba(255,255,255,0.03);
-            gap: 15px;
+        .btn-pro-dispatch:hover {
+            background: #1db954;
+            color: #000;
+            border-color: #1db954;
+            box-shadow: 0 0 20px rgba(29, 185, 84, 0.3);
+            gap: 16px;
         }
-        .btn-dispatch span { color: #1db954; }
+        .btn-pro-dispatch span { font-size: 11px; }
+
+        .news-title { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: #fff; margin-bottom: 15px; font-weight: 700; letter-spacing: -0.5px; }
+        .news-desc { color: #888; font-size: 1.05rem; line-height: 1.8; max-width: 90%; margin-bottom: 25px; }
 
         /* ================= FOOTER ================= */
         footer { padding: 40px 20px; background: #08080c; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
         .copyright { font-size: 11px; color: #444; text-transform: uppercase; }
 
+        /* ================= MOBILE OPTIMIZATIONS ================= */
         @media (max-width: 900px) {
             .top-bar { padding: 10px 15px; flex-direction: column; }
             main { display: flex; flex-direction: column; padding: 20px; }
             .news-title { font-size: 1.8rem; }
+            .premium-news-card { padding: 25px; }
         }
     </style>
 </head>
@@ -292,18 +293,16 @@
         </section>
 
         <div class="premium-news-card">
-            <div class="news-wire-meta">
-                <div class="wire-label"><div class="pulse"></div> Media Dispatch</div>
-                <div id="date-inject" class="news-date-side">LIVE FEED</div>
+            <div class="news-header-flex">
+                <div class="live-badge"><div class="dot"></div> Media Dispatch</div>
+                <div id="date-inject" class="news-date-side">LOADING FEED...</div>
             </div>
-            
-            <div id="news-inject">
+            <div id="instant-inject">
                 <h2 class="news-title">...</h2>
-                <p class="news-desc">Reading data stream...</p>
+                <p class="news-desc">Synchronizing with release server...</p>
             </div>
-
             <a href="news.html">
-                <button class="btn-dispatch">PRO DISPATCH <span>→</span></button>
+                <button class="btn-pro-dispatch">Pro Dispatch <span>→</span></button>
             </a>
         </div>
     </div>
@@ -318,13 +317,13 @@
 <script>
     (function() {
         if (typeof newsArchive !== 'undefined') {
-            const latest = newsArchive.find(n => n.sl === 1);
-            if (latest) {
-                document.getElementById('news-inject').innerHTML = `
-                    <h2 class="news-title">${latest.heading}</h2>
-                    <p class="news-desc">${latest.content}</p>
+            const item = newsArchive.find(n => n.sl === 1);
+            if (item) {
+                document.getElementById('instant-inject').innerHTML = `
+                    <h2 class="news-title">${item.heading}</h2>
+                    <p class="news-desc">${item.content}</p>
                 `;
-                document.getElementById('date-inject').innerText = latest.date.toUpperCase();
+                document.getElementById('date-inject').innerText = item.date.toUpperCase();
             }
         }
     })();
@@ -352,4 +351,5 @@
 </script>
 
 </body>
-</html>
+                                                                                                                                                                                                                                                              </html>
+                                                                                                                                                                                                                                                              

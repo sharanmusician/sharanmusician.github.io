@@ -366,6 +366,21 @@
                 <h2 class="news-title">...</h2>
                 <p class="news-desc">Initializing feed protocols...</p>
             </div>
+            <script src="newsdata.js"></script>
+            <script>
+                (function() {
+                    if (typeof newsArchive !== 'undefined') {
+                        const item = newsArchive.find(n => n.sl === 1);
+                        if (item) {
+                            document.getElementById('instant-inject').innerHTML = `
+                                <h2 class="news-title">${item.heading}</h2>
+                                <p class="news-desc">${item.content}</p>
+                            `;
+                            document.getElementById('date-inject').innerText = item.date.toUpperCase();
+                        }
+                    }
+                })();
+            </script>
             <a href="news.html">
                 <button class="btn-pro-dispatch">ALL UPDATES<span>→</span></button>
             </a>
@@ -377,26 +392,9 @@
     <div class="copyright">© 2026 Sharan Musician | All Rights Reserved.</div>
 </footer>
 
-<script src="newsdata.js"></script>
-
 <script>
-    (function() {
-        if (typeof newsArchive !== 'undefined') {
-            const item = newsArchive.find(n => n.sl === 1);
-            if (item) {
-                document.getElementById('instant-inject').innerHTML = `
-                    <h2 class="news-title">${item.heading}</h2>
-                    <p class="news-desc">${item.content}</p>
-                `;
-                const dateEl = document.getElementById('date-inject');
-                if (dateEl) dateEl.innerText = item.date.toUpperCase();
-            }
-        }
-    })();
-
     // UNIVERSAL HIGHLIGHT LOGIC (Handles Products & News Card)
     function highlightItem(element) {
-        // Remove glow from products AND news card
         document.querySelectorAll('.product, .premium-news-card').forEach(p => p.classList.remove('active-glow'));
         element.classList.add('active-glow');
     }
@@ -424,6 +422,4 @@
     const navButtons = document.querySelectorAll('#mainNav button');
     navButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            navButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-                    
+            n

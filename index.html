@@ -130,9 +130,38 @@
         .product { background: #12121a; border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); }
         .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
 
-        /* ================= FOOTER ================= */
-        footer { padding: 40px 20px; background: #08080c; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
-        .copyright { font-size: 11px; color: #444; text-transform: uppercase; }
+        /* ================= UPDATED FOOTER (EXACT SIZE) ================= */
+        footer { 
+            width: 100%; 
+            text-align: center; 
+            font-size: 10px; /* Matching size */
+            color: #444; 
+            padding: 40px 20px 20px; 
+            background: #08080c; 
+            border-top: 1px solid rgba(255,255,255,0.05); 
+        }
+
+        .legal-row { 
+            margin-bottom: 8px; 
+            display: flex; 
+            justify-content: center; 
+            gap: 20px; 
+        }
+
+        .legal-row a { 
+            color: #555; 
+            text-decoration: none; 
+            transition: color 0.2s;
+        }
+
+        .legal-row a:hover { color: #1db954; }
+
+        .merchant-line { 
+            font-weight: 600; 
+            color: #555; 
+            margin-bottom: 5px; 
+            text-transform: uppercase;
+        }
 
         /* ================= MOBILE OPTIMIZATIONS ================= */
         @media (max-width: 900px) {
@@ -171,7 +200,7 @@
     <button class="active">All</button>
     <button>Projects</button>
     <a href="booktickets.html">
-    <button>Book Tickets</button>
+        <button>Book Tickets</button>
     </a>
     <button>News</button>
     <button>Merch</button>
@@ -193,12 +222,12 @@
         <h4>Sections</h4>
         <button>Albums</button>  
         <a href="booktickets.html">
-    <button>Reserve Your Seat</button>
+            <button>Reserve Your Seat</button>
         </a>
         <button>Music Courses</button>  
         <button>Merchandise</button>  
         <a href="community.html">
-        <button>Community</button>
+            <button>Community</button>
         </a>
     </div>
 
@@ -240,7 +269,14 @@
 </main>
 
 <footer>
-    <div class="copyright">© 2026 Sharan Musician | All Rights Reserved.</div>
+    <div class="legal-row">
+        <a href="privacy.html">Privacy</a>
+        <a href="terms.html">Terms</a>
+        <a href="refunds.html">Refunds</a>
+        <a href="contact.html">Contact</a>
+    </div>
+    <div class="merchant-line">Merchant: [YOUR NAME PER PAN]</div>
+    <div class="copyright">© 2026 SHARAN MUSICIAN | ALL RIGHTS RESERVED.</div>
 </footer>
 
 <script>

@@ -3,217 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Premium Booking | Elite Access</title>
+    <title>Elite Access Portal</title>
     <style>
         :root {
-            --bg-obsidian: #0a0a0a;
-            --card-grey: #161616;
-            --border-grey: #2a2a2a;
-            --text-main: #ffffff;
-            --text-dim: #a0a0a0;
-            --accent-gold: #c5a059; /* Optional gold touch, or change to #ffffff */
-            --transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            --pitch-black: #050505;
+            --onyx: #121212;
+            --gunmetal: #1d1d1d;
+            --accent-gold: #9d814d; /* Muted Champagne Gold */
+            --text-silver: #8a8a8a;
+            --text-gold: #c5a059;
         }
 
         body {
-            background-color: var(--bg-obsidian);
-            color: var(--text-main);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--pitch-black);
+            color: var(--text-silver);
+            font-family: 'Inter', sans-serif;
             margin: 0;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            letter-spacing: -0.02em;
+            overflow-x: hidden;
         }
 
-        /* Minimalist High-End Navbar */
-        .premium-nav {
-            padding: 30px 5%;
+        /* Top Tier Navigation */
+        .nav-bar {
+            padding: 40px 6%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid var(--border-grey);
-            backdrop-filter: blur(10px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
-        .home-btn {
-            color: var(--text-dim);
+        .home-link {
             text-decoration: none;
-            text-transform: uppercase;
+            color: var(--text-gold);
             font-size: 11px;
             font-weight: 700;
-            letter-spacing: 0.2em;
-            display: flex;
-            align-items: center;
-            transition: var(--transition);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            border: 1px solid var(--accent-gold);
+            padding: 12px 25px;
+            transition: all 0.5s ease;
         }
 
-        .home-btn:hover {
-            color: var(--text-main);
-            transform: translateX(-5px);
+        .home-link:hover {
+            background: var(--accent-gold);
+            color: var(--pitch-black);
+            box-shadow: 0 0 20px rgba(157, 129, 77, 0.4);
         }
 
-        .home-btn svg {
-            margin-right: 10px;
-            width: 16px;
-        }
-
-        /* Main Container */
-        .main-content {
+        /* Central Booking Stage */
+        .booking-section {
             flex: 1;
             display: flex;
-            align-items: center;
             justify-content: center;
-            padding: 40px 20px;
+            align-items: center;
+            padding-bottom: 80px;
         }
 
-        .booking-card {
-            background: var(--card-grey);
+        .glass-vault {
+            background: linear-gradient(145deg, #161616, #0a0a0a);
             width: 100%;
-            max-width: 480px;
-            padding: 50px;
-            border-radius: 4px; /* Sharp edges look more professional than round */
-            border: 1px solid var(--border-grey);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 500px;
+            padding: 60px;
+            border-radius: 2px; /* Brutalist sharp edges */
+            border-left: 1px solid var(--accent-gold);
+            position: relative;
+            box-shadow: 40px 40px 80px #000000;
         }
 
-        .header-area {
-            text-align: center;
+        .glass-vault::before {
+            content: "";
+            position: absolute;
+            top: 0; right: 0;
+            width: 50px; height: 50px;
+            border-top: 1px solid var(--accent-gold);
+            border-right: 1px solid var(--accent-gold);
+        }
+
+        h1 {
+            color: var(--text-gold);
+            font-size: 28px;
+            font-weight: 200;
+            text-transform: uppercase;
+            letter-spacing: 8px;
             margin-bottom: 40px;
+            text-align: center;
         }
 
-        .header-area h1 {
-            font-size: 24px;
-            font-weight: 300;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 10px;
-        }
-
-        .header-area p {
-            color: var(--text-dim);
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* Ultra-Clean Inputs */
-        .input-group {
-            margin-bottom: 25px;
+        /* Bespoke Input Styling */
+        .field {
+            margin-bottom: 35px;
+            position: relative;
         }
 
         label {
             display: block;
-            font-size: 10px;
+            font-size: 9px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            margin-bottom: 15px;
             color: var(--accent-gold);
-            margin-bottom: 8px;
-            font-weight: 600;
         }
 
         input {
             width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid var(--border-grey);
-            padding: 12px 0;
-            color: white;
-            font-size: 16px;
-            transition: var(--transition);
-            border-radius: 0;
+            background: var(--onyx);
+            border: 1px solid var(--gunmetal);
+            padding: 15px;
+            color: var(--text-gold);
+            font-size: 14px;
+            letter-spacing: 1px;
+            box-sizing: border-box;
+            transition: border 0.3s ease;
         }
 
         input:focus {
             outline: none;
-            border-color: var(--text-main);
+            border: 1px solid var(--accent-gold);
+            background: #181818;
         }
 
-        input::placeholder {
-            color: #333;
-        }
-
-        /* The 2Cr Button */
-        .confirm-btn {
+        /* The Power Button */
+        .gold-cta {
             width: 100%;
-            background: var(--text-main);
-            color: var(--bg-obsidian);
-            border: none;
-            padding: 18px;
-            font-size: 12px;
-            font-weight: 800;
+            background: transparent;
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 20px;
             text-transform: uppercase;
-            letter-spacing: 3px;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: var(--transition);
-        }
-
-        .confirm-btn:hover {
-            background: var(--accent-gold);
-            color: #fff;
             letter-spacing: 5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s;
+            margin-top: 20px;
         }
 
-        /* Bottom Detail */
-        .footer-note {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 11px;
-            color: var(--border-grey);
+        .gold-cta:hover {
+            background: linear-gradient(to right, #9d814d, #c5a059);
+            color: var(--pitch-black);
+            border: 1px solid transparent;
+        }
+
+        .watermark {
+            position: fixed;
+            bottom: 40px;
+            right: -40px;
+            transform: rotate(-90deg);
+            font-size: 10px;
+            letter-spacing: 10px;
+            color: #222;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            pointer-events: none;
         }
     </style>
 </head>
 <body>
 
-    <nav class="premium-nav">
-        <a href="index.html" class="home-btn">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
-            Return to Dashboard
-        </a>
-        <div style="font-size: 10px; letter-spacing: 3px; color: var(--accent-gold);">MEMBERS ONLY</div>
+    <nav class="nav-bar">
+        <a href="index.html" class="home-link">Exit to Home</a>
+        <div style="color: #333; font-size: 10px; letter-spacing: 5px;">EST. 2026</div>
     </nav>
 
-    <div class="main-content">
-        <div class="booking-card">
-            <div class="header-area">
-                <h1>Reservation</h1>
-                <p>Secure your experience</p>
-            </div>
-
-            <form action="#">
-                <div class="input-group">
-                    <label>Guest Identity</label>
-                    <input type="text" placeholder="FULL NAME" required>
+    <section class="booking-section">
+        <div class="glass-vault">
+            <h1>Acquire</h1>
+            
+            <form>
+                <div class="field">
+                    <label>Client Reference</label>
+                    <input type="text" placeholder="NAME" required>
                 </div>
 
-                <div class="input-group">
-                    <label>Contact Email</label>
-                    <input type="email" placeholder="EMAIL ADDRESS" required>
+                <div class="field">
+                    <label>Digital Link</label>
+                    <input type="email" placeholder="EMAIL" required>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-                    <div class="input-group">
-                        <label>Date</label>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div class="field">
+                        <label>Preferred Date</label>
                         <input type="date" required>
                     </div>
-                    <div class="input-group">
-                        <label>Guests</label>
+                    <div class="field">
+                        <label>Allocation</label>
                         <input type="number" value="1" min="1">
                     </div>
                 </div>
 
-                <button type="submit" class="confirm-btn">Confirm Booking</button>
+                <button type="submit" class="gold-cta">Confirm Request</button>
             </form>
-            
-            <div class="footer-note">Secure Encrypted Transaction</div>
         </div>
-    </div>
+    </section>
+
+    <div class="watermark">PRIVÉ ACCESS</div>
 
 </body>
 </html>

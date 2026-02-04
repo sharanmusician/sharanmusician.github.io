@@ -28,14 +28,13 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 40px 20px;
+            padding: 40px 20px 20px;
             background: radial-gradient(circle at top right, #1a1a1a, #000000);
         }
 
         .profile-header {
             text-align: center;
             margin-bottom: 40px;
-            animation: fadeInDown 0.8s ease;
         }
 
         .profile-logo {
@@ -45,11 +44,10 @@
             border: 2px solid var(--logo-red);
             margin-bottom: 15px;
             object-fit: cover;
-            box-shadow: 0 0 20px rgba(255, 49, 49, 0.2);
         }
 
         h1 { font-size: 26px; font-weight: 800; margin: 0; letter-spacing: 1px; }
-        .tagline { color: var(--accent-green); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; margin-top: 8px; }
+        .tagline { color: var(--accent-green); font-size: 14px; font-weight: 600; margin-top: 8px; }
 
         .links-wrapper {
             width: 100%;
@@ -57,6 +55,7 @@
             display: flex;
             flex-direction: column;
             gap: 16px;
+            flex-grow: 1; /* This pushes the footer down */
         }
 
         .link-card {
@@ -68,25 +67,19 @@
             align-items: center;
             text-decoration: none;
             color: white;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 0.3s;
         }
 
-        .link-card:active {
-            transform: scale(0.96);
-            border-color: var(--accent-green);
-        }
+        .link-card:active { transform: scale(0.96); border-color: var(--accent-green); }
 
-        /* NEW: Image Icon Styling */
         .icon-img {
             width: 45px;
             height: 45px;
             border-radius: 12px;
             margin-right: 18px;
             object-fit: cover;
-            border: 1px solid #333;
         }
 
-        /* Generic placeholder icon for WhatsApp */
         .icon-circle {
             width: 45px;
             height: 45px;
@@ -95,58 +88,55 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
             margin-right: 18px;
             border: 1px solid #333;
         }
 
         .text-content { flex: 1; }
-        .text-content b { display: block; font-size: 16px; margin-bottom: 2px; }
+        .text-content b { display: block; font-size: 16px; }
         .text-content span { font-size: 12px; color: var(--text-muted); }
 
-        .link-card.coming-soon {
-            opacity: 0.5;
-            filter: grayscale(1);
-            cursor: not-allowed;
-        }
-
-        .soon-pill {
-            font-size: 9px;
-            background: #333;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-weight: 700;
-        }
+        .soon-pill { font-size: 9px; background: #333; padding: 4px 10px; border-radius: 20px; }
 
         .btn-home {
-            margin-top: 35px;
-            width: 100%;
-            max-width: 400px;
+            margin-top: 20px;
             padding: 16px;
             border-radius: 15px;
             border: 1.5px solid var(--accent-green);
-            background: transparent;
             color: var(--accent-green);
             text-decoration: none;
             text-align: center;
             font-weight: 700;
-            font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: 0.3s;
+            font-size: 13px;
+            letter-spacing: 1px;
         }
 
-        .btn-home:active {
-            background: var(--accent-green);
-            color: #000;
+        /* FIXED FOOTER STYLING */
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 40px 0 10px;
+            color: var(--text-muted);
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .legal-row {
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
         }
 
-        footer { margin-top: auto; padding-top: 30px; font-size: 10px; color: #444; }
+        .legal-row a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .copyright {
+            font-size: 11px;
+            letter-spacing: 0.5px;
+        }
     </style>
 </head>
 <body>
@@ -164,10 +154,10 @@
                 <b>Instagram Channel</b>
                 <span>Join for daily updates</span>
             </div>
-            <div style="color: var(--accent-green); font-size: 18px;">→</div>
+            <div style="color: var(--accent-green)">→</div>
         </a>
 
-        <div class="link-card coming-soon">
+        <div class="link-card" style="opacity: 0.5;">
             <div class="icon-circle">💬</div>
             <div class="text-content">
                 <b>WhatsApp Tribe</b>
@@ -183,9 +173,11 @@
         <div class="legal-row">
             <a href="privacy.html">Privacy</a>
             <a href="terms.html">Terms</a>
-            <a href="contact.html">Contact</a>
+            <a href="refunds.html">Refunds</a>
         </div>
-        &copy; 2026 SHARAN MUSICIAN | ALL RIGHTS RESERVED.
+        <div class="copyright">
+            © 2026 SHARAN MUSICIAN | ALL RIGHTS RESERVED.
+        </div>
     </footer>
 
 </body>

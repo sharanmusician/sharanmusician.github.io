@@ -84,16 +84,16 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
-            transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+            transition: all 0.3s ease;
             cursor: pointer;
-            -webkit-tap-highlight-color: transparent; /* Clean tap for mobile */
+            -webkit-tap-highlight-color: transparent;
         }
 
-        /* GREEN GLOW EFFECT ON TAP/CLICK */
-        .news-card:active {
+        /* THE PERSISTENT GLOW CLASS */
+        .news-card.active-glow {
             border-color: var(--accent);
             box-shadow: 0 0 25px rgba(0, 206, 100, 0.2);
-            transform: scale(0.98);
+            background: rgba(0, 206, 100, 0.02);
         }
 
         .card-meta {
@@ -116,18 +116,18 @@
             font-size: 11px;
         }
 
-        /* BIG WHITE HEADLINE (The Headline field) */
+        /* BIG WHITE HEADLINE */
         .card-headline {
-            font-size: 26px; /* Big focus */
+            font-size: 26px;
             font-weight: 800;
             color: var(--text-main);
             line-height: 1.2;
             letter-spacing: -0.5px;
         }
 
-        /* DESCRIPTION CONTENT (The Content field) */
+        /* DESCRIPTION CONTENT */
         .card-content {
-            font-size: 15px; /* Smaller description style */
+            font-size: 15px;
             line-height: 1.6;
             font-weight: 400;
             color: var(--text-muted);
@@ -152,8 +152,7 @@
 
     <main class="feed-container">
         <h1 class="brand-heading">NEWS</h1>
-        <div id="news-list">
-            </div>
+        <div id="news-list"></div>
     </main>
 
     <script src="newsdata.js"></script>
@@ -165,19 +164,27 @@
                 const activeNews = newsArchive.filter(item => item.status === "true");
                 
                 list.innerHTML = activeNews.map(item => `
-                    <div class="news-card">
+                    <div class="news-card" onclick="highlightCard(this)">
                         <div class="card-meta">
                             <span class="tag">${item.heading}</span>
                             <span class="date">${item.date}</span>
                         </div>
-                        
                         <h2 class="card-headline">${item.headline}</h2>
-                        
                         <p class="card-content">${item.content}</p>
                     </div>
                 `).join('');
             }
         });
+
+        // FUNCTION TO HANDLE THE PERSISTENT GLOW
+        function highlightCard(element) {
+            // Remove glow from any card that has it
+            document.querySelectorAll('.news-card').forEach(card => {
+                card.classList.remove('active-glow');
+            });
+            // Add glow to the one just touched
+            element.classList.add('active-glow');
+        }
     </script>
 </body>
 </html>

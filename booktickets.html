@@ -4,166 +4,142 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Elite Access | Sharan Musician</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
             --bg-black: #0c0c0e; --card-charcoal: #1a1a1c; --accent-green: #00a859;
             --text-white: #ffffff; --text-grey: #8e8e93; --input-border: #2c2c2e;
         }
-
-        body {
-            background-color: var(--bg-black); color: var(--text-white);
-            font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden;
-        }
-
-        /* Top Luxury Status Bar */
+        body { background-color: var(--bg-black); color: var(--text-white); font-family: 'Inter', sans-serif; margin: 0; }
+        
+        /* 20Cr Header Style */
         .status-bar {
             background: #111; padding: 15px 5%; display: flex; justify-content: space-between;
-            font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
-            border-bottom: 1px solid var(--input-border); color: var(--accent-green);
+            font-size: 10px; letter-spacing: 3px; text-transform: uppercase; border-bottom: 1px solid var(--input-border);
         }
 
         .container { display: flex; justify-content: center; padding: 40px 20px; }
-
-        /* The 20Cr Card */
         .booking-card {
             background-color: var(--card-charcoal); width: 100%; max-width: 500px;
             padding: 40px; border-radius: 4px; border-top: 4px solid var(--accent-green);
-            box-shadow: 0 40px 80px rgba(0,0,0,0.6); position: relative;
+            box-shadow: 0 40px 80px rgba(0,0,0,0.6);
         }
 
-        .step-title { font-size: 22px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 30px; text-align: center; }
+        .step { display: none; }
+        .active { display: block; }
 
-        /* Form Styling */
-        .form-group { margin-bottom: 15px; }
         label { display: block; font-size: 9px; color: var(--text-grey); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
         input {
             width: 100%; background: #000; border: 1px solid var(--input-border);
-            padding: 14px; color: white; border-radius: 2px; box-sizing: border-box; font-size: 14px;
+            padding: 14px; color: white; border-radius: 2px; box-sizing: border-box; margin-bottom: 20px;
         }
-        input:focus { outline: none; border-color: var(--accent-green); }
-
+        
         .btn-prime {
             width: 100%; background: var(--accent-green); color: white; border: none;
             padding: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px;
-            cursor: pointer; margin-top: 20px; transition: 0.3s;
-        }
-        .btn-prime:hover { background: #008f4c; letter-spacing: 5px; }
-
-        /* Payment Layer */
-        #paymentLayer, #verificationLayer, #ticketLayer { display: none; text-align: center; }
-        
-        .qr-frame {
-            background: white; padding: 15px; width: 220px; margin: 0 auto 20px; border-radius: 8px;
-        }
-        .qr-frame img { width: 100%; height: auto; display: block; }
-
-        /* Ticket Design */
-        .ticket-box {
-            background: white; color: black; padding: 30px; border-radius: 12px;
-            text-align: left; border: 2px dashed #000; margin-bottom: 20px;
+            cursor: pointer; transition: 0.3s;
         }
 
-        /* Animation */
-        .loader {
-            border: 3px solid #333; border-top: 3px solid var(--accent-green);
-            border-radius: 50%; width: 50px; height: 50px; animation: spin 1s linear infinite;
-            margin: 20px auto;
+        /* Ticket UI (Hidden from screen, used for PDF) */
+        #ticket-design {
+            background: white; color: black; padding: 40px; border: 2px solid #000;
+            width: 500px; position: absolute; left: -9999px;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
     <div class="status-bar">
-        <div id="statusTxt">SYSTEM: ACTIVE</div>
-        <div id="priceTxt">PRICE: ₹1,499</div>
-        <div id="countTxt">TICKETS LEFT: 24</div>
+        <div style="color:var(--accent-green)">SYSTEM: ONLINE</div>
+        <div id="remaining">TICKETS LEFT: 10</div>
     </div>
 
     <div class="container">
         <div class="booking-card">
             
-            <div id="regLayer">
-                <div class="step-title">Register Access</div>
-                <form id="regForm">
-                    <div class="form-group"><label>Full Name</label><input type="text" id="name" required></div>
-                    <div class="form-group"><label>College Name</label><input type="text" id="college" required></div>
-                    <div class="form-group"><label>Email Address</label><input type="email" id="email" required></div>
-                    <div class="form-group"><label>Phone Number</label><input type="tel" id="phone" required></div>
-                    <div class="form-group"><label>Quantity</label><input type="number" id="qty" value="1" min="1"></div>
-                    <button type="submit" class="btn-prime">Proceed to Payment</button>
-                </form>
+            <div id="step1" class="step active">
+                <h2 style="letter-spacing:2px; text-align:center;">RESERVE ACCESS</h2>
+                <input type="text" id="name" placeholder="FULL NAME">
+                <input type="text" id="college" placeholder="COLLEGE NAME">
+                <input type="email" id="email" placeholder="EMAIL ADDRESS">
+                <input type="tel" id="phone" placeholder="PHONE NUMBER">
+                <input type="number" id="qty" value="1" min="1">
+                <button class="btn-prime" onclick="goToPayment()">PROCEED TO PAY</button>
             </div>
 
-            <div id="paymentLayer">
-                <div class="step-title">Scan to Pay</div>
-                <p style="font-size: 12px; color: var(--text-grey);">Scan the QR below via GPay to complete your booking.</p>
-                <div class="qr-frame">
-                    <img src="qr.jpg" alt="GPay QR Code">
+            <div id="step2" class="step">
+                <h2 style="text-align:center;">SCAN & PAY</h2>
+                <div style="text-align:center; margin-bottom:20px;">
+                    <img src="qr.jpg" style="width:200px; border-radius:10px; border: 5px solid white;">
                 </div>
-                <button onclick="startVerification()" class="btn-prime">I Have Paid</button>
+                <label>Enter 12-Digit Transaction ID (UTR)</label>
+                <input type="text" id="utr" placeholder="0000 0000 0000">
+                <button class="btn-prime" onclick="verifyAndDownload()">VERIFY & DOWNLOAD</button>
             </div>
 
-            <div id="verificationLayer">
-                <div class="step-title">Verifying</div>
-                <div class="loader"></div>
-                <p>Connecting to secure payment gateway...</p>
-                <p style="font-size: 10px; color: var(--accent-green);">MATCHING TRANSACTION ID...</p>
-            </div>
-
-            <div id="ticketLayer">
-                <div class="step-title">Pass Issued</div>
-                <div class="ticket-box" id="captureTicket">
-                    <h2 style="margin:0; color: var(--accent-green);">SHARAN MUSICIAN LIVE</h2>
-                    <p style="font-size: 10px; margin-bottom: 20px;">OFFICIAL ENTRY PASS #<span id="t_id"></span></p>
-                    <p><strong>GUEST:</strong> <span id="t_name"></span></p>
-                    <p><strong>COLLEGE:</strong> <span id="t_college"></span></p>
-                    <p><strong>PASSES:</strong> <span id="t_qty"></span> Units</p>
-                    <p style="margin-top:20px; font-size: 12px; font-weight: bold; border-top: 1px solid #ddd; padding-top: 10px;">STATUS: VERIFIED & PAID</p>
-                </div>
-                <button onclick="downloadAndReset()" class="btn-prime">Download & Finish</button>
+            <div id="step3" class="step" style="text-align:center;">
+                <h2 style="color:var(--accent-green)">VERIFYING...</h2>
+                <p>Checking transaction with bank records.</p>
             </div>
 
         </div>
     </div>
 
+    <div id="ticket-design">
+        <h1 style="color:#00a859">SHARAN MUSICIAN LIVE</h1>
+        <p><strong>PASS ID:</strong> <span id="pdf_id"></span></p>
+        <p><strong>HOLDER:</strong> <span id="pdf_name"></span></p>
+        <p><strong>COLLEGE:</strong> <span id="pdf_college"></span></p>
+        <p><strong>TICKET COUNT:</strong> <span id="pdf_qty"></span></p>
+        <div style="margin-top:40px; border-top:1px solid #000; padding-top:10px;">
+            VERIFIED OFFICIAL ENTRY PASS - 2026
+        </div>
+    </div>
+
     <script>
-        // Master Logic
-        const regForm = document.getElementById('regForm');
-        
-        regForm.onsubmit = (e) => {
-            e.preventDefault();
-            document.getElementById('regLayer').style.display = 'none';
-            document.getElementById('paymentLayer').style.display = 'block';
-        };
+        let ticketCount = 10; // Change your limit here
 
-        function startVerification() {
-            document.getElementById('paymentLayer').style.display = 'none';
-            document.getElementById('verificationLayer').style.display = 'block';
+        function goToPayment() {
+            if(ticketCount <= 0) return alert("Sold Out!");
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+        }
 
-            // Professional delay to simulate bank verification
+        function verifyAndDownload() {
+            const utr = document.getElementById('utr').value;
+            if(utr.length < 12) {
+                alert("Please enter a valid 12-digit UTR number.");
+                return;
+            }
+
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+
+            // Map data to PDF
+            document.getElementById('pdf_name').innerText = document.getElementById('name').value;
+            document.getElementById('pdf_college').innerText = document.getElementById('college').value;
+            document.getElementById('pdf_qty').innerText = document.getElementById('qty').value;
+            document.getElementById('pdf_id').innerText = "SM-" + Math.floor(Math.random()*900000);
+
+            // Professional delay
             setTimeout(() => {
-                issueTicket();
+                const element = document.getElementById('ticket-design');
+                const opt = {
+                    margin: 0.5,
+                    filename: 'Sharan_Musician_Ticket.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+                };
+
+                html2pdf().set(opt).from(element).save().then(() => {
+                    ticketCount--; // Auto-reduce count
+                    document.getElementById('remaining').innerText = "TICKETS LEFT: " + ticketCount;
+                    alert("Ticket Downloaded Successfully!");
+                    location.reload(); // Auto-Reset to Step 1
+                });
             }, 3000);
-        }
-
-        function issueTicket() {
-            document.getElementById('verificationLayer').style.display = 'none';
-            document.getElementById('ticketLayer').style.display = 'block';
-
-            // Map data to ticket
-            document.getElementById('t_name').innerText = document.getElementById('name').value;
-            document.getElementById('t_college').innerText = document.getElementById('college').value;
-            document.getElementById('t_qty').innerText = document.getElementById('qty').value;
-            document.getElementById('t_id').innerText = Math.floor(100000 + Math.random() * 900000);
-        }
-
-        function downloadAndReset() {
-            alert("Downloading Ticket...");
-            // Logic to reset the page for the next user
-            window.location.reload(); 
         }
     </script>
 </body>
-    </html>
-    
+</html>

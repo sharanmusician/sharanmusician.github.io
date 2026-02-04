@@ -16,13 +16,13 @@
             overflow-x: hidden;
         }
 
-        /* --- ENHANCED HOME BUTTON --- */
+        /* --- PROFESSIONAL TOP-RIGHT HOME BUTTON --- */
         .nav-home {
             position: fixed;
-            top: 30px;
-            left: 30px;
+            top: 25px;
+            right: 30px;
             text-decoration: none;
-            color: #fff;
+            color: rgba(255, 255, 255, 0.8);
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
@@ -30,29 +30,33 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            padding: 12px 20px;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 10px 22px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 50px;
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             z-index: 1000;
         }
-        
+
         .nav-home svg {
-            transition: transform 0.3s ease;
+            opacity: 0.6;
+            transition: all 0.3s ease;
         }
 
         .nav-home:hover {
-            background: rgba(29, 185, 84, 0.15);
+            background: rgba(255, 255, 255, 0.07);
             border-color: #1db954;
-            color: #1db954;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+            color: #fff;
             transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(29, 185, 84, 0.15);
         }
 
         .nav-home:hover svg {
-            transform: translateX(-3px);
+            opacity: 1;
+            transform: scale(1.1);
+            color: #1db954;
         }
 
         /* --- BACKGROUND GRADIENT --- */
@@ -64,7 +68,7 @@
 
         /* --- HEADER --- */
         header {
-            padding: 120px 20px 40px 20px;
+            padding: 140px 20px 40px 20px;
             text-align: center;
             max-width: 1200px;
             margin: 0 auto;
@@ -151,7 +155,7 @@
         footer { text-align: center; padding: 60px 20px; color: #444; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
 
         @media (max-width: 768px) {
-            .nav-home { top: 20px; left: 20px; padding: 10px 16px; font-size: 10px; }
+            .nav-home { top: 15px; right: 15px; padding: 8px 16px; font-size: 10px; }
             .musician-name { font-size: 2.2rem; }
             .booking-section { padding: 30px; margin: 40px 20px; }
             .cta-container { flex-direction: column; align-items: center; }
@@ -164,8 +168,8 @@
 <div class="bg-glow"></div>
 
 <a href="index.html" class="nav-home">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-    Back to Home
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+    Home
 </a>
 
 <header>
@@ -241,5 +245,4 @@
 </footer>
 
 </body>
-            </html>
-            
+</html>

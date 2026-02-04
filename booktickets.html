@@ -6,9 +6,9 @@
     <title>Book Tickets | Sharan Musician</title>
     <style>
         :root {
-            --bg-black: #0c0c0e;        /* Deepest black from your header */
-            --card-charcoal: #1a1a1c;  /* Matches your 'Sections' background */
-            --accent-green: #00a859;   /* The exact green from your 'Search' button */
+            --bg-black: #0c0c0e;        
+            --card-charcoal: #1a1a1c;  
+            --accent-green: #00a859;   
             --text-white: #ffffff;
             --text-grey: #8e8e93;
             --input-border: #2c2c2e;
@@ -29,7 +29,6 @@
             padding: 25px 5%;
             display: flex;
             align-items: center;
-            border-bottom: 1px solid var(--input-border);
         }
 
         .home-btn {
@@ -38,20 +37,24 @@
             text-decoration: none;
             color: var(--text-white);
             font-size: 13px;
-            font-weight: 500;
-            letter-spacing: 1px;
+            font-weight: 600;
+            letter-spacing: 2px;
             text-transform: uppercase;
             transition: 0.3s;
+            border: 1px solid var(--input-border);
+            padding: 10px 20px;
+            border-radius: 4px;
         }
 
         .home-btn:hover {
+            border-color: var(--accent-green);
             color: var(--accent-green);
         }
 
         .home-btn svg {
-            margin-right: 10px;
-            width: 18px;
-            height: 18px;
+            margin-right: 8px;
+            width: 16px;
+            height: 16px;
         }
 
         /* --- MAIN LAYOUT --- */
@@ -60,30 +63,34 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 40px 20px;
+            padding: 20px;
         }
 
         .booking-card {
             background-color: var(--card-charcoal);
             width: 100%;
-            max-width: 450px;
-            padding: 45px;
-            border-radius: 16px; /* Slightly rounded to match your UI buttons */
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-            border: 1px solid var(--input-border);
+            max-width: 480px;
+            padding: 50px;
+            border-radius: 4px; /* Sharp professional edges */
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            border-top: 4px solid var(--accent-green); /* Visual branding line */
         }
 
         h1 {
-            font-size: 22px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            letter-spacing: -0.5px;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 0 10px 0;
+            letter-spacing: 1px;
+            text-transform: uppercase;
         }
 
         .subtitle {
             color: var(--text-grey);
-            font-size: 14px;
-            margin-bottom: 35px;
+            font-size: 12px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            display: block;
         }
 
         /* --- FORM STYLING --- */
@@ -93,64 +100,59 @@
 
         label {
             display: block;
-            font-size: 11px;
+            font-size: 10px;
             color: var(--text-grey);
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            margin-bottom: 10px;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
         }
 
         input {
             width: 100%;
             background: #111112;
             border: 1px solid var(--input-border);
-            padding: 14px;
-            border-radius: 8px;
+            padding: 15px;
+            border-radius: 2px;
             color: white;
-            font-size: 15px;
+            font-size: 14px;
             box-sizing: border-box;
-            transition: all 0.3s ease;
+            transition: all 0.3s;
         }
 
         input:focus {
             outline: none;
             border-color: var(--accent-green);
-            box-shadow: 0 0 0 2px rgba(0, 168, 89, 0.1);
         }
 
-        /* --- THE '20 CR' BUTTON --- */
+        /* --- SYMMETRICAL ROW --- */
+        .input-row {
+            display: flex;
+            gap: 20px; /* Equal spacing */
+        }
+
+        .input-row .form-group {
+            flex: 1; /* This forces both to be exactly 50% width */
+        }
+
+        /* --- THE BUTTON --- */
         .confirm-btn {
             width: 100%;
             background-color: var(--accent-green);
             color: white;
             border: none;
-            padding: 16px;
-            font-size: 14px;
-            font-weight: 700;
+            padding: 20px;
+            font-size: 13px;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            border-radius: 8px;
+            letter-spacing: 3px;
             cursor: pointer;
-            margin-top: 15px;
-            transition: transform 0.2s, background-color 0.3s;
+            margin-top: 10px;
+            transition: all 0.3s;
         }
 
         .confirm-btn:hover {
             background-color: #008f4c;
-            transform: translateY(-2px);
-        }
-
-        .confirm-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Logo Sync */
-        .brand-detail {
-            text-align: center;
-            margin-top: 30px;
-            opacity: 0.3;
-            font-size: 10px;
-            letter-spacing: 3px;
+            letter-spacing: 5px;
         }
     </style>
 </head>
@@ -158,44 +160,35 @@
 
     <nav class="premium-nav">
         <a href="index.html" class="home-btn">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-            </svg>
-            Back to Portal
+            <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
+            Home
         </a>
     </nav>
 
     <div class="container">
         <div class="booking-card">
-            <h1>Reserve Your Seat</h1>
-            <p class="subtitle">Official Ticketing for Sharan Musician Events</p>
+            <h1>Ticket Access</h1>
+            <span class="subtitle">Secure your experience with Sharan Musician</span>
 
             <form>
                 <div class="form-group">
-                    <label>Attendee Name</label>
-                    <input type="text" placeholder="Enter your full name" required>
+                    <label>Full Name</label>
+                    <input type="text" placeholder="SHARAN" required>
                 </div>
 
-                <div class="form-group">
-                    <label>Event Selection</label>
-                    <input type="text" placeholder="Current Tour / Concert" value="Live Concert 2026">
-                </div>
-
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="input-row">
                     <div class="form-group">
                         <label>Quantity</label>
                         <input type="number" value="1" min="1">
                     </div>
                     <div class="form-group">
-                        <label>Preferred Date</label>
+                        <label>Date</label>
                         <input type="date" required>
                     </div>
                 </div>
 
-                <button type="submit" class="confirm-btn">Confirm Reservation</button>
+                <button type="submit" class="confirm-btn">Finalize Booking</button>
             </form>
-
-            <div class="brand-detail">SHARAN MUSICIAN • PREMIERE</div>
         </div>
     </div>
 

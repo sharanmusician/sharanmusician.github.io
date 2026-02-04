@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latest Updates | Global News Portal</title>
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-dark: #1a1a1a;
+            --accent-blue: #0056b3;
+            --text-gray: #4a4a4a;
+            --bg-white: #ffffff;
+            --border-light: #e0e0e0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.8;
+            color: var(--primary-dark);
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container for Readability */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            background: var(--bg-white);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Navigation Header (Professional Placement) */
+        .nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            border-bottom: 2px solid var(--primary-dark);
+            padding-bottom: 15px;
+        }
+
+        /* The Professional Return Button */
+        .btn-home {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-gray);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-home:hover {
+            color: var(--accent-blue);
+            transform: translateX(-3px);
+        }
+
+        .btn-home span {
+            margin-right: 8px;
+            font-size: 1.2rem;
+        }
+
+        /* Article Typography */
+        h1 {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 2.5rem;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .meta-data {
+            color: var(--text-gray);
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .featured-image {
+            width: 100%;
+            height: 400px;
+            background-color: #ddd; /* Placeholder color */
+            border-radius: 4px;
+            margin-bottom: 30px;
+            object-fit: cover;
+        }
+
+        .article-body p {
+            margin-bottom: 20px;
+            font-size: 1.15rem;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-light);
+            text-align: center;
+            color: var(--text-gray);
+            font-size: 0.85rem;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 1.8rem; }
+            .container { padding: 20px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="nav-header">
+            <a href="index.html" class="btn-home">
+                <span>&larr;</span> Back to Home
+            </a>
+            <div style="font-weight: bold; letter-spacing: 2px;">THE JOURNAL</div>
+        </header>
+
+        <article>
+            <div class="meta-data">Published Feb 4, 2026 • Politics</div>
+            <h1>The Future of Urban Infrastructure: A New Era for Modern Cities</h1>
+            
+            <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?auto=format&fit=crop&w=800&q=80" alt="Modern Cityscape" class="featured-image">
+
+            <div class="article-body">
+                <p><strong>Lorem ipsum</strong> dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                
+                <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p>As we look toward the 2030 sustainability goals, the integration of smart technology into public transport systems has become more than a luxury—it is a necessity for the growing population density in metropolitan hubs.</p>
+            </div>
+        </article>
+
+        <footer>
+            &copy; 2026 The Journal News Group. All rights reserved.
+        </footer>
+    </div>
+
+</body>
+</html>

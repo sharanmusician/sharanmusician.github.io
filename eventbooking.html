@@ -120,6 +120,11 @@
             text-align: center;
             transition: all 0.4s ease; /* Smoother transition */
             cursor: pointer;
+            
+            /* FIX: Prevents text selection/highlighting on touch */
+            user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
         }
         
         /* FIX: Added vibrant green glow for all cards on hover/tap */

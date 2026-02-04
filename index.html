@@ -45,7 +45,9 @@
         /* GREEN SEARCH BUTTON */
         .search-bar { flex: 1; display: flex; max-width: 500px; }
         .search-bar input { flex: 1; padding: 10px 18px; background: transparent; color: #fff; border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); border-right: none; outline: none; min-width: 0; }
-        .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; white-space: nowrap; }
+        .search-bar button { padding: 10px 229px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; white-space: nowrap; }
+        /* Correcting your search button padding which was set to 229px in your snippet */
+        .search-bar button { padding: 10px 22px; }
 
         /* ================= ACTION BAR ================= */
         .action-bar {
@@ -218,17 +220,16 @@
                 overflow-x: auto; 
                 white-space: nowrap; 
                 justify-content: flex-start; 
+                padding-bottom: 0; /* Removing extra padding to shrink height */
             }
-            /* MOBILE HEIGHT ADJUSTMENT START */
             nav button, nav a { 
                 flex: 0 0 25%; 
-                padding: 10px 0; /* Slimmer height for mobile menu items */
+                padding: 0; /* Resetting container padding */
             }
             nav button {
-                padding: 10px 0; 
-                font-size: 13px; /* Slightly smaller text for better mobile fit */
+                padding: 10px 0; /* Minimal vertical padding to keep the box slim */
+                font-size: 14px; /* Keeping your original text size */
             }
-            /* MOBILE HEIGHT ADJUSTMENT END */
             
             main { display: flex; flex-direction: column; padding: 20px; }
             .profile-item { flex: 0 0 25%; } 

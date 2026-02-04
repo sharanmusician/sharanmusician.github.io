@@ -15,6 +15,33 @@
             overflow-x: hidden;
         }
 
+        /* --- HOME BUTTON --- */
+        .nav-home {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        .nav-home svg {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+        .nav-home:hover {
+            color: #1db954;
+        }
+        .nav-home:hover svg {
+            transform: translateX(-4px);
+        }
+
         /* --- BACKGROUND GRADIENT --- */
         .bg-glow {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
@@ -24,7 +51,7 @@
 
         /* --- HEADER --- */
         header {
-            padding: 40px 20px;
+            padding: 80px 20px 40px 20px;
             text-align: center;
             max-width: 1200px;
             margin: 0 auto;
@@ -111,6 +138,7 @@
         footer { text-align: center; padding: 60px 20px; color: #444; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
 
         @media (max-width: 768px) {
+            .nav-home { top: 20px; left: 20px; }
             .musician-name { font-size: 2.2rem; }
             .booking-section { padding: 30px; margin: 40px 20px; }
             .cta-container { flex-direction: column; align-items: center; }
@@ -121,6 +149,11 @@
 <body>
 
 <div class="bg-glow"></div>
+
+<a href="index.html" class="nav-home">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    Home
+</a>
 
 <header>
     <div class="subtitle">Global Artist Booking</div>

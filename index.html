@@ -130,30 +130,39 @@
         .product { background: #12121a; border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); }
         .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
 
-        /* ================= NEWS SECTION ================= */
-        .news-section { margin-top: 50px; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); }
-        .news-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; }
-        .news-card { 
-            background: linear-gradient(145deg, #16161d, #0b0b0f);
+        /* ================= ULTRA PROFESSIONAL NEWS SECTION ================= */
+        .news-outer-wrapper { margin-top: 60px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.05); }
+        .news-header-flex { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 30px; }
+        .news-header-flex h3 { font-size: 24px; font-weight: 600; font-family: 'Playfair Display', serif; }
+        
+        .premium-news-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
             border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 16px; padding: 35px; position: relative; overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border-radius: 20px; padding: 40px; position: relative;
+            backdrop-filter: blur(10px); transition: transform 0.3s ease;
         }
-        .news-card::before {
-            content: "LATEST NEWS"; position: absolute; top: 0; right: 0;
-            background: #1db954; color: #000; font-size: 10px; font-weight: 800;
-            padding: 5px 15px; border-bottom-left-radius: 12px; letter-spacing: 1.5px;
+        .premium-news-card:hover { border-color: rgba(29, 185, 84, 0.3); }
+
+        .live-tag {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(29, 185, 84, 0.1); color: #1db954;
+            padding: 4px 12px; border-radius: 50px; font-size: 10px; font-weight: 800;
+            letter-spacing: 1px; margin-bottom: 20px; border: 1px solid rgba(29, 185, 84, 0.2);
         }
-        .news-date { color: #1db954; font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 12px; display: block; letter-spacing: 1px; }
-        .news-title { font-family: 'Playfair Display', serif; font-size: 28px; margin-bottom: 15px; color: #fff; line-height: 1.2; }
-        .news-excerpt { color: #aaa; font-size: 15px; line-height: 1.8; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 20px; }
-        .view-all-btn { 
-            background: transparent; border: 1px solid rgba(255,255,255,0.2); 
-            color: #fff; padding: 10px 22px; border-radius: 30px; font-size: 12px; font-weight: 600; 
-            text-transform: uppercase; letter-spacing: 1px;
+        .live-tag::before { content: ""; width: 6px; height: 6px; background: #1db954; border-radius: 50%; display: inline-block; animation: pulse 1.5s infinite; }
+        
+        @keyframes pulse { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
+
+        .news-meta { font-size: 12px; color: #555; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 10px; display: block; }
+        .news-headline { font-family: 'Playfair Display', serif; font-size: 32px; color: #fff; margin-bottom: 20px; line-height: 1.2; }
+        .news-body { color: #aaa; font-size: 16px; line-height: 1.8; max-width: 90%; }
+
+        .press-btn {
+            background: #fff; color: #000; padding: 12px 28px; border-radius: 8px;
+            font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            transition: all 0.3s ease;
         }
-        .view-all-btn:hover { background: #fff; color: #000; border-color: #fff; }
-        #news-loader { color: #444; font-size: 14px; font-style: italic; text-align: center; padding: 40px; }
+        .press-btn:hover { background: #1db954; color: #fff; transform: translateY(-2px); }
 
         /* ================= FOOTER ================= */
         footer { padding: 40px 20px; background: #08080c; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
@@ -168,7 +177,8 @@
             main { display: flex; flex-direction: column; padding: 20px; }
             .profile-item { flex: 0 0 25%; } 
             .products { grid-template-columns: 1fr 1fr; }
-            .news-title { font-size: 22px; }
+            .news-headline { font-size: 24px; }
+            .news-header-flex { flex-direction: column; align-items: flex-start; gap: 20px; }
         }
     </style>
 </head>
@@ -263,13 +273,19 @@
             </div>
         </section>
 
-        <section class="news-section">
-            <div class="news-header">
-                <h3 style="font-weight: 500;">Latest News</h3>
-                <a href="news.html"><button class="view-all-btn">Full News Archive</button></a>
+        <section class="news-outer-wrapper">
+            <div class="news-header-flex">
+                <div>
+                    <h3 style="color: #555; text-transform: uppercase; font-size: 11px; letter-spacing: 2px; margin-bottom: 5px;">Press & Media</h3>
+                    <h3>Spotlight</h3>
+                </div>
+                <a href="news.html">
+                    <button class="press-btn">Access Full Press Archive</button>
+                </a>
             </div>
-            <div id="news-container">
-                <div id="news-loader">Syncing latest headlines...</div>
+
+            <div id="latest-news-insertion">
+                <p style="color: #333; font-style: italic;">Synchronizing headlines...</p>
             </div>
         </section>
     </div>
@@ -302,39 +318,41 @@
         });
     });
 
-    /* GOOGLE SHEETS LIVE NEWS FETCH */
-    async function fetchLiveNews() {
-        const sheetURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Q7yXdA7UoS66J2ck3lZ--SXJt7gQqxmbn0dlfFC1iT3tKYTt9hOF2ZaOqV8KxiBCBT63y7gVdd64/pubhtml';
+    /* LIVE DATA FETCH - ONLY SL NO 1 */
+    async function syncSpotlight() {
+        const sheetLink = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT-Q7yXdA7UoS66J2ck3lZ--SXJt7gQqxmbn0dlfFC1iT3tKYTt9hOF2ZaOqV8KxiBCBT63y7gVdd64/pubhtml';
         try {
-            const response = await fetch(sheetURL);
-            const htmlText = await response.text();
+            const response = await fetch(sheetLink);
+            const html = await response.text();
             const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlText, 'text/html');
-            const tableRows = Array.from(doc.querySelectorAll('table tr')).slice(1); // Exclude header
+            const doc = parser.parseFromString(html, 'text/html');
+            const rows = Array.from(doc.querySelectorAll('table tr')).slice(1);
 
-            if (tableRows.length > 0) {
-                // We take the first row of data (the top entry in your sheet)
-                const cells = tableRows[0].querySelectorAll('td');
+            if (rows.length > 0) {
+                // Specifically extract the first row of data
+                const cells = rows[0].querySelectorAll('td');
                 const date = cells[0].innerText;
-                const heading = cells[2].innerText;
-                const content = cells[3].innerText;
+                const headline = cells[2].innerText;
+                const body = cells[3].innerText;
 
-                document.getElementById('news-container').innerHTML = `
-                    <div class="news-card">
-                        <span class="news-date">${date}</span>
-                        <h2 class="news-title">${heading}</h2>
-                        <p class="news-excerpt">${content}</p>
-                        <a href="news.html" style="color: #1db954; font-size: 13px; font-weight: 700; text-transform: uppercase;">Read More &rsaquo;</a>
+                document.getElementById('latest-news-insertion').innerHTML = `
+                    <div class="premium-news-card">
+                        <div class="live-tag">Latest Update</div>
+                        <span class="news-meta">${date}</span>
+                        <h1 class="news-headline">${headline}</h1>
+                        <p class="news-body">${body}</p>
                     </div>
                 `;
             }
         } catch (err) {
-            document.getElementById('news-loader').innerText = "Updates temporarily unavailable.";
-            console.error(err);
+            console.error("Sync Error:", err);
+            document.getElementById('latest-news-insertion').innerHTML = "";
         }
     }
-    fetchLiveNews();
+
+    window.onload = syncSpotlight;
 </script>
 
 </body>
-</html>
+                    </html>
+                    

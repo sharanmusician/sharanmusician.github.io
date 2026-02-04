@@ -43,18 +43,21 @@
         /* ================= ACTION BAR ================= */
         .action-bar {
             display: grid;
-            grid-template-columns: repeat(3, minmax(110px, max-content)); 
+            grid-template-columns: repeat(3, minmax(115px, 1fr)); 
             justify-content: flex-end;
             padding: 12px 40px;
             background: #0b0b0f;
             gap: 10px;
+            max-width: 1450px;
+            margin: 0 auto;
+            width: 100%;
         }
         .action-bar button, .action-bar a { 
             width: 100%; 
         }
         .action-bar button { 
             height: 38px; 
-            padding: 0 15px; 
+            padding: 0 10px; 
             background: rgba(255,255,255,0.06); 
             color: #fff; border-radius: 6px; font-size: 13px; 
             display: flex;
@@ -126,7 +129,6 @@
         }
 
         .mute-btn.hidden { opacity: 0; }
-
         .mute-btn svg { width: 28px; height: 28px; fill: currentColor; }
 
         /* ================= MAIN LAYOUT ================= */
@@ -155,14 +157,13 @@
             overflow-x: auto; 
             padding-bottom: 15px; 
             -webkit-overflow-scrolling: touch; 
-            scrollbar-width: none; /* Hides scrollbar on Firefox */
+            scrollbar-width: none;
         }
-        .profile-slider::-webkit-scrollbar { display: none; } /* Hides scrollbar on Chrome/Safari */
+        .profile-slider::-webkit-scrollbar { display: none; }
 
         .profile-item { 
-            flex: 0 0 16.66%; /* Shows 6 items in PC view (up to Twitter) */
+            flex: 0 0 20%; /* Desktop: Show exactly 5 items (up to Facebook) */
             text-align: center; 
-            transition: transform 0.2s;
         } 
         .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.1); }
         .profile-item div { font-size: 12px; color: #aaa; white-space: nowrap; }
@@ -198,7 +199,7 @@
             .category-box { order: 1; width: 100%; }
             .content-area { order: 2; width: 100%; }
             
-            /* UPDATED FOR MOBILE: Show exactly 4 items (up to YouTube) */
+            /* Mobile: Show exactly 4 items (up to YouTube) */
             .profile-item { flex: 0 0 25%; } 
             
             .products { grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -333,5 +334,5 @@
 </script>
 
 </body>
-    </html>
-    
+                        </html>
+                        

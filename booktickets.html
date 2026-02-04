@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Tickets | Sharan Musician</title>
+    <title>Elite Access | Sharan Musician</title>
     <style>
         :root {
             --bg-black: #0c0c0e;        
@@ -12,229 +12,233 @@
             --text-white: #ffffff;
             --text-grey: #8e8e93;
             --input-border: #2c2c2e;
-            --transition-speed: 0.4s;
         }
 
         body {
             background-color: var(--bg-black);
             color: var(--text-white);
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
             margin: 0;
+            padding-bottom: 50px;
+        }
+
+        /* --- TOP STATUS BAR --- */
+        .status-bar {
+            background: #111;
+            padding: 15px 5%;
             display: flex;
-            flex-direction: column;
-            min-height: 100vh;
+            justify-content: space-between;
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--input-border);
+            color: var(--accent-green);
         }
 
         /* --- NAVIGATION --- */
-        .premium-nav {
-            padding: 25px 5%;
-            display: flex;
-            align-items: center;
-        }
-
+        .premium-nav { padding: 25px 5%; }
         .home-btn {
-            display: inline-flex;
-            align-items: center;
             text-decoration: none;
-            color: var(--text-white);
-            font-size: 13px;
+            color: white;
+            font-size: 12px;
             font-weight: 600;
             letter-spacing: 2px;
             text-transform: uppercase;
-            transition: var(--transition-speed);
             border: 1px solid var(--input-border);
-            padding: 10px 20px;
-            border-radius: 4px;
+            padding: 8px 18px;
+            transition: 0.3s;
         }
+        .home-btn:hover { border-color: var(--accent-green); color: var(--accent-green); }
 
-        .home-btn:hover {
-            border-color: var(--accent-green);
-            color: var(--accent-green);
-        }
-
-        .home-btn svg {
-            margin-right: 8px;
-            width: 16px;
-            height: 16px;
-        }
-
-        /* --- MAIN LAYOUT --- */
-        .container {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            position: relative;
-        }
-
+        /* --- BOOKING CARD --- */
+        .container { display: flex; justify-content: center; padding: 20px; position: relative; }
+        
         .booking-card {
             background-color: var(--card-charcoal);
             width: 100%;
-            max-width: 480px;
-            padding: 50px;
-            border-radius: 4px; 
+            max-width: 500px;
+            padding: 40px;
+            border-radius: 4px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.5);
             border-top: 4px solid var(--accent-green);
             position: relative;
-            transition: opacity var(--transition-speed);
         }
 
-        /* --- NO EVENT STATE --- */
-        .no-event-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 10;
-            width: 80%;
-            display: none; /* Controlled by Script */
-        }
-
-        .no-event-overlay h2 {
-            font-size: 14px;
-            letter-spacing: 5px;
-            color: var(--accent-green);
-            text-transform: uppercase;
-            margin-bottom: 10px;
-        }
-
-        .no-event-overlay p {
-            color: var(--text-white);
-            font-size: 18px;
-            font-weight: 200;
-            letter-spacing: 1px;
-        }
-
-        .is-inactive .booking-card {
-            opacity: 0.15;
-            pointer-events: none;
-            filter: grayscale(1);
-        }
-
-        h1 {
-            font-size: 24px;
-            font-weight: 700;
-            margin: 0 0 10px 0;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .subtitle {
-            color: var(--text-grey);
-            font-size: 11px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 40px;
-            display: block;
-        }
-
-        /* --- FORM STYLING --- */
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        label {
-            display: block;
-            font-size: 10px;
-            color: var(--text-grey);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 12px;
-        }
-
-        input {
-            width: 100%;
-            background: #111112;
-            border: 1px solid var(--input-border);
-            padding: 15px;
-            border-radius: 2px;
-            color: white;
-            font-size: 14px;
-            box-sizing: border-box;
-            transition: all 0.3s;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--accent-green);
-        }
-
-        /* Full Width Symmetrical Input */
-        .full-input {
-            width: 100%;
-        }
-
-        /* --- THE BUTTON --- */
-        .confirm-btn {
-            width: 100%;
-            background-color: var(--accent-green);
-            color: white;
-            border: none;
+        .event-details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 30px;
+            background: #111;
             padding: 20px;
-            font-size: 13px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: all 0.3s;
+            border: 1px solid var(--input-border);
         }
 
-        .confirm-btn:hover {
-            background-color: #008f4c;
-            letter-spacing: 5px;
+        .detail-item span { display: block; font-size: 9px; color: var(--text-grey); margin-bottom: 5px; }
+        .detail-item strong { font-size: 14px; color: var(--text-white); }
+
+        /* --- PAYMENT SECTION --- */
+        .payment-zone {
+            text-align: center;
+            border: 1px dashed var(--accent-green);
+            padding: 20px;
+            margin: 25px 0;
+            background: rgba(0, 168, 89, 0.05);
+        }
+
+        .qr-placeholder {
+            width: 150px;
+            height: 150px;
+            background: white; /* Replace with your actual QR Image */
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            font-weight: bold;
+        }
+
+        /* --- FORM ELEMENTS --- */
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-size: 10px; color: var(--text-grey); text-transform: uppercase; margin-bottom: 8px; }
+        input {
+            width: 100%; background: #000; border: 1px solid var(--input-border);
+            padding: 12px; color: white; border-radius: 2px; box-sizing: border-box;
+        }
+
+        .confirm-btn {
+            width: 100%; background: var(--accent-green); color: white; border: none;
+            padding: 18px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px;
+            cursor: pointer; transition: 0.3s;
+        }
+
+        /* --- NO TICKETS / INACTIVE OVERLAY --- */
+        #soldOutOverlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(12, 12, 14, 0.95);
+            display: none; flex-direction: column; align-items: center;
+            justify-content: center; text-align: center; z-index: 100;
+        }
+
+        /* --- TICKET ISSUANCE (HIDDEN INITIALLY) --- */
+        #issuedTicket {
+            display: none;
+            background: white; color: black; padding: 30px;
+            margin-top: 20px; border-radius: 10px; border: 2px dashed #000;
         }
     </style>
 </head>
-<body id="mainBody">
+<body>
+
+    <div class="status-bar">
+        <div id="liveStatus">STATUS: LOADING...</div>
+        <div id="ticketCount">AVAILABILITY: --</div>
+    </div>
 
     <nav class="premium-nav">
-        <a href="index.html" class="home-btn">
-            <svg fill="currentColor" viewBox="0 0 20 20"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path></svg>
-            Home
-        </a>
+        <a href="index.html" class="home-btn">Home</a>
     </nav>
 
-    <div class="container" id="contentContainer">
-        <div class="no-event-overlay" id="messageBox">
-            <h2>Notice</h2>
-            <p>There are no active concerts or events scheduled at this moment. Please check back later.</p>
-        </div>
+    <div class="container">
+        <div class="booking-card" id="bookingForm">
+            <div id="soldOutOverlay">
+                <h2 style="color: var(--accent-green); letter-spacing: 5px;">ACCESS DENIED</h2>
+                <p>All tickets for this session have been acquired.</p>
+            </div>
 
-        <div class="booking-card">
-            <h1>Ticket Access</h1>
-            <span class="subtitle">Official Portal for Sharan Musician Events</span>
+            <h1>Concert Access</h1>
+            
+            <div class="event-details-grid">
+                <div class="detail-item"><span>DATE</span><strong id="displayDate">--</strong></div>
+                <div class="detail-item"><span>TIME</span><strong id="displayTime">--</strong></div>
+                <div class="detail-item"><span>UNIT PRICE</span><strong id="displayPrice">--</strong></div>
+                <div class="detail-item"><span>LOCATION</span><strong>Premium Lounge</strong></div>
+            </div>
 
-            <form>
+            <form id="ticketForm">
                 <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" placeholder="NAME" required>
+                    <label>Client Name</label>
+                    <input type="text" id="userName" placeholder="ENTER NAME" required>
                 </div>
 
                 <div class="form-group">
-                    <label>Pass Quantity</label>
-                    <input type="number" value="1" min="1" class="full-input">
+                    <label>Ticket Quantity</label>
+                    <input type="number" id="userQty" value="1" min="1" required>
                 </div>
 
-                <button type="submit" class="confirm-btn">Confirm Reservation</button>
+                <div class="payment-zone">
+                    <label style="color: var(--accent-green);">Step 1: Scan & Pay</label>
+                    <div class="qr-placeholder">
+                        <img src="YOUR_GPAY_QR_LINK_HERE.png" alt="GPAY QR" style="width:100%; height:100%;">
+                    </div>
+                    <label>Step 2: Upload Screenshot</label>
+                    <input type="file" id="paymentProof" required style="border:none; padding: 10px 0;">
+                </div>
+
+                <button type="submit" class="confirm-btn">Verify & Issue Ticket</button>
             </form>
+
+            <div id="issuedTicket">
+                <h2 style="margin-top:0;">CONCERT PASS</h2>
+                <hr>
+                <p><strong>NAME:</strong> <span id="t_name"></span></p>
+                <p><strong>TICKETS:</strong> <span id="t_qty"></span></p>
+                <p><strong>STATUS:</strong> VERIFIED</p>
+                <p style="font-size: 10px; color: #666;">ID: #SM-2026-X99</p>
+                <button onclick="window.print()" style="padding: 5px 10px; cursor: pointer;">Print Ticket</button>
+            </div>
         </div>
     </div>
 
     <script>
-        /* --- MASTER TOGGLE: Change this to true or false --- */
-        const isEventActive = true; 
+        // ==========================================
+        // MASTER CONFIGURATION (20Cr Logic)
+        // ==========================================
+        const CONFIG = {
+            isEventActive: true,     // TRUE or FALSE
+            pricePerTicket: "₹1,999",
+            eventDate: "March 15, 2026",
+            eventTime: "20:00 IST",
+            totalTickets: 10,        // Total available
+            ticketsSold: 10          // Change this to test "Sold Out" state
+        };
 
-        const container = document.getElementById('contentContainer');
-        const messageBox = document.getElementById('messageBox');
+        // UI Initializer
+        window.onload = () => {
+            document.getElementById('displayDate').innerText = CONFIG.eventDate;
+            document.getElementById('displayTime').innerText = CONFIG.eventTime;
+            document.getElementById('displayPrice').innerText = CONFIG.pricePerTicket;
+            document.getElementById('ticketCount').innerText = `AVAILABILITY: ${CONFIG.totalTickets - CONFIG.ticketsSold} LEFT`;
+            
+            const liveStatus = document.getElementById('liveStatus');
+            if (!CONFIG.isEventActive || CONFIG.ticketsSold >= CONFIG.totalTickets) {
+                document.getElementById('soldOutOverlay').style.display = 'flex';
+                liveStatus.innerText = "STATUS: CLOSED";
+                liveStatus.style.color = "red";
+            } else {
+                liveStatus.innerText = "STATUS: ACTIVE";
+            }
+        };
 
-        if (!isEventActive) {
-            container.classList.add('is-inactive');
-            messageBox.style.display = 'block';
-        }
+        // Automated Issuance Logic
+        document.getElementById('ticketForm').onsubmit = function(e) {
+            e.preventDefault();
+            
+            // Simulation of Verification (Professional Delay)
+            const btn = document.querySelector('.confirm-btn');
+            btn.innerText = "VERIFYING PAYMENT...";
+            btn.style.opacity = "0.5";
+
+            setTimeout(() => {
+                document.getElementById('ticketForm').style.display = 'none';
+                document.getElementById('issuedTicket').style.display = 'block';
+                
+                document.getElementById('t_name').innerText = document.getElementById('userName').value;
+                document.getElementById('t_qty').innerText = document.getElementById('userQty').value;
+                
+                alert("Payment Verified. Your Digital Ticket has been issued.");
+            }, 2500);
+        };
     </script>
-
 </body>
 </html>

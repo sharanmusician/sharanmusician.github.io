@@ -245,20 +245,22 @@
 
         <section class="news-section">
             <div class="news-header">
-                <h3 style="font-weight: 500;">Discovery Hub</h3>
+                <h3 style="font-weight: 500;">Latest News</h3>
+                <a href="news.html" style="font-size: 12px; color: #1db954; font-weight: 700;">VIEW ALL →</a>
             </div>
-            <div id="news-container">
-                <div class="news-card">
-                    <div class="news-date">ALL PROFILES</div>
-                    <h4 class="news-headline">Social & Search Hub</h4>
-                    <p class="news-body">Explore the official ecosystem including private search, archives, and username validation across all major platforms.</p>
-                    <div style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-                        <a href="https://duckduckgo.com" target="_blank" style="color:#1db954; font-size:11px; font-weight:700;">PRIVATE SEARCH →</a>
-                        <a href="https://archive.org" target="_blank" style="color:#1db954; font-size:11px; font-weight:700;">WAYBACK MACHINE →</a>
-                        <a href="https://namechk.com" target="_blank" style="color:#1db954; font-size:11px; font-weight:700;">USERNAME CHECKER →</a>
-                        <a href="https://github.com" target="_blank" style="color:#1db954; font-size:11px; font-weight:700;">GITHUB →</a>
-                    </div>
+            <div class="news-card" style="margin-bottom: 30px; border-color: rgba(29, 185, 84, 0.2);">
+                <div class="news-date">ALL LINKS</div>
+                <h4 class="news-headline">Profile & Discovery Hub</h4>
+                <div style="display: flex; gap: 15px; flex-wrap: wrap; margin-top: 15px;">
+                    <a href="https://duckduckgo.com" target="_blank" style="color:#1db954; font-size:11px; font-weight:700; border: 1px solid rgba(29,185,84,0.3); padding: 5px 10px; border-radius: 4px;">DUCKDUCKGO</a>
+                    <a href="https://archive.org" target="_blank" style="color:#1db954; font-size:11px; font-weight:700; border: 1px solid rgba(29,185,84,0.3); padding: 5px 10px; border-radius: 4px;">ARCHIVE</a>
+                    <a href="https://namechk.com" target="_blank" style="color:#1db954; font-size:11px; font-weight:700; border: 1px solid rgba(29,185,84,0.3); padding: 5px 10px; border-radius: 4px;">NAMECHK</a>
+                    <a href="https://github.com" target="_blank" style="color:#1db954; font-size:11px; font-weight:700; border: 1px solid rgba(29,185,84,0.3); padding: 5px 10px; border-radius: 4px;">GITHUB</a>
                 </div>
+            </div>
+            
+            <div id="news-container">
+                <p style="color: #333; font-size: 13px;">Checking for updates...</p>
             </div>
         </section>
     </div>
@@ -296,8 +298,57 @@
         });
     });
 
-    // LOADNEWS LOGIC REMOVED AS REQUESTED TO FOCUS ON STATIC LINKS
+    // UPDATED NEWS FETCH (ULTRA RELIABLE)
+    const SHEET_ID = '16JggVcLoc0um32_0zFfWBeBdnF8ou6WYwO994FeLaCM';
+    const TAB_NAME = 'Sheet1'; // Ensure this matches your tab name exactly
+    const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${TAB_NAME}`;
+
+    async function loadNews() {
+        try {
+            const response = await fetch(CSV_URL);
+            if (!response.ok) throw new Error('Network error');
+            const data = await response.text();
+            
+            // Advanced CSV parsing to handle quotes/commas correctly
+            const rows = data.split(/\r?\n/).map(row => {
+                return row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(cell => cell.replace(/^"|"$/g, '').trim());
+            });
+
+            const container = document.getElementById('news-container');
+            container.innerHTML = '';
+            let count = 0;
+
+            // Start from row 1 (ignore header)
+            for (let i = 1; i < rows.length; i++) {
+                const [date, heading, content, status] = rows[i];
+                
+                // Only show if status is "Live" (case-insensitive)
+                if (status && status.toLowerCase() === 'live' && count < 2) {
+                    const card = `
+                        <div class="news-card">
+                            <div class="news-date">${date}</div>
+                            <h4 class="news-headline">${heading}</h4>
+                            <p class="news-body">${content}</p>
+                            <a href="news.html" style="color:#1db954; font-size:11px; font-weight:700; margin-top:15px; display:inline-block; border-bottom:1px solid #1db954;">READ FULL STORY</a>
+                        </div>
+                    `;
+                    container.innerHTML += card;
+                    count++;
+                }
+            }
+
+            if (count === 0) {
+                container.innerHTML = '<p style="color:#444;">Stay tuned for upcoming news.</p>';
+            }
+        } catch (err) {
+            console.error("Fetch failed:", err);
+            document.getElementById('news-container').innerHTML = '<p style="color:#444;">Unable to load news feed.</p>';
+        }
+    }
+
+    loadNews();
 </script>
 
 </body>
-</html>
+    </html>
+    

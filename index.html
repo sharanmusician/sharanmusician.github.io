@@ -18,6 +18,12 @@
         a { text-decoration: none; color: inherit; transition: all 0.2s ease; }
         button { cursor: pointer; border: none; transition: all 0.2s ease; }
 
+        /* Grey Sliding Indicator Style */
+        .custom-scroll::-webkit-scrollbar { height: 3px; display: block; }
+        .custom-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
+        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+        .custom-scroll { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) rgba(255,255,255,0.03); }
+
         /* ================= STICKY TOP BAR ================= */
         .top-bar {
             display: flex;
@@ -38,7 +44,7 @@
 
         .search-bar { flex: 1; display: flex; max-width: 500px; }
         .search-bar input { flex: 1; padding: 10px 18px; background: transparent; color: #fff; border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); border-right: none; outline: none; min-width: 0; }
-        .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; white-space: nowrap; }
+        .search-bar button { padding: 10px 22px; background: #333; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; white-space: nowrap; }
 
         /* ================= ACTION BAR ================= */
         .action-bar {
@@ -59,20 +65,19 @@
             white-space: nowrap;
         }
 
-        /* ================= NAVIGATION (FIXED MOBILE VISIBILITY) ================= */
+        /* ================= NAVIGATION (MOBILE OPTIMIZED) ================= */
         nav { 
             display: flex; 
             width: 100%; 
             background: #111118; 
             overflow-x: auto; 
             white-space: nowrap; 
-            justify-content: center; /* Desktop behavior */
+            justify-content: center;
             border-bottom: 1px solid rgba(255,255,255,0.03);
-            scrollbar-width: none;
+            padding-bottom: 2px;
         }
-        nav::-webkit-scrollbar { display: none; }
         nav button { background: none; color: #999; font-size: 14px; padding: 20px 25px; flex: 0 0 auto; }
-        nav button:hover { color: #1db954; }
+        nav button:hover { color: #fff; }
 
         /* ================= HERO ================= */
         .hero {
@@ -89,7 +94,6 @@
             border: 1px solid rgba(255, 255, 255, 0.2); opacity: 1; transition: opacity 0.4s;
         }
         .mute-btn.hidden { opacity: 0; }
-        .mute-btn svg { width: 28px; height: 28px; fill: currentColor; }
 
         /* ================= MAIN LAYOUT ================= */
         main { 
@@ -108,20 +112,15 @@
         .category-box h4 { font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 1.5px; margin-bottom: 15px; }
         .category-box button { display: block; width: 100%; padding: 12px 15px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.04); color: #ccc; border-radius: 8px; text-align: left; font-size: 14px; }
 
-        /* ================= PROFILES SECTION (INDICATOR ADDED) ================= */
+        /* ================= PROFILES SECTION ================= */
         .content-area { min-width: 0; }
         .profiles-section { margin-bottom: 50px; width: 100%; }
         .profile-slider { 
             display: flex; 
             overflow-x: auto; 
-            padding-bottom: 20px; 
+            padding-bottom: 15px; 
             -webkit-overflow-scrolling: touch;
         }
-        
-        /* Visible Indicator/Scrollbar */
-        .profile-slider::-webkit-scrollbar { height: 4px; display: block; }
-        .profile-slider::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 10px; }
-        .profile-slider::-webkit-scrollbar-thumb { background: #1db954; border-radius: 10px; }
 
         .profile-item { flex: 0 0 20%; text-align: center; } 
         .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.1); }
@@ -138,12 +137,14 @@
         .footer-links a { font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
         .copyright { font-size: 11px; color: #444; text-transform: uppercase; }
 
+        /* ================= MOBILE OPTIMIZATIONS ================= */
         @media (max-width: 900px) {
             .top-bar { padding: 10px 15px; flex-direction: column; }
             .action-bar { padding: 10px 15px; grid-template-columns: repeat(3, 1fr); }
             
-            /* Crucial: Changed to flex-start so "All" isn't cut off */
-            nav { justify-content: flex-start; padding: 0 10px; } 
+            /* Show exactly 4 items (All to News) in one screen width */
+            nav { justify-content: flex-start; }
+            nav button { flex: 0 0 25%; padding: 15px 5px; font-size: 12px; }
             
             main { display: flex; flex-direction: column; padding: 20px; }
             .profile-item { flex: 0 0 25%; } 
@@ -172,7 +173,7 @@
     <button>Cart</button>  
 </div>
 
-<nav>  
+<nav class="custom-scroll">  
     <button>All</button>
     <button>Projects</button>
     <button>Book Tickets</button>
@@ -187,7 +188,7 @@
         <source src="hero.mp4" type="video/mp4">
     </video>
     <div class="mute-btn" id="muteToggle">
-        <svg id="muteIcon" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"></path></svg>
+        <svg id="muteIcon" viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"></path></svg>
     </div>
 </section>
 
@@ -204,7 +205,7 @@
     <div class="content-area">
         <section class="profiles-section">  
             <h3 style="margin-bottom:20px; font-weight: 500;">Profiles</h3>
-            <div class="profile-slider">  
+            <div class="profile-slider custom-scroll">  
                 <a href="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=pRXJonnGRHWT5XegBTw-eA" target="_blank" class="profile-item"><img src="spotify.jpg" alt="Spotify"><div>Spotify</div></a>
                 <a href="https://g.co/kgs/gtv47AQ" target="_blank" class="profile-item"><img src="google.jpg" alt="Google"><div>Google</div></a>
                 <a href="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0" target="_blank" class="profile-item"><img src="instagram.jpg" alt="Instagram"><div>Instagram</div></a>
@@ -225,12 +226,12 @@
                 <div class="product">
                     <img src="https://via.placeholder.com/300x210">
                     <h4>Official Vinyl</h4>
-                    <p style="color: #1db954; font-weight: 700;">₹3,499</p>
+                    <p style="color: #888; font-weight: 700;">₹3,499</p>
                 </div>
                 <div class="product">
                     <img src="https://via.placeholder.com/300x210">
                     <h4>Premium Hoodie</h4>
-                    <p style="color: #1db954; font-weight: 700;">₹2,299</p>
+                    <p style="color: #888; font-weight: 700;">₹2,299</p>
                 </div>
             </div>
         </section>
@@ -252,19 +253,14 @@
     const muteIcon = document.getElementById('muteIcon');
     let hideTimeout;
 
-    const mutedPath = "M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z";
-    const unmutedPath = "M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z";
-
     function toggleMute() {
         clearTimeout(hideTimeout);
         if (video.muted) {
             video.muted = false;
-            muteIcon.innerHTML = `<path d="${unmutedPath}"></path>`;
             muteBtn.classList.remove('hidden');
-            hideTimeout = setTimeout(() => { muteBtn.classList.add('hidden'); }, 500); 
+            hideTimeout = setTimeout(() => { muteBtn.classList.add('hidden'); }, 800); 
         } else {
             video.muted = true;
-            muteIcon.innerHTML = `<path d="${mutedPath}"></path>`;
             muteBtn.classList.remove('hidden');
         }
     }
@@ -272,4 +268,5 @@
 </script>
 
 </body>
-</html>
+                        </html>
+                        

@@ -7,135 +7,173 @@
     <style>
         :root {
             --bg-black: #000000;
-            --card-grey: #121212;
+            --card-glass: rgba(25, 25, 25, 0.95);
             --accent-green: #00ff7f;
             --logo-red: #ff3131;
-            --text-white: #ffffff;
-            --text-dim: #888888;
+            --text-main: #ffffff;
+            --text-muted: #999999;
         }
 
-        * { box-sizing: border-box; }
-        html, body { height: 100%; margin: 0; padding: 0; background-color: var(--bg-black); overflow: hidden; }
-
-        body { 
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        
+        html, body { 
+            height: 100%; 
+            margin: 0; 
+            background-color: var(--bg-black);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text-white);
-            padding: 40px 24px 30px;
+            color: var(--text-main);
         }
 
-        .main-container {
-            flex: 1;
+        body {
             display: flex;
             flex-direction: column;
-            justify-content: center;
             align-items: center;
-            width: 100%;
+            padding: 40px 20px;
+            background: radial-gradient(circle at top right, #1a1a1a, #000000);
         }
 
-        .community-card {
-            width: 100%;
-            max-width: 360px;
-            background: var(--card-grey);
-            padding: 40px 25px;
-            border-radius: 24px;
-            border: 1px solid #222;
+        /* Profile/Header Section */
+        .profile-header {
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
-            animation: slideUp 0.6s ease-out;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease;
         }
 
-        .brand-logo {
+        .profile-logo {
             width: 90px;
             height: 90px;
-            border: 2.5px solid var(--logo-red);
             border-radius: 50%;
-            margin: 0 auto 20px;
+            border: 2px solid var(--logo-red);
+            margin-bottom: 15px;
             object-fit: cover;
-            display: block;
+            box-shadow: 0 0 20px rgba(255, 49, 49, 0.2);
         }
 
-        h1 { font-size: 22px; margin: 0 0 25px; font-weight: 700; letter-spacing: 0.5px; }
+        h1 { font-size: 26px; font-weight: 800; margin: 0; letter-spacing: 1px; }
+        .tagline { color: var(--accent-green); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 3px; margin-top: 8px; }
 
-        /* Link Cards */
-        .link-item {
+        /* Links Container */
+        .links-wrapper {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .link-card {
+            background: var(--card-glass);
+            border: 1px solid #222;
+            border-radius: 18px;
+            padding: 20px;
             display: flex;
             align-items: center;
-            background: #1a1a1a;
-            padding: 15px;
-            border-radius: 12px;
             text-decoration: none;
             color: white;
-            margin-bottom: 12px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .link-card:active {
+            transform: scale(0.96);
+            border-color: var(--accent-green);
+        }
+
+        .icon-circle {
+            width: 50px;
+            height: 50px;
+            background: #111;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-right: 18px;
             border: 1px solid #333;
-            transition: 0.2s;
         }
 
-        .link-item:active { background: #222; transform: scale(0.98); }
+        .text-content { flex: 1; }
+        .text-content b { display: block; font-size: 17px; margin-bottom: 4px; }
+        .text-content span { font-size: 13px; color: var(--text-muted); }
 
-        .link-item.disabled { opacity: 0.5; cursor: default; }
-        .link-item.disabled:active { transform: none; }
+        /* Coming Soon Styling */
+        .link-card.coming-soon {
+            opacity: 0.5;
+            filter: grayscale(1);
+            cursor: not-allowed;
+        }
 
-        .icon { font-size: 20px; margin-right: 15px; }
-        .label { flex: 1; text-align: left; font-size: 14px; font-weight: 500; }
-        .badge { font-size: 9px; background: #333; color: var(--text-dim); padding: 2px 6px; border-radius: 4px; }
-
-        /* Professional Home Button */
-        .home-btn {
-            display: block;
-            width: 100%;
-            margin-top: 20px;
-            padding: 16px;
-            background-color: transparent;
-            color: var(--accent-green);
-            border: 1.5px solid var(--accent-green);
-            border-radius: 12px;
-            text-decoration: none;
+        .soon-pill {
+            font-size: 10px;
+            background: #333;
+            padding: 4px 10px;
+            border-radius: 20px;
             font-weight: 700;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            transition: all 0.2s ease;
         }
 
-        .home-btn:active { background-color: var(--accent-green); color: #000; }
+        /* The Main Home Button */
+        .btn-home {
+            margin-top: 40px;
+            width: 100%;
+            max-width: 400px;
+            padding: 18px;
+            border-radius: 15px;
+            border: 1.5px solid var(--accent-green);
+            background: transparent;
+            color: var(--accent-green);
+            text-decoration: none;
+            text-align: center;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
 
-        footer { font-size: 10px; color: #444; text-align: center; }
+        .btn-home:active {
+            background: var(--accent-green);
+            color: #000;
+        }
 
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        footer { margin-top: auto; padding-top: 40px; font-size: 11px; color: #444; }
     </style>
 </head>
 <body>
 
-    <div class="main-container">
-        <div class="community-card">
-            <img src="logo.png" alt="Sharan Musician" class="brand-logo">
-            <h1>Our Community</h1>
-            
-            <a href="YOUR_INSTAGRAM_LINK" class="link-item">
-                <span class="icon">📸</span>
-                <span class="label">Instagram Channel</span>
-                <span style="color: var(--accent-green)">→</span>
-            </a>
+    <div class="profile-header">
+        <img src="logo.png" alt="Sharan Musician" class="profile-logo">
+        <h1>COMMUNITY</h1>
+        <div class="tagline">Exclusive Access</div>
+    </div>
 
-            <div class="link-item disabled">
-                <span class="icon">💬</span>
-                <span class="label">WhatsApp Channel</span>
-                <span class="badge">SOON</span>
+    <div class="links-wrapper">
+        <a href="INSERT_INSTAGRAM_CHANNEL_LINK" class="link-card">
+            <div class="icon-circle">📸</div>
+            <div class="text-content">
+                <b>Instagram Channel</b>
+                <span>Join for daily updates</span>
             </div>
+            <div style="color: var(--accent-green)">→</div>
+        </a>
 
-            <a href="index.html" class="home-btn">Return Home</a>
+        <div class="link-card coming-soon">
+            <div class="icon-circle">💬</div>
+            <div class="text-content">
+                <b>WhatsApp Tribe</b>
+                <span>Direct group access</span>
+            </div>
+            <div class="soon-pill">SOON</div>
         </div>
+
+        <a href="index.html" class="btn-home">Back To Home</a>
     </div>
 
     <footer>
-        <p>&copy; 2026 Sharan Musician</p>
+        &copy; 2026 SHARAN MUSICIAN
     </footer>
 
 </body>

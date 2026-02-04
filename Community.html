@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Community | Sharan Musician</title>
+    <style>
+        :root {
+            --bg-black: #000000;
+            --card-grey: #121212;
+            --accent-green: #00ff7f;
+            --logo-red: #ff3131;
+            --text-white: #ffffff;
+            --text-dim: #888888;
+        }
+
+        * { box-sizing: border-box; }
+        html, body { height: 100%; margin: 0; padding: 0; background-color: var(--bg-black); overflow: hidden; }
+
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-white);
+            padding: 40px 24px 30px;
+        }
+
+        .main-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        .community-card {
+            width: 100%;
+            max-width: 360px;
+            background: var(--card-grey);
+            padding: 40px 25px;
+            border-radius: 24px;
+            border: 1px solid #222;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .brand-logo {
+            width: 90px;
+            height: 90px;
+            border: 2.5px solid var(--logo-red);
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            object-fit: cover;
+            display: block;
+        }
+
+        h1 { font-size: 22px; margin: 0 0 25px; font-weight: 700; letter-spacing: 0.5px; }
+
+        /* Link Cards */
+        .link-item {
+            display: flex;
+            align-items: center;
+            background: #1a1a1a;
+            padding: 15px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            margin-bottom: 12px;
+            border: 1px solid #333;
+            transition: 0.2s;
+        }
+
+        .link-item:active { background: #222; transform: scale(0.98); }
+
+        .link-item.disabled { opacity: 0.5; cursor: default; }
+        .link-item.disabled:active { transform: none; }
+
+        .icon { font-size: 20px; margin-right: 15px; }
+        .label { flex: 1; text-align: left; font-size: 14px; font-weight: 500; }
+        .badge { font-size: 9px; background: #333; color: var(--text-dim); padding: 2px 6px; border-radius: 4px; }
+
+        /* Professional Home Button */
+        .home-btn {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            padding: 16px;
+            background-color: transparent;
+            color: var(--accent-green);
+            border: 1.5px solid var(--accent-green);
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.2s ease;
+        }
+
+        .home-btn:active { background-color: var(--accent-green); color: #000; }
+
+        footer { font-size: 10px; color: #444; text-align: center; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <div class="community-card">
+            <img src="logo.png" alt="Sharan Musician" class="brand-logo">
+            <h1>Our Community</h1>
+            
+            <a href="YOUR_INSTAGRAM_LINK" class="link-item">
+                <span class="icon">📸</span>
+                <span class="label">Instagram Channel</span>
+                <span style="color: var(--accent-green)">→</span>
+            </a>
+
+            <div class="link-item disabled">
+                <span class="icon">💬</span>
+                <span class="label">WhatsApp Channel</span>
+                <span class="badge">SOON</span>
+            </div>
+
+            <a href="index.html" class="home-btn">Return Home</a>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Sharan Musician</p>
+    </footer>
+
+</body>
+</html>

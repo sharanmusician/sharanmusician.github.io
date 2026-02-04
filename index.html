@@ -130,78 +130,54 @@
         .product { background: #12121a; border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); }
         .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
 
-        /* ================= PREMIUM NEWS SECTION ================= */
-        .news-bulletin {
+        /* ================= PREMIUM NEWS SECTION STYLES ================= */
+        .premium-news-card {
             margin-top: 60px;
-            padding: 45px;
-            background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-            border: 1px solid rgba(255,255,255,0.08);
-            border-radius: 24px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            padding: 40px;
+            background: linear-gradient(145deg, #16161d, #0b0b0f);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 20px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
         }
-        .news-top {
+        .news-header-flex {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 35px;
+            margin-bottom: 30px;
         }
-        .status-indicator {
+        .live-badge {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 8px;
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: #1db954;
+            font-weight: 800;
+        }
+        .dot { width: 8px; height: 8px; background: #1db954; border-radius: 50%; box-shadow: 0 0 10px #1db954; }
+        
+        .btn-archive-pro {
+            background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.02) 100%);
+            color: white;
+            padding: 12px 26px;
+            border-radius: 8px;
             font-size: 11px;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #1db954;
-        }
-        .live-dot {
-            height: 8px; width: 8px;
-            background: #1db954;
-            border-radius: 50%;
-            box-shadow: 0 0 15px rgba(29, 185, 84, 0.6);
-            animation: pulse 2s infinite;
-        }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-
-        /* PROFESSIONAL GLOSSY BUTTON */
-        .archive-btn-lux {
-            position: relative;
-            padding: 12px 28px;
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
             letter-spacing: 1.5px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3), inset 0 1px 1px rgba(255,255,255,0.1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .archive-btn-lux:hover {
+        .btn-archive-pro:hover {
+            transform: translateY(-2px);
             background: #ffffff;
             color: #000;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255,255,255,0.2);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
-
-        .news-header-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.6rem;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            color: #ffffff;
-            font-weight: 700;
-        }
-        .news-body-text {
-            font-size: 1.1rem;
-            color: #b0b0b0;
-            max-width: 850px;
-            line-height: 1.8;
-            font-weight: 400;
-        }
+        .news-title { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: #fff; margin-bottom: 15px; }
+        .news-desc { color: #999; font-size: 1.1rem; line-height: 1.7; max-width: 90%; }
 
         /* ================= FOOTER ================= */
         footer { padding: 40px 20px; background: #08080c; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
@@ -209,9 +185,15 @@
 
         /* ================= MOBILE OPTIMIZATIONS ================= */
         @media (max-width: 900px) {
-            .news-bulletin { padding: 30px; border-radius: 16px; }
-            .news-header-text { font-size: 1.8rem; }
-            .archive-btn-lux { padding: 10px 20px; font-size: 10px; }
+            .top-bar { padding: 10px 15px; flex-direction: column; }
+            .action-bar { padding: 10px 15px; grid-template-columns: repeat(3, 1fr); }
+            nav { justify-content: flex-start; }
+            nav button { flex: 0 0 25%; padding: 15px 5px; font-size: 12px; }
+            main { display: flex; flex-direction: column; padding: 20px; }
+            .profile-item { flex: 0 0 25%; } 
+            .products { grid-template-columns: 1fr 1fr; }
+            .news-title { font-size: 1.8rem; }
+            .premium-news-card { padding: 25px; }
         }
     </style>
 </head>
@@ -247,7 +229,9 @@
 </nav>
 
 <section class="hero" id="heroWrapper">
-    <video autoplay muted loop playsinline id="heroVideo"><source src="hero.mp4" type="video/mp4"></video>
+    <video autoplay muted loop playsinline id="heroVideo">
+        <source src="hero.mp4" type="video/mp4">
+    </video>
     <div class="mute-btn" id="muteToggle">
         <svg id="muteIcon" viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"></path></svg>
     </div>
@@ -298,33 +282,34 @@
             </div>
         </section>
 
-        <section class="news-bulletin">
-            <div class="news-top">
-                <div class="status-indicator"><div class="live-dot"></div> Latest News</div>
-                <a href="news.html"><button class="archive-btn-lux">View All Releases</button></a>
+        <div class="premium-news-card">
+            <div class="news-header-flex">
+                <div class="live-badge"><div class="dot"></div> Press Bulletin</div>
+                <a href="news.html"><button class="btn-archive-pro">View Full Archive</button></a>
             </div>
-            <div id="instant-news-box">
-                <h2 class="news-header-text">...</h2>
-                <p class="news-body-text"></p>
+            <div id="instant-inject">
+                <h2 class="news-title">...</h2>
+                <p class="news-desc">Loading bulletin...</p>
             </div>
-        </section>
+        </div>
     </div>
 </main>
 
-<footer><div class="copyright">© 2026 Sharan Musician | All Rights Reserved.</div></footer>
+<footer>
+    <div class="copyright">© 2026 Sharan Musician | All Rights Reserved.</div>
+</footer>
 
 <script src="newsdata.js"></script>
 
 <script>
-    // SUDDEN LOAD LOGIC (No delay searching)
+    // SUDDEN LOAD LOGIC: Triggers immediately as script is parsed
     (function() {
-        if (typeof newsArchive !== 'undefined' && newsArchive.length > 0) {
-            // Find specific sl 1
-            const item = newsArchive.find(x => x.sl === 1);
-            if(item) {
-                document.getElementById('instant-news-box').innerHTML = `
-                    <h2 class="news-header-text">${item.heading}</h2>
-                    <p class="news-body-text">${item.content}</p>
+        if (typeof newsArchive !== 'undefined') {
+            const item = newsArchive.find(n => n.sl === 1);
+            if (item) {
+                document.getElementById('instant-inject').innerHTML = `
+                    <h2 class="news-title">${item.heading}</h2>
+                    <p class="news-desc">${item.content}</p>
                 `;
             }
         }
@@ -353,5 +338,4 @@
 </script>
 
 </body>
-                                                                                                                                      </html>
-                                                                                                                                      
+</html>

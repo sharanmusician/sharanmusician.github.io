@@ -16,7 +16,6 @@
             font-family: 'Inter', -apple-system, sans-serif; margin: 0;
         }
 
-        /* Top Luxury Status Bar */
         .status-bar {
             background: #111; padding: 15px 5%; display: flex; justify-content: space-between;
             font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
@@ -29,9 +28,8 @@
             padding: 10px 20px; font-size: 11px; text-transform: uppercase; letter-spacing: 2px;
             transition: 0.3s; display: inline-block;
         }
-        .home-btn:hover { border-color: var(--accent-green); color: var(--accent-green); }
 
-        .container { display: flex; justify-content: center; padding: 20px; position: relative; }
+        .container { display: flex; justify-content: center; padding: 20px; }
 
         .booking-card {
             background-color: var(--card-charcoal); width: 100%; max-width: 480px;
@@ -39,65 +37,52 @@
             box-shadow: 0 40px 80px rgba(0,0,0,0.6); position: relative;
         }
 
+        /* Price Display UI */
+        .price-box {
+            background: #111; border: 1px solid var(--input-border);
+            padding: 20px; text-align: center; margin-bottom: 25px;
+        }
+        .price-label { font-size: 9px; color: var(--text-grey); letter-spacing: 2px; }
+        .price-value { font-size: 28px; font-weight: 800; color: var(--accent-green); margin-top: 5px; }
+
         .step { display: none; }
         .active { display: block; }
 
-        h1 { font-size: 24px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 30px; text-align: center; }
         label { display: block; font-size: 9px; color: var(--text-grey); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px; }
-        
         input {
             width: 100%; background: #000; border: 1px solid var(--input-border);
-            padding: 15px; color: white; border-radius: 2px; box-sizing: border-box; margin-bottom: 20px; font-size: 14px;
+            padding: 15px; color: white; border-radius: 2px; box-sizing: border-box; margin-bottom: 20px;
         }
-        input:focus { border-color: var(--accent-green); outline: none; }
 
         .btn-prime {
             width: 100%; background: var(--accent-green); color: white; border: none;
             padding: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 3px;
-            cursor: pointer; transition: 0.3s;
-        }
-        .btn-prime:hover { background: #008f4c; letter-spacing: 5px; }
-
-        /* Sold Out Message Overlay */
-        #soldOutMsg {
-            display: none; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(12,12,14,0.98); z-index: 10; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center; border-radius: 4px;
+            cursor: pointer;
         }
 
-        /* Ticket Design for PDF */
-        #ticket-output {
-            background: white; color: black; padding: 40px; width: 500px;
-            position: absolute; left: -9999px; font-family: 'Helvetica', sans-serif;
-        }
+        #ticket-output { background: white; color: black; padding: 40px; width: 500px; position: absolute; left: -9999px; }
     </style>
 </head>
 <body>
 
     <div class="status-bar">
         <div id="liveStatus">SYSTEM: ACTIVE</div>
-        <div id="ticketCountDisplay">TICKETS REMAINING: 10</div>
+        <div id="ticketCountDisplay">--</div>
     </div>
 
-    <nav class="nav-bar">
-        <a href="index.html" class="home-btn">← Home</a>
-    </nav>
+    <nav class="nav-bar"><a href="index.html" class="home-btn">← Home</a></nav>
 
     <div class="container">
         <div class="booking-card">
             
-            <div id="soldOutMsg">
-                <h2 style="color:var(--accent-green); letter-spacing:5px; margin:0;">ACCESS DENIED</h2>
-                <p style="font-size:12px; opacity:0.6;">All slots are currently booked.</p>
-            </div>
-
             <div id="step1" class="step active">
-                <h1>Secure Pass</h1>
+                <div class="price-box">
+                    <div class="price-label">ADMISSION PRICE</div>
+                    <div class="price-value" id="mainPrice">₹1,499</div>
+                </div>
+
                 <label>Full Name</label>
                 <input type="text" id="u_name" placeholder="SHARAN" required>
-                
-                <label>College Name</label>
-                <input type="text" id="u_college" placeholder="INSTITUTION NAME" required>
                 
                 <label>Email Address</label>
                 <input type="email" id="u_email" placeholder="EMAIL@DOMAIN.COM" required>
@@ -105,106 +90,88 @@
                 <label>Phone Number</label>
                 <input type="tel" id="u_phone" placeholder="+91" required>
 
-                <label>Ticket Quantity</label>
-                <input type="number" id="u_qty" value="1" min="1">
+                <label>Quantity</label>
+                <input type="number" id="u_qty" value="1" min="1" oninput="updatePrice()">
 
                 <button class="btn-prime" onclick="showPayment()">Proceed to Payment</button>
             </div>
 
             <div id="step2" class="step" style="text-align:center;">
                 <h1>Payment</h1>
-                <p style="font-size:11px; color:var(--text-grey); margin-bottom:20px;">Scan to complete via GPay / PhonePe</p>
-                
                 <div style="background: white; padding: 15px; border-radius: 8px; width: 220px; margin: 0 auto 25px;">
                     <img src="qr.png" alt="Payment QR" style="width: 100%; display: block;">
                 </div>
-
-                <label>Enter 12-Digit Transaction UTR</label>
-                <input type="text" id="u_utr" placeholder="UTR / TRANSACTION ID" maxlength="12">
+                <label>Total Amount: <span id="totalToPay">₹1,499</span></label>
+                <input type="text" id="u_utr" placeholder="12-DIGIT UTR ID" maxlength="12">
                 <button class="btn-prime" onclick="processPayment()">Verify & Download</button>
             </div>
 
             <div id="step3" class="step" style="text-align:center; padding: 40px 0;">
                 <h1 style="color:var(--accent-green)">VERIFYING...</h1>
-                <p style="font-size: 12px; letter-spacing: 1px;">Synchronizing with Bank Servers...</p>
-                <div style="width:100%; height:2px; background:#222; margin-top:30px;">
-                    <div style="width: 50%; height: 100%; background: var(--accent-green); animation: load 2s infinite linear;"></div>
-                </div>
+                <p>Logging transaction to Sharan Musician Database</p>
             </div>
 
         </div>
     </div>
 
     <div id="ticket-output">
-        <h1 style="color:#00a859; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 30px;">SHARAN MUSICIAN LIVE</h1>
-        <p><strong>BOOKING ID:</strong> <span id="t_id"></span></p>
-        <p><strong>NAME:</strong> <span id="t_name"></span></p>
-        <p><strong>COLLEGE:</strong> <span id="t_college"></span></p>
-        <p><strong>PASSES:</strong> <span id="t_qty"></span> Units</p>
-        <div style="margin-top:80px; font-size:10px; color:#444; border-top: 1px solid #ccc; padding-top: 15px;">
-            VALID FOR ENTRY - 2026 EVENT SERIES
-        </div>
+        <h1 style="color:#00a859; border-bottom: 2px solid #000; padding-bottom: 10px;">SHARAN MUSICIAN LIVE</h1>
+        <p><strong>PASS ID:</strong> <span id="t_id"></span></p>
+        <p><strong>HOLDER:</strong> <span id="t_name"></span></p>
+        <p><strong>QUANTITY:</strong> <span id="t_qty"></span> Units</p>
+        <p style="margin-top:50px; font-size:10px;">OFFICIAL DIGITAL PASS - 2026 EDITION</p>
     </div>
 
-    <style>
-        @keyframes load {
-            0% { transform: translateX(-100%); }
-            100% { transform: translateX(200%); }
-        }
-    </style>
-
     <script>
-        /* --- CONFIGURATION --- */
-        const isEventActive = true; 
-        const ticketsRemaining = 10; 
+        const TICKET_PRICE = 1499; // Set your ticket price here
+        const ticketsRemaining = 10;
 
-        // Auto-Check Sold Out
-        window.onload = () => {
-            if(!isEventActive || ticketsRemaining <= 0) {
-                document.getElementById('soldOutMsg').style.display = 'flex';
-                document.getElementById('liveStatus').innerText = "SYSTEM: CLOSED";
-            }
-            document.getElementById('ticketCountDisplay').innerText = "TICKETS REMAINING: " + ticketsRemaining;
-        };
+        document.getElementById('ticketCountDisplay').innerText = "TICKETS REMAINING: " + ticketsRemaining;
+
+        function updatePrice() {
+            let qty = document.getElementById('u_qty').value;
+            let total = qty * TICKET_PRICE;
+            document.getElementById('mainPrice').innerText = "₹" + total.toLocaleString();
+            document.getElementById('totalToPay').innerText = "₹" + total.toLocaleString();
+        }
 
         function showPayment() {
-            if(!document.getElementById('u_name').value || !document.getElementById('u_phone').value) {
-                alert("Please complete all fields.");
-                return;
-            }
+            if(!document.getElementById('u_name').value) return alert("Please enter name");
             document.getElementById('step1').classList.remove('active');
             document.getElementById('step2').classList.add('active');
         }
 
         function processPayment() {
-            const utr = document.getElementById('u_utr').value;
-            if(utr.length < 12) {
-                alert("Invalid UTR. Please enter 12 digits.");
-                return;
-            }
+            if(document.getElementById('u_utr').value.length < 12) return alert("Invalid UTR");
             
+            // --- DATA LOGGING TO GOOGLE SHEETS ---
+            const userData = {
+                name: document.getElementById('u_name').value,
+                email: document.getElementById('u_email').value,
+                phone: document.getElementById('u_phone').value,
+                qty: document.getElementById('u_qty').value,
+                utr: document.getElementById('u_utr').value
+            };
+
+            fetch('YOUR_WEB_APP_URL', {
+                method: 'POST',
+                mode: 'no-cors',
+                body: JSON.stringify(userData)
+            });
+
             document.getElementById('step2').classList.remove('active');
             document.getElementById('step3').classList.add('active');
 
-            // Fill PDF Data
-            document.getElementById('t_name').innerText = document.getElementById('u_name').value;
-            document.getElementById('t_college').innerText = document.getElementById('u_college').value;
-            document.getElementById('t_qty').innerText = document.getElementById('u_qty').value;
+            // Set Ticket Data
+            document.getElementById('t_name').innerText = userData.name;
+            document.getElementById('t_qty').innerText = userData.qty;
             document.getElementById('t_id').innerText = "SM-" + Math.floor(100000 + Math.random() * 900000);
 
             setTimeout(() => {
                 const element = document.getElementById('ticket-output');
-                const opt = {
-                    margin: 0.5,
-                    filename: 'Sharan_Musician_Pass.pdf',
-                    image: { type: 'jpeg', quality: 1 },
-                    html2canvas: { scale: 3 },
-                    jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-                };
-
-                html2pdf().set(opt).from(element).save().then(() => {
-                    alert("Verification Successful. Your ticket has been downloaded.");
-                    location.reload(); 
+                html2pdf().from(element).save().then(() => {
+                    alert("Ticket Downloaded!");
+                    location.reload();
                 });
             }, 3000);
         }

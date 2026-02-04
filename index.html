@@ -6,24 +6,17 @@
     <title>Sharan Musician | Official Store</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
-        /* ================= GLOBAL OPTIMIZATION ================= */
+        /* ================= GLOBAL ================= */
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        html, body {
-            max-width: 100%;
-            overflow-x: hidden; /* Prevent horizontal "leakage" */
+        body {
+            font-family: 'Inter', sans-serif;
             background: #0b0b0f;
             color: #f5f5f5;
-            font-family: 'Inter', sans-serif;
             line-height: 1.6;
+            overflow-x: hidden; /* Prevents horizontal scroll on PC */
         }
-
-        /* Container to keep everything centered and within bounds */
-        .site-wrapper {
-            max-width: 1440px; 
-            margin: 0 auto;
-            width: 100%;
-        }
+        a { text-decoration: none; color: inherit; transition: all 0.2s ease; }
+        button { cursor: pointer; border: none; transition: all 0.2s ease; }
 
         /* ================= STICKY TOP BAR ================= */
         .top-bar {
@@ -39,58 +32,67 @@
             border-bottom: 1px solid rgba(255,255,255,0.08);
             gap: 20px;
         }
-
         .logo-with-name { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
         .logo-with-name .logo { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; }
         .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; white-space: nowrap; }
 
         .search-bar { flex: 1; display: flex; max-width: 500px; }
-        .search-bar input { flex: 1; padding: 10px 18px; background: transparent; color: #fff; border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); outline: none; min-width: 0; }
-        .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; }
+        .search-bar input { flex: 1; padding: 10px 18px; background: transparent; color: #fff; border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); border-right: none; outline: none; min-width: 0; }
+        .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; white-space: nowrap; }
 
         /* ================= ACTION BAR ================= */
         .action-bar {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(3, minmax(115px, 1fr)); 
             justify-content: flex-end;
             padding: 12px 40px;
-            gap: 12px;
+            background: #0b0b0f;
+            gap: 10px;
+            max-width: 1450px;
+            margin: 0 auto;
         }
         .action-bar button { 
-            padding: 10px 20px; 
+            width: 100%; height: 38px; padding: 0 10px; 
             background: rgba(255,255,255,0.06); 
             color: #fff; border-radius: 6px; font-size: 13px; 
+            display: flex; align-items: center; justify-content: center;
             white-space: nowrap;
         }
 
         /* ================= NAVIGATION ================= */
         nav { 
-            display: flex; 
-            background: #111118; 
-            overflow-x: auto; 
-            white-space: nowrap; 
-            justify-content: center;
+            display: flex; width: 100%; background: #111118; 
+            overflow-x: auto; white-space: nowrap; 
+            justify-content: center; border-bottom: 1px solid rgba(255,255,255,0.03);
             scrollbar-width: none;
         }
-        nav button { background: none; color: #999; font-size: 14px; padding: 20px 25px; }
+        nav::-webkit-scrollbar { display: none; }
+        nav button { background: none; color: #999; font-size: 14px; padding: 20px 25px; flex: 0 0 auto; }
+        nav button:hover { color: #1db954; }
 
-        /* ================= HERO VIDEO ================= */
+        /* ================= HERO ================= */
         .hero {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            max-height: 70vh;
-            overflow: hidden;
-            background: #000;
+            position: relative; width: 100%; aspect-ratio: 16 / 9;
+            max-height: 80vh; overflow: hidden; margin-bottom: 20px;
+            background: #000; cursor: pointer;
         }
-        .hero video { width: 100%; height: 100%; object-fit: cover; }
+        .hero video { width: 100%; height: 100%; display: block; object-fit: contain; }
+        .mute-btn {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            z-index: 10; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px);
+            color: white; border-radius: 50%; width: 60px; height: 60px;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.2); opacity: 1; transition: opacity 0.4s;
+        }
+        .mute-btn.hidden { opacity: 0; }
+        .mute-btn svg { width: 28px; height: 28px; fill: currentColor; }
 
-        /* ================= MAIN LAYOUT (PC OPTIMIZED) ================= */
+        /* ================= MAIN LAYOUT (FIXED FOR PC) ================= */
         main { 
             display: grid; 
-            /* Sidebar is 260px, Content takes the rest (1fr) */
             grid-template-columns: 260px 1fr; 
-            gap: 40px; 
-            padding: 40px;
+            gap: 40px; padding: 40px; 
+            max-width: 1450px; margin: 0 auto;
             width: 100%;
         }
 
@@ -99,101 +101,164 @@
             border: 1px solid rgba(255, 255, 255, 0.07);
             border-radius: 12px; padding: 18px; height: fit-content;
         }
-        .category-box button { display: block; width: 100%; padding: 12px 15px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.04); color: #ccc; border-radius: 8px; text-align: left; }
+        .category-box h4 { font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 1.5px; margin-bottom: 15px; }
+        .category-box button { display: block; width: 100%; padding: 12px 15px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.04); color: #ccc; border-radius: 8px; text-align: left; font-size: 14px; }
 
-        /* ================= PROFILES SLIDER ================= */
-        .content-area { min-width: 0; } /* Crucial for preventing flex/grid overflow */
+        /* ================= PROFILES SECTION (FIXED FOR PC) ================= */
+        .content-area { min-width: 0; } /* Forces grid to respect boundaries */
+        .profiles-section { margin-bottom: 50px; width: 100%; }
         .profile-slider { 
-            display: flex; 
-            overflow-x: auto; 
-            padding-bottom: 15px; 
-            scrollbar-width: none;
+            display: flex; overflow-x: auto; padding-bottom: 15px; 
+            -webkit-overflow-scrolling: touch; scrollbar-width: none;
         }
-        .profile-item { 
-            flex: 0 0 20%; /* Shows 5 items on PC (up to Facebook) */
-            text-align: center; 
-        } 
-        .profile-item img { width: 65px; height: 65px; border-radius: 50%; padding: 10px; background: #16161d; margin-bottom: 8px; }
+        .profile-slider::-webkit-scrollbar { display: none; }
 
-        /* ================= PRODUCTS GRID ================= */
-        .products { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); 
-            gap: 20px; 
-        }
-        .product { background: #12121a; border-radius: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.05); }
-        .product img { width: 100%; border-radius: 12px; margin-bottom: 10px; }
+        /* PC View: Exactly 5 items (up to Facebook) */
+        .profile-item { flex: 0 0 20%; text-align: center; } 
+        .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.1); }
+        .profile-item div { font-size: 12px; color: #aaa; white-space: nowrap; }
 
-        /* ================= RESPONSIVE ================= */
-        @media (max-width: 1024px) {
-            main { grid-template-columns: 200px 1fr; gap: 20px; padding: 20px; }
-        }
+        /* ================= PRODUCTS ================= */
+        .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
+        .product { background: #12121a; border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); }
+        .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
 
-        @media (max-width: 800px) {
-            main { grid-template-columns: 1fr; }
-            .top-bar { flex-direction: column; padding: 15px; }
-            .profile-item { flex: 0 0 25%; } /* Shows 4 items on Mobile */
+        /* ================= FOOTER ================= */
+        footer { padding: 40px 20px; background: #08080c; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
+        .footer-links { display: flex; justify-content: center; gap: 40px; margin-bottom: 20px; }
+        .footer-links a { font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+        .copyright { font-size: 11px; color: #444; text-transform: uppercase; }
+
+        @media (max-width: 900px) {
+            .top-bar { padding: 10px 15px; flex-direction: column; }
+            .action-bar { padding: 10px 15px; grid-template-columns: repeat(3, 1fr); }
+            main { display: flex; flex-direction: column; padding: 20px; }
+            /* Mobile View: Exactly 4 items (up to YouTube) */
+            .profile-item { flex: 0 0 25%; } 
+            .products { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
 <body>
 
-<div class="site-wrapper">
-    <header class="top-bar">  
-        <div class="logo-with-name">  
-            <img src="logo.png" alt="Sharan Logo" class="logo">  
-            <div class="musician-name">Sharan Musician</div>  
-        </div>
-        <div class="search-bar">  
-            <input type="text" placeholder="Search...">  
-            <button>Search</button>  
-        </div>
-    </header>
-
-    <div class="action-bar">
-        <button>Catalogue</button>
-        <button>Booking</button>  
-        <button>Cart</button>  
+<div class="top-bar">  
+    <div class="logo-with-name">  
+        <img src="logo.png" alt="Sharan Logo" class="logo">  
+        <div class="musician-name">Sharan Musician</div>  
     </div>
-
-    <nav>  
-        <button>All</button><button>Projects</button><button>News</button><button>Merch</button><button>Contact</button>
-    </nav>
-
-    <section class="hero">
-        <video autoplay muted loop playsinline><source src="hero.mp4" type="video/mp4"></video>
-    </section>
-
-    <main>
-        <aside class="category-box">  
-            <h4 style="font-size: 11px; color: #555; margin-bottom: 15px;">SECTIONS</h4>
-            <button>Albums</button><button>Courses</button><button>Merch</button>
-        </aside>
-
-        <div class="content-area">
-            <section class="profiles-section">  
-                <h3 style="margin-bottom:20px;">Profiles</h3>
-                <div class="profile-slider">  
-                    <div class="profile-item"><img src="spotify.jpg"><div>Spotify</div></div>
-                    <div class="profile-item"><img src="google.jpg"><div>Google</div></div>
-                    <div class="profile-item"><img src="instagram.jpg"><div>Instagram</div></div>
-                    <div class="profile-item"><img src="youtube.jpg"><div>YouTube</div></div>
-                    <div class="profile-item"><img src="facebook.jpg"><div>Facebook</div></div>
-                    <div class="profile-item"><img src="x.jpg"><div>Twitter</div></div>
-                    <div class="profile-item"><img src="imdb.jpg"><div>IMDb</div></div>
-                </div>  
-            </section>
-
-            <section class="products-section">
-                <h3 style="margin-bottom:20px;">Store</h3>
-                <div class="products">  
-                    <div class="product"><img src="https://via.placeholder.com/200"><h4>Vinyl</h4><p>₹3,499</p></div>
-                    <div class="product"><img src="https://via.placeholder.com/200"><h4>Hoodie</h4><p>₹2,299</p></div>
-                </div>
-            </section>
-        </div>
-    </main>
+    <div class="search-bar">  
+        <input type="text" placeholder="Search gear or music...">  
+        <button>Search</button>  
+    </div>
 </div>
 
+<div class="action-bar">
+    <a href="https://drive.google.com/drive/folders/1C-cp90aqIc3ECZ7BM0imJD_4NuKFY8X0" target="_blank">
+        <button>Catalogue</button>
+    </a>
+    <button>Event Booking</button>  
+    <button>Cart</button>  
+</div>
+
+<nav>  
+    <button>All</button>
+    <button>Projects</button>
+    <button>Book Tickets</button>
+    <button>News</button>
+    <button>Merch</button>
+    <button>About</button>
+    <button>Contact</button>
+</nav>
+
+<section class="hero" id="heroWrapper">
+    <video autoplay muted loop playsinline id="heroVideo">
+        <source src="hero.mp4" type="video/mp4">
+    </video>
+    <div class="mute-btn" id="muteToggle">
+        <svg id="muteIcon" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"></path></svg>
+    </div>
+</section>
+
+<main>
+    <div class="category-box">  
+        <h4>Sections</h4>
+        <button>Albums</button>  
+        <button>Reserve Your Seat</button>  
+        <button>Music Courses</button>  
+        <button>Merchandise</button>  
+        <button>Community</button>  
+    </div>
+
+    <div class="content-area">
+        <section class="profiles-section">  
+            <h3 style="margin-bottom:20px; font-weight: 500;">Profiles</h3>
+            <div class="profile-slider">  
+                <a href="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=pRXJonnGRHWT5XegBTw-eA" target="_blank" class="profile-item"><img src="spotify.jpg" alt="Spotify"><div>Spotify</div></a>
+                <a href="https://g.co/kgs/gtv47AQ" target="_blank" class="profile-item"><img src="google.jpg" alt="Google"><div>Google</div></a>
+                <a href="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0" target="_blank" class="profile-item"><img src="instagram.jpg" alt="Instagram"><div>Instagram</div></a>
+                <a href="https://youtube.com/@sharan.musician?si=wZlASMES3BCSoclb" target="_blank" class="profile-item"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
+                <a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" target="_blank" class="profile-item"><img src="facebook.jpg" alt="FaceBook"><div>FaceBook</div></a>
+                <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" target="_blank" class="profile-item"><img src="x.jpg" alt="X"><div>Twitter</div></a>
+                <a href="https://www.imdb.com/name/nm17859010/?ref_=ext_shr" target="_blank" class="profile-item"><img src="imdb.jpg" alt="IMDb"><div>IMDb</div></a>
+                <a href="https://music.apple.com/us/artist/sharan-musician/1671976313" target="_blank" class="profile-item"><img src="applemusic.jpg" alt="Apple Music"><div>Apple Music</div></a>
+                <a href="https://music.amazon.in/artists/B0BVRTY3NT/sharan-musician?marketplaceId=A21TJRUUN4KGV&musicTerritory=IN&ref=dm_sh_gweJQXn29RCPnuig7hXbrTAHB" target="_blank" class="profile-item"><img src="amazonmusic.jpg" alt="Amazon Music"><div>Amazon Music</div></a>
+                <a href="https://www.jiosaavn.com/artist/sharan-musician-songs/VgKiJSk2Acg_" target="_blank" class="profile-item"><img src="jiosaavn.jpg" alt="JioSaavn"><div>JioSaavn</div></a>
+                <a href="https://gaana.com/artist/sharan-musician" target="_blank" class="profile-item"><img src="gaana.jpg" alt="Gaana"><div>Gaana</div></a>
+            </div>  
+        </section>
+
+        <section class="products-section">
+            <h3 style="margin-bottom:20px; font-weight: 500;">Featured Items</h3>
+            <div class="products">  
+                <div class="product">
+                    <img src="https://via.placeholder.com/300x210">
+                    <h4>Official Vinyl</h4>
+                    <p style="color: #1db954; font-weight: 700;">₹3,499</p>
+                </div>
+                <div class="product">
+                    <img src="https://via.placeholder.com/300x210">
+                    <h4>Premium Hoodie</h4>
+                    <p style="color: #1db954; font-weight: 700;">₹2,299</p>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+
+<footer>
+    <div class="footer-links">
+        <a href="#">Contact</a>
+        <a href="#">About</a>
+    </div>
+    <div class="copyright">© 2026 Sharan Musician | All Rights Reserved.</div>
+</footer>
+
+<script>
+    const video = document.getElementById('heroVideo');
+    const heroWrapper = document.getElementById('heroWrapper');
+    const muteBtn = document.getElementById('muteToggle');
+    const muteIcon = document.getElementById('muteIcon');
+    let hideTimeout;
+
+    const mutedPath = "M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z";
+    const unmutedPath = "M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z";
+
+    function toggleMute() {
+        clearTimeout(hideTimeout);
+        if (video.muted) {
+            video.muted = false;
+            muteIcon.innerHTML = `<path d="${unmutedPath}"></path>`;
+            muteBtn.classList.remove('hidden');
+            hideTimeout = setTimeout(() => { muteBtn.classList.add('hidden'); }, 500); 
+        } else {
+            video.muted = true;
+            muteIcon.innerHTML = `<path d="${mutedPath}"></path>`;
+            muteBtn.classList.remove('hidden');
+        }
+    }
+    heroWrapper.addEventListener('click', toggleMute);
+</script>
+
 </body>
-</html>
+            </html>
+            

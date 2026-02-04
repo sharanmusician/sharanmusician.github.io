@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets | Sharan Musician Official</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* ================= GLOBAL ================= */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0b0b0f;
+            color: #f5f5f5;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        a { text-decoration: none; color: inherit; transition: all 0.2s ease; }
+        button { cursor: pointer; border: none; transition: all 0.2s ease; outline: none; }
+
+        /* Grey Sliding Indicator */
+        .custom-scroll::-webkit-scrollbar { height: 3px; display: block; }
+        .custom-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
+        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+        /* ================= STICKY TOP BAR ================= */
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 40px;
+            background: rgba(15,15,20,0.98);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 1100;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+        .logo-with-name { display: flex; align-items: center; gap: 12px; }
+        .logo-with-name .logo { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; }
+        .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; }
+
+        /* ================= NAVIGATION ================= */
+        nav { 
+            display: flex; 
+            width: 100%; 
+            background: #111118; 
+            overflow-x: auto; 
+            white-space: nowrap; 
+            justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            padding-bottom: 2px;
+        }
+        nav button { background: none; color: #999; font-size: 14px; padding: 20px 25px; flex: 0 0 auto; }
+        nav button.active { color: #1db954; font-weight: 700; }
+
+        /* ================= TICKETS HERO ================= */
+        .tickets-container {
+            max-width: 1200px;
+            margin: 80px auto;
+            padding: 0 40px;
+            text-align: center;
+        }
+
+        .status-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 24px;
+            padding: 100px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            color: #444;
+        }
+
+        .status-card h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            letter-spacing: -0.5px;
+        }
+
+        .status-card p {
+            color: #888;
+            max-width: 500px;
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+        }
+
+        .notify-btn {
+            background: #1db954;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .notify-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(29, 185, 84, 0.2);
+        }
+
+        /* ================= FOOTER ================= */
+        footer { 
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            padding: 30px 20px; 
+            background: #08080c; 
+            text-align: center; 
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+        .copyright { font-size: 11px; color: #444; text-transform: uppercase; }
+
+        /* ================= MOBILE ================= */
+        @media (max-width: 900px) {
+            .top-bar { padding: 15px 20px; }
+            nav { justify-content: flex-start; }
+            nav button { flex: 0 0 25%; padding: 15px 5px; font-size: 12px; }
+            .status-card h1 { font-size: 1.8rem; }
+            .tickets-container { margin: 40px auto; padding: 0 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="top-bar">  
+    <div class="logo-with-name">  
+        <img src="logo.png" alt="Sharan Logo" class="logo">  
+        <div class="musician-name">Sharan Musician</div>  
+    </div>
+</div>
+
+<nav class="custom-scroll">  
+    <button onclick="location.href='index.html'">All</button>
+    <button onclick="location.href='index.html'">Projects</button>
+    <button class="active">Book Tickets</button>
+    <button onclick="location.href='index.html'">News</button>
+    <button onclick="location.href='index.html'">Merch</button>
+    <button onclick="location.href='index.html'">About</button>
+    <button onclick="location.href='index.html'">Contact</button>
+</nav>
+
+<div class="tickets-container">
+    <div class="status-card">
+        <div class="icon-box">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"></path><path d="M13 5v2"></path><path d="M13 17v2"></path><path d="M13 11v2"></path></svg>
+        </div>
+        <h1>No Active Tours</h1>
+        <p>Currently, there are no scheduled concerts or live events. Sharan is back in the studio crafting new sounds. Check back soon for tour dates.</p>
+        <button class="notify-btn">Notify Me of New Shows</button>
+    </div>
+</div>
+
+<footer>
+    <div class="copyright">© 2026 Sharan Musician | All Rights Reserved.</div>
+</footer>
+
+</body>
+  </html>
+  

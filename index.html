@@ -72,18 +72,18 @@
             background: #111118; 
             border-bottom: 1px solid rgba(255,255,255,0.03);
             padding-bottom: 2px;
-            justify-content: center; /* Center items on PC */
+            justify-content: space-evenly; /* Equally spaced on PC */
         }
         nav button, nav a { 
-            flex: 0 1 auto; /* Let items take natural width on PC */
+            flex: 1; /* Allows items to grow equally on PC */
             text-align: center;
-            padding: 0 20px; /* Spacing between items on PC */
         }
         nav button { 
             background: none; 
             color: #999; 
             font-size: 14px; 
             padding: 20px 0; 
+            width: 100%;
         }
         nav button.active { color: #1db954; font-weight: 700; }
 
@@ -214,15 +214,13 @@
             .top-bar { padding: 10px 15px; flex-direction: column; }
             .action-bar { padding: 10px 15px; grid-template-columns: repeat(3, 1fr); }
             
-            /* Enable sliding on Mobile only */
             nav { 
                 overflow-x: auto; 
                 white-space: nowrap; 
-                justify-content: flex-start;
+                justify-content: flex-start; /* Reset justification for slide */
             }
             nav button, nav a { 
-                flex: 0 0 25%; /* Show 4 items at a time */
-                padding: 0;
+                flex: 0 0 25%; /* Fixed width for 4 items slide */
             }
             
             main { display: flex; flex-direction: column; padding: 20px; }
@@ -391,4 +389,5 @@
 </script>
 
 </body>
-</html>
+        </html>
+    

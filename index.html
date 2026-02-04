@@ -18,6 +18,7 @@
         a { text-decoration: none; color: inherit; transition: all 0.2s ease; }
         button { cursor: pointer; border: none; transition: all 0.2s ease; outline: none; }
 
+        /* Consistent Grey Sliding Indicator Style */
         .custom-scroll::-webkit-scrollbar { height: 3px; display: block; }
         .custom-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
         .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
@@ -41,6 +42,7 @@
         .logo-with-name .logo { height: 42px; width: 42px; border-radius: 50%; object-fit: cover; }
         .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; white-space: nowrap; }
 
+        /* GREEN SEARCH BUTTON */
         .search-bar { flex: 1; display: flex; max-width: 500px; }
         .search-bar input { flex: 1; padding: 10px 18px; background: transparent; color: #fff; border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); border-right: none; outline: none; min-width: 0; }
         .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; white-space: nowrap; }
@@ -78,42 +80,66 @@
         nav button.active { color: #1db954; font-weight: 700; }
 
         /* ================= HERO ================= */
-        .hero { position: relative; width: 100%; aspect-ratio: 16 / 9; max-height: 80vh; overflow: hidden; margin-bottom: 20px; background: #000; cursor: pointer; }
+        .hero {
+            position: relative; width: 100%; aspect-ratio: 16 / 9;
+            max-height: 80vh; overflow: hidden; margin-bottom: 20px;
+            background: #000; cursor: pointer;
+        }
         .hero video { width: 100%; height: 100%; display: block; object-fit: contain; }
-        .mute-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px); color: white; border-radius: 50%; width: 60px; height: 60px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255, 255, 255, 0.2); opacity: 1; transition: opacity 0.4s; }
+        .mute-btn {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            z-index: 10; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px);
+            color: white; border-radius: 50%; width: 60px; height: 60px;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid rgba(255, 255, 255, 0.2); opacity: 1; transition: opacity 0.4s;
+        }
         .mute-btn.hidden { opacity: 0; }
 
         /* ================= MAIN LAYOUT ================= */
-        main { display: grid; grid-template-columns: 260px 1fr; gap: 40px; padding: 40px; max-width: 1450px; margin: 0 auto; width: 100%; }
-        .category-box { background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.07); border-radius: 12px; padding: 18px; height: fit-content; }
+        main { 
+            display: grid; 
+            grid-template-columns: 260px 1fr; 
+            gap: 40px; padding: 40px; 
+            max-width: 1450px; margin: 0 auto;
+            width: 100%;
+        }
+
+        .category-box {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 12px; padding: 18px; height: fit-content;
+        }
         .category-box h4 { font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 1.5px; margin-bottom: 15px; }
         .category-box button { display: block; width: 100%; padding: 12px 15px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.04); color: #ccc; border-radius: 8px; text-align: left; font-size: 14px; }
 
-        /* ================= PROFILES ================= */
+        /* ================= PROFILES SECTION ================= */
         .content-area { min-width: 0; }
         .profiles-section { margin-bottom: 50px; width: 100%; }
-        .profile-slider { display: flex; overflow-x: auto; padding-bottom: 15px; }
+        .profile-slider { 
+            display: flex; 
+            overflow-x: auto; 
+            padding-bottom: 15px; 
+            -webkit-overflow-scrolling: touch;
+        }
         .profile-item { flex: 0 0 20%; text-align: center; } 
         .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.1); }
         .profile-item div { font-size: 12px; color: #aaa; white-space: nowrap; }
 
+        /* ================= PRODUCTS ================= */
         .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
         .product { background: #12121a; border-radius: 16px; padding: 24px; border: 1px solid rgba(255,255,255,0.05); }
         .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
 
-        /* ================= UPDATED FOOTER (EXACT MATCH) ================= */
-        footer { 
-            width: 100%; text-align: center; font-size: 10px; color: #444; 
-            padding: 40px 20px 20px; background: #08080c; border-top: 1px solid rgba(255,255,255,0.05);
-        }
-        .legal-row { margin-bottom: 8px; display: flex; justify-content: center; gap: 20px; }
-        .legal-row a { color: #555; text-decoration: none; }
-        .legal-row a:hover { color: #1db954; }
-        .merchant-line { font-weight: 600; color: #555; margin-bottom: 5px; }
+        /* ================= FOOTER ================= */
+        footer { padding: 40px 20px; background: #08080c; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
+        .copyright { font-size: 11px; color: #444; text-transform: uppercase; }
 
+        /* ================= MOBILE OPTIMIZATIONS ================= */
         @media (max-width: 900px) {
             .top-bar { padding: 10px 15px; flex-direction: column; }
             .action-bar { padding: 10px 15px; grid-template-columns: repeat(3, 1fr); }
+            nav { justify-content: flex-start; }
+            nav button { flex: 0 0 25%; padding: 15px 5px; font-size: 12px; }
             main { display: flex; flex-direction: column; padding: 20px; }
             .profile-item { flex: 0 0 25%; } 
             .products { grid-template-columns: 1fr 1fr; }
@@ -134,17 +160,21 @@
 </div>
 
 <div class="action-bar">
-    <a href="https://drive.google.com/drive/folders/1C-cp90aqIc3ECZ7BM0imJD_4NuKFY8X0" target="_blank"><button>Catalogue</button></a>
-    <a href="booktickets.html"><button>Event Booking</button></a>  
+    <a href="https://drive.google.com/drive/folders/1C-cp90aqIc3ECZ7BM0imJD_4NuKFY8X0" target="_blank">
+        <button>Catalogue</button>
+    </a>
+    <button>Event Booking</button>  
     <button>Cart</button>  
 </div>
 
 <nav class="custom-scroll" id="mainNav">  
     <button class="active">All</button>
     <button>Projects</button>
-    <a href="booktickets.html"><button>Book Tickets</button></a>
+    <button>Book Tickets</button>
     <button>News</button>
     <button>Merch</button>
+    <button>About</button>
+    <button>Contact</button>
 </nav>
 
 <section class="hero" id="heroWrapper">
@@ -159,21 +189,29 @@
 <main>
     <div class="category-box">  
         <h4>Sections</h4>
-        <button>Albums</button>
-        <a href="booktickets.html"><button>Reserve Your Seat</button></a>
-        <button>Music Courses</button>
-        <button>Merchandise</button>
-        <a href="community.html"><button>Community</button></a>
+        <button>Albums</button>  
+        <button>Reserve Your Seat</button>  
+        <button>Music Courses</button>  
+        <button>Merchandise</button>  
+        <button>Community</button>  
     </div>
 
     <div class="content-area">
         <section class="profiles-section">  
             <h3 style="margin-bottom:20px; font-weight: 500;">Profiles</h3>
             <div class="profile-slider custom-scroll">  
-                <a href="#" class="profile-item"><img src="spotify.jpg" alt="Spotify"><div>Spotify</div></a>
-                <a href="#" class="profile-item"><img src="instagram.jpg" alt="Instagram"><div>Instagram</div></a>
-                <a href="#" class="profile-item"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
-                <a href="#" class="profile-item"><img src="imdb.jpg" alt="IMDb"><div>IMDb</div></a>
+                <a href="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=pRXJonnGRHWT5XegBTw-eA" target="_blank" class="profile-item"><img src="spotify.jpg" alt="Spotify"><div>Spotify</div></a>
+                <a href="https://g.co/kgs/gtv47AQ" target="_blank" class="profile-item"><img src="google.jpg" alt="Google"><div>Google</div></a>
+                <a href="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0" target="_blank" class="profile-item"><img src="instagram.jpg" alt="Instagram"><div>Instagram</div></a>
+                <a href="https://youtube.com/@sharan.musician?si=wZlASMES3BCSoclb" target="_blank" class="profile-item"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
+                <a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" target="_blank" class="profile-item"><img src="facebook.jpg" alt="FaceBook"><div>FaceBook</div></a>
+                <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" target="_blank" class="profile-item"><img src="x.jpg" alt="X (Twitter)"><div>X (Twitter)</div></a>
+                <a href="https://www.imdb.com/name/nm17859010/?ref_=ext_shr" target="_blank" class="profile-item"><img src="imdb.jpg" alt="IMDb"><div>IMDb</div></a>
+                <a href="https://music.apple.com/us/artist/sharan-musician/1671976313" target="_blank" class="profile-item"><img src="applemusic.jpg" alt="Apple Music"><div>Apple Music</div></a>
+                <a href="https://music.amazon.in/artists/B0BVRTY3NT/sharan-musician?marketplaceId=A21TJRUUN4KGV&musicTerritory=IN&ref=dm_sh_gweJQXn29RCPnuig7hXbrTAHB" target="_blank" class="profile-item"><img src="amazonmusic.jpg" alt="Amazon Music"><div>Amazon Music</div></a>
+                <a href="https://www.jiosaavn.com/artist/sharan-musician-songs/VgKiJSk2Acg_" target="_blank" class="profile-item"><img src="jiosaavn.jpg" alt="JioSaavn"><div>JioSaavn</div></a>
+                <a href="https://gaana.com/artist/sharan-musician" target="_blank" class="profile-item"><img src="gaana.jpg" alt="Gaana"><div>Gaana</div></a>
+                <a href="https://music.youtube.com/channel/UC0MZGJWNgvN5NR0P07joNKA?si=VovJo-lE_uh7GwKz" target="_blank" class="profile-item"><img src="youtubemusic.jpg" alt="YouTube Music"><div>YouTube Music</div></a>
             </div>  
         </section>
 
@@ -185,19 +223,18 @@
                     <h4>Official Vinyl</h4>
                     <p style="color: #aaa; font-weight: 700;">₹3,499</p>
                 </div>
+                <div class="product">
+                    <img src="https://via.placeholder.com/300x210">
+                    <h4>Premium Hoodie</h4>
+                    <p style="color: #aaa; font-weight: 700;">₹2,299</p>
+                </div>
             </div>
         </section>
     </div>
 </main>
 
 <footer>
-    <div class="legal-row">
-        <a href="privacy.html">Privacy</a>
-        <a href="terms.html">Terms</a>
-        <a href="refund.html">Refunds</a>
-    </div>
-    <div class="merchant-line">Legal Name: [YOUR FULL NAME AS PER PAN]</div>
-    <p>&copy; 2026 SHARAN MUSICIAN | ALL RIGHTS RESERVED.</p>
+    <div class="copyright">© 2026 Sharan Musician | All Rights Reserved.</div>
 </footer>
 
 <script>
@@ -206,14 +243,22 @@
     const muteBtn = document.getElementById('muteToggle');
     let hideTimeout;
 
-    heroWrapper.addEventListener('click', () => {
+    function toggleMute() {
         clearTimeout(hideTimeout);
         video.muted = !video.muted;
         muteBtn.classList.remove('hidden');
         if(!video.muted) hideTimeout = setTimeout(() => muteBtn.classList.add('hidden'), 800);
+    }
+    heroWrapper.addEventListener('click', toggleMute);
+
+    const navButtons = document.querySelectorAll('#mainNav button');
+    navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            navButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+        });
     });
 </script>
 
 </body>
-            </html>
-            
+</html>

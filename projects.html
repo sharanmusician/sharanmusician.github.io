@@ -2,214 +2,203 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Discography | Sharan Musician</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projects | Sharan Musician</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg: #050507;
-            --surface: #111114;
-            --accent: #1db954; /* Green Glow */
-            --text-main: #ffffff;
-            --text-dim: #888888;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.08);
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
+        /* ================= GLOBAL & THEME ================= */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            background-color: var(--bg);
-            color: var(--text-main);
             font-family: 'Inter', sans-serif;
-            -webkit-font-smoothing: antialiased;
+            background: #0b0b0f;
+            color: #f5f5f5;
             overflow-x: hidden;
-
-            /* STRICT LOCK: Prevents selection on entire page */
             user-select: none;
             -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
         }
 
-        /* --- BACKGROUND COSMOS --- */
-        .bg-glow {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 80% 20%, #1db95415 0%, transparent 40%),
-                        radial-gradient(circle at 20% 80%, #1db95410 0%, transparent 40%);
-            z-index: -1;
-        }
+        /* High-End Scrollbar */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: #0b0b0f; }
+        ::-webkit-scrollbar-thumb { background: #1db954; border-radius: 10px; }
 
-        /* --- NAVIGATION --- */
-        .nav-header {
-            position: sticky; top: 0; z-index: 1000;
+        /* ================= NAVIGATION (Matches Home) ================= */
+        .top-bar {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 20px 6%;
-            background: rgba(5, 5, 7, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
+            padding: 15px 40px; background: rgba(15,15,20,0.98);
+            backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 1100;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
         }
+        .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; }
+        .back-home { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #1db954; font-weight: 700; text-decoration: none; }
 
-        .btn-back {
-            text-decoration: none; color: var(--text-main);
-            font-size: 11px; font-weight: 800; letter-spacing: 2px;
-            display: flex; align-items: center; gap: 10px;
-            padding: 10px 20px; border-radius: 50px;
-            background: var(--glass); border: 1px solid var(--border);
-            transition: 0.3s;
+        /* ================= HEADER SECTION ================= */
+        header {
+            padding: 100px 40px 60px;
+            max-width: 1450px;
+            margin: 0 auto;
         }
-        .btn-back:hover { background: var(--text-main); color: #000; }
+        .folio-label { font-family: 'JetBrains Mono', monospace; color: #1db954; font-size: 14px; margin-bottom: 10px; display: block; }
+        .page-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 6rem); line-height: 1; margin-bottom: 40px; }
 
-        /* --- HERO SECTION --- */
-        .hero {
-            padding: 80px 6% 40px;
-            text-align: left;
-            max-width: 1400px; margin: 0 auto;
-        }
-        .hero span { color: var(--accent); font-weight: 800; font-size: 12px; letter-spacing: 4px; text-transform: uppercase; }
-        .hero h1 { 
-            font-family: 'Playfair Display', serif; font-size: clamp(40px, 8vw, 80px); 
-            margin-top: 10px; line-height: 1.1; 
-        }
-
-        /* --- ALBUM GRID --- */
-        .album-container {
-            max-width: 1400px; margin: 0 auto;
-            padding: 40px 6% 100px;
+        /* ================= PROJECTS GRID ================= */
+        .projects-container {
+            max-width: 1450px;
+            margin: 0 auto;
+            padding: 0 40px 100px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 40px;
+            grid-template-columns: 1fr;
+            gap: 80px;
         }
 
-        .album-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            padding: 20px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .project-row {
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 60px;
+            align-items: center;
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             cursor: pointer;
+            padding: 20px;
+            border-radius: 24px;
+        }
+
+        /* Project Image Wrapper */
+        .img-wrap {
             position: relative;
-            -webkit-tap-highlight-color: transparent;
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            border-radius: 12px;
+            background: #16161d;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
         }
 
-        /* BEHAVIOR: Green Glow & Elevation */
-        .album-card.active-glow {
-            border-color: var(--accent);
-            box-shadow: 0 20px 40px rgba(29, 185, 84, 0.25);
-            background: rgba(29, 185, 84, 0.03);
-            transform: translateY(-12px) scale(1.02);
-        }
-
-        .cover-wrapper {
-            width: 100%; aspect-ratio: 1/1;
-            border-radius: 16px; overflow: hidden;
-            background: #1a1a1e; margin-bottom: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-        }
-        .cover-wrapper img { width: 100%; height: 100%; object-fit: cover; }
-
-        .album-info h3 { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-        .album-info p { font-size: 13px; color: var(--text-dim); font-weight: 500; }
-
-        /* --- BROADCAST TAGS --- */
-        .broadcast-tag {
-            margin-top: 15px;
-            display: flex; align-items: center; gap: 8px;
-            font-size: 10px; font-weight: 700; color: var(--accent);
-            text-transform: uppercase; letter-spacing: 1px;
+        /* Content Wrapper */
+        .project-info { position: relative; }
+        .year { font-family: 'JetBrains Mono', monospace; font-size: 18px; color: #444; margin-bottom: 15px; }
+        .proj-name { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 15px; }
+        .proj-role { 
+            display: inline-block;
+            padding: 6px 16px;
             background: rgba(29, 185, 84, 0.1);
-            padding: 6px 12px; border-radius: 6px;
-            width: fit-content;
+            color: #1db954;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 20px;
         }
-        .broadcast-tag svg { width: 12px; height: 12px; }
+        .proj-desc { color: #888; font-size: 1.1rem; line-height: 1.8; max-width: 400px; }
 
-        /* --- FOOTER --- */
-        footer { padding: 60px 0; text-align: center; border-top: 1px solid var(--border); margin-top: 50px; }
-        .copy { font-size: 10px; color: #444; letter-spacing: 2px; }
+        /* UNIVERSAL GLOW BEHAVIOR (Matches Home) */
+        .active-glow {
+            transform: translateY(-15px) scale(1.02);
+            background: rgba(29, 185, 84, 0.03);
+            box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 40px rgba(29, 185, 84, 0.15);
+        }
+        .active-glow .img-wrap img { transform: scale(1.1); }
+        .active-glow .proj-name { color: #1db954; }
 
-        @media (max-width: 768px) {
-            .album-container { grid-template-columns: 1fr 1fr; gap: 20px; }
-            .hero h1 { font-size: 45px; }
+        /* ================= CTA SECTION ================= */
+        .collab-section {
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding: 100px 40px;
+            text-align: center;
+        }
+        .collab-btn {
+            background: #fff;
+            color: #000;
+            padding: 20px 50px;
+            font-weight: 800;
+            border-radius: 4px;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s;
+        }
+        .collab-btn:hover { background: #1db954; color: #fff; }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 1000px) {
+            .project-row { grid-template-columns: 1fr; gap: 30px; }
+            .page-title { font-size: 4rem; }
+            .proj-name { font-size: 2.2rem; }
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow"></div>
+<div class="top-bar">
+    <div class="musician-name">Sharan Musician</div>
+    <a href="index.html" class="back-home">← Back to Store</a>
+</div>
 
-    <nav class="nav-header">
-        <a href="index.html" class="btn-back">
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-            BACK
-        </a>
-        <div style="font-size: 10px; font-weight: 900; letter-spacing: 3px; color: var(--accent);">COLLECTIONS</div>
-    </nav>
+<header>
+    <span class="folio-label">SELECTED WORKS // 2023—2026</span>
+    <h1 class="page-title">Sonic<br>Odyssey.</h1>
+</header>
 
-    <header class="hero">
-        <span>The Official Discography</span>
-        <h1>Original Compositions.</h1>
-    </header>
-
-    <main class="album-container">
-        
-        <div class="album-card" onclick="highlightAlbum(this)">
-            <div class="cover-wrapper">
-                <img src="on-air-cover.jpg" alt="On Air"> </div>
-            <div class="album-info">
-                <h3>On Air</h3>
-                <p>Studio Album • 2024</p>
-                <div class="broadcast-tag">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3.24c-4.84 0-8.76 3.92-8.76 8.76 0 4.84 3.92 8.76 8.76 8.76s8.76-3.92 8.76-8.76c0-4.84-3.92-8.76-8.76-8.76zm0 15.51c-3.73 0-6.75-3.02-6.75-6.75s3.02-6.75 6.75-6.75 6.75 3.02 6.75 6.75-3.02 6.75-6.75 6.75z"/></svg>
-                    Live on Chennai 104.8 FM
-                </div>
-            </div>
+<div class="projects-container">
+    
+    <div class="project-row" onclick="highlightProject(this)">
+        <div class="img-wrap">
+            <img src="hunter_cover.jpg" alt="Hunter Short Film">
         </div>
-
-        <div class="album-card" onclick="highlightAlbum(this)">
-            <div class="cover-wrapper">
-                <img src="kannadi-kaadhal-cover.jpg" alt="Kannadi Kaadhal"> </div>
-            <div class="album-info">
-                <h3>Kannadi Kaadhal</h3>
-                <p>EP • 2023</p>
-            </div>
+        <div class="project-info">
+            <div class="year">2023</div>
+            <div class="proj-role">Original Score</div>
+            <h2 class="proj-name">Hunter</h2>
+            <p class="proj-desc">A gripping Short Film requiring a tense, atmospheric soundscape. Designed every sonic layer to heighten the cinematic suspense.</p>
         </div>
+    </div>
 
-        <div class="album-card" onclick="highlightAlbum(this)">
-            <div class="cover-wrapper">
-                <img src="heart-of-looser-cover.jpg" alt="Heart of a Looser"> </div>
-            <div class="album-info">
-                <h3>Heart of a Looser</h3>
-                <p>Studio Album • 2025</p>
-                <div class="broadcast-tag" style="color: #ff9f43; background: rgba(255,159,67,0.1);">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"/></svg>
-                    Pan-India Play: Chaayos
-                </div>
-            </div>
+    <div class="project-row" onclick="highlightProject(this)">
+        <div class="img-wrap">
+            <img src="webseries_cover.jpg" alt="Untitled Web Series">
         </div>
-
-        <div class="album-card" onclick="highlightAlbum(this)">
-            <div class="cover-wrapper">
-                <img src="manadu-cover.jpg" alt="Manadu"> </div>
-            <div class="album-info">
-                <h3>Manadu</h3>
-                <p>Single • 2023</p>
-            </div>
+        <div class="project-info">
+            <div class="year">2024</div>
+            <div class="proj-role">Leading Music Director</div>
+            <h2 class="proj-name">Untitled Series</h2>
+            <p class="proj-desc">Spearheaded the musical direction for a major web series. Crafted the main theme and episodic scores to define the show's identity.</p>
         </div>
+    </div>
 
-    </main>
+    <div class="project-row" onclick="highlightProject(this)">
+        <div class="img-wrap">
+            <img src="https://images.unsplash.com/photo-1514525253361-bee8718a74a7?auto=format&fit=crop&q=80&w=1000" alt="Future Projects">
+        </div>
+        <div class="project-info">
+            <div class="year">2026</div>
+            <div class="proj-role">Global Release</div>
+            <h2 class="proj-name">Project Pulse</h2>
+            <p class="proj-desc">An upcoming experimental studio album pushing the boundaries of electronic and classical fusion.</p>
+        </div>
+    </div>
 
-    <footer>
-        <p class="copy">© 2026 SHARAN MUSICIAN | EXCLUSIVE COMPOSITIONS</p>
-    </footer>
+</div>
 
-    <script>
-        // HIGHLIGHT LOGIC: Clears previous and glows new
-        function highlightAlbum(element) {
-            const allCards = document.querySelectorAll('.album-card');
-            allCards.forEach(card => card.classList.remove('active-glow'));
-            element.classList.add('active-glow');
-        }
-    </script>
+<section class="collab-section">
+    <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem; margin-bottom: 40px;">Have a Vision?</h2>
+    <a href="contact.html"><button class="collab-btn">Initiate Collaboration</button></a>
+</section>
+
+<script>
+    function highlightProject(element) {
+        // Remove active class from all projects
+        document.querySelectorAll('.project-row').forEach(row => {
+            row.classList.remove('active-glow');
+        });
+        // Add to clicked one
+        element.classList.add('active-glow');
+    }
+</script>
+
 </body>
-  </html>
-          
+</html>

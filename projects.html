@@ -4,105 +4,162 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Projects | Sharan Musician</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;400;700;900&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        /* ================= POWER MINIMALISM RESET ================= */
+        /* ================= ULTRA PROFESSIONAL RESET ================= */
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --accent: #1db954;
+            --bg: #050505;
+            --card-bg: #0f0f0f;
+            --text-main: #ffffff;
+            --text-dim: #888888;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background: #000000;
-            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
             overflow-x: hidden;
             user-select: none;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* ================= FIXED ACTION HEADER ================= */
+        /* ================= THE PROFESSIONAL HEADER ================= */
         .header-nav {
-            position: fixed; top: 0; width: 100%; height: 80px;
+            position: fixed; top: 0; width: 100%; height: 90px;
             display: flex; align-items: center; justify-content: space-between;
-            padding: 0 5%; background: rgba(0,0,0,0.9);
-            backdrop-filter: blur(20px); z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding: 0 6%; background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(25px); z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
         }
-        .brand { font-family: 'JetBrains Mono', monospace; font-size: 14px; letter-spacing: 4px; color: #1db954; font-weight: 700; }
-        .close-btn {
-            background: #ffffff; color: #000; padding: 12px 30px; 
-            border-radius: 4px; font-weight: 900; font-size: 11px; 
-            text-transform: uppercase; letter-spacing: 1px; text-decoration: none;
-            transition: 0.3s ease;
+        .brand { 
+            font-family: 'JetBrains Mono', monospace; 
+            font-size: 12px; letter-spacing: 6px; 
+            color: var(--accent); font-weight: 700;
+            text-transform: uppercase;
         }
-        .close-btn:hover { background: #1db954; color: #fff; }
 
-        /* ================= HERO TITLE ================= */
+        /* ULTRA PROFESSIONAL CLOSE BUTTON */
+        .close-btn {
+            position: relative;
+            background: rgba(255, 255, 255, 0.03);
+            color: #fff;
+            padding: 12px 28px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            overflow: hidden;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .close-btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+            transition: 0.5s;
+        }
+        .close-btn:hover {
+            background: #fff; color: #000; border-color: #fff;
+            transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        .close-btn:hover::before { left: 100%; }
+        .close-btn span { font-size: 14px; margin-top: -1px; }
+
+        /* ================= HERO SECTION ================= */
         .hero-section {
-            padding: 180px 5% 60px;
-            max-width: 1400px; margin: 0 auto;
+            padding: 200px 6% 80px;
+            max-width: 1600px; margin: 0 auto;
         }
         .hero-section h1 { 
-            font-size: clamp(3rem, 10vw, 8rem); font-weight: 900; 
-            text-transform: uppercase; letter-spacing: -2px; line-height: 0.9;
+            font-size: clamp(3.5rem, 12vw, 9rem); font-weight: 800; 
+            text-transform: uppercase; letter-spacing: -4px; line-height: 0.85;
+            background: linear-gradient(to bottom, #fff 40%, #333 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
-        .hero-section p { color: #555; font-size: 14px; letter-spacing: 5px; text-transform: uppercase; margin-top: 20px; }
+        .hero-section p { 
+            color: var(--accent); font-family: 'JetBrains Mono'; 
+            font-size: 13px; letter-spacing: 8px; 
+            text-transform: uppercase; margin-top: 30px; font-weight: 600;
+        }
 
-        /* ================= PROJECT STRIPS ================= */
-        .project-list { width: 100%; padding-bottom: 100px; }
+        /* ================= PROJECT CARDS ================= */
+        .project-list { width: 100%; padding-bottom: 150px; }
 
         .project-card {
-            width: 90%; max-width: 1400px; margin: 40px auto;
-            background: #0a0a0a; border: 1px solid #1a1a1a;
-            display: flex; align-items: stretch; border-radius: 12px;
-            overflow: hidden; transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            cursor: pointer;
+            width: 88%; max-width: 1400px; margin: 30px auto;
+            background: var(--card-bg); border: 1px solid rgba(255,255,255,0.04);
+            display: flex; align-items: stretch; border-radius: 20px;
+            overflow: hidden; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer; position: relative;
         }
 
-        /* 3:4 Aspect Ratio Fix */
         .img-container {
-            width: 350px; flex-shrink: 0; aspect-ratio: 3 / 4;
-            overflow: hidden; background: #111;
+            width: 380px; flex-shrink: 0; aspect-ratio: 3 / 4;
+            overflow: hidden; background: #111; position: relative;
         }
         .img-container img {
             width: 100%; height: 100%; object-fit: cover;
-            transition: 0.8s ease; opacity: 0.7;
+            transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); opacity: 0.6; filter: grayscale(40%);
+        }
+        .img-container::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(0,0,0,0.2));
         }
 
         .content-container {
-            padding: 60px; display: flex; flex-direction: column; justify-content: center;
+            padding: 80px; display: flex; flex-direction: column; justify-content: center;
+            position: relative; z-index: 2;
         }
-        .year-label { font-family: 'JetBrains Mono', monospace; color: #444; font-size: 14px; margin-bottom: 20px; }
-        .proj-title { font-size: 3rem; font-weight: 900; margin-bottom: 15px; text-transform: uppercase; }
-        .proj-role { color: #1db954; font-weight: 700; letter-spacing: 2px; font-size: 12px; text-transform: uppercase; margin-bottom: 25px; }
-        .proj-desc { color: #888; line-height: 1.8; font-size: 1.1rem; max-width: 600px; }
+        .year-label { font-family: 'JetBrains Mono', monospace; color: #444; font-size: 13px; margin-bottom: 25px; letter-spacing: 2px; }
+        .proj-title { font-size: 3.5rem; font-weight: 800; margin-bottom: 15px; text-transform: uppercase; letter-spacing: -1px; }
+        .proj-role { color: var(--accent); font-weight: 600; letter-spacing: 3px; font-size: 11px; text-transform: uppercase; margin-bottom: 30px; }
+        .proj-desc { color: var(--text-dim); line-height: 1.9; font-size: 1.15rem; max-width: 550px; font-weight: 400; }
 
-        /* ================= ACTIVE GLOW & ELEVATION ================= */
-        .active-glow {
-            transform: translateY(-15px) scale(1.02);
-            border-color: #1db954;
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 50px rgba(29, 185, 84, 0.2);
-            background: #111;
+        /* ================= INTERACTIVE STATES ================= */
+        .project-card:hover {
+            border-color: rgba(255,255,255,0.1);
+            background: #141414;
         }
-        .active-glow .img-container img { opacity: 1; transform: scale(1.1); }
+        .project-card:hover .img-container img {
+            opacity: 0.9; transform: scale(1.05); filter: grayscale(0%);
+        }
+
+        .active-glow {
+            transform: scale(1.02);
+            border-color: var(--accent);
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.9), 0 0 40px rgba(29, 185, 84, 0.15);
+            background: #181818 !important;
+        }
+        .active-glow .img-container img { opacity: 1; filter: grayscale(0%); transform: scale(1.1); }
         .active-glow .proj-title { color: #fff; }
 
-        /* ================= RESPONSIVE ================= */
-        @media (max-width: 900px) {
-            .project-card { flex-direction: column; }
-            .img-container { width: 100%; aspect-ratio: 3 / 4; }
-            .content-container { padding: 40px 30px; }
-            .proj-title { font-size: 2rem; }
-            .hero-section { padding: 140px 5% 40px; }
+        /* ================= MOBILE OPTIMIZATION ================= */
+        @media (max-width: 1000px) {
+            .project-card { flex-direction: column; width: 92%; }
+            .img-container { width: 100%; aspect-ratio: 16 / 10; }
+            .content-container { padding: 50px 30px; }
+            .proj-title { font-size: 2.2rem; }
+            .hero-section { padding: 160px 6% 40px; }
+            .header-nav { height: 80px; }
         }
     </style>
 </head>
 <body>
 
 <nav class="header-nav">
-    <div class="brand">SHARAN // REEL</div>
-    <a href="index.html" class="close-btn">Close Portfolio</a>
+    <div class="brand">SHARAN // ARCHIVE</div>
+    <a href="index.html" class="close-btn">
+        <span>✕</span> Close Portfolio
+    </a>
 </nav>
 
 <header class="hero-section">
-    <h1>Project<br>Archive.</h1>
-    <p>Music Direction & Cinematic Scores</p>
+    <h1>Selected<br>Works.</h1>
+    <p>Music Direction & Sonic Branding</p>
 </header>
 
 <main class="project-list">
@@ -112,12 +169,12 @@
             <img src="hunter_cover.jpg" alt="Hunter">
         </div>
         <div class="content-container">
-            <div class="year-label">2023 // RELEASE</div>
-            <div class="proj-role">Original Background Score</div>
+            <div class="year-label">MMXXIII // STUDIO</div>
+            <div class="proj-role">Sound Architecture & Original Score</div>
             <h2 class="proj-title">Hunter</h2>
             <p class="proj-desc">
-                High-intensity cinematic scoring for the short film "Hunter." 
-                Designed a unique sonic landscape utilizing analog synthesis and orchestral layers to drive psychological suspense.
+                High-intensity cinematic scoring for the psychological thriller "Hunter." 
+                Engineered a bespoke sonic landscape utilizing modular synthesis and live orchestral tracking to amplify atmospheric tension.
             </p>
         </div>
     </div>
@@ -127,12 +184,12 @@
             <img src="webseries_cover.jpg" alt="IPC 100">
         </div>
         <div class="content-container">
-            <div class="year-label">2024 // OTT SERIES</div>
-            <div class="proj-role">Leading Music Director</div>
+            <div class="year-label">MMXXIV // STREAMING</div>
+            <div class="proj-role">Lead Music Director</div>
             <h2 class="proj-title">IPC 100</h2>
             <p class="proj-desc">
-                Spearheaded the musical department for the web series "IPC 100." 
-                Responsible for the main theme, episodic scores, and sound identity that defined the series' grit and realism.
+                Creative head of musical direction for the flagship OTT series "IPC 100." 
+                Curated the sonic identity through recurring motifs, grit-heavy percussion, and an evocative main title theme.
             </p>
         </div>
     </div>
@@ -141,11 +198,36 @@
 
 <script>
     function highlight(element) {
+        // Remove active class from all
         document.querySelectorAll('.project-card').forEach(card => {
             card.classList.remove('active-glow');
         });
+        // Add to clicked
         element.classList.add('active-glow');
+        
+        // Haptic feel - subtle vibration if supported
+        if (window.navigator.vibrate) {
+            window.navigator.vibrate(5);
+        }
     }
+
+    // Scroll reveal logic for smooth entry
+    const observerOptions = { threshold: 0.1 };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.project-card').forEach(card => {
+        card.style.opacity = "0";
+        card.style.transform = "translateY(50px)";
+        card.style.transition = "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)";
+        observer.observe(card);
+    });
 </script>
 
 </body>

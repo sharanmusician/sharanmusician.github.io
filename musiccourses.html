@@ -35,13 +35,13 @@
             display: flex; flex-direction: column;
         }
 
-        /* --- STRICTLY FIXED HEADER --- */
+        /* --- FIXED HEADER --- */
         .brand-section {
-            position: fixed; /* Locked to viewport */
+            position: fixed;
             top: 0; 
             width: 100%;
-            max-width: 450px; /* Must match app-shell width */
-            padding: 50px 30px 30px;
+            max-width: 450px;
+            padding: 40px 30px 25px;
             background: var(--glass);
             backdrop-filter: blur(25px);
             z-index: 9999; 
@@ -54,9 +54,8 @@
             font-weight: 700; font-size: 18px;
             letter-spacing: 4px; text-transform: uppercase;
             margin-bottom: 8px; color: #fff;
-            white-space: nowrap; /* Forces same line */
+            white-space: nowrap; 
             display: block;
-            width: 100%;
         }
 
         .brand-sub {
@@ -69,7 +68,7 @@
 
         .nav-hud {
             display: flex; justify-content: space-between;
-            margin-top: 30px; padding-top: 20px;
+            margin-top: 25px; padding-top: 15px;
             border-top: 1px solid rgba(255,255,255,0.05);
         }
 
@@ -95,22 +94,24 @@
             50% { opacity: 0.3; transform: scale(0.8); }
         }
 
-        /* --- SCROLLABLE CONTENT --- */
+        /* --- COURSE STREAM (FULL FILL) --- */
         .course-stream {
-            flex: 1; overflow-y: scroll;
-            padding-top: 220px; /* Space for the fixed header */
-            padding-bottom: 100px;
+            flex: 1; 
+            overflow-y: scroll;
+            padding-top: 180px; /* Aligned to header height */
+            padding-bottom: 0; /* Removed excess space */
             -webkit-overflow-scrolling: touch;
         }
 
         .node {
             position: relative; width: 100%;
-            height: 140px; 
+            height: 180px; /* Balanced height to fill screen */
             background: #000; border-bottom: 1px solid var(--border);
             overflow: hidden; transition: height var(--transition);
         }
 
-        .node.active { height: 420px; }
+        /* Minimal professional expansion */
+        .node.active { height: 380px; }
 
         .node-img {
             position: absolute; inset: 0; width: 100%; height: 100%;
@@ -126,34 +127,34 @@
             padding: 30px; transition: var(--transition);
         }
 
-        .node.active .node-content { justify-content: flex-end; padding-bottom: 40px; }
+        .node.active .node-content { justify-content: flex-end; padding-bottom: 30px; }
 
         .node-tag { 
             font-size: 9px; color: var(--accent); font-weight: 600;
-            letter-spacing: 3px; margin-bottom: 10px; display: block;
+            letter-spacing: 3px; margin-bottom: 8px; display: block;
         }
 
         .node-title {
             font-family: 'Syncopate', sans-serif;
-            font-size: 26px; font-weight: 700; color: #fff;
+            font-size: 24px; font-weight: 700; color: #fff;
             text-transform: uppercase; letter-spacing: -1px;
         }
 
         .node-details {
             max-height: 0; opacity: 0; overflow: hidden;
-            transition: 0.5s ease; transform: translateY(20px);
+            transition: 0.5s ease; transform: translateY(15px);
         }
 
         .node.active .node-details {
-            max-height: 200px; opacity: 1; 
-            transform: translateY(0); margin-top: 20px;
+            max-height: 150px; opacity: 1; 
+            transform: translateY(0); margin-top: 15px;
         }
 
-        .node-desc { font-size: 12px; color: #888; line-height: 1.6; margin-bottom: 25px; }
+        .node-desc { font-size: 11px; color: #888; line-height: 1.5; margin-bottom: 20px; }
 
         .enroll-btn {
             display: inline-block; background: var(--accent); color: #000;
-            padding: 14px 24px; font-size: 10px; font-weight: 800;
+            padding: 12px 20px; font-size: 9px; font-weight: 800;
             text-transform: uppercase; text-decoration: none; letter-spacing: 2px;
             transition: 0.3s; width: fit-content;
         }
@@ -171,7 +172,7 @@
 
 <div class="app-shell">
     
-    <header class="brand-section">
+    <header class="brand-section" id="header">
         <span class="brand-name">Royal Red Bull</span>
         <span class="brand-sub">College of Music</span>
         
@@ -191,7 +192,7 @@
                 <h2 class="node-title">Piano</h2>
                 <div class="node-details">
                     <p class="node-desc">Master neoclassical resonance and elite performance psychology.</p>
-                    <a href="LINK_1" class="enroll-btn" target="_blank">Enter Drive</a>
+                    <a href="#" class="enroll-btn">Enter Drive</a>
                 </div>
             </div>
         </div>
@@ -203,7 +204,7 @@
                 <h2 class="node-title">Drums</h2>
                 <div class="node-details">
                     <p class="node-desc">Engineering rhythm and session geometry for the world's elite.</p>
-                    <a href="LINK_2" class="enroll-btn" target="_blank">Enter Drive</a>
+                    <a href="#" class="enroll-btn">Enter Drive</a>
                 </div>
             </div>
         </div>
@@ -215,33 +216,36 @@
                 <h2 class="node-title">Prod.</h2>
                 <div class="node-details">
                     <p class="node-desc">High-fidelity signal chains and the psychology of sound design.</p>
-                    <a href="LINK_3" class="enroll-btn" target="_blank">Enter Drive</a>
+                    <a href="#" class="enroll-btn">Enter Drive</a>
                 </div>
             </div>
         </div>
-
-        <div style="height: 150px;"></div>
 
     </main>
 </div>
 
 <script>
     function toggleNode(el) {
+        const stream = document.getElementById('stream');
+        const header = document.getElementById('header');
         const isActive = el.classList.contains('active');
+        
+        // Remove active class from all nodes
         document.querySelectorAll('.node').forEach(n => n.classList.remove('active'));
         
         if (!isActive) {
             el.classList.add('active');
             
-            // This logic ensures the expanded node fits perfectly below the fixed header
+            // Wait for the height transition to start, then scroll
             setTimeout(() => {
-                const headerHeight = document.querySelector('.brand-section').offsetHeight;
+                const headerHeight = header.offsetHeight;
                 const elementTop = el.offsetTop;
-                document.getElementById('stream').scrollTo({
-                    top: elementTop - headerHeight - 20,
+                
+                stream.scrollTo({
+                    top: elementTop - headerHeight,
                     behavior: 'smooth'
                 });
-            }, 400);
+            }, 50);
         }
     }
 </script>

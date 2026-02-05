@@ -94,23 +94,22 @@
             50% { opacity: 0.3; transform: scale(0.8); }
         }
 
-        /* --- COURSE STREAM (FULL FILL) --- */
+        /* --- COURSE STREAM --- */
         .course-stream {
             flex: 1; 
             overflow-y: scroll;
-            padding-top: 180px; /* Aligned to header height */
-            padding-bottom: 0; /* Removed excess space */
+            padding-top: 180px; 
+            padding-bottom: 0;
             -webkit-overflow-scrolling: touch;
         }
 
         .node {
             position: relative; width: 100%;
-            height: 180px; /* Balanced height to fill screen */
+            height: 180px; 
             background: #000; border-bottom: 1px solid var(--border);
             overflow: hidden; transition: height var(--transition);
         }
 
-        /* Minimal professional expansion */
         .node.active { height: 380px; }
 
         .node-img {
@@ -160,6 +159,9 @@
         }
 
         .enroll-btn:hover { background: #fff; }
+
+        /* THE FIX: Dynamic spacer to allow the 3rd course to scroll up fully */
+        .bottom-spacer { height: 400px; display: block; }
 
         body::before {
             content: ''; position: fixed; inset: 0;
@@ -221,6 +223,8 @@
             </div>
         </div>
 
+        <div class="bottom-spacer"></div>
+
     </main>
 </div>
 
@@ -230,13 +234,11 @@
         const header = document.getElementById('header');
         const isActive = el.classList.contains('active');
         
-        // Remove active class from all nodes
         document.querySelectorAll('.node').forEach(n => n.classList.remove('active'));
         
         if (!isActive) {
             el.classList.add('active');
             
-            // Wait for the height transition to start, then scroll
             setTimeout(() => {
                 const headerHeight = header.offsetHeight;
                 const elementTop = el.offsetTop;
@@ -245,10 +247,11 @@
                     top: elementTop - headerHeight,
                     behavior: 'smooth'
                 });
-            }, 50);
+            }, 100);
         }
     }
 </script>
 
 </body>
-</html>
+                </html>
+                

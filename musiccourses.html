@@ -2,181 +2,119 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>THE ACADEMY // SHARAN</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHARAN | ULTRA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        /* ================= THE ELITE MANIFESTO ================= */
+        /* THE ULTIMATE COMPRESSION */
         * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
-        
+        :root { --a: #1db954; --bg: #080808; }
+
         body, html { 
-            height: 100vh; width: 100vw; background: #000; 
-            color: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow: hidden; display: flex; align-items: center; justify-content: center;
+            height: 100vh; background: var(--bg); color: #fff;
+            font-family: 'Plus Jakarta Sans', sans-serif; overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
         }
 
-        /* CUSTOM INERTIA CURSOR */
-        #cursor {
-            position: fixed; width: 10px; height: 10px; background: #fff;
-            border-radius: 50%; pointer-events: none; z-index: 10000; mix-blend-mode: difference;
-        }
-        #cursor-follower {
-            position: fixed; width: 80px; height: 80px; border: 1px solid rgba(255,255,255,0.3);
-            border-radius: 50%; pointer-events: none; z-index: 9999;
-            transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        /* FIXED ARCHITECTURAL HUD */
+        /* NANO HUD */
         .hud {
-            position: fixed; inset: 50px; pointer-events: none; z-index: 500;
-            display: flex; flex-direction: column; justify-content: space-between;
+            position: fixed; inset: 30px; border: 1px solid rgba(255,255,255,0.03);
+            pointer-events: none; z-index: 100;
         }
-        .hud-top { display: flex; justify-content: space-between; font-family: 'JetBrains Mono'; font-size: 10px; letter-spacing: 5px; color: #444; }
-        .hud-bottom { display: flex; justify-content: space-between; font-family: 'JetBrains Mono'; font-size: 10px; color: var(--accent); }
+        .hud::before { content: 'SYSTEM_ULTRA'; position: absolute; top: 10px; left: 15px; font-family: 'JetBrains Mono'; font-size: 8px; color: #333; letter-spacing: 3px; }
 
-        /* THE KINETIC CENTER */
-        .stage {
-            position: relative; width: 100%; height: 100%;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-        }
-
-        .item-wrap { position: relative; width: 100%; text-align: center; height: 22vh; }
-
-        .item-text {
-            font-size: clamp(5rem, 18vw, 22rem);
-            font-weight: 800; text-transform: uppercase;
-            line-height: 0.75; letter-spacing: -1vw;
-            color: transparent;
-            -webkit-text-stroke: 1px rgba(255,255,255,0.15);
-            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative; z-index: 2;
+        /* THE MONOLITH ENGINE */
+        .monolith {
+            width: 85vw; height: 75vh; display: flex; gap: 2px;
+            background: rgba(255,255,255,0.02); padding: 2px;
         }
 
-        /* THE MASKING ENGINE */
-        .mask-visual {
-            position: absolute; top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            width: 40vw; height: 50vh;
-            background-size: cover; background-position: center;
-            opacity: 0; pointer-events: none;
-            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 1; filter: grayscale(1);
+        .node {
+            flex: 1; position: relative; overflow: hidden;
+            transition: flex 1s cubic-bezier(0.19, 1, 0.22, 1);
+            background: #000; display: flex; align-items: flex-end;
         }
 
-        /* HOVER STATES: THE REVEAL */
-        .item-wrap:hover .item-text {
-            color: #fff;
-            -webkit-text-stroke: 0px transparent;
-            letter-spacing: -0.5vw;
-            transform: scale(1.05);
-            z-index: 10;
-        }
+        .node:hover { flex: 3; }
 
-        .item-wrap:hover .mask-visual {
-            opacity: 0.6;
-            transform: translate(-50%, -50%) scale(1.1);
-            filter: grayscale(0);
+        /* THE VISUAL LAYER */
+        .node-img {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0.2; filter: saturate(0) blur(10px);
+            transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
         }
+        .node:hover .node-img { opacity: 0.5; filter: saturate(1) blur(0px); transform: scale(1.1); }
 
-        /* THE DESCRIPTION POPUP */
-        .details {
-            position: absolute; right: 10%; bottom: 15%;
-            width: 280px; text-align: right; pointer-events: none;
-            opacity: 0; transition: 0.5s;
+        /* THE TEXT LAYER */
+        .node-content {
+            position: relative; z-index: 10; padding: 40px; width: 100%;
+            transform: translateY(20px); opacity: 0.5; transition: 0.8s;
         }
-        .item-wrap:hover .details { opacity: 1; transform: translateY(-10px); }
-        .details h4 { font-family: 'JetBrains Mono'; color: #1db954; font-size: 12px; margin-bottom: 10px; }
-        .details p { color: #888; font-size: 14px; line-height: 1.5; }
+        .node:hover .node-content { transform: translateY(0); opacity: 1; }
 
-        /* MOBILE FIXES */
-        @media (max-width: 1024px) {
-            * { cursor: auto !important; }
-            #cursor, #cursor-follower { display: none; }
-            .item-text { -webkit-text-stroke: 0px; color: #fff; font-size: 4.5rem; letter-spacing: -2px; }
-            .mask-visual { display: none; }
-            .details { position: relative; right: 0; bottom: 0; text-align: center; width: 100%; opacity: 1; padding-top: 10px; }
-            .item-wrap { height: auto; margin-bottom: 40px; }
-            .hud { inset: 20px; }
+        .node-tag { font-family: 'JetBrains Mono'; font-size: 9px; color: var(--a); letter-spacing: 4px; margin-bottom: 10px; display: block; }
+        .node-title { font-size: 3.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: -3px; line-height: 0.9; }
+        .node-desc { font-size: 0.9rem; color: #666; max-width: 280px; margin-top: 20px; display: none; }
+        .node:hover .node-desc { display: block; animation: fadeIn 1s forwards; }
+
+        /* CURSOR SYSTEM */
+        #c { position: fixed; width: 4px; height: 4px; background: #fff; border-radius: 50%; z-index: 1000; pointer-events: none; }
+        #a { position: fixed; width: 40px; height: 40px; border: 1px solid var(--a); border-radius: 50%; z-index: 999; pointer-events: none; transition: 0.1s; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* MOBILE OPTIMIZATION */
+        @media (max-width: 800px) {
+            .monolith { flex-direction: column; height: 90vh; width: 95vw; }
+            .node { flex: 1 !important; }
+            .node-img { opacity: 0.4; filter: none; }
+            .node-title { font-size: 2rem; }
+            .node-content { padding: 20px; opacity: 1; transform: none; }
+            * { cursor: auto !important; } #c, #a { display: none; }
         }
     </style>
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-follower"></div>
+<div id="c"></div><div id="a"></div>
+<div class="hud"></div>
 
-<div class="hud">
-    <div class="hud-top">
-        <span>SHARAN_ACADEMY_SYS</span>
-        <span>LEVEL: SOVEREIGN</span>
-    </div>
-    <div class="hud-bottom">
-        <span>EST: 2026 // ADMISSIONS OPEN</span>
-        <span>SCANNING_LOCAL_FILES...</span>
-    </div>
-</div>
-
-<main class="stage">
-
-    <div class="item-wrap">
-        <h2 class="item-text">Piano</h2>
-        <div class="mask-visual" style="background-image: url('https://images.unsplash.com/photo-1520529611472-3f820bb20600?q=80&w=2070')"></div>
-        <div class="details">
-            <h4>[ 01 PERFORMANCE ]</h4>
-            <p>Mastering the architecture of sound through neoclassical piano mastery.</p>
+<main class="monolith">
+    
+    <div class="node">
+        <img src="https://images.unsplash.com/photo-1520529611472-3f820bb20600?q=80&w=2070" class="node-img">
+        <div class="node-content">
+            <span class="node-tag">01 // PERFORMANCE</span>
+            <h2 class="node-title">Piano</h2>
+            <p class="node-desc">Mastering neoclassical resonance and the architecture of emotive performance.</p>
         </div>
     </div>
 
-    <div class="item-wrap">
-        <h2 class="item-text">Drums</h2>
-        <div class="mask-visual" style="background-image: url('https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=2070')"></div>
-        <div class="details">
-            <h4>[ 02 RHYTHM ]</h4>
-            <p>The geometry of the pocket. Precision engineering for elite drummers.</p>
+    <div class="node">
+        <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=2070" class="node-img">
+        <div class="node-content">
+            <span class="node-tag">02 // KINETIC</span>
+            <h2 class="node-title">Drums</h2>
+            <p class="node-desc">The geometry of the pocket. Engineering rhythm for the world's elite sessions.</p>
         </div>
     </div>
 
-    <div class="item-wrap">
-        <h2 class="item-text">Prod.</h2>
-        <div class="mask-visual" style="background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070')"></div>
-        <div class="details">
-            <h4>[ 03 SYNTHESIS ]</h4>
-            <p>Sonic design and professional signal chains for global records.</p>
+    <div class="node">
+        <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070" class="node-img">
+        <div class="node-content">
+            <span class="node-tag">03 // SYNTHESIS</span>
+            <h2 class="node-title">Prod.</h2>
+            <p class="node-desc">High-end signal chains and the psychology of chart-topping sound design.</p>
         </div>
     </div>
 
 </main>
 
 <script>
-    const cursor = document.getElementById('cursor');
-    const follower = document.getElementById('cursor-follower');
-
-    document.addEventListener('mousemove', (e) => {
-        const { clientX: x, clientY: y } = e;
-        
-        // Instant cursor
-        cursor.style.transform = `translate(${x}px, ${y}px)`;
-        
-        // Fluid follower
-        follower.style.transform = `translate(${x - 40}px, ${y - 40}px)`;
-        
-        // Parallax effect on the visuals
-        const moveX = (x - window.innerWidth/2) * 0.05;
-        const moveY = (y - window.innerHeight/2) * 0.05;
-        
-        document.querySelectorAll('.mask-visual').forEach(visual => {
-            visual.style.marginLeft = moveX + 'px';
-            visual.style.marginTop = moveY + 'px';
-        });
-    });
-
-    // Velocity scale effect
-    let lastX = 0;
-    document.addEventListener('mousemove', (e) => {
-        let speed = Math.abs(e.clientX - lastX);
-        lastX = e.clientX;
-        let scale = 1 + (speed / 1000);
-        follower.style.transform += ` scale(${scale})`;
+    const c = document.getElementById('c'), a = document.getElementById('a');
+    document.addEventListener('mousemove', e => {
+        c.style.left = e.clientX + 'px'; c.style.top = e.clientY + 'px';
+        a.style.left = (e.clientX - 20) + 'px'; a.style.top = (e.clientY - 20) + 'px';
     });
 </script>
 

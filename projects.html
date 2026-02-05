@@ -3,199 +3,186 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projects | Sharan Musician</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <title>Selected Works | Sharan Musician</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@200;300;400;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
-        /* ================= GLOBAL & THEME ================= */
+        /* ================= ARCHITECTURAL RESET ================= */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Inter', sans-serif;
-            background: #0b0b0f;
+            background: #050507; /* Deeper black for premium contrast */
             color: #f5f5f5;
             overflow-x: hidden;
             user-select: none;
             -webkit-user-select: none;
         }
 
-        /* High-End Scrollbar */
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: #0b0b0f; }
-        ::-webkit-scrollbar-thumb { background: #1db954; border-radius: 10px; }
+        ::-webkit-scrollbar { width: 3px; }
+        ::-webkit-scrollbar-track { background: #050507; }
+        ::-webkit-scrollbar-thumb { background: #1db954; }
 
-        /* ================= NAVIGATION (Matches Home) ================= */
+        /* ================= NAVIGATION ================= */
         .top-bar {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 15px 40px; background: rgba(15,15,20,0.98);
-            backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 1100;
-            border-bottom: 1px solid rgba(255,255,255,0.08);
+            padding: 25px 60px; background: rgba(5,5,7,0.95);
+            backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 1100;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
         }
-        .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; }
-        .back-home { font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: #1db954; font-weight: 700; text-decoration: none; }
+        .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem; letter-spacing: 1px; }
+        .back-home { font-size: 10px; text-transform: uppercase; letter-spacing: 3px; color: #1db954; text-decoration: none; font-weight: 700; }
 
-        /* ================= HEADER SECTION ================= */
+        /* ================= HERO HEADER ================= */
         header {
-            padding: 100px 40px 60px;
-            max-width: 1450px;
+            padding: 120px 60px 100px;
+            max-width: 1600px;
             margin: 0 auto;
         }
-        .folio-label { font-family: 'JetBrains Mono', monospace; color: #1db954; font-size: 14px; margin-bottom: 10px; display: block; }
-        .page-title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 10vw, 6rem); line-height: 1; margin-bottom: 40px; }
+        .folio-label { font-family: 'JetBrains Mono', monospace; color: #1db954; font-size: 12px; margin-bottom: 20px; display: block; letter-spacing: 5px; }
+        .page-title { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 12vw, 8rem); line-height: 0.9; margin-bottom: 20px; font-weight: 900; }
+        .page-subtitle { font-size: 1.2rem; color: #666; font-weight: 300; max-width: 600px; line-height: 1.6; }
 
-        /* ================= PROJECTS GRID ================= */
+        /* ================= ASYMMETRIC GRID ================= */
         .projects-container {
-            max-width: 1450px;
+            max-width: 1600px;
             margin: 0 auto;
-            padding: 0 40px 100px;
-            display: grid;
-            grid-template-columns: 1fr;
+            padding: 0 60px 150px;
+            display: flex;
+            flex-direction: column;
+            gap: 200px; /* Large breathing room between projects */
+        }
+
+        .project-block {
+            display: flex;
+            align-items: flex-end;
             gap: 80px;
-        }
-
-        .project-row {
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 60px;
-            align-items: center;
-            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             cursor: pointer;
-            padding: 20px;
-            border-radius: 24px;
+            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
+            position: relative;
         }
 
-        /* Project Image Wrapper */
-        .img-wrap {
-            position: relative;
-            width: 100%;
-            aspect-ratio: 16 / 9;
+        /* 3:4 ASPECT RATIO IMAGE */
+        .img-container {
+            flex: 0 0 450px;
+            aspect-ratio: 3 / 4;
             overflow: hidden;
-            border-radius: 12px;
-            background: #16161d;
-            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 4px; /* Sharp corporate edges */
+            background: #0d0d11;
+            filter: grayscale(40%);
+            transition: all 0.8s ease;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
         }
-        .img-wrap img {
+
+        .img-container img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.8s ease;
+            transition: transform 1.2s ease;
         }
 
-        /* Content Wrapper */
-        .project-info { position: relative; }
-        .year { font-family: 'JetBrains Mono', monospace; font-size: 18px; color: #444; margin-bottom: 15px; }
-        .proj-name { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 15px; }
-        .proj-role { 
-            display: inline-block;
-            padding: 6px 16px;
-            background: rgba(29, 185, 84, 0.1);
-            color: #1db954;
-            border-radius: 50px;
-            font-size: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 20px;
+        /* CONTENT ALIGNMENT */
+        .project-details {
+            padding-bottom: 40px;
         }
-        .proj-desc { color: #888; font-size: 1.1rem; line-height: 1.8; max-width: 400px; }
 
-        /* UNIVERSAL GLOW BEHAVIOR (Matches Home) */
+        .proj-meta { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #1db954; margin-bottom: 20px; display: block; }
+        .proj-title { font-family: 'Playfair Display', serif; font-size: 4.5rem; line-height: 1; margin-bottom: 25px; }
+        .proj-role { font-size: 11px; text-transform: uppercase; letter-spacing: 4px; color: #888; display: block; margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 10px; width: fit-content; }
+        .proj-desc { color: #aaa; font-size: 1.1rem; line-height: 1.9; max-width: 450px; font-weight: 300; }
+
+        /* REVERSE LAYOUT FOR SECOND ITEM */
+        .project-block.reverse { flex-direction: row-reverse; text-align: right; }
+        .project-block.reverse .proj-role { margin-left: auto; }
+
+        /* ================= INTERACTIVE GLOW & ELEVATION ================= */
         .active-glow {
-            transform: translateY(-15px) scale(1.02);
-            background: rgba(29, 185, 84, 0.03);
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 40px rgba(29, 185, 84, 0.15);
+            transform: translateY(-20px);
         }
-        .active-glow .img-wrap img { transform: scale(1.1); }
-        .active-glow .proj-name { color: #1db954; }
+        .active-glow .img-container {
+            filter: grayscale(0%);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.9), 0 0 50px rgba(29, 185, 84, 0.2);
+            border: 1px solid rgba(29, 185, 84, 0.3);
+        }
+        .active-glow .img-container img { transform: scale(1.08); }
+        .active-glow .proj-title { color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.1); }
 
-        /* ================= CTA SECTION ================= */
-        .collab-section {
-            border-top: 1px solid rgba(255,255,255,0.05);
-            padding: 100px 40px;
+        /* ================= FOOTER CTA ================= */
+        .footer-cta {
+            padding: 150px 60px;
+            background: #08080a;
             text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.03);
         }
-        .collab-btn {
-            background: #fff;
-            color: #000;
-            padding: 20px 50px;
-            font-weight: 800;
-            border-radius: 4px;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: all 0.3s;
+        .cta-heading { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 40px; }
+        .contact-link {
+            font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 5px;
+            color: #1db954; text-decoration: none; padding: 20px 40px; border: 1px solid #1db954;
+            transition: all 0.4s;
         }
-        .collab-btn:hover { background: #1db954; color: #fff; }
+        .contact-link:hover { background: #1db954; color: #000; box-shadow: 0 0 30px rgba(29,185,84,0.4); }
 
-        /* ================= RESPONSIVE ================= */
-        @media (max-width: 1000px) {
-            .project-row { grid-template-columns: 1fr; gap: 30px; }
-            .page-title { font-size: 4rem; }
-            .proj-name { font-size: 2.2rem; }
+        /* ================= MOBILE ================= */
+        @media (max-width: 1100px) {
+            .project-block, .project-block.reverse { flex-direction: column; align-items: flex-start; text-align: left; gap: 40px; }
+            .project-block.reverse .proj-role { margin-left: 0; }
+            .img-container { width: 100%; flex: none; }
+            .proj-title { font-size: 3rem; }
+            .top-bar { padding: 20px; }
+            header { padding: 80px 20px 60px; }
+            .projects-container { padding: 0 20px 100px; }
         }
     </style>
 </head>
 <body>
 
 <div class="top-bar">
-    <div class="musician-name">Sharan Musician</div>
-    <a href="index.html" class="back-home">← Back to Store</a>
+    <div class="musician-name">SHARAN MUSICIAN</div>
+    <a href="index.html" class="back-home">Close Portfolio</a>
 </div>
 
 <header>
-    <span class="folio-label">SELECTED WORKS // 2023—2026</span>
-    <h1 class="page-title">Sonic<br>Odyssey.</h1>
+    <span class="folio-label">DISCOGRAPHY & SCORES</span>
+    <h1 class="page-title">Curated<br>Projects.</h1>
+    <p class="page-subtitle">A collection of cinematic sonic identities and directorial music compositions for the screen.</p>
 </header>
 
 <div class="projects-container">
     
-    <div class="project-row" onclick="highlightProject(this)">
-        <div class="img-wrap">
+    <div class="project-block" onclick="highlightProject(this)">
+        <div class="img-container">
             <img src="hunter_cover.jpg" alt="Hunter Short Film">
         </div>
-        <div class="project-info">
-            <div class="year">2023</div>
-            <div class="proj-role">Original Score</div>
-            <h2 class="proj-name">Hunter</h2>
-            <p class="proj-desc">A gripping Short Film requiring a tense, atmospheric soundscape. Designed every sonic layer to heighten the cinematic suspense.</p>
+        <div class="project-details">
+            <span class="proj-meta">01 // 2023</span>
+            <span class="proj-role">Original Background Score</span>
+            <h2 class="proj-title">Hunter</h2>
+            <p class="proj-desc">Engineered a dark, suspense-driven auditory landscape for this acclaimed short film. The score focuses on tension-building textures and minimalist orchestral swells.</p>
         </div>
     </div>
 
-    <div class="project-row" onclick="highlightProject(this)">
-        <div class="img-wrap">
-            <img src="webseries_cover.jpg" alt="Untitled Web Series">
+    <div class="project-block reverse" onclick="highlightProject(this)">
+        <div class="img-container">
+            <img src="webseries_cover.jpg" alt="IPC 100 Web Series">
         </div>
-        <div class="project-info">
-            <div class="year">2024</div>
-            <div class="proj-role">Leading Music Director</div>
-            <h2 class="proj-name">IPC 100</h2>
-            <p class="proj-desc">Spearheaded the musical direction for a major web series. Crafted the main theme and episodic scores to define the show's identity.</p>
-        </div>
-    </div>
-
-    <div class="project-row" onclick="highlightProject(this)">
-        <div class="img-wrap">
-            <img src="https://images.unsplash.com/photo-1514525253361-bee8718a74a7?auto=format&fit=crop&q=80&w=1000" alt="Future Projects">
-        </div>
-        <div class="project-info">
-            <div class="year">2026</div>
-            <div class="proj-role">Global Release</div>
-            <h2 class="proj-name">Project Pulse</h2>
-            <p class="proj-desc">An upcoming experimental studio album pushing the boundaries of electronic and classical fusion.</p>
+        <div class="project-details">
+            <span class="proj-meta">02 // 2024</span>
+            <span class="proj-role">Leading Music Director</span>
+            <h2 class="proj-title">IPC 100</h2>
+            <p class="proj-desc">Comprehensive musical supervision for the web series. Defined the series' identity through a recurring leitmotif and high-stakes cinematic arrangements.</p>
         </div>
     </div>
 
 </div>
 
-<section class="collab-section">
-    <h2 style="font-family: 'Playfair Display'; font-size: 2.5rem; margin-bottom: 40px;">Have a Vision?</h2>
-    <a href="contact.html"><button class="collab-btn">Initiate Collaboration</button></a>
+<section class="footer-cta">
+    <h2 class="cta-heading">Ready for the next score?</h2>
+    <a href="contact.html" class="contact-link">Inquiry Dispatch</a>
 </section>
 
 <script>
     function highlightProject(element) {
-        // Remove active class from all projects
-        document.querySelectorAll('.project-row').forEach(row => {
-            row.classList.remove('active-glow');
+        document.querySelectorAll('.project-block').forEach(block => {
+            block.classList.remove('active-glow');
         });
-        // Add to clicked one
         element.classList.add('active-glow');
     }
 </script>

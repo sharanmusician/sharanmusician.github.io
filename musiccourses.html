@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academy | Sharan Musician</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --accent: #1db954;
+            --bg: #050505;
+            --card-bg: #0f0f0f;
+            --text-main: #ffffff;
+            --text-dim: #888888;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text-main);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ================= HEADER ================= */
+        .header-nav {
+            position: fixed; top: 0; width: 100%; height: 90px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 6%; background: rgba(5, 5, 5, 0.85);
+            backdrop-filter: blur(30px); z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        .brand { font-size: 14px; letter-spacing: 2px; font-weight: 800; text-transform: uppercase; }
+        
+        .close-btn {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff; padding: 8px 18px; border-radius: 100px;
+            font-weight: 600; font-size: 10px; text-transform: uppercase;
+            letter-spacing: 1.5px; text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: 0.4s; display: flex; align-items: center; gap: 8px;
+        }
+        .close-btn:hover { background: #fff; color: #000; }
+
+        /* ================= HERO ================= */
+        .hero {
+            padding: 180px 6% 60px;
+            max-width: 1400px; margin: 0 auto;
+        }
+        .hero h1 { 
+            font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; 
+            text-transform: uppercase; letter-spacing: -3px; line-height: 0.9;
+            background: linear-gradient(to bottom, #fff, #444);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p { color: var(--accent); font-family: 'JetBrains Mono'; font-size: 12px; letter-spacing: 6px; margin-top: 20px; }
+
+        /* ================= COURSE GRID ================= */
+        .course-container { padding: 0 6% 100px; max-width: 1600px; margin: 0 auto; }
+        
+        .category-section { margin-top: 80px; }
+        .category-title { 
+            font-size: 11px; font-family: 'JetBrains Mono'; color: #444; 
+            text-transform: uppercase; letter-spacing: 4px; border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 15px; margin-bottom: 40px;
+        }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 30px; }
+
+        .course-card {
+            background: var(--card-bg); border-radius: 24px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer; position: relative;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5), 0 0 20px rgba(29,185,84,0.1);
+        }
+
+        .course-img {
+            width: 100%; height: 260px; background: #111;
+            position: relative; overflow: hidden;
+        }
+        .course-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.7; transition: 0.5s; }
+        .course-card:hover .course-img img { opacity: 1; transform: scale(1.05); }
+
+        .badge {
+            position: absolute; top: 20px; right: 20px;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
+            padding: 6px 14px; border-radius: 100px; font-size: 10px;
+            font-weight: 700; color: var(--accent); border: 1px solid rgba(29,185,84,0.3);
+        }
+
+        .course-info { padding: 40px; }
+        .course-meta { font-family: 'JetBrains Mono'; font-size: 10px; color: #555; display: flex; gap: 20px; margin-bottom: 15px; }
+        .course-name { font-size: 1.8rem; font-weight: 800; margin-bottom: 12px; }
+        .course-desc { color: var(--text-dim); line-height: 1.6; font-size: 0.95rem; margin-bottom: 25px; }
+        
+        .enroll-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            color: #fff; font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 2px; transition: 0.3s;
+        }
+        .enroll-btn span { font-size: 18px; transition: 0.3s; }
+        .course-card:hover .enroll-btn { color: var(--accent); }
+        .course-card:hover .enroll-btn span { transform: translateX(5px); }
+
+        /* ================= RESPONSIVE ================= */
+        @media (max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            .hero { padding: 140px 6% 40px; }
+            .course-name { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="header-nav">
+    <div class="brand">Academy // Sharan</div>
+    <a href="index.html" class="close-btn"><span>✕</span> Close</a>
+</nav>
+
+<header class="hero">
+    <p>Professional Music Education</p>
+    <h1>The Art of<br>Sound.</h1>
+</header>
+
+<main class="course-container">
+    
+    <section class="category-section">
+        <h2 class="category-title">01. Performance Mastery</h2>
+        <div class="grid">
+            
+            <div class="course-card">
+                <div class="course-img">
+                    <img src="piano_img.jpg" alt="Piano">
+                    <div class="badge">PREMIUM</div>
+                </div>
+                <div class="course-info">
+                    <div class="course-meta"><span>LEVEL: ALL</span> <span>64 LESSONS</span></div>
+                    <h3 class="course-name">Cinematic Piano</h3>
+                    <p class="course-desc">Master the dynamics of emotive performance. From neo-classical textures to modern film accompaniment.</p>
+                    <div class="enroll-btn">Explore Course <span>→</span></div>
+                </div>
+            </div>
+
+            <div class="course-card">
+                <div class="course-img">
+                    <img src="drums_img.jpg" alt="Drums">
+                    <div class="badge">ADVANCED</div>
+                </div>
+                <div class="course-info">
+                    <div class="course-meta"><span>LEVEL: INT</span> <span>42 LESSONS</span></div>
+                    <h3 class="course-name">Rhythmic Identity</h3>
+                    <p class="course-desc">Developing a unique pocket and timing for session drumming and live performance tracking.</p>
+                    <div class="enroll-btn">Explore Course <span>→</span></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="category-section">
+        <h2 class="category-title">02. Sound Design</h2>
+        <div class="grid">
+            
+            <div class="course-card">
+                <div class="course-img">
+                    <img src="production_img.jpg" alt="Production">
+                    <div class="badge">MOST POPULAR</div>
+                </div>
+                <div class="course-info">
+                    <div class="course-meta"><span>LEVEL: PRO</span> <span>90 LESSONS</span></div>
+                    <h3 class="course-name">Modern Music Production</h3>
+                    <p class="course-desc">End-to-end curriculum covering Ableton Live, Logic Pro, and professional mixing/mastering workflows.</p>
+                    <div class="enroll-btn">Explore Course <span>→</span></div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</main>
+
+<script>
+    // Smooth reveal on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.course-card').forEach(card => {
+        card.style.opacity = "0";
+        card.style.transform = "translateY(40px)";
+        card.style.transition = "all 0.8s cubic-bezier(0.16, 1, 0.3, 1)";
+        observer.observe(card);
+    });
+</script>
+
+</body>
+  </html>
+  

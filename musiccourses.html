@@ -53,33 +53,37 @@
 
         .node {
             flex: 1; position: relative; overflow: hidden;
-            background: var(--panel-bg); display: flex; align-items: flex-end;
+            background: var(--panel-bg); display: flex; 
+            align-items: center; justify-content: center; /* Center content when closed */
             transition: flex var(--transition);
             pointer-events: auto;
         }
 
-        /* Expand only when active class is present via tap */
-        .node.active { flex: 3; }
+        /* SUBTLE ZOOM: Changed from 3 to 1.6 for a professional expansion */
+        .node.active { flex: 1.6; align-items: flex-end; justify-content: flex-start; }
 
         .node-img {
             position: absolute; inset: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.3; filter: grayscale(1) brightness(0.7);
+            object-fit: cover; opacity: 0.2; filter: grayscale(1) brightness(0.5);
             transition: var(--transition);
         }
         
         .node::after {
             content: ''; position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 60%);
-            opacity: 0.9; transition: var(--transition);
+            background: linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 80%);
+            opacity: 0.8; transition: var(--transition);
         }
 
-        .node.active .node-img { opacity: 0.8; filter: grayscale(0) brightness(1); transform: scale(1.05); }
-        .node.active::after { opacity: 0.5; }
+        .node.active .node-img { opacity: 0.6; filter: grayscale(0) brightness(0.8); }
 
         .node-content {
-            position: relative; z-index: 10; padding: 50px; width: 100%;
-            transform: translateY(0); transition: var(--transition);
+            position: relative; z-index: 10; padding: 40px; width: 100%;
+            text-align: center; /* Center alignment for inactive state */
+            transition: var(--transition);
         }
+
+        /* Shift text to left only when active */
+        .node.active .node-content { text-align: left; padding: 50px; }
 
         .node-tag { 
             font-family: 'JetBrains Mono'; font-size: 10px; color: var(--accent); 
@@ -87,53 +91,42 @@
         }
         
         .node-title { 
-            font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; 
+            font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; 
             text-transform: uppercase; letter-spacing: -2px; line-height: 0.85; 
         }
 
-        /* HIDDEN BY DEFAULT - ONLY VISIBLE ON ACTIVE */
+        /* HIDDEN ELEMENTS */
         .node-details {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
             margin-top: 25px;
+            max-height: 0;
             opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: 0.5s ease-out;
+            overflow: hidden;
+            transition: 0.5s var(--transition);
         }
 
         .node.active .node-details {
+            max-height: 200px;
             opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-            transition-delay: 0.3s;
+            margin-top: 25px;
         }
 
         .node-desc { 
-            font-size: 0.85rem; color: #999; max-width: 400px;
-            line-height: 1.6;
-            text-align: left;
+            font-size: 0.8rem; color: #888; max-width: 320px;
+            line-height: 1.5; text-align: left;
         }
 
         .enroll-btn {
-            background: var(--accent);
-            color: #000;
-            font-family: 'JetBrains Mono';
-            font-size: 10px;
-            font-weight: 800;
-            padding: 10px 18px;
-            text-decoration: none;
-            letter-spacing: 1px;
-            transition: 0.3s;
-            white-space: nowrap;
-            margin-left: 20px;
+            background: var(--accent); color: #000;
+            font-family: 'JetBrains Mono'; font-size: 9px; font-weight: 800;
+            padding: 8px 14px; text-decoration: none;
+            letter-spacing: 1px; transition: 0.3s;
+            white-space: nowrap; margin-bottom: 5px;
         }
 
-        .enroll-btn:hover {
-            background: #fff;
-            box-shadow: 0 0 20px rgba(255,255,255,0.2);
-        }
+        .enroll-btn:hover { background: #fff; transform: translateY(-2px); }
 
         /* --- CURSOR SYSTEM --- */
         #cursor-dot { position: fixed; width: 6px; height: 6px; background: #fff; border-radius: 50%; z-index: 1000; pointer-events: none; mix-blend-mode: difference; }
@@ -145,11 +138,10 @@
 
         @media (max-width: 900px) {
             .monolith { flex-direction: column; height: 85vh; width: 95vw; }
-            .node.active { flex: 2; }
+            .node.active { flex: 1.5; }
             .node-title { font-size: 2.2rem; }
-            .node-content { padding: 30px; }
+            .node-content { padding: 30px !important; }
             .node-details { flex-direction: column; align-items: flex-start; gap: 15px; }
-            .enroll-btn { margin-left: 0; }
             #cursor-dot, #cursor-aura { display: none; }
             * { cursor: auto !important; }
         }
@@ -167,7 +159,7 @@
         <a href="community.html" class="nav-link">CONNECT</a>
     </div>
     <div class="hud-bottom">
-        <span class="nav-link"></span> <span class="nav-link">03 // NODES</span>
+        <span class="nav-link"></span> <span class="nav-link">SCROLL // SELECT</span>
     </div>
 </nav>
 
@@ -217,20 +209,16 @@
     const dot = document.getElementById('cursor-dot');
     const aura = document.getElementById('cursor-aura');
 
-    // Functional Logic: Handle the Tap/Click to reveal
     function activateNode(selectedNode) {
-        // Remove active class from all nodes
         document.querySelectorAll('.node').forEach(node => {
             if (node !== selectedNode) node.classList.remove('active');
         });
-        // Toggle the clicked node
         selectedNode.classList.toggle('active');
     }
 
     document.addEventListener('mousemove', e => {
         dot.style.left = e.clientX + 'px';
         dot.style.top = e.clientY + 'px';
-        
         aura.animate({
             left: (e.clientX - 20) + 'px',
             top: (e.clientY - 20) + 'px'

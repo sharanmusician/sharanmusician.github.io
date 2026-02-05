@@ -3,118 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHARAN | ULTRA</title>
+    <title>SHARAN | ULTRA PRO</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        /* THE ULTIMATE COMPRESSION */
-        * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
-        :root { --a: #1db954; --bg: #080808; }
+        :root { 
+            --accent: #1db954; 
+            --bg: #050505; 
+            --panel-bg: #0a0a0a;
+            --transition: 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
+        
         body, html { 
             height: 100vh; background: var(--bg); color: #fff;
             font-family: 'Plus Jakarta Sans', sans-serif; overflow: hidden;
-            display: flex; align-items: center; justify-content: center;
         }
 
-        /* NANO HUD */
-        .hud {
-            position: fixed; inset: 30px; border: 1px solid rgba(255,255,255,0.03);
+        /* --- NANO HUD & NAVIGATION --- */
+        .hud-ui {
+            position: fixed; inset: 0; padding: 40px;
+            display: flex; flex-direction: column; justify-content: space-between;
             pointer-events: none; z-index: 100;
         }
-        .hud::before { content: 'SYSTEM_ULTRA'; position: absolute; top: 10px; left: 15px; font-family: 'JetBrains Mono'; font-size: 8px; color: #333; letter-spacing: 3px; }
+        .hud-top, .hud-bottom { display: flex; justify-content: space-between; align-items: center; }
+        
+        .nav-link { 
+            font-family: 'JetBrains Mono'; font-size: 10px; color: rgba(255,255,255,0.4); 
+            text-decoration: none; pointer-events: auto; letter-spacing: 2px;
+            transition: 0.3s;
+        }
+        .nav-link:hover { color: var(--accent); }
 
-        /* THE MONOLITH ENGINE */
+        /* --- THE MONOLITH ENGINE --- */
+        .viewport {
+            height: 100vh; width: 100vw; display: flex; align-items: center; justify-content: center;
+        }
+
         .monolith {
-            width: 85vw; height: 75vh; display: flex; gap: 2px;
-            background: rgba(255,255,255,0.02); padding: 2px;
+            width: 90vw; height: 70vh; display: flex; gap: 4px;
+            background: rgba(255,255,255,0.05); padding: 4px;
         }
 
         .node {
             flex: 1; position: relative; overflow: hidden;
-            transition: flex 1s cubic-bezier(0.19, 1, 0.22, 1);
-            background: #000; display: flex; align-items: flex-end;
+            background: var(--panel-bg); display: flex; align-items: flex-end;
+            transition: flex var(--transition);
         }
 
-        .node:hover { flex: 3; }
+        .node:hover { flex: 2.5; }
 
-        /* THE VISUAL LAYER */
+        /* IMAGE LAYER WITH AUTO-MASK */
         .node-img {
             position: absolute; inset: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.2; filter: saturate(0) blur(10px);
-            transition: 1s cubic-bezier(0.19, 1, 0.22, 1);
+            object-fit: cover; opacity: 0.3; filter: grayscale(1);
+            transition: var(--transition);
         }
-        .node:hover .node-img { opacity: 0.5; filter: saturate(1) blur(0px); transform: scale(1.1); }
+        
+        /* The Gradient Protector - ensures text is ALWAYS visible */
+        .node::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
+            opacity: 0.8; transition: var(--transition);
+        }
 
-        /* THE TEXT LAYER */
+        .node:hover .node-img { opacity: 0.7; filter: grayscale(0); transform: scale(1.05); }
+        .node:hover::after { opacity: 0.4; }
+
+        /* CONTENT LAYER */
         .node-content {
-            position: relative; z-index: 10; padding: 40px; width: 100%;
-            transform: translateY(20px); opacity: 0.5; transition: 0.8s;
+            position: relative; z-index: 10; padding: 50px; width: 100%;
+            transform: translateY(10px); transition: var(--transition);
         }
-        .node:hover .node-content { transform: translateY(0); opacity: 1; }
+        .node:hover .node-content { transform: translateY(0); }
 
-        .node-tag { font-family: 'JetBrains Mono'; font-size: 9px; color: var(--a); letter-spacing: 4px; margin-bottom: 10px; display: block; }
-        .node-title { font-size: 3.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: -3px; line-height: 0.9; }
-        .node-desc { font-size: 0.9rem; color: #666; max-width: 280px; margin-top: 20px; display: none; }
-        .node:hover .node-desc { display: block; animation: fadeIn 1s forwards; }
+        .node-tag { 
+            font-family: 'JetBrains Mono'; font-size: 10px; color: var(--accent); 
+            letter-spacing: 3px; margin-bottom: 12px; display: block; 
+            text-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
+        }
+        
+        .node-title { 
+            font-size: clamp(2rem, 5vw, 4rem); font-weight: 800; 
+            text-transform: uppercase; letter-spacing: -2px; line-height: 0.85; 
+        }
 
-        /* CURSOR SYSTEM */
-        #c { position: fixed; width: 4px; height: 4px; background: #fff; border-radius: 50%; z-index: 1000; pointer-events: none; }
-        #a { position: fixed; width: 40px; height: 40px; border: 1px solid var(--a); border-radius: 50%; z-index: 999; pointer-events: none; transition: 0.1s; }
+        .node-desc { 
+            font-size: 0.85rem; color: #999; max-width: 300px; margin-top: 25px; 
+            opacity: 0; transform: translateY(20px); transition: 0.6s var(--transition);
+            line-height: 1.6;
+        }
+        .node:hover .node-desc { opacity: 1; transform: translateY(0); }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* --- CURSOR SYSTEM --- */
+        #cursor-dot { position: fixed; width: 6px; height: 6px; background: #fff; border-radius: 50%; z-index: 1000; pointer-events: none; mix-blend-mode: difference; }
+        #cursor-aura { 
+            position: fixed; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.2); 
+            border-radius: 50%; z-index: 999; pointer-events: none; 
+            transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
+        }
 
-        /* MOBILE OPTIMIZATION */
-        @media (max-width: 800px) {
-            .monolith { flex-direction: column; height: 90vh; width: 95vw; }
+        /* MOBILE BREAKPOINT */
+        @media (max-width: 900px) {
+            .monolith { flex-direction: column; height: 85vh; }
             .node { flex: 1 !important; }
-            .node-img { opacity: 0.4; filter: none; }
-            .node-title { font-size: 2rem; }
-            .node-content { padding: 20px; opacity: 1; transform: none; }
-            * { cursor: auto !important; } #c, #a { display: none; }
+            .node-desc { display: block; opacity: 0.7; transform: none; margin-top: 10px;}
+            .node-title { font-size: 2.5rem; }
+            .node-content { padding: 30px; }
+            #cursor-dot, #cursor-aura { display: none; }
+            * { cursor: auto !important; }
         }
     </style>
 </head>
 <body>
 
-<div id="c"></div><div id="a"></div>
-<div class="hud"></div>
+<div id="cursor-dot"></div>
+<div id="cursor-aura"></div>
 
-<main class="monolith">
-    
-    <div class="node">
-        <img src="https://images.unsplash.com/photo-1520529611472-3f820bb20600?q=80&w=2070" class="node-img">
-        <div class="node-content">
-            <span class="node-tag">01 // PERFORMANCE</span>
-            <h2 class="node-title">Piano</h2>
-            <p class="node-desc">Mastering neoclassical resonance and the architecture of emotive performance.</p>
-        </div>
+<nav class="hud-ui">
+    <div class="hud-top">
+        <a href="#" class="nav-link">HOME</a>
+        <div style="font-family: 'JetBrains Mono'; font-size: 8px; color: #444;">ID_SEQ: 099-X</div>
+        <a href="#" class="nav-link">MENU</a>
     </div>
-
-    <div class="node">
-        <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=2070" class="node-img">
-        <div class="node-content">
-            <span class="node-tag">02 // KINETIC</span>
-            <h2 class="node-title">Drums</h2>
-            <p class="node-desc">The geometry of the pocket. Engineering rhythm for the world's elite sessions.</p>
-        </div>
+    <div class="hud-bottom">
+        <span class="nav-link">© 2024 ULTRA</span>
+        <span class="nav-link">SCROLL TO EXPLORE</span>
     </div>
+</nav>
 
-    <div class="node">
-        <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070" class="node-img">
-        <div class="node-content">
-            <span class="node-tag">03 // SYNTHESIS</span>
-            <h2 class="node-title">Prod.</h2>
-            <p class="node-desc">High-end signal chains and the psychology of chart-topping sound design.</p>
+<section class="viewport">
+    <main class="monolith">
+        
+        <div class="node">
+            <img src="https://images.unsplash.com/photo-1520529611472-3f820bb20600?q=80&w=2070" class="node-img">
+            <div class="node-content">
+                <span class="node-tag">01 // PERFORMANCE</span>
+                <h2 class="node-title">Piano</h2>
+                <p class="node-desc">Mastering neoclassical resonance and the architecture of emotive performance.</p>
+            </div>
         </div>
-    </div>
 
-</main>
+        <div class="node">
+            <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=2070" class="node-img">
+            <div class="node-content">
+                <span class="node-tag">02 // KINETIC</span>
+                <h2 class="node-title">Drums</h2>
+                <p class="node-desc">The geometry of the pocket. Engineering rhythm for the world's elite sessions.</p>
+            </div>
+        </div>
+
+        <div class="node">
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070" class="node-img">
+            <div class="node-content">
+                <span class="node-tag">03 // SYNTHESIS</span>
+                <h2 class="node-title">Prod.</h2>
+                <p class="node-desc">High-end signal chains and the psychology of chart-topping sound design.</p>
+            </div>
+        </div>
+
+    </main>
+</section>
 
 <script>
-    const c = document.getElementById('c'), a = document.getElementById('a');
+    const dot = document.getElementById('cursor-dot');
+    const aura = document.getElementById('cursor-aura');
+
     document.addEventListener('mousemove', e => {
-        c.style.left = e.clientX + 'px'; c.style.top = e.clientY + 'px';
-        a.style.left = (e.clientX - 20) + 'px'; a.style.top = (e.clientY - 20) + 'px';
+        const x = e.clientX;
+        const y = e.clientY;
+        
+        dot.style.transform = `translate(${x}px, ${y}px)`;
+        // Smooth lagging effect for the aura
+        aura.animate({
+            transform: `translate(${x - 20}px, ${y - 20}px)`
+        }, { duration: 500, fill: "forwards" });
+    });
+
+    // Aura interaction on hover
+    document.querySelectorAll('.node, .nav-link').forEach(el => {
+        el.addEventListener('mouseenter', () => {
+            aura.style.width = '60px';
+            aura.style.height = '60px';
+            aura.style.borderColor = 'var(--accent)';
+            aura.style.backgroundColor = 'rgba(29, 185, 84, 0.1)';
+        });
+        el.addEventListener('mouseleave', () => {
+            aura.style.width = '40px';
+            aura.style.height = '40px';
+            aura.style.borderColor = 'rgba(255,255,255,0.2)';
+            aura.style.backgroundColor = 'transparent';
+        });
     });
 </script>
 

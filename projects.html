@@ -4,188 +4,186 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Selected Works | Sharan Musician</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Inter:wght@200;300;400;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=Inter:wght@100;300;400;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
-        /* ================= ARCHITECTURAL RESET ================= */
+        /* ================= THE LUXURY STANDARD ================= */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Inter', sans-serif;
-            background: #050507; /* Deeper black for premium contrast */
-            color: #f5f5f5;
+            background: #020203; /* Deepest onyx */
+            color: #ffffff;
             overflow-x: hidden;
             user-select: none;
             -webkit-user-select: none;
         }
 
-        ::-webkit-scrollbar { width: 3px; }
-        ::-webkit-scrollbar-track { background: #050507; }
+        /* Minimalist Scroll */
+        ::-webkit-scrollbar { width: 2px; }
         ::-webkit-scrollbar-thumb { background: #1db954; }
 
-        /* ================= NAVIGATION ================= */
-        .top-bar {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 25px 60px; background: rgba(5,5,7,0.95);
-            backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 1100;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
+        /* ================= FLOATING ACTION BAR ================= */
+        .top-nav {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 8px 8px 8px 24px;
+            background: rgba(20, 20, 25, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 100px;
         }
-        .musician-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.1rem; letter-spacing: 1px; }
-        .back-home { font-size: 10px; text-transform: uppercase; letter-spacing: 3px; color: #1db954; text-decoration: none; font-weight: 700; }
+        .nav-logo { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 4px; color: #666; }
+        
+        .close-btn {
+            background: #1db954;
+            color: #000;
+            padding: 10px 24px;
+            border-radius: 100px;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+        .close-btn:hover { background: #fff; transform: scale(1.05); }
 
-        /* ================= HERO HEADER ================= */
+        /* ================= HERO SECTION ================= */
         header {
-            padding: 120px 60px 100px;
-            max-width: 1600px;
-            margin: 0 auto;
-        }
-        .folio-label { font-family: 'JetBrains Mono', monospace; color: #1db954; font-size: 12px; margin-bottom: 20px; display: block; letter-spacing: 5px; }
-        .page-title { font-family: 'Playfair Display', serif; font-size: clamp(3.5rem, 12vw, 8rem); line-height: 0.9; margin-bottom: 20px; font-weight: 900; }
-        .page-subtitle { font-size: 1.2rem; color: #666; font-weight: 300; max-width: 600px; line-height: 1.6; }
-
-        /* ================= ASYMMETRIC GRID ================= */
-        .projects-container {
-            max-width: 1600px;
-            margin: 0 auto;
-            padding: 0 60px 150px;
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            gap: 200px; /* Large breathing room between projects */
+            justify-content: center;
+            padding: 0 10%;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
         }
+        .hero-label { font-family: 'JetBrains Mono', monospace; color: #1db954; font-size: 12px; letter-spacing: 8px; margin-bottom: 30px; }
+        .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(4rem, 15vw, 12rem); font-weight: 900; line-height: 0.85; letter-spacing: -5px; }
 
-        .project-block {
+        /* ================= PROJECT ARCHITECTURE ================= */
+        .work-grid {
+            padding: 150px 10%;
             display: flex;
-            align-items: flex-end;
-            gap: 80px;
-            cursor: pointer;
-            transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1);
-            position: relative;
+            flex-direction: column;
+            gap: 300px; /* High-end breathing space */
         }
 
-        /* 3:4 ASPECT RATIO IMAGE */
-        .img-container {
-            flex: 0 0 450px;
+        .project-card {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.8s ease;
+        }
+
+        /* 3:4 Portrait Image Positioning */
+        .project-img-box {
+            grid-column: 1 / 7;
             aspect-ratio: 3 / 4;
             overflow: hidden;
-            border-radius: 4px; /* Sharp corporate edges */
-            background: #0d0d11;
-            filter: grayscale(40%);
-            transition: all 0.8s ease;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            background: #0a0a0c;
+            position: relative;
+            z-index: 1;
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .project-img-box img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.5); transition: 1.2s ease; }
+
+        /* Text Overlap Logic */
+        .project-content {
+            grid-column: 6 / 13;
+            z-index: 2;
+            padding-left: 50px;
+            pointer-events: none;
         }
 
-        .img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 1.2s ease;
-        }
+        .index { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #1db954; margin-bottom: 20px; display: block; }
+        .title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 7rem); line-height: 1; margin-bottom: 20px; font-weight: 900; }
+        .role { font-size: 10px; text-transform: uppercase; letter-spacing: 5px; color: #666; margin-bottom: 30px; display: block; }
+        .description { font-weight: 300; font-size: 1.1rem; line-height: 1.8; color: #888; max-width: 400px; }
 
-        /* CONTENT ALIGNMENT */
-        .project-details {
-            padding-bottom: 40px;
-        }
+        /* Reverse Alignment for Project 2 */
+        .project-card.alt .project-img-box { grid-column: 7 / 13; }
+        .project-card.alt .project-content { grid-column: 1 / 8; text-align: right; padding-left: 0; padding-right: 50px; display: flex; flex-direction: column; align-items: flex-end; }
 
-        .proj-meta { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #1db954; margin-bottom: 20px; display: block; }
-        .proj-title { font-family: 'Playfair Display', serif; font-size: 4.5rem; line-height: 1; margin-bottom: 25px; }
-        .proj-role { font-size: 11px; text-transform: uppercase; letter-spacing: 4px; color: #888; display: block; margin-bottom: 20px; border-bottom: 1px solid #222; padding-bottom: 10px; width: fit-content; }
-        .proj-desc { color: #aaa; font-size: 1.1rem; line-height: 1.9; max-width: 450px; font-weight: 300; }
-
-        /* REVERSE LAYOUT FOR SECOND ITEM */
-        .project-block.reverse { flex-direction: row-reverse; text-align: right; }
-        .project-block.reverse .proj-role { margin-left: auto; }
-
-        /* ================= INTERACTIVE GLOW & ELEVATION ================= */
-        .active-glow {
-            transform: translateY(-20px);
+        /* ================= THE 20CR GLOW & ELEVATION ================= */
+        .active-glow { transform: translateY(-30px); }
+        .active-glow .project-img-box {
+            box-shadow: 0 100px 150px rgba(0,0,0,0.9), 0 0 60px rgba(29, 185, 84, 0.25);
+            border-color: rgba(29, 185, 84, 0.5);
         }
-        .active-glow .img-container {
-            filter: grayscale(0%);
-            box-shadow: 0 50px 100px rgba(0,0,0,0.9), 0 0 50px rgba(29, 185, 84, 0.2);
-            border: 1px solid rgba(29, 185, 84, 0.3);
-        }
-        .active-glow .img-container img { transform: scale(1.08); }
-        .active-glow .proj-title { color: #fff; text-shadow: 0 0 20px rgba(255,255,255,0.1); }
+        .active-glow .project-img-box img { filter: saturate(1.1); transform: scale(1.05); }
+        .active-glow .title { color: #1db954; transition: 0.4s; }
 
-        /* ================= FOOTER CTA ================= */
-        .footer-cta {
-            padding: 150px 60px;
-            background: #08080a;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.03);
-        }
-        .cta-heading { font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 40px; }
-        .contact-link {
-            font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 5px;
-            color: #1db954; text-decoration: none; padding: 20px 40px; border: 1px solid #1db954;
-            transition: all 0.4s;
-        }
-        .contact-link:hover { background: #1db954; color: #000; box-shadow: 0 0 30px rgba(29,185,84,0.4); }
-
-        /* ================= MOBILE ================= */
-        @media (max-width: 1100px) {
-            .project-block, .project-block.reverse { flex-direction: column; align-items: flex-start; text-align: left; gap: 40px; }
-            .project-block.reverse .proj-role { margin-left: 0; }
-            .img-container { width: 100%; flex: none; }
-            .proj-title { font-size: 3rem; }
-            .top-bar { padding: 20px; }
-            header { padding: 80px 20px 60px; }
-            .projects-container { padding: 0 20px 100px; }
+        /* ================= MOBILE ADAPTATION ================= */
+        @media (max-width: 900px) {
+            .work-grid { padding: 100px 5%; gap: 150px; }
+            .project-card, .project-card.alt { display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
+            .project-img-box { width: 100%; order: 2; }
+            .project-content, .project-card.alt .project-content { order: 1; padding: 0 0 40px 0; align-items: flex-start; text-align: left; }
+            .hero-title { font-size: 5rem; letter-spacing: -2px; }
+            .title { font-size: 4rem; }
         }
     </style>
 </head>
 <body>
 
-<div class="top-bar">
-    <div class="musician-name">SHARAN MUSICIAN</div>
-    <a href="index.html" class="back-home">Close Portfolio</a>
-</div>
+<nav class="top-nav">
+    <span class="nav-logo">SHARAN // PROJECTS</span>
+    <a href="index.html" class="close-btn">Close Portfolio</a>
+</nav>
 
 <header>
-    <span class="folio-label">DISCOGRAPHY & SCORES</span>
-    <h1 class="page-title">Curated<br>Projects.</h1>
-    <p class="page-subtitle">A collection of cinematic sonic identities and directorial music compositions for the screen.</p>
+    <span class="hero-label">SOUND TO CINEMA</span>
+    <h1 class="hero-title">Sonic<br><em>Vision.</em></h1>
 </header>
 
-<div class="projects-container">
+<main class="work-grid">
     
-    <div class="project-block" onclick="highlightProject(this)">
-        <div class="img-container">
-            <img src="hunter_cover.jpg" alt="Hunter Short Film">
+    <section class="project-card" onclick="activateGlow(this)">
+        <div class="project-img-box">
+            <img src="hunter_cover.jpg" alt="Hunter">
         </div>
-        <div class="project-details">
-            <span class="proj-meta">01 // 2023</span>
-            <span class="proj-role">Original Background Score</span>
-            <h2 class="proj-title">Hunter</h2>
-            <p class="proj-desc">Engineered a dark, suspense-driven auditory landscape for this acclaimed short film. The score focuses on tension-building textures and minimalist orchestral swells.</p>
+        <div class="project-content">
+            <span class="index">01.</span>
+            <span class="role">Original Background Score</span>
+            <h2 class="title">Hunter</h2>
+            <p class="description">
+                2023. A short film score rooted in atmospheric tension and dark minimalist synthesis. Engineered to heighten the psychological weight of every scene.
+            </p>
         </div>
-    </div>
+    </section>
 
-    <div class="project-block reverse" onclick="highlightProject(this)">
-        <div class="img-container">
-            <img src="webseries_cover.jpg" alt="IPC 100 Web Series">
+    <section class="project-card alt" onclick="activateGlow(this)">
+        <div class="project-img-box">
+            <img src="webseries_cover.jpg" alt="IPC 100">
         </div>
-        <div class="project-details">
-            <span class="proj-meta">02 // 2024</span>
-            <span class="proj-role">Leading Music Director</span>
-            <h2 class="proj-title">IPC 100</h2>
-            <p class="proj-desc">Comprehensive musical supervision for the web series. Defined the series' identity through a recurring leitmotif and high-stakes cinematic arrangements.</p>
+        <div class="project-content">
+            <span class="index">02.</span>
+            <span class="role">Leading Music Director</span>
+            <h2 class="title">IPC 100</h2>
+            <p class="description">
+                2024. Premier web series musical direction. Created a high-stakes sonic identity utilizing a blend of modern industrial soundscapes and cinematic orchestral layers.
+            </p>
         </div>
-    </div>
+    </section>
 
-</div>
-
-<section class="footer-cta">
-    <h2 class="cta-heading">Ready for the next score?</h2>
-    <a href="contact.html" class="contact-link">Inquiry Dispatch</a>
-</section>
+</main>
 
 <script>
-    function highlightProject(element) {
-        document.querySelectorAll('.project-block').forEach(block => {
-            block.classList.remove('active-glow');
+    function activateGlow(element) {
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.classList.remove('active-glow');
         });
         element.classList.add('active-glow');
     }
 </script>
 
 </body>
-</html>
+        </html>
+        

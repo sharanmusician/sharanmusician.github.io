@@ -113,6 +113,23 @@
         .enroll-btn:hover { background: #fff; }
 
         body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(circle at center, #111 0%, #000 100%); z-index: -1; }
+
+    /* DESKTOP OPTIMIZATION */
+@media (min-width: 1024px) {
+    body {
+        /* Adds a professional studio-dark backdrop for desktop users */
+        background: radial-gradient(circle at center, #111 0%, #000 100%);
+        overflow: auto; /* Allows the body to be the container */
+    }
+    .app-shell {
+        /* Maintains the premium mobile feel on large screens */
+        margin: 0 auto;
+        box-shadow: 0 0 100px rgba(0,0,0,0.8), 0 0 40px rgba(29, 185, 84, 0.05);
+        border-left: 1px solid rgba(255,255,255,0.1);
+        border-right: 1px solid rgba(255,255,255,0.1);
+    }
+}
+        
     </style>
 </head>
 <body>

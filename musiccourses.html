@@ -30,6 +30,7 @@
             display: flex; flex-direction: column;
         }
 
+        /* FIXED HEADER */
         .brand-section {
             position: fixed; top: 0; width: 100%; max-width: 450px;
             padding: 40px 30px 25px; background: var(--glass);
@@ -67,7 +68,6 @@
         .course-stream {
             flex: 1; overflow-y: scroll; padding-top: 180px; 
             padding-bottom: 0; -webkit-overflow-scrolling: touch;
-            transition: padding-bottom 0.4s ease;
         }
 
         .node {
@@ -172,27 +172,31 @@
         const stream = document.getElementById('stream');
         const header = document.getElementById('header');
         const isActive = el.classList.contains('active');
+        const allNodes = document.querySelectorAll('.node');
         
-        // Reset nodes
-        document.querySelectorAll('.node').forEach(n => n.classList.remove('active'));
+        // Close others
+        allNodes.forEach(n => n.classList.remove('active'));
         
         if (!isActive) {
             el.classList.add('active');
             
-            // Critical fix: Ensure there is always enough space to scroll the clicked item to top
-            stream.style.paddingBottom = "400px";
-            
             setTimeout(() => {
                 const headerHeight = header.offsetHeight;
-                const elementTop = el.offsetTop;
                 
-                stream.scrollTo({
-                    top: elementTop - headerHeight,
-                    behavior: 'smooth'
-                });
-            }, 150); // Slightly longer delay to allow expansion to start
-        } else {
-            stream.style.paddingBottom = "0px";
+                // If it's the last course, scroll to the bottom of the container
+                if (el === allNodes[allNodes.length - 1]) {
+                    stream.scrollTo({
+                        top: stream.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // Otherwise, align to top under header
+                    stream.scrollTo({
+                        top: el.offsetTop - headerHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 150);
         }
     }
 </script>

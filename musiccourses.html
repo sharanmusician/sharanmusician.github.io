@@ -15,7 +15,6 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; cursor: default; -webkit-tap-highlight-color: transparent; }
-        
         ::-webkit-scrollbar { width: 0px; }
         
         body, html { 
@@ -25,51 +24,33 @@
         }
 
         .app-shell {
-            width: 100%;
-            max-width: 450px; 
-            height: 100vh;
-            position: relative;
-            background: var(--bg);
-            border-left: 1px solid var(--border);
-            border-right: 1px solid var(--border);
+            width: 100%; max-width: 450px; height: 100vh;
+            position: relative; background: var(--bg);
+            border-left: 1px solid var(--border); border-right: 1px solid var(--border);
             display: flex; flex-direction: column;
         }
 
-        /* --- FIXED HEADER --- */
         .brand-section {
-            position: fixed;
-            top: 0; 
-            width: 100%;
-            max-width: 450px;
-            padding: 40px 30px 25px;
-            background: var(--glass);
-            backdrop-filter: blur(25px);
-            z-index: 9999; 
-            border-bottom: 1px solid var(--border);
-            text-align: center;
+            position: fixed; top: 0; width: 100%; max-width: 450px;
+            padding: 40px 30px 25px; background: var(--glass);
+            backdrop-filter: blur(25px); z-index: 9999; 
+            border-bottom: 1px solid var(--border); text-align: center;
         }
 
         .brand-name {
-            font-family: 'Syncopate', sans-serif;
-            font-weight: 700; font-size: 18px;
-            letter-spacing: 4px; text-transform: uppercase;
-            margin-bottom: 8px; color: #fff;
-            white-space: nowrap; 
-            display: block;
+            font-family: 'Syncopate', sans-serif; font-weight: 700; font-size: 18px;
+            letter-spacing: 4px; text-transform: uppercase; margin-bottom: 8px; 
+            color: #fff; white-space: nowrap; display: block;
         }
 
         .brand-sub {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 10px; font-weight: 300;
-            color: #fff;
-            letter-spacing: 6px; text-transform: uppercase;
-            opacity: 0.6;
+            font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 300;
+            color: #fff; letter-spacing: 6px; text-transform: uppercase; opacity: 0.6;
         }
 
         .nav-hud {
             display: flex; justify-content: space-between;
-            margin-top: 25px; padding-top: 15px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+            margin-top: 25px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.05);
         }
 
         .nav-hud a {
@@ -78,34 +59,19 @@
         }
         .nav-hud a:hover { color: var(--accent); }
         
-        .status { 
-            font-size: 9px; color: #444; display: flex; align-items: center; 
-            gap: 8px; text-transform: uppercase; letter-spacing: 1px; 
-        }
-        .status span { 
-            width: 6px; height: 6px; background: var(--accent); 
-            border-radius: 50%; 
-            box-shadow: 0 0 10px var(--accent);
-            animation: blink 1.5s infinite ease-in-out;
-        }
+        .status { font-size: 9px; color: #444; display: flex; align-items: center; gap: 8px; text-transform: uppercase; letter-spacing: 1px; }
+        .status span { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); animation: blink 1.5s infinite ease-in-out; }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.3; transform: scale(0.8); }
-        }
+        @keyframes blink { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.3; transform: scale(0.8); } }
 
-        /* --- COURSE STREAM --- */
         .course-stream {
-            flex: 1; 
-            overflow-y: scroll;
-            padding-top: 180px; 
-            padding-bottom: 0;
-            -webkit-overflow-scrolling: touch;
+            flex: 1; overflow-y: scroll; padding-top: 180px; 
+            padding-bottom: 0; -webkit-overflow-scrolling: touch;
+            transition: padding-bottom 0.4s ease; /* Smoothly adds space only when needed */
         }
 
         .node {
-            position: relative; width: 100%;
-            height: 180px; 
+            position: relative; width: 100%; height: 180px; 
             background: #000; border-bottom: 1px solid var(--border);
             overflow: hidden; transition: height var(--transition);
         }
@@ -128,56 +94,33 @@
 
         .node.active .node-content { justify-content: flex-end; padding-bottom: 30px; }
 
-        .node-tag { 
-            font-size: 9px; color: var(--accent); font-weight: 600;
-            letter-spacing: 3px; margin-bottom: 8px; display: block;
-        }
+        .node-tag { font-size: 9px; color: var(--accent); font-weight: 600; letter-spacing: 3px; margin-bottom: 8px; display: block; }
 
-        .node-title {
-            font-family: 'Syncopate', sans-serif;
-            font-size: 24px; font-weight: 700; color: #fff;
-            text-transform: uppercase; letter-spacing: -1px;
-        }
+        .node-title { font-family: 'Syncopate', sans-serif; font-size: 24px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: -1px; }
 
-        .node-details {
-            max-height: 0; opacity: 0; overflow: hidden;
-            transition: 0.5s ease; transform: translateY(15px);
-        }
+        .node-details { max-height: 0; opacity: 0; overflow: hidden; transition: 0.5s ease; transform: translateY(15px); }
 
-        .node.active .node-details {
-            max-height: 150px; opacity: 1; 
-            transform: translateY(0); margin-top: 15px;
-        }
+        .node.active .node-details { max-height: 150px; opacity: 1; transform: translateY(0); margin-top: 15px; }
 
         .node-desc { font-size: 11px; color: #888; line-height: 1.5; margin-bottom: 20px; }
 
         .enroll-btn {
             display: inline-block; background: var(--accent); color: #000;
             padding: 12px 20px; font-size: 9px; font-weight: 800;
-            text-transform: uppercase; text-decoration: none; letter-spacing: 2px;
-            transition: 0.3s; width: fit-content;
+            text-transform: uppercase; text-decoration: none; letter-spacing: 2px; transition: 0.3s;
         }
 
         .enroll-btn:hover { background: #fff; }
 
-        /* THE FIX: Allows the 3rd course to scroll up fully under the header */
-        .bottom-spacer { height: 400px; display: block; }
-
-        body::before {
-            content: ''; position: fixed; inset: 0;
-            background: radial-gradient(circle at center, #111 0%, #000 100%);
-            z-index: -1;
-        }
+        body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(circle at center, #111 0%, #000 100%); z-index: -1; }
     </style>
 </head>
 <body>
 
 <div class="app-shell">
-    
     <header class="brand-section" id="header">
         <span class="brand-name">Royal Red Bull</span>
         <span class="brand-sub">College of Music</span>
-        
         <div class="nav-hud">
             <a href="index.html">Home</a>
             <div class="status"><span></span> System_Active</div>
@@ -186,7 +129,6 @@
     </header>
 
     <main class="course-stream" id="stream">
-        
         <div class="node" onclick="toggleNode(this)">
             <img src="https://images.unsplash.com/photo-1552422535-c45813c61732?q=80&w=2070" class="node-img">
             <div class="node-content">
@@ -222,9 +164,6 @@
                 </div>
             </div>
         </div>
-
-        <div class="bottom-spacer"></div>
-
     </main>
 </div>
 
@@ -234,15 +173,22 @@
         const header = document.getElementById('header');
         const isActive = el.classList.contains('active');
         
+        // Reset all nodes
         document.querySelectorAll('.node').forEach(n => n.classList.remove('active'));
+        stream.style.paddingBottom = "0px"; // Reset padding
         
         if (!isActive) {
             el.classList.add('active');
             
+            // If it's the 3rd course, add dynamic padding to allow scrolling
+            const nodes = document.querySelectorAll('.node');
+            if (el === nodes[nodes.length - 1]) {
+                stream.style.paddingBottom = "300px";
+            }
+            
             setTimeout(() => {
                 const headerHeight = header.offsetHeight;
                 const elementTop = el.offsetTop;
-                
                 stream.scrollTo({
                     top: elementTop - headerHeight,
                     behavior: 'smooth'

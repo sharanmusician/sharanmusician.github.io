@@ -2,142 +2,212 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academy | Sovereign</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Academy | Sovereign Tier</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        :root { --accent: #1db954; --bg: #000; }
-
-        body, html { 
-            height: 100%; overflow: hidden; 
-            background: var(--bg); font-family: 'Plus Jakarta Sans', sans-serif;
-            color: #fff; cursor: none;
+        /* ================= THE ARCHITECT'S ENGINE ================= */
+        * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
+        :root {
+            --accent: #1db954;
+            --gold: #c5a358;
+            --bg: #000000;
+            --surface: #0a0a0a;
+            --border: rgba(255, 255, 255, 0.05);
         }
 
-        /* CUSTOM INVERT CURSOR */
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg);
+            color: #fff;
+            height: 100vh;
+            overflow: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* CUSTOM MAGNETIC CURSOR */
         #cursor {
-            position: fixed; width: 150px; height: 150px;
-            background: #fff; border-radius: 50%;
+            position: fixed; width: 12px; height: 12px;
+            background: var(--accent); border-radius: 50%;
+            pointer-events: none; z-index: 10000;
+            transition: transform 0.1s ease-out;
+        }
+        #cursor-aura {
+            position: fixed; width: 60px; height: 60px;
+            border: 1px solid var(--accent); border-radius: 50%;
             pointer-events: none; z-index: 9999;
-            mix-blend-mode: difference; transition: transform 0.15s ease-out;
-            display: flex; align-items: center; justify-content: center;
-        }
-        #cursor::after { content: 'VIEW'; font-size: 10px; font-weight: 800; letter-spacing: 2px; color: #000; }
-
-        /* THE TRIPLE PANE ENGINE */
-        .container {
-            display: flex; width: 100vw; height: 100vh;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .pane {
-            flex: 1; height: 100%; position: relative;
-            display: flex; align-items: center; justify-content: center;
-            border-right: 1px solid rgba(255,255,255,0.1);
-            transition: flex 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            overflow: hidden; text-decoration: none;
+        /* ================= NAVIGATION ================= */
+        .header {
+            position: fixed; top: 0; width: 100%; height: 100px;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 4%; z-index: 1000;
+        }
+        .brand { font-family: 'JetBrains Mono'; font-size: 10px; letter-spacing: 12px; font-weight: 800; color: var(--gold); text-transform: uppercase; }
+        .nav-meta { font-family: 'JetBrains Mono'; font-size: 9px; color: #444; letter-spacing: 2px; }
+
+        /* ================= THE MAIN INTERFACE ================= */
+        .main-stage {
+            display: flex; height: 100vh; padding: 120px 2% 40px; gap: 20px;
         }
 
-        .pane:hover { flex: 2.5; }
-
-        /* BACKGROUND IMAGES (Hidden until hover) */
-        .pane-bg {
-            position: absolute; inset: 0;
-            background-size: cover; background-position: center;
-            filter: grayscale(1) brightness(0.3);
-            transform: scale(1.1); transition: 1s ease;
-            z-index: 1;
-        }
-        .pane:hover .pane-bg { transform: scale(1); filter: grayscale(0) brightness(0.5); }
-
-        /* THE TEXT ART */
-        .pane-content {
-            position: relative; z-index: 2; text-align: center;
-            pointer-events: none;
+        /* Left Side: Dynamic Selector */
+        .terminal {
+            flex: 1; display: flex; flex-direction: column; justify-content: space-between;
+            padding: 40px; border-radius: 20px; border: 1px solid var(--border);
+            background: var(--surface);
         }
 
-        .pane-num {
-            font-family: 'JetBrains Mono'; font-size: 12px;
-            color: var(--accent); letter-spacing: 5px; display: block; margin-bottom: 20px;
-        }
+        .terminal-header span { font-family: 'JetBrains Mono'; color: var(--accent); font-size: 11px; letter-spacing: 5px; }
+        .terminal-header h2 { font-size: 3.5rem; font-weight: 800; letter-spacing: -3px; margin-top: 10px; line-height: 0.9; }
 
-        .pane-title {
-            font-size: clamp(2rem, 6vw, 8rem); font-weight: 800;
-            text-transform: uppercase; letter-spacing: -5px; line-height: 0.8;
+        .selector-group { display: flex; flex-direction: column; gap: 15px; }
+        .selector-item {
+            font-size: 1.2rem; font-weight: 400; color: #444;
+            padding: 15px 0; border-bottom: 1px solid var(--border);
+            transition: 0.4s; position: relative;
         }
+        .selector-item:hover { color: #fff; padding-left: 20px; }
+        .selector-item.active { color: #fff; border-bottom: 1px solid var(--accent); }
+        .selector-item.active::before { content: '→'; position: absolute; left: -30px; color: var(--accent); }
 
-        .pane-details {
-            margin-top: 30px; font-family: 'JetBrains Mono'; font-size: 10px;
-            letter-spacing: 3px; color: #666; opacity: 0;
-            transition: 0.5s; text-transform: uppercase;
+        /* Right Side: Immersive Visuals */
+        .canvas {
+            flex: 2; border-radius: 20px; overflow: hidden;
+            position: relative; border: 1px solid var(--border);
         }
-        .pane:hover .pane-details { opacity: 1; color: #fff; }
+        .canvas-img {
+            position: absolute; inset: 0; width: 100%; height: 100%;
+            object-fit: cover; opacity: 0.3; transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            filter: saturate(0);
+        }
+        .active-view .canvas-img { opacity: 0.6; filter: saturate(1); transform: scale(1.05); }
 
-        /* MOBILE OVERRIDE */
-        @media (max-width: 900px) {
-            .container { flex-direction: column; }
-            .pane { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.1); }
-            .pane:hover { flex: 2; }
-            #cursor { display: none; }
-            body { cursor: auto; }
-            .pane-title { font-size: 3.5rem; letter-spacing: -2px; }
+        .canvas-overlay {
+            position: absolute; bottom: 60px; left: 60px; max-width: 500px;
+            z-index: 10;
+        }
+        .canvas-overlay h3 { font-size: 4rem; font-weight: 800; text-transform: uppercase; letter-spacing: -4px; margin-bottom: 20px; line-height: 0.8; }
+        .canvas-overlay p { color: #888; font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px; }
+
+        /* CALL TO ACTION BUTTON */
+        .cta-sovereign {
+            display: inline-flex; align-items: center; gap: 20px;
+            padding: 20px 40px; background: #fff; color: #000;
+            border-radius: 100px; text-decoration: none; font-weight: 800;
+            font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .cta-sovereign:hover { background: var(--accent); color: #fff; transform: scale(1.05); }
+
+        /* ================= MOBILE ADAPTATION ================= */
+        @media (max-width: 1024px) {
+            * { cursor: auto !important; }
+            #cursor, #cursor-aura { display: none; }
+            body { overflow-y: auto; height: auto; }
+            .main-stage { flex-direction: column; padding-top: 100px; height: auto; }
+            .terminal { height: 400px; }
+            .canvas { height: 600px; }
+            .canvas-overlay h3 { font-size: 2.5rem; }
+            .brand { letter-spacing: 5px; }
         }
     </style>
 </head>
 <body>
 
 <div id="cursor"></div>
+<div id="cursor-aura"></div>
 
-<div class="container">
+<header class="header">
+    <div class="brand">Sharan // Sovereign</div>
+    <div class="nav-meta">SYSTEM STATUS: OPTIMIZED [2026]</div>
+</header>
+
+<main class="main-stage">
     
-    <a href="#" class="pane">
-        <div class="pane-bg" style="background-image: url('https://images.unsplash.com/photo-1520529611472-3f820bb20600?q=80&w=2070');"></div>
-        <div class="pane-content">
-            <span class="pane-num">01</span>
-            <h2 class="pane-title">PIANO</h2>
-            <p class="pane-details">Acoustic Mastery</p>
+    <aside class="terminal">
+        <div class="terminal-header">
+            <span>DISCIPLINE SELECTOR</span>
+            <h2>Curated<br>Excellence.</h2>
         </div>
-    </a>
 
-    <a href="#" class="pane">
-        <div class="pane-bg" style="background-image: url('https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=2070');"></div>
-        <div class="pane-content">
-            <span class="pane-num">02</span>
-            <h2 class="pane-title">DRUMS</h2>
-            <p class="pane-details">Kinetic Rhythm</p>
+        <nav class="selector-group">
+            <div class="selector-item active" onmouseover="updateView('piano')">01 // CINEMATIC PIANO</div>
+            <div class="selector-item" onmouseover="updateView('drums')">02 // RHYTHMIC GEOMETRY</div>
+            <div class="selector-item" onmouseover="updateView('prod')">03 // SONIC ARCHITECTURE</div>
+            <div class="selector-item" onmouseover="updateView('theory')">04 // THEORY PHYSICS</div>
+        </nav>
+
+        <div class="terminal-footer">
+            <p style="font-family: 'JetBrains Mono'; font-size: 10px; color: #444;">&copy; ACCESS GRANTED PERPETUAL</p>
         </div>
-    </a>
+    </aside>
 
-    <a href="#" class="pane">
-        <div class="pane-bg" style="background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070');"></div>
-        <div class="pane-content">
-            <span class="pane-num">03</span>
-            <h2 class="pane-title">PROD</h2>
-            <p class="pane-details">Sonic Design</p>
+    <section class="canvas active-view" id="view-container">
+        <img src="https://images.unsplash.com/photo-1520529611472-3f820bb20600?q=80&w=2070" class="canvas-img" id="main-img">
+        <div class="canvas-overlay">
+            <h3 id="course-title">Cinematic<br>Piano</h3>
+            <p id="course-desc">High-frequency performance mastery focusing on neoclassical textures and architectural composition.</p>
+            <a href="#" class="cta-sovereign">Apply For Admission</a>
         </div>
-    </a>
+    </section>
 
-</div>
+</main>
 
 <script>
+    // CURSOR LOGIC
     const cursor = document.getElementById('cursor');
-    
+    const aura = document.getElementById('cursor-aura');
+
     document.addEventListener('mousemove', (e) => {
-        // Smooth cursor follow
-        const x = e.clientX - 75;
-        const y = e.clientY - 75;
-        cursor.style.transform = `translate(${x}px, ${y}px)`;
+        const x = e.clientX;
+        const y = e.clientY;
+        cursor.style.transform = `translate(${x - 6}px, ${y - 6}px)`;
+        aura.style.transform = `translate(${x - 30}px, ${y - 30}px)`;
     });
 
-    // Add scale effect on hover
-    document.querySelectorAll('.pane').forEach(pane => {
-        pane.addEventListener('mouseenter', () => {
-            cursor.style.transform += ' scale(1.5)';
-        });
-        pane.addEventListener('mouseleave', () => {
-            cursor.style.transform = cursor.style.transform.replace(' scale(1.5)', '');
-        });
-    });
+    // CONTENT DATA
+    const data = {
+        piano: {
+            title: "Cinematic<br>Piano",
+            desc: "High-frequency performance mastery focusing on neoclassical textures and architectural composition.",
+            img: "https://images.unsplash.com/photo-1520529611472-3f820bb20600?q=80&w=2070"
+        },
+        drums: {
+            title: "Rhythmic<br>Geometry",
+            desc: "The science of timing. Developing a world-class pocket through syncopation and session-standard physics.",
+            img: "https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=2070"
+        },
+        prod: {
+            title: "Sonic<br>Architecture",
+            desc: "Engineering the future. A deep-dive into industry-standard signal chains and hybrid studio workflows.",
+            img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070"
+        },
+        theory: {
+            title: "Theory<br>Physics",
+            desc: "The universal language of sound decoded. Harmonic structures for the elite producer and composer.",
+            img: "https://images.unsplash.com/photo-1507838596058-a96249de614a?q=80&w=2070"
+        }
+    };
+
+    function updateView(key) {
+        // Update Classes
+        document.querySelectorAll('.selector-item').forEach(el => el.classList.remove('active'));
+        event.target.classList.add('active');
+
+        // Transition Animation
+        const container = document.getElementById('view-container');
+        container.style.opacity = '0.5';
+        
+        setTimeout(() => {
+            document.getElementById('main-img').src = data[key].img;
+            document.getElementById('course-title').innerHTML = data[key].title;
+            document.getElementById('course-desc').innerText = data[key].desc;
+            container.style.opacity = '1';
+        }, 200);
+    }
 </script>
 
 </body>

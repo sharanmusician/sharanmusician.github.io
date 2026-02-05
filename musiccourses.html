@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academy | Sharan</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Academy | Sharan Musician</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
+        /* ================= THE 20k CR CORE ================= */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         :root {
             --accent: #1db954;
-            --bg: #000000;
-            --glass: rgba(255, 255, 255, 0.03);
+            --bg: #010101;
+            --border: rgba(255, 255, 255, 0.07);
         }
 
         body {
@@ -21,135 +22,177 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ================= THE FIXED NAV ================= */
+        /* ================= ULTRA-MINIMAL NAV ================= */
         .nav {
-            position: fixed; top: 0; width: 100%; height: 100px;
+            position: fixed; top: 0; width: 100%; height: 110px;
             display: flex; align-items: center; justify-content: space-between;
-            padding: 0 6%; z-index: 1000; mix-blend-mode: difference;
+            padding: 0 6%; z-index: 1000;
         }
-        .brand { font-family: 'JetBrains Mono'; font-size: 11px; letter-spacing: 10px; text-transform: uppercase; }
-        .close-link { font-size: 10px; font-weight: 800; text-transform: uppercase; text-decoration: none; color: #fff; letter-spacing: 2px; }
-
-        /* ================= SPLIT SCENE LAYOUT ================= */
-        .main-wrapper { display: flex; width: 100%; }
-
-        /* Left Side: Sticky Title */
-        .side-title {
-            width: 40%; height: 100vh; position: sticky; top: 0;
-            display: flex; flex-direction: column; justify-content: center;
-            padding-left: 6%; background: var(--bg); z-index: 10;
+        .brand { font-family: 'JetBrains Mono'; font-size: 11px; letter-spacing: 8px; text-transform: uppercase; color: var(--accent); }
+        .close-trigger {
+            font-size: 10px; font-weight: 800; letter-spacing: 3px; 
+            text-transform: uppercase; text-decoration: none; color: #fff;
+            padding: 10px 25px; border: 1px solid var(--border); border-radius: 100px;
+            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .side-title span { font-family: 'JetBrains Mono'; color: var(--accent); font-size: 12px; letter-spacing: 5px; margin-bottom: 20px; }
-        .side-title h1 { font-size: clamp(3rem, 8vw, 7rem); line-height: 0.85; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; }
+        .close-trigger:hover { background: #fff; color: #000; }
 
-        /* Right Side: Scrolling Content */
-        .scroll-content { width: 60%; }
+        /* ================= HERO: THE STATEMENT ================= */
+        .hero {
+            height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; padding: 0 6%; position: relative;
+        }
+        .hero-label { font-family: 'JetBrains Mono'; font-size: 12px; color: #444; letter-spacing: 12px; margin-bottom: 20px; }
+        .hero h1 { 
+            font-size: clamp(4rem, 18vw, 15rem); font-weight: 800; 
+            line-height: 0.75; letter-spacing: -0.07em; text-transform: uppercase;
+        }
+        .hero h1 span { color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.2); }
 
-        .course-section {
-            height: 100vh; width: 100%; position: relative;
-            display: flex; flex-direction: column; justify-content: flex-end;
-            padding: 60px; border-left: 1px solid rgba(255,255,255,0.05);
-            overflow: hidden;
+        /* ================= THE MONOLITH LIST ================= */
+        .academy-flow { width: 100%; }
+
+        .item-section {
+            min-height: 100vh; width: 100%; 
+            display: grid; grid-template-columns: 1fr 1fr;
+            border-top: 1px solid var(--border);
+            transition: background 0.8s ease;
         }
 
-        .bg-img {
-            position: absolute; inset: 0; z-index: -1;
-            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        .visual-container {
+            position: sticky; top: 0; height: 100vh; overflow: hidden;
+            border-right: 1px solid var(--border);
         }
-        .bg-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; filter: grayscale(1); transition: 1s; }
-
-        .course-section:hover .bg-img img { opacity: 0.7; filter: grayscale(0); transform: scale(1.1); }
-
-        .course-info { max-width: 500px; transform: translateY(20px); opacity: 0; transition: 0.8s ease; }
-        .course-section.visible .course-info { transform: translateY(0); opacity: 1; }
-
-        .course-num { font-family: 'JetBrains Mono'; color: rgba(255,255,255,0.2); font-size: 80px; font-weight: 800; line-height: 1; position: absolute; top: 40px; right: 40px; }
-        .course-name { font-size: 3.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: -2px; margin-bottom: 15px; }
-        .course-p { color: #888; font-size: 1.1rem; line-height: 1.7; margin-bottom: 30px; }
-
-        .cta-btn {
-            display: inline-block; padding: 18px 40px; border: 1px solid #fff;
-            color: #fff; text-decoration: none; font-size: 11px; font-weight: 800;
-            text-transform: uppercase; letter-spacing: 3px; border-radius: 100px;
-            transition: 0.4s;
+        .visual-container img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            opacity: 0.3; filter: grayscale(1); 
+            transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .cta-btn:hover { background: #fff; color: #000; }
+
+        .content-container {
+            padding: 15% 10%; display: flex; flex-direction: column; justify-content: center;
+        }
+        .item-num { font-family: 'JetBrains Mono'; color: var(--accent); font-size: 14px; margin-bottom: 30px; display: block; }
+        .item-title { font-size: clamp(3rem, 6vw, 6rem); font-weight: 800; text-transform: uppercase; line-height: 0.9; margin-bottom: 30px; }
+        .item-desc { color: #666; font-size: 1.2rem; line-height: 1.8; max-width: 500px; margin-bottom: 50px; }
+
+        /* BUTTONS: THE LUXURY FEEL */
+        .premium-btn {
+            display: inline-flex; align-items: center; gap: 20px;
+            color: #fff; text-decoration: none; font-weight: 800; font-size: 12px;
+            letter-spacing: 4px; text-transform: uppercase;
+        }
+        .circle-arrow {
+            width: 70px; height: 70px; border: 1px solid #fff; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.5s; font-size: 20px;
+        }
+        .premium-btn:hover .circle-arrow { background: var(--accent); border-color: var(--accent); transform: scale(1.1); }
+
+        /* HOVER EFFECTS ON PARENT */
+        .item-section:hover .visual-container img { opacity: 0.8; filter: grayscale(0); transform: scale(1.05); }
 
         /* ================= MOBILE OPTIMIZATION ================= */
-        @media (max-width: 1000px) {
-            .main-wrapper { flex-direction: column; }
-            .side-title { 
-                width: 100%; height: auto; position: relative; 
-                padding: 140px 6% 60px; 
-            }
-            .scroll-content { width: 100%; }
-            .course-section { height: 80vh; border-left: none; border-top: 1px solid rgba(255,255,255,0.05); padding: 40px 6%; }
-            .course-name { font-size: 2.2rem; }
-            .course-num { font-size: 50px; top: 20px; right: 20px; }
+        @media (max-width: 1024px) {
+            .item-section { grid-template-columns: 1fr; border-right: none; }
+            .visual-container { position: relative; height: 400px; }
+            .content-container { padding: 80px 6%; }
+            .item-title { font-size: 3.5rem; }
+            .hero h1 { letter-spacing: -3px; }
+            .nav { height: 80px; }
+        }
+
+        /* CURSOR SPOTLIGHT EFFECT (Subtle) */
+        .spotlight {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: radial-gradient(circle at var(--x) var(--y), rgba(29,185,84,0.05) 0%, transparent 40%);
+            pointer-events: none; z-index: 1;
         }
     </style>
 </head>
 <body>
 
+<div class="spotlight" id="spotlight"></div>
+
 <nav class="nav">
-    <div class="brand">ACADEMY</div>
-    <a href="#" class="close-link">Close Portfolio</a>
+    <div class="brand">ACADEMY // SHARAN</div>
+    <a href="index.html" class="close-trigger">Close</a>
 </nav>
 
-<div class="main-wrapper">
-    <aside class="side-title">
-        <span>CURATED CURRICULUM</span>
-        <h1>The<br>Sovereign<br>Tier.</h1>
-    </aside>
+<header class="hero">
+    <span class="hero-label">PRIVATE MENTORSHIP</span>
+    <h1>Sonic<br><span>Architecture</span></h1>
+</header>
 
-    <main class="scroll-content">
-        
-        <section class="course-section">
-            <div class="bg-img"><img src="piano_lux.jpg" alt="Piano"></div>
-            <div class="course-num">01</div>
-            <div class="course-info">
-                <h2 class="course-name">Cinematic Piano</h2>
-                <p class="course-p">Advanced architectural movements and emotive soundscapes. Reserved for high-level performance mastery.</p>
-                <a href="#" class="cta-btn">Private Admission</a>
-            </div>
-        </section>
+<main class="academy-flow">
 
-        <section class="course-section">
-            <div class="bg-img"><img src="drums_lux.jpg" alt="Drums"></div>
-            <div class="course-num">02</div>
-            <div class="course-info">
-                <h2 class="course-name">Rhythm & Pocket</h2>
-                <p class="course-p">The science of timing. Developing a world-class rhythmic identity through syncopation and feel.</p>
-                <a href="#" class="cta-btn">Explore Course</a>
-            </div>
-        </section>
+    <section class="item-section">
+        <div class="visual-container">
+            <img src="piano_img.jpg" alt="Piano Mastery">
+        </div>
+        <div class="content-container">
+            <span class="item-num">/ 01</span>
+            <h2 class="item-title">Classical<br>Foundation</h2>
+            <p class="item-desc">Advanced harmonic physics and emotive performance theory. A masterclass in technical precision and soul.</p>
+            <a href="#" class="premium-btn">
+                <div class="circle-arrow">→</div> Admission
+            </a>
+        </div>
+    </section>
 
-        <section class="course-section">
-            <div class="bg-img"><img src="prod_lux.jpg" alt="Production"></div>
-            <div class="course-num">03</div>
-            <div class="course-info">
-                <h2 class="course-name">Sound Design</h2>
-                <p class="course-p">Engineering the future. Master the digital and analog signal chains that define global hits.</p>
-                <a href="#" class="cta-btn">Join Academy</a>
-            </div>
-        </section>
+    <section class="item-section">
+        <div class="visual-container">
+            <img src="drums_img.jpg" alt="Drums Mastery">
+        </div>
+        <div class="content-container">
+            <span class="item-num">/ 02</span>
+            <h2 class="item-title">Rhythm<br>Design</h2>
+            <p class="item-desc">Mastering the language of the pocket. Rhythmic syncopation and live tracking techniques for session pros.</p>
+            <a href="#" class="premium-btn">
+                <div class="circle-arrow">→</div> Admission
+            </a>
+        </div>
+    </section>
 
-    </main>
-</div>
+    <section class="item-section">
+        <div class="visual-container">
+            <img src="prod_img.jpg" alt="Production Mastery">
+        </div>
+        <div class="content-container">
+            <span class="item-num">/ 03</span>
+            <h2 class="item-title">Sound<br>Engineering</h2>
+            <p class="item-desc">From modular synthesis to global radio-ready mastering. The definitive toolkit for the modern producer.</p>
+            <a href="#" class="premium-btn">
+                <div class="circle-arrow">→</div> Admission
+            </a>
+        </div>
+    </section>
+
+</main>
 
 <script>
-    // Intersection Observer for the "reveal" effect on scroll
-    const observerOptions = { threshold: 0.3 };
+    // Spotlight Effect
+    const spotlight = document.getElementById('spotlight');
+    document.addEventListener('mousemove', (e) => {
+        spotlight.style.setProperty('--x', e.clientX + 'px');
+        spotlight.style.setProperty('--y', e.clientY + 'px');
+    });
+
+    // Reveal Logic
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.1 });
 
-    document.querySelectorAll('.course-section').forEach(section => {
-        observer.observe(section);
+    document.querySelectorAll('.item-section').forEach(sec => {
+        sec.style.opacity = "0";
+        sec.style.transform = "translateY(50px)";
+        sec.style.transition = "all 1s cubic-bezier(0.16, 1, 0.3, 1)";
+        observer.observe(sec);
     });
 </script>
 

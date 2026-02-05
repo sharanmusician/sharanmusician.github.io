@@ -8,243 +8,201 @@
     <style>
         :root { 
             --accent: #1db954; 
-            --bg: #050505; 
-            --card-bg: #111;
-            --border: rgba(255, 255, 255, 0.08);
-            --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            --bg: #030303; 
+            --panel: #0a0a0a;
+            --border: rgba(255, 255, 255, 0.07);
+            --transition: cubic-bezier(0.23, 1, 0.32, 1);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body { 
-            background: var(--bg); 
-            color: #fff;
-            font-family: 'Space Grotesk', sans-serif;
-            overflow-x: hidden;
-            height: 100vh;
-        }
+        body, html { height: 100%; background: #000; color: #fff; font-family: 'Space Grotesk', sans-serif; overflow: hidden; }
 
-        /* --- HEADER --- */
+        /* --- SHARED HEADER --- */
         header {
-            position: fixed;
-            top: 0; width: 100%;
-            z-index: 1000;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-            padding: 20px 0;
+            position: fixed; top: 0; width: 100%; z-index: 1000;
+            padding: 30px 5%; background: linear-gradient(to bottom, rgba(0,0,0,0.8), transparent);
+            display: flex; justify-content: space-between; align-items: flex-start;
+        }
+        .brand-box { display: flex; flex-direction: column; }
+        .brand-name { font-family: 'Syncopate', sans-serif; font-weight: 700; font-size: 18px; letter-spacing: 5px; text-transform: uppercase; }
+        .brand-sub { font-size: 10px; opacity: 0.5; letter-spacing: 4px; text-transform: uppercase; margin-top: 5px; }
+
+        .nav-hud { display: flex; gap: 40px; }
+        .nav-hud a { color: #888; text-decoration: none; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; transition: 0.3s; }
+        .nav-hud a:hover { color: var(--accent); }
+
+        /* --- DESKTOP VIEW (Default) --- */
+        .desktop-container {
+            display: flex; width: 100vw; height: 100vh;
         }
 
-        .header-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 40px;
+        .course-panel {
+            position: relative; flex: 1; overflow: hidden;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 60px; border-right: 1px solid var(--border);
+            transition: flex 0.8s var(--transition), filter 0.5s;
         }
 
-        .brand-group { text-align: left; }
-        .brand-name {
-            font-family: 'Syncopate', sans-serif; font-weight: 700; font-size: 16px;
-            letter-spacing: 4px; text-transform: uppercase; display: block;
-        }
-        .brand-sub {
-            font-size: 9px; letter-spacing: 5px; opacity: 0.5; text-transform: uppercase;
+        .panel-bg {
+            position: absolute; inset: 0; z-index: 1;
+            background-size: cover; background-position: center;
+            filter: grayscale(1) brightness(0.3);
+            transition: 0.8s var(--transition);
         }
 
-        .nav-links { display: flex; gap: 30px; align-items: center; }
-        .nav-links a { 
-            text-decoration: none; color: #888; font-size: 10px; 
-            letter-spacing: 2px; text-transform: uppercase; transition: 0.3s;
-        }
-        .nav-links a:hover { color: var(--accent); }
-
-        .status { font-size: 9px; color: #fff; display: flex; align-items: center; gap: 8px; letter-spacing: 1px; }
-        .status span { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); animation: blink 1.5s infinite; }
-
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-
-        /* --- CONTENT STREAM --- */
-        .main-container {
-            padding-top: 100px;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
-            background: var(--border);
-            height: 100%;
-        }
-
-        .course-card {
-            position: relative;
-            background: var(--bg);
-            overflow: hidden;
-            cursor: pointer;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 60px;
-            transition: var(--transition);
-        }
-
-        .card-img {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            object-fit: cover;
-            opacity: 0.3;
-            filter: grayscale(1);
-            transition: var(--transition);
-            z-index: 1;
-        }
-
-        .card-content {
-            position: relative;
-            z-index: 2;
-            transform: translateY(40px);
-            transition: var(--transition);
-        }
-
-        .course-card:hover .card-img {
-            opacity: 0.6;
-            filter: grayscale(0);
-            transform: scale(1.05);
-        }
-
-        .course-card:hover .card-content {
-            transform: translateY(0);
-        }
-
-        .tag { color: var(--accent); font-size: 11px; font-weight: 600; letter-spacing: 3px; margin-bottom: 15px; display: block; }
-        .title { font-family: 'Syncopate', sans-serif; font-size: 32px; margin-bottom: 20px; text-transform: uppercase; }
+        .panel-content { position: relative; z-index: 2; pointer-events: none; }
+        .panel-tag { color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: 3px; margin-bottom: 10px; display: block; }
+        .panel-title { font-family: 'Syncopate', sans-serif; font-size: 3vw; text-transform: uppercase; margin-bottom: 20px; }
         
-        .details {
-            max-height: 0;
-            opacity: 0;
-            transition: var(--transition);
+        .panel-info { 
+            max-height: 0; opacity: 0; 
+            transition: 0.6s var(--transition);
+            transform: translateY(20px);
         }
 
-        .course-card:hover .details {
-            max-height: 200px;
-            opacity: 1;
-        }
-
-        .desc { font-size: 14px; color: #aaa; line-height: 1.6; margin-bottom: 30px; max-width: 300px; }
+        .panel-desc { color: #ccc; font-size: 14px; line-height: 1.6; margin-bottom: 30px; max-width: 400px; }
         
-        .enroll-btn {
-            display: inline-block;
-            padding: 15px 30px;
-            background: var(--accent);
-            color: #000;
-            text-decoration: none;
-            font-size: 10px;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
+        /* Desktop Hover States */
+        .course-panel:hover { flex: 2; }
+        .course-panel:hover .panel-bg { filter: grayscale(0) brightness(0.6); transform: scale(1.05); }
+        .course-panel:hover .panel-info { max-height: 300px; opacity: 1; transform: translateY(0); pointer-events: auto; }
 
-        /* --- MOBILE OPTIMIZATION --- */
+        /* --- MOBILE VIEW (Hidden by default) --- */
+        .mobile-container { display: none; }
+
         @media (max-width: 1000px) {
-            body { overflow-y: auto; }
-            .header-container { padding: 0 20px; flex-direction: column; gap: 15px; }
-            .nav-links { gap: 15px; }
-            
-            .main-container { padding-top: 140px; height: auto; }
-            .course-grid { grid-template-columns: 1fr; }
-            
-            .course-card {
-                height: 250px;
-                padding: 30px;
-                justify-content: center;
-                border-bottom: 1px solid var(--border);
+            .desktop-container { display: none; }
+            .mobile-container { 
+                display: block; width: 100%; height: 100vh; 
+                overflow-y: auto; padding-top: 140px; 
             }
+            body { overflow-y: auto; }
+            header { background: #000; padding: 20px; flex-direction: column; align-items: center; gap: 20px; text-align: center; }
+            .nav-hud { gap: 20px; border-top: 1px solid var(--border); padding-top: 15px; width: 100%; justify-content: center; }
 
-            .card-content { transform: translateY(0); }
-            .details { max-height: 0; overflow: hidden; }
+            .mobile-node {
+                width: 100%; border-bottom: 1px solid var(--border);
+                background: #000; overflow: hidden;
+                transition: height 0.6s var(--transition);
+            }
+            .mobile-node.active { height: 420px; }
+            .mobile-node:not(.active) { height: 180px; }
+
+            .node-trigger {
+                padding: 40px 30px; height: 180px;
+                display: flex; flex-direction: column; justify-content: center;
+                position: relative;
+            }
+            .node-img {
+                position: absolute; inset: 0; opacity: 0.2; 
+                background-size: cover; background-position: center; filter: grayscale(1);
+            }
+            .mobile-node.active .node-img { opacity: 0.4; filter: grayscale(0); }
             
-            /* Toggle class for mobile interaction */
-            .course-card.active { height: 450px; }
-            .course-card.active .details { max-height: 300px; opacity: 1; margin-top: 15px; }
-            .course-card.active .card-img { opacity: 0.5; filter: grayscale(0); }
-            
-            .title { font-size: 24px; }
+            .node-body { padding: 0 30px 40px; opacity: 0; transition: 0.4s; }
+            .mobile-node.active .node-body { opacity: 1; }
         }
+
+        .enroll-btn {
+            display: inline-block; padding: 14px 28px;
+            background: var(--accent); color: #000;
+            font-size: 10px; font-weight: 800; letter-spacing: 2px;
+            text-transform: uppercase; text-decoration: none;
+            transition: 0.3s;
+        }
+        .enroll-btn:hover { background: #fff; transform: translateY(-3px); }
+
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-container">
-            <div class="brand-group">
-                <span class="brand-name">Royal Red Bull</span>
-                <span class="brand-sub">College of Music</span>
-            </div>
-            
-            <div class="nav-links">
-                <a href="index.html">Home</a>
-                <a href="community.html">Connect</a>
-                <div class="status"><span></span> System_Active</div>
+<header>
+    <div class="brand-box">
+        <span class="brand-name">Royal Red Bull</span>
+        <span class="brand-sub">College of Music</span>
+    </div>
+    <div class="nav-hud">
+        <a href="index.html">Home</a>
+        <a href="community.html">Connect</a>
+    </div>
+</header>
+
+<div class="desktop-container">
+    <div class="course-panel">
+        <div class="panel-bg" style="background-image: url('https://images.unsplash.com/photo-1552422535-c45813c61732?q=80&w=2070');"></div>
+        <div class="panel-content">
+            <span class="panel-tag">01 // PERFORMANCE</span>
+            <h2 class="panel-title">Piano</h2>
+            <div class="panel-info">
+                <p class="panel-desc">Master neoclassical resonance and elite performance psychology through our advanced virtuoso training modules.</p>
+                <a href="https://drive.google.com/drive/folders/18ooO_oNfXI-tN7AvV0iME_CsXNAqO5wx" class="enroll-btn" target="_blank">View Course</a>
             </div>
         </div>
-    </header>
-
-    <div class="main-container">
-        <main class="course-grid">
-            
-            <div class="course-card" onclick="toggleMobile(this)">
-                <img src="https://images.unsplash.com/photo-1552422535-c45813c61732?q=80&w=2070" class="card-img">
-                <div class="card-content">
-                    <span class="tag">01 // PERFORMANCE</span>
-                    <h2 class="title">Piano</h2>
-                    <div class="details">
-                        <p class="desc">Master neoclassical resonance and elite performance psychology.</p>
-                        <a href="https://drive.google.com/drive/folders/18ooO_oNfXI-tN7AvV0iME_CsXNAqO5wx" class="enroll-btn" target="_blank">VIEW COURSE</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="course-card" onclick="toggleMobile(this)">
-                <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=2070" class="card-img">
-                <div class="card-content">
-                    <span class="tag">02 // KINETIC</span>
-                    <h2 class="title">Drums</h2>
-                    <div class="details">
-                        <p class="desc">Engineering rhythm and session geometry for the world's elite.</p>
-                        <a href="https://drive.google.com/drive/folders/1BZcd2wGSugxzQSZhyQgAMuUJ9gzGUSA7" class="enroll-btn" target="_blank">VIEW COURSE</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="course-card" onclick="toggleMobile(this)">
-                <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070" class="card-img">
-                <div class="card-content">
-                    <span class="tag">03 // SYNTHESIS</span>
-                    <h2 class="title">Production</h2>
-                    <div class="details">
-                        <p class="desc">High-fidelity signal chains and the psychology of sound design.</p>
-                        <a href="https://drive.google.com/drive/folders/1fwydNplKrsFkeAXLmNebrKtwbrnN91pl" class="enroll-btn" target="_blank">VIEW COURSE</a>
-                    </div>
-                </div>
-            </div>
-
-        </main>
     </div>
 
-    <script>
-        function toggleMobile(el) {
-            if (window.innerWidth < 1000) {
-                const isActive = el.classList.contains('active');
-                // Close all others
-                document.querySelectorAll('.course-card').forEach(c => c.classList.remove('active'));
-                // Toggle clicked
-                if (!isActive) el.classList.add('active');
-            }
-        }
-    </script>
+    <div class="course-panel">
+        <div class="panel-bg" style="background-image: url('https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=2070');"></div>
+        <div class="panel-content">
+            <span class="panel-tag">02 // KINETIC</span>
+            <h2 class="panel-title">Drums</h2>
+            <div class="panel-info">
+                <p class="panel-desc">Engineering rhythm and session geometry for the world's elite performers. High-intensity rhythmic coordination.</p>
+                <a href="https://drive.google.com/drive/folders/1BZcd2wGSugxzQSZhyQgAMuUJ9gzGUSA7" class="enroll-btn" target="_blank">View Course</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="course-panel">
+        <div class="panel-bg" style="background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070');"></div>
+        <div class="panel-content">
+            <span class="panel-tag">03 // SYNTHESIS</span>
+            <h2 class="panel-title">Production</h2>
+            <div class="panel-info">
+                <p class="panel-desc">High-fidelity signal chains and the psychology of sound design. Learn the art of modern sonic engineering.</p>
+                <a href="https://drive.google.com/drive/folders/1fwydNplKrsFkeAXLmNebrKtwbrnN91pl" class="enroll-btn" target="_blank">View Course</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mobile-container">
+    <div class="mobile-node" onclick="this.classList.toggle('active')">
+        <div class="node-trigger">
+            <div class="node-img" style="background-image: url('https://images.unsplash.com/photo-1552422535-c45813c61732?q=80&w=2070');"></div>
+            <span class="panel-tag">01 // PERFORMANCE</span>
+            <h2 class="panel-title" style="font-size: 28px;">Piano</h2>
+        </div>
+        <div class="node-body">
+            <p class="panel-desc">Master neoclassical resonance and elite performance psychology.</p>
+            <a href="https://drive.google.com/drive/folders/18ooO_oNfXI-tN7AvV0iME_CsXNAqO5wx" class="enroll-btn" target="_blank">View Course</a>
+        </div>
+    </div>
+
+    <div class="mobile-node" onclick="this.classList.toggle('active')">
+        <div class="node-trigger">
+            <div class="node-img" style="background-image: url('https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=2070');"></div>
+            <span class="panel-tag">02 // KINETIC</span>
+            <h2 class="panel-title" style="font-size: 28px;">Drums</h2>
+        </div>
+        <div class="node-body">
+            <p class="panel-desc">Engineering rhythm and session geometry for the world's elite.</p>
+            <a href="https://drive.google.com/drive/folders/1BZcd2wGSugxzQSZhyQgAMuUJ9gzGUSA7" class="enroll-btn" target="_blank">View Course</a>
+        </div>
+    </div>
+
+    <div class="mobile-node" onclick="this.classList.toggle('active')">
+        <div class="node-trigger">
+            <div class="node-img" style="background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070');"></div>
+            <span class="panel-tag">03 // SYNTHESIS</span>
+            <h2 class="panel-title" style="font-size: 28px;">Production</h2>
+        </div>
+        <div class="node-body">
+            <p class="panel-desc">High-fidelity signal chains and the psychology of sound design.</p>
+            <a href="https://drive.google.com/drive/folders/1fwydNplKrsFkeAXLmNebrKtwbrnN91pl" class="enroll-btn" target="_blank">View Course</a>
+        </div>
+    </div>
+</div>
+
 </body>
-</html>
+                </html>
+                

@@ -14,7 +14,7 @@
             --transition: 0.7s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        /* --- MOBILE STYLES (Kept Strict) --- */
+        /* --- GLOBAL & MOBILE (DO NOT TOUCH) --- */
         * { box-sizing: border-box; margin: 0; padding: 0; cursor: default; -webkit-tap-highlight-color: transparent; }
         ::-webkit-scrollbar { width: 0px; }
         
@@ -73,7 +73,7 @@
         .node {
             position: relative; width: 100%; height: 180px; 
             background: #000; border-bottom: 1px solid var(--border);
-            overflow: hidden; transition: height var(--transition), flex var(--transition);
+            overflow: hidden; transition: var(--transition);
         }
 
         .node.active { height: 380px; }
@@ -114,49 +114,40 @@
 
         body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(circle at center, #111 0%, #000 100%); z-index: -1; }
 
-        /* --- DESKTOP RECONSTRUCTION (FULL SCREEN) --- */
-        @media (min-width: 1024px) {
+        /* --- NEW DESKTOP OVERRIDE (For Large Screens) --- */
+        @media screen and (min-width: 1000px) {
             .app-shell {
-                max-width: 100vw; width: 100vw; border: none; overflow: hidden;
+                max-width: 100vw !important; width: 100vw !important; border: none !important;
             }
 
             .brand-section {
-                max-width: 100vw; width: 100vw; padding: 30px 60px;
-                display: flex; justify-content: space-between; align-items: center;
-                text-align: left; border-bottom: 1px solid var(--border);
+                max-width: 100vw !important; width: 100vw !important;
+                display: flex !important; justify-content: space-between !important;
+                align-items: center !important; padding: 20px 60px !important;
+                text-align: left !important;
             }
 
-            .brand-name { font-size: 22px; margin: 0; letter-spacing: 8px; }
-            .brand-sub { font-size: 9px; margin-top: 4px; display: block; }
-            .nav-hud { margin: 0; border: none; padding: 0; gap: 40px; align-items: center; }
-            .nav-hud a { font-size: 11px; color: #888; }
+            .brand-sub { display: block !important; letter-spacing: 4px !important; }
+            .nav-hud { margin-top: 0 !important; border: none !important; gap: 30px !important; }
 
             .course-stream {
-                display: flex; padding-top: 110px; height: 100vh; overflow: hidden;
+                display: flex !important; /* Forces columns side-by-side */
+                padding-top: 100px !important; overflow: hidden !important;
+                flex-direction: row !important;
             }
 
             .node {
-                flex: 1; height: 100% !important; border-bottom: none;
-                border-right: 1px solid var(--border);
+                flex: 1 !important; height: 100% !important; 
+                border-bottom: none !important;
+                border-right: 1px solid var(--border) !important;
             }
 
             .node.active {
-                flex: 2; /* Active column takes up double space */
+                flex: 2 !important; /* Expanded look on click */
             }
 
-            .node-img { opacity: 0.2; }
-            .node:hover .node-img { opacity: 0.4; }
-            .node.active .node-img { opacity: 0.7; transform: scale(1.05); }
-
-            .node-content { padding: 60px; justify-content: center; }
-            .node.active .node-content { justify-content: center; padding-bottom: 60px; }
-
-            .node-title { font-size: 5vw; line-height: 1; }
-            .node-desc { font-size: 14px; max-width: 400px; margin-top: 20px; }
-            .node-tag { font-size: 12px; }
-            
-            .node-details { display: block; max-height: none; opacity: 0.3; transform: none; }
-            .node.active .node-details { opacity: 1; transform: translateY(0); }
+            .node-title { font-size: 4vw !important; }
+            .node-content { padding: 50px !important; }
         }
     </style>
 </head>
@@ -164,7 +155,7 @@
 
 <div class="app-shell">
     <header class="brand-section" id="header">
-        <div>
+        <div style="text-align: left;">
             <span class="brand-name">Royal Red Bull</span>
             <span class="brand-sub">College of Music</span>
         </div>
@@ -219,17 +210,16 @@
         const stream = document.getElementById('stream');
         const header = document.getElementById('header');
         const allNodes = document.querySelectorAll('.node');
-        const isDesktop = window.innerWidth >= 1024;
+        const isDesktop = window.innerWidth >= 1000;
         
         const isActive = el.classList.contains('active');
         
-        // Remove active from all
         allNodes.forEach(n => n.classList.remove('active'));
         
         if (!isActive) {
             el.classList.add('active');
             
-            // Only apply mobile auto-scrolling logic
+            // Only scroll on Mobile
             if (!isDesktop) {
                 setTimeout(() => {
                     const headerHeight = header.offsetHeight;
@@ -238,16 +228,10 @@
                     const elementHeight = el.offsetHeight;
 
                     if (el === allNodes[allNodes.length - 1]) {
-                        stream.scrollTo({
-                            top: stream.scrollHeight,
-                            behavior: 'smooth'
-                        });
+                        stream.scrollTo({ top: stream.scrollHeight, behavior: 'smooth' });
                     } else {
                         const scrollToPos = elementTop - (streamHeight / 2) + (elementHeight / 2) - (headerHeight / 2);
-                        stream.scrollTo({
-                            top: scrollToPos,
-                            behavior: 'smooth'
-                        });
+                        stream.scrollTo({ top: scrollToPos, behavior: 'smooth' });
                     }
                 }, 300);
             }
@@ -256,5 +240,4 @@
 </script>
 
 </body>
-                        </html>
-                        
+</html>

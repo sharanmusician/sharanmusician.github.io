@@ -180,26 +180,29 @@
         if (!isActive) {
             el.classList.add('active');
             
+            // Short delay to allow the CSS height transition to begin
             setTimeout(() => {
                 const headerHeight = header.offsetHeight;
                 
-                // If it's the last course, scroll to the bottom of the container
-                if (el === allNodes[allNodes.length - 1]) {
-                    stream.scrollTo({
-                        top: stream.scrollHeight,
-                        behavior: 'smooth'
-                    });
-                } else {
-                    // Otherwise, align to top under header
-                    stream.scrollTo({
-                        top: el.offsetTop - headerHeight,
+                // Use scrollIntoView with block: 'nearest' to prevent 
+                // the button from hiding behind the bottom or top bars.
+                el.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'nearest' 
+                });
+
+                // Fine-tune for the top header overlap
+                if (el.getBoundingClientRect().top < headerHeight) {
+                    stream.scrollBy({
+                        top: el.getBoundingClientRect().top - headerHeight,
                         behavior: 'smooth'
                     });
                 }
-            }, 150);
+            }, 300); // Increased delay slightly to match the 0.6s transition
         }
     }
 </script>
+    
 
 </body>
                 </html>

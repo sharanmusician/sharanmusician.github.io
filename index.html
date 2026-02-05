@@ -51,7 +51,7 @@
         /* GREEN SEARCH BUTTON */
         .search-bar { flex: 1; display: flex; max-width: 500px; }
         .search-bar input { 
-            flex: 1; padding: 10px 18px; background: transparent; color: #fff; 
+            flex: 1; padding: 10px 188x; background: transparent; color: #fff; 
             border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); 
             border-right: none; outline: none; min-width: 0; 
             user-select: text; -webkit-user-select: text;
@@ -82,7 +82,6 @@
             width: 100%; 
             background: #111118; 
             border-bottom: 1px solid rgba(255,255,255,0.03);
-            /* MINIMIZED HEIGHT */
             padding-top: 0;
             padding-bottom: 0; 
             justify-content: space-evenly; 
@@ -94,8 +93,8 @@
         nav button { 
             background: none; 
             color: #999; 
-            font-size: 13px; /* Slightly smaller font for professionalism */
-            padding: 6px 0; /* Extremely low padding for slim profile */
+            font-size: 13px;
+            padding: 6px 0; 
             width: 100%;
         }
         nav button.active { color: #1db954; font-weight: 700; }
@@ -255,7 +254,7 @@
                 flex: 0 0 25%; 
             }
             nav button {
-                padding: 8px 0; /* Slim mobile profile */
+                padding: 8px 0; 
                 font-size: 13px; 
             }
             
@@ -397,9 +396,7 @@
         }
     })();
 
-    // UNIVERSAL HIGHLIGHT LOGIC (Handles Products & News Card)
     function highlightItem(element) {
-        // Remove glow from products AND news card
         document.querySelectorAll('.product, .premium-news-card').forEach(p => p.classList.remove('active-glow'));
         element.classList.add('active-glow');
     }
@@ -414,9 +411,21 @@
 
     let hideTimeout;
 
-    function toggleMute() {
+    // UPDATED RELIABLE TOGGLE LOGIC
+    function toggleMute(e) {
+        e.preventDefault();
         clearTimeout(hideTimeout);
+        
+        // Toggle the property
         video.muted = !video.muted;
+        
+        // Update the visual icon
         muteIconContainer.innerHTML = video.muted ? muteSVG : unmuteSVG;
+        
+        // Show the indicator
         muteBtn.classList.remove('hidden');
-        hideTimeout = setTimeout(() => muteBtn.cl
+        
+        // Hide after delay
+        hideTimeout = setTimeout(() => {
+            muteBtn.classList.add('hidden');
+     

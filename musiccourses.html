@@ -55,11 +55,12 @@
             flex: 1; position: relative; overflow: hidden;
             background: var(--panel-bg); display: flex; align-items: flex-end;
             transition: flex var(--transition);
+            pointer-events: auto;
         }
 
-        .node:hover { flex: 2.5; }
+        /* Expand only when active class is present via tap */
+        .node.active { flex: 3; }
 
-        /* IMAGE LAYER WITH AUTO-MASK */
         .node-img {
             position: absolute; inset: 0; width: 100%; height: 100%;
             object-fit: cover; opacity: 0.3; filter: grayscale(1) brightness(0.7);
@@ -72,15 +73,13 @@
             opacity: 0.9; transition: var(--transition);
         }
 
-        .node:hover .node-img { opacity: 0.8; filter: grayscale(0) brightness(1); transform: scale(1.05); }
-        .node:hover::after { opacity: 0.5; }
+        .node.active .node-img { opacity: 0.8; filter: grayscale(0) brightness(1); transform: scale(1.05); }
+        .node.active::after { opacity: 0.5; }
 
-        /* CONTENT LAYER */
         .node-content {
             position: relative; z-index: 10; padding: 50px; width: 100%;
-            transform: translateY(10px); transition: var(--transition);
+            transform: translateY(0); transition: var(--transition);
         }
-        .node:hover .node-content { transform: translateY(0); }
 
         .node-tag { 
             font-family: 'JetBrains Mono'; font-size: 10px; color: var(--accent); 
@@ -92,26 +91,49 @@
             text-transform: uppercase; letter-spacing: -2px; line-height: 0.85; 
         }
 
-        /* UPDATED: Description & Button Container */
-        .desc-container {
-            display: flex; align-items: flex-end; justify-content: space-between;
-            margin-top: 25px; opacity: 0; transform: translateY(20px);
-            transition: 0.6s var(--transition);
+        /* HIDDEN BY DEFAULT - ONLY VISIBLE ON ACTIVE */
+        .node-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 25px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(10px);
+            transition: 0.5s ease-out;
         }
-        .node:hover .desc-container { opacity: 1; transform: translateY(0); }
+
+        .node.active .node-details {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+            transition-delay: 0.3s;
+        }
 
         .node-desc { 
-            font-size: 0.85rem; color: #999; max-width: 300px;
+            font-size: 0.85rem; color: #999; max-width: 400px;
             line-height: 1.6;
+            text-align: left;
         }
 
-        .course-btn {
-            background: transparent; border: 1px solid var(--accent);
-            color: var(--accent); font-family: 'JetBrains Mono';
-            font-size: 10px; padding: 12px 20px; text-decoration: none;
-            letter-spacing: 2px; pointer-events: auto; transition: 0.3s;
+        .enroll-btn {
+            background: var(--accent);
+            color: #000;
+            font-family: 'JetBrains Mono';
+            font-size: 10px;
+            font-weight: 800;
+            padding: 10px 18px;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            white-space: nowrap;
+            margin-left: 20px;
         }
-        .course-btn:hover { background: var(--accent); color: #000; box-shadow: 0 0 15px var(--accent); }
+
+        .enroll-btn:hover {
+            background: #fff;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+        }
 
         /* --- CURSOR SYSTEM --- */
         #cursor-dot { position: fixed; width: 6px; height: 6px; background: #fff; border-radius: 50%; z-index: 1000; pointer-events: none; mix-blend-mode: difference; }
@@ -121,13 +143,13 @@
             transition: transform 0.1s ease-out;
         }
 
-        /* MOBILE BREAKPOINT */
         @media (max-width: 900px) {
             .monolith { flex-direction: column; height: 85vh; width: 95vw; }
-            .node { flex: 1 !important; }
-            .desc-container { opacity: 1; transform: none; flex-direction: column; align-items: flex-start; gap: 15px; }
-            .node-title { font-size: 2.5rem; }
+            .node.active { flex: 2; }
+            .node-title { font-size: 2.2rem; }
             .node-content { padding: 30px; }
+            .node-details { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .enroll-btn { margin-left: 0; }
             #cursor-dot, #cursor-aura { display: none; }
             * { cursor: auto !important; }
         }
@@ -152,38 +174,38 @@
 <section class="viewport">
     <main class="monolith">
         
-        <div class="node">
+        <div class="node" onclick="activateNode(this)">
             <img src="https://images.unsplash.com/photo-1552422535-c45813c61732?q=80&w=2070" class="node-img">
             <div class="node-content">
                 <span class="node-tag">01 // PERFORMANCE</span>
                 <h2 class="node-title">Piano</h2>
-                <div class="desc-container">
+                <div class="node-details">
                     <p class="node-desc">Mastering neoclassical resonance and the architecture of emotive performance.</p>
-                    <a href="course-piano.html" class="course-btn">ENTER_CURRICULUM</a>
+                    <a href="piano-enroll.html" class="enroll-btn">GO_TO_COURSE</a>
                 </div>
             </div>
         </div>
 
-        <div class="node">
+        <div class="node" onclick="activateNode(this)">
             <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=2070" class="node-img">
             <div class="node-content">
                 <span class="node-tag">02 // KINETIC</span>
                 <h2 class="node-title">Drums</h2>
-                <div class="desc-container">
+                <div class="node-details">
                     <p class="node-desc">The geometry of the pocket. Engineering rhythm for the world's elite sessions.</p>
-                    <a href="course-drums.html" class="course-btn">ENTER_CURRICULUM</a>
+                    <a href="drums-enroll.html" class="enroll-btn">GO_TO_COURSE</a>
                 </div>
             </div>
         </div>
 
-        <div class="node">
+        <div class="node" onclick="activateNode(this)">
             <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070" class="node-img">
             <div class="node-content">
                 <span class="node-tag">03 // SYNTHESIS</span>
                 <h2 class="node-title">Prod.</h2>
-                <div class="desc-container">
+                <div class="node-details">
                     <p class="node-desc">High-end signal chains and the psychology of chart-topping sound design.</p>
-                    <a href="course-prod.html" class="course-btn">ENTER_CURRICULUM</a>
+                    <a href="prod-enroll.html" class="enroll-btn">GO_TO_COURSE</a>
                 </div>
             </div>
         </div>
@@ -195,6 +217,16 @@
     const dot = document.getElementById('cursor-dot');
     const aura = document.getElementById('cursor-aura');
 
+    // Functional Logic: Handle the Tap/Click to reveal
+    function activateNode(selectedNode) {
+        // Remove active class from all nodes
+        document.querySelectorAll('.node').forEach(node => {
+            if (node !== selectedNode) node.classList.remove('active');
+        });
+        // Toggle the clicked node
+        selectedNode.classList.toggle('active');
+    }
+
     document.addEventListener('mousemove', e => {
         dot.style.left = e.clientX + 'px';
         dot.style.top = e.clientY + 'px';
@@ -205,7 +237,7 @@
         }, { duration: 400, fill: "forwards" });
     });
 
-    document.querySelectorAll('.node, .nav-link, .course-btn').forEach(el => {
+    document.querySelectorAll('.node, .nav-link, .enroll-btn').forEach(el => {
         el.addEventListener('mouseenter', () => {
             aura.style.transform = 'scale(1.5)';
             aura.style.borderColor = 'var(--accent)';
@@ -220,5 +252,4 @@
 </script>
 
 </body>
-                        </html>
-                        
+</html>

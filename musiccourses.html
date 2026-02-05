@@ -35,14 +35,20 @@
         }
         .nav-link:hover { color: var(--accent); }
 
+        .status-tag {
+            font-family: 'JetBrains Mono'; font-size: 9px; color: #444;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .status-tag::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
+
         /* --- THE MONOLITH ENGINE --- */
         .viewport {
             height: 100vh; width: 100vw; display: flex; align-items: center; justify-content: center;
         }
 
         .monolith {
-            width: 90vw; height: 70vh; display: flex; gap: 4px;
-            background: rgba(255,255,255,0.05); padding: 4px;
+            width: 90vw; height: 75vh; display: flex; gap: 4px;
+            background: rgba(255,255,255,0.03); padding: 4px;
         }
 
         .node {
@@ -56,19 +62,18 @@
         /* IMAGE LAYER WITH AUTO-MASK */
         .node-img {
             position: absolute; inset: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.3; filter: grayscale(1);
+            object-fit: cover; opacity: 0.3; filter: grayscale(1) brightness(0.7);
             transition: var(--transition);
         }
         
-        /* The Gradient Protector - ensures text is ALWAYS visible */
         .node::after {
             content: ''; position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 60%);
-            opacity: 0.8; transition: var(--transition);
+            background: linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 60%);
+            opacity: 0.9; transition: var(--transition);
         }
 
-        .node:hover .node-img { opacity: 0.7; filter: grayscale(0); transform: scale(1.05); }
-        .node:hover::after { opacity: 0.4; }
+        .node:hover .node-img { opacity: 0.8; filter: grayscale(0) brightness(1); transform: scale(1.05); }
+        .node:hover::after { opacity: 0.5; }
 
         /* CONTENT LAYER */
         .node-content {
@@ -80,7 +85,6 @@
         .node-tag { 
             font-family: 'JetBrains Mono'; font-size: 10px; color: var(--accent); 
             letter-spacing: 3px; margin-bottom: 12px; display: block; 
-            text-shadow: 0 0 10px rgba(29, 185, 84, 0.5);
         }
         
         .node-title { 
@@ -100,12 +104,12 @@
         #cursor-aura { 
             position: fixed; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.2); 
             border-radius: 50%; z-index: 999; pointer-events: none; 
-            transition: transform 0.15s ease-out, width 0.3s, height 0.3s;
+            transition: transform 0.1s ease-out;
         }
 
         /* MOBILE BREAKPOINT */
         @media (max-width: 900px) {
-            .monolith { flex-direction: column; height: 85vh; }
+            .monolith { flex-direction: column; height: 85vh; width: 95vw; }
             .node { flex: 1 !important; }
             .node-desc { display: block; opacity: 0.7; transform: none; margin-top: 10px;}
             .node-title { font-size: 2.5rem; }
@@ -122,13 +126,12 @@
 
 <nav class="hud-ui">
     <div class="hud-top">
-        <a href="#" class="nav-link">HOME</a>
-        <div style="font-family: 'JetBrains Mono'; font-size: 8px; color: #444;">ID_SEQ: 099-X</div>
-        <a href="#" class="nav-link">MENU</a>
+        <a href="#" class="nav-link">INDEX</a>
+        <div class="status-tag">SYSTEM_ACTIVE</div>
+        <a href="#" class="nav-link">CONNECT</a>
     </div>
     <div class="hud-bottom">
-        <span class="nav-link">© 2024 ULTRA</span>
-        <span class="nav-link">SCROLL TO EXPLORE</span>
+        <span class="nav-link"></span> <span class="nav-link">03 // NODES</span>
     </div>
 </nav>
 
@@ -136,7 +139,7 @@
     <main class="monolith">
         
         <div class="node">
-            <img src="https://images.unsplash.com/photo-1520529611472-3f820bb20600?q=80&w=2070" class="node-img">
+            <img src="https://images.unsplash.com/photo-1552422535-c45813c61732?q=80&w=2070" class="node-img">
             <div class="node-content">
                 <span class="node-tag">01 // PERFORMANCE</span>
                 <h2 class="node-title">Piano</h2>
@@ -170,27 +173,23 @@
     const aura = document.getElementById('cursor-aura');
 
     document.addEventListener('mousemove', e => {
-        const x = e.clientX;
-        const y = e.clientY;
+        dot.style.left = e.clientX + 'px';
+        dot.style.top = e.clientY + 'px';
         
-        dot.style.transform = `translate(${x}px, ${y}px)`;
-        // Smooth lagging effect for the aura
         aura.animate({
-            transform: `translate(${x - 20}px, ${y - 20}px)`
-        }, { duration: 500, fill: "forwards" });
+            left: (e.clientX - 20) + 'px',
+            top: (e.clientY - 20) + 'px'
+        }, { duration: 400, fill: "forwards" });
     });
 
-    // Aura interaction on hover
     document.querySelectorAll('.node, .nav-link').forEach(el => {
         el.addEventListener('mouseenter', () => {
-            aura.style.width = '60px';
-            aura.style.height = '60px';
+            aura.style.transform = 'scale(1.5)';
             aura.style.borderColor = 'var(--accent)';
-            aura.style.backgroundColor = 'rgba(29, 185, 84, 0.1)';
+            aura.style.backgroundColor = 'rgba(29, 185, 84, 0.05)';
         });
         el.addEventListener('mouseleave', () => {
-            aura.style.width = '40px';
-            aura.style.height = '40px';
+            aura.style.transform = 'scale(1)';
             aura.style.borderColor = 'rgba(255,255,255,0.2)';
             aura.style.backgroundColor = 'transparent';
         });
@@ -198,4 +197,5 @@
 </script>
 
 </body>
-</html>
+                    </html>
+                    

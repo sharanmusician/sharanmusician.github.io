@@ -34,28 +34,29 @@
             border-bottom: 1px solid rgba(255,255,255,0.03);
         }
         .brand { 
-            font-family: 'JetBrains Mono', monospace; 
-            font-size: 12px; letter-spacing: 6px; 
-            color: var(--accent); font-weight: 700;
+            font-family: 'Plus Jakarta Sans', sans-serif; /* Refined Font */
+            font-size: 14px; letter-spacing: 2px; 
+            color: #ffffff; /* Clean White */
+            font-weight: 800;
             text-transform: uppercase;
         }
 
-        /* ULTRA PROFESSIONAL CLOSE BUTTON */
+        /* OPTIMIZED SMALLER CLOSE BUTTON */
         .close-btn {
             position: relative;
             background: rgba(255, 255, 255, 0.03);
             color: #fff;
-            padding: 12px 28px;
+            padding: 8px 18px; /* Optimized smaller padding */
             border-radius: 100px;
             font-weight: 600;
-            font-size: 11px;
+            font-size: 10px; /* Reduced font size */
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-decoration: none;
             border: 1px solid rgba(255, 255, 255, 0.1);
             transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             overflow: hidden;
-            display: flex; align-items: center; gap: 10px;
+            display: flex; align-items: center; gap: 8px;
         }
         .close-btn::before {
             content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
@@ -67,7 +68,7 @@
             transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,0,0,0.4);
         }
         .close-btn:hover::before { left: 100%; }
-        .close-btn span { font-size: 14px; margin-top: -1px; }
+        .close-btn span { font-size: 12px; margin-top: -1px; }
 
         /* ================= HERO SECTION ================= */
         .hero-section {
@@ -153,7 +154,7 @@
 <nav class="header-nav">
     <div class="brand">Projects</div>
     <a href="index.html" class="close-btn">
-        <span>✕</span> Close Portfolio
+        <span>✕</span> Close
     </a>
 </nav>
 
@@ -184,7 +185,7 @@
             <img src="webseries_cover.jpg" alt="IPC 100">
         </div>
         <div class="content-container">
-            <div class="year-label">QUEEN BEE</div>
+            <div class="year-label">QUEEN BEE PRODUCTION</div>
             <div class="proj-role">Lead Music Director</div>
             <h2 class="proj-title">IPC 100</h2>
             <p class="proj-desc">
@@ -198,20 +199,16 @@
 
 <script>
     function highlight(element) {
-        // Remove active class from all
         document.querySelectorAll('.project-card').forEach(card => {
             card.classList.remove('active-glow');
         });
-        // Add to clicked
         element.classList.add('active-glow');
         
-        // Haptic feel - subtle vibration if supported
         if (window.navigator.vibrate) {
             window.navigator.vibrate(5);
         }
     }
 
-    // Scroll reveal logic for smooth entry
     const observerOptions = { threshold: 0.1 };
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -231,4 +228,5 @@
 </script>
 
 </body>
-</html>
+        </html>
+        

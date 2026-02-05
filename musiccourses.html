@@ -30,7 +30,7 @@
             display: flex; flex-direction: column;
         }
 
-        /* FIXED HEADER */
+        /* MOBILE FIXED HEADER (Default) */
         .brand-section {
             position: fixed; top: 0; width: 100%; max-width: 450px;
             padding: 40px 30px 25px; background: var(--glass);
@@ -114,15 +114,29 @@
 
         body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(circle at center, #111 0%, #000 100%); z-index: -1; }
 
-        /* DESKTOP OPTIMIZATION */
+        /* DESKTOP LAYOUT RECONSTRUCTION */
         @media (min-width: 1024px) {
-            body { overflow: auto; background: #000; }
+            body { overflow: hidden; align-items: stretch; justify-content: stretch; }
             .app-shell {
-                margin: 0 auto;
-                box-shadow: 0 0 100px rgba(0,0,0,0.9);
-                border-left: 1px solid var(--border);
-                border-right: 1px solid var(--border);
+                max-width: 100%; flex-direction: row; border: none;
             }
+            .brand-section {
+                position: relative; width: 400px; max-width: 400px; height: 100vh;
+                display: flex; flex-direction: column; justify-content: center;
+                border-bottom: none; border-right: 1px solid var(--border);
+                padding: 60px; text-align: left;
+            }
+            .brand-name { font-size: 28px; white-space: normal; line-height: 1.2; }
+            .brand-sub { font-size: 12px; }
+            .nav-hud { flex-direction: column; gap: 20px; margin-top: 50px; border: none; padding: 0; }
+            .nav-hud a { font-size: 12px; }
+            .status { margin-top: 10px; }
+
+            .course-stream {
+                padding-top: 0; height: 100vh;
+            }
+            .node { height: 33.33vh; } /* Split screen into 3 equal parts on desktop */
+            .node.active { height: 50vh; }
         }
     </style>
 </head>
@@ -185,33 +199,30 @@
         const isActive = el.classList.contains('active');
         const allNodes = document.querySelectorAll('.node');
         
-        // Close others
         allNodes.forEach(n => n.classList.remove('active'));
         
         if (!isActive) {
             el.classList.add('active');
             
             setTimeout(() => {
-                const headerHeight = header.offsetHeight;
+                const headerHeight = (window.innerWidth < 1024) ? header.offsetHeight : 0;
                 const streamHeight = stream.offsetHeight;
                 const elementTop = el.offsetTop;
                 const elementHeight = el.offsetHeight;
 
-                // SPECIAL FIX FOR 3RD COURSE: Scroll to bottom
                 if (el === allNodes[allNodes.length - 1]) {
                     stream.scrollTo({
                         top: stream.scrollHeight,
                         behavior: 'smooth'
                     });
                 } else {
-                    // CENTER logic for others
                     const scrollToPos = elementTop - (streamHeight / 2) + (elementHeight / 2) - (headerHeight / 2);
                     stream.scrollTo({
                         top: scrollToPos,
                         behavior: 'smooth'
                     });
                 }
-            }, 300); // 300ms delay for smooth animation sync
+            }, 300);
         }
     }
 </script>

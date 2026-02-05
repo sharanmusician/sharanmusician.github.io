@@ -2,193 +2,182 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHARAN | THE ACADEMY</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>THE ACADEMY // SHARAN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        /* ================= THE ARCHITECT'S MANIFESTO ================= */
+        /* ================= THE ELITE MANIFESTO ================= */
         * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
         
-        :root {
-            --accent: #1db954;
-            --bg: #000;
-            --text: #fff;
-        }
-
         body, html { 
-            height: 100%; width: 100%; background: var(--bg);
-            color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif;
-            overflow: hidden; /* Zero scroll */
+            height: 100vh; width: 100vw; background: #000; 
+            color: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
         }
 
         /* CUSTOM INERTIA CURSOR */
-        #cursor-main {
-            position: fixed; width: 6px; height: 6px; background: #fff;
-            border-radius: 50%; pointer-events: none; z-index: 10000;
+        #cursor {
+            position: fixed; width: 10px; height: 10px; background: #fff;
+            border-radius: 50%; pointer-events: none; z-index: 10000; mix-blend-mode: difference;
         }
-        #cursor-blur {
-            position: fixed; width: 300px; height: 300px;
-            background: radial-gradient(circle, rgba(29, 185, 84, 0.15) 0%, transparent 70%);
+        #cursor-follower {
+            position: fixed; width: 80px; height: 80px; border: 1px solid rgba(255,255,255,0.3);
             border-radius: 50%; pointer-events: none; z-index: 9999;
-            transform: translate(-50%, -50%); transition: transform 0.1s ease-out;
+            transition: transform 0.15s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        /* SIDEBAR SYSTEM STATUS */
-        .system-bar {
-            position: fixed; left: 0; top: 0; bottom: 0; width: 60px;
-            border-right: 1px solid rgba(255,255,255,0.05);
-            display: flex; flex-direction: column; align-items: center;
-            justify-content: space-between; padding: 40px 0; z-index: 100;
+        /* FIXED ARCHITECTURAL HUD */
+        .hud {
+            position: fixed; inset: 50px; pointer-events: none; z-index: 500;
+            display: flex; flex-direction: column; justify-content: space-between;
         }
-        .rotated-text { 
-            writing-mode: vertical-rl; font-family: 'JetBrains Mono';
-            font-size: 10px; letter-spacing: 5px; color: #333;
-            text-transform: uppercase;
-        }
+        .hud-top { display: flex; justify-content: space-between; font-family: 'JetBrains Mono'; font-size: 10px; letter-spacing: 5px; color: #444; }
+        .hud-bottom { display: flex; justify-content: space-between; font-family: 'JetBrains Mono'; font-size: 10px; color: var(--accent); }
 
-        /* THE MAIN CANVAS */
+        /* THE KINETIC CENTER */
         .stage {
-            height: 100vh; width: 100vw; padding-left: 60px;
-            display: flex; align-items: center; justify-content: center;
-            perspective: 2000px;
+            position: relative; width: 100%; height: 100%;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
 
-        .hero-title {
-            position: absolute; font-size: 25vw; font-weight: 800;
-            opacity: 0.03; line-height: 0.7; pointer-events: none;
-            text-transform: uppercase; white-space: nowrap;
+        .item-wrap { position: relative; width: 100%; text-align: center; height: 22vh; }
+
+        .item-text {
+            font-size: clamp(5rem, 18vw, 22rem);
+            font-weight: 800; text-transform: uppercase;
+            line-height: 0.75; letter-spacing: -1vw;
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255,255,255,0.15);
+            transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative; z-index: 2;
         }
 
-        /* INTERACTIVE ITEMS */
-        .menu-container {
-            display: flex; flex-direction: column; gap: 10px;
+        /* THE MASKING ENGINE */
+        .mask-visual {
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            width: 40vw; height: 50vh;
+            background-size: cover; background-position: center;
+            opacity: 0; pointer-events: none;
+            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 1; filter: grayscale(1);
+        }
+
+        /* HOVER STATES: THE REVEAL */
+        .item-wrap:hover .item-text {
+            color: #fff;
+            -webkit-text-stroke: 0px transparent;
+            letter-spacing: -0.5vw;
+            transform: scale(1.05);
             z-index: 10;
         }
 
-        .menu-item {
-            position: relative; text-decoration: none; color: inherit;
+        .item-wrap:hover .mask-visual {
+            opacity: 0.6;
+            transform: translate(-50%, -50%) scale(1.1);
+            filter: grayscale(0);
         }
 
-        .menu-text {
-            font-size: clamp(3rem, 10vw, 8.5rem); font-weight: 800;
-            text-transform: uppercase; letter-spacing: -8px;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            display: block; opacity: 0.3;
+        /* THE DESCRIPTION POPUP */
+        .details {
+            position: absolute; right: 10%; bottom: 15%;
+            width: 280px; text-align: right; pointer-events: none;
+            opacity: 0; transition: 0.5s;
         }
+        .item-wrap:hover .details { opacity: 1; transform: translateY(-10px); }
+        .details h4 { font-family: 'JetBrains Mono'; color: #1db954; font-size: 12px; margin-bottom: 10px; }
+        .details p { color: #888; font-size: 14px; line-height: 1.5; }
 
-        .menu-item:hover .menu-text {
-            opacity: 1; letter-spacing: -2px; color: var(--accent);
-            transform: scale(1.05) translateZ(50px);
-        }
-
-        /* HOVER PREVIEW PANEL */
-        .preview-panel {
-            position: absolute; right: 10%; top: 50%; transform: translateY(-50%);
-            width: 350px; pointer-events: none; opacity: 0;
-            transition: 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .menu-item:hover ~ .preview-panel { opacity: 0; } /* Reset logic */
-        
-        .active-preview { opacity: 1 !important; transform: translateY(-50%) translateX(-20px) !important; }
-
-        .preview-content span { font-family: 'JetBrains Mono'; color: var(--accent); font-size: 12px; letter-spacing: 5px; }
-        .preview-content h3 { font-size: 2.5rem; margin: 10px 0; letter-spacing: -2px; }
-        .preview-content p { color: #666; font-size: 1.1rem; line-height: 1.6; }
-
-        /* THE "GLITCH" LINE */
-        .scanner-line {
-            position: fixed; left: 60px; width: 2px; height: 100px;
-            background: var(--accent); opacity: 0.5; z-index: 50;
-            pointer-events: none;
-        }
-
-        @media (max-width: 900px) {
+        /* MOBILE FIXES */
+        @media (max-width: 1024px) {
             * { cursor: auto !important; }
-            #cursor-main, #cursor-blur, .system-bar { display: none; }
-            .stage { padding-left: 0; }
-            .menu-text { font-size: 4rem; letter-spacing: -2px; opacity: 1; }
-            .preview-panel { display: none; }
+            #cursor, #cursor-follower { display: none; }
+            .item-text { -webkit-text-stroke: 0px; color: #fff; font-size: 4.5rem; letter-spacing: -2px; }
+            .mask-visual { display: none; }
+            .details { position: relative; right: 0; bottom: 0; text-align: center; width: 100%; opacity: 1; padding-top: 10px; }
+            .item-wrap { height: auto; margin-bottom: 40px; }
+            .hud { inset: 20px; }
         }
     </style>
 </head>
 <body>
 
-<div id="cursor-main"></div>
-<div id="cursor-blur"></div>
-<div class="scanner-line" id="scanner"></div>
+<div id="cursor"></div>
+<div id="cursor-follower"></div>
 
-<div class="system-bar">
-    <div class="brand-small" style="font-weight: 800; color: var(--accent);">S</div>
-    <div class="rotated-text">SOVEREIGN ACADEMY SYSTEM</div>
-    <div class="brand-small">26</div>
+<div class="hud">
+    <div class="hud-top">
+        <span>SHARAN_ACADEMY_SYS</span>
+        <span>LEVEL: SOVEREIGN</span>
+    </div>
+    <div class="hud-bottom">
+        <span>EST: 2026 // ADMISSIONS OPEN</span>
+        <span>SCANNING_LOCAL_FILES...</span>
+    </div>
 </div>
 
-<div class="stage">
-    <div class="hero-title">RESONANCE</div>
+<main class="stage">
 
-    <div class="menu-container">
-        <div class="menu-item" onmouseenter="showPreview('piano')" onmouseleave="hidePreview()">
-            <span class="menu-text">PIANO</span>
-        </div>
-
-        <div class="menu-item" onmouseenter="showPreview('drums')" onmouseleave="hidePreview()">
-            <span class="menu-text">DRUMS</span>
-        </div>
-
-        <div class="menu-item" onmouseenter="showPreview('prod')" onmouseleave="hidePreview()">
-            <span class="menu-text">PROD.</span>
+    <div class="item-wrap">
+        <h2 class="item-text">Piano</h2>
+        <div class="mask-visual" style="background-image: url('https://images.unsplash.com/photo-1520529611472-3f820bb20600?q=80&w=2070')"></div>
+        <div class="details">
+            <h4>[ 01 PERFORMANCE ]</h4>
+            <p>Mastering the architecture of sound through neoclassical piano mastery.</p>
         </div>
     </div>
 
-    <div class="preview-panel" id="preview-box">
-        <div class="preview-content">
-            <span id="p-tag">01 // PERFORMANCE</span>
-            <h3 id="p-title">Piano</h3>
-            <p id="p-desc">Architectural composition and neoclassical performance mastery.</p>
+    <div class="item-wrap">
+        <h2 class="item-text">Drums</h2>
+        <div class="mask-visual" style="background-image: url('https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=2070')"></div>
+        <div class="details">
+            <h4>[ 02 RHYTHM ]</h4>
+            <p>The geometry of the pocket. Precision engineering for elite drummers.</p>
         </div>
     </div>
-</div>
+
+    <div class="item-wrap">
+        <h2 class="item-text">Prod.</h2>
+        <div class="mask-visual" style="background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070')"></div>
+        <div class="details">
+            <h4>[ 03 SYNTHESIS ]</h4>
+            <p>Sonic design and professional signal chains for global records.</p>
+        </div>
+    </div>
+
+</main>
 
 <script>
-    // CURSOR PHYSICS
-    const cursor = document.getElementById('cursor-main');
-    const blur = document.getElementById('cursor-blur');
-    const scanner = document.getElementById('scanner');
+    const cursor = document.getElementById('cursor');
+    const follower = document.getElementById('cursor-follower');
 
     document.addEventListener('mousemove', (e) => {
         const { clientX: x, clientY: y } = e;
         
-        cursor.style.left = x + 'px';
-        cursor.style.top = y + 'px';
+        // Instant cursor
+        cursor.style.transform = `translate(${x}px, ${y}px)`;
         
-        blur.style.left = x + 'px';
-        blur.style.top = y + 'px';
-
-        scanner.style.top = y - 50 + 'px';
+        // Fluid follower
+        follower.style.transform = `translate(${x - 40}px, ${y - 40}px)`;
+        
+        // Parallax effect on the visuals
+        const moveX = (x - window.innerWidth/2) * 0.05;
+        const moveY = (y - window.innerHeight/2) * 0.05;
+        
+        document.querySelectorAll('.mask-visual').forEach(visual => {
+            visual.style.marginLeft = moveX + 'px';
+            visual.style.marginTop = moveY + 'px';
+        });
     });
 
-    // CONTENT DATA
-    const catalog = {
-        piano: { tag: "01 // PERFORMANCE", title: "Classical Piano", desc: "Redefining the grand piano through neoclassical textures and emotive physics." },
-        drums: { tag: "02 // RHYTHMIC", title: "Geometry of Drums", desc: "Mastering the world-class pocket and session standard engineering." },
-        prod: { tag: "03 // TECHNOLOGY", title: "Sound Design", desc: "Industry-standard signal chains, mixing psychology, and sonic identity." }
-    };
-
-    const pBox = document.getElementById('preview-box');
-    const pTag = document.getElementById('p-tag');
-    const pTitle = document.getElementById('p-title');
-    const pDesc = document.getElementById('p-desc');
-
-    function showPreview(key) {
-        pTag.innerText = catalog[key].tag;
-        pTitle.innerText = catalog[key].title;
-        pDesc.innerText = catalog[key].desc;
-        pBox.classList.add('active-preview');
-    }
-
-    function hidePreview() {
-        pBox.classList.remove('active-preview');
-    }
+    // Velocity scale effect
+    let lastX = 0;
+    document.addEventListener('mousemove', (e) => {
+        let speed = Math.abs(e.clientX - lastX);
+        lastX = e.clientX;
+        let scale = 1 + (speed / 1000);
+        follower.style.transform += ` scale(${scale})`;
+    });
 </script>
 
 </body>

@@ -114,22 +114,16 @@
 
         body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(circle at center, #111 0%, #000 100%); z-index: -1; }
 
-    /* DESKTOP OPTIMIZATION */
-@media (min-width: 1024px) {
-    body {
-        /* Adds a professional studio-dark backdrop for desktop users */
-        background: radial-gradient(circle at center, #111 0%, #000 100%);
-        overflow: auto; /* Allows the body to be the container */
-    }
-    .app-shell {
-        /* Maintains the premium mobile feel on large screens */
-        margin: 0 auto;
-        box-shadow: 0 0 100px rgba(0,0,0,0.8), 0 0 40px rgba(29, 185, 84, 0.05);
-        border-left: 1px solid rgba(255,255,255,0.1);
-        border-right: 1px solid rgba(255,255,255,0.1);
-    }
-}
-        
+        /* DESKTOP OPTIMIZATION */
+        @media (min-width: 1024px) {
+            body { overflow: auto; background: #000; }
+            .app-shell {
+                margin: 0 auto;
+                box-shadow: 0 0 100px rgba(0,0,0,0.9);
+                border-left: 1px solid var(--border);
+                border-right: 1px solid var(--border);
+            }
+        }
     </style>
 </head>
 <body>
@@ -203,27 +197,24 @@
                 const elementTop = el.offsetTop;
                 const elementHeight = el.offsetHeight;
 
-                // CHECK: If it's the last course, scroll to the absolute bottom
+                // SPECIAL FIX FOR 3RD COURSE: Scroll to bottom
                 if (el === allNodes[allNodes.length - 1]) {
                     stream.scrollTo({
                         top: stream.scrollHeight,
                         behavior: 'smooth'
                     });
                 } else {
-                    // Standard centering logic for others
+                    // CENTER logic for others
                     const scrollToPos = elementTop - (streamHeight / 2) + (elementHeight / 2) - (headerHeight / 2);
                     stream.scrollTo({
                         top: scrollToPos,
                         behavior: 'smooth'
                     });
                 }
-            }, 250); // Slightly increased delay to ensure height expansion is captured
+            }, 300); // 300ms delay for smooth animation sync
         }
     }
 </script>
 
-    
-
 </body>
-                </html>
-
+</html>

@@ -14,7 +14,7 @@
             --transition: 0.7s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        /* --- GLOBAL & MOBILE (Strictly maintained) --- */
+        /* --- GLOBAL & MOBILE (Base) --- */
         * { box-sizing: border-box; margin: 0; padding: 0; cursor: default; -webkit-tap-highlight-color: transparent; }
         ::-webkit-scrollbar { width: 0px; }
         
@@ -35,7 +35,8 @@
             position: fixed; top: 0; width: 100%; max-width: 450px;
             padding: 40px 30px 25px; background: var(--glass);
             backdrop-filter: blur(25px); z-index: 9999; 
-            border-bottom: 1px solid var(--border); text-align: center;
+            border-bottom: 1px solid var(--border); 
+            text-align: center; /* Centers the text */
         }
 
         .brand-name {
@@ -47,6 +48,7 @@
         .brand-sub {
             font-family: 'Space Grotesk', sans-serif; font-size: 10px; font-weight: 300;
             color: #fff; letter-spacing: 6px; text-transform: uppercase; opacity: 0.6;
+            display: block; /* Ensures centering works */
         }
 
         .nav-hud {
@@ -95,50 +97,56 @@
         .node.active .node-content { justify-content: flex-end; padding-bottom: 30px; }
 
         .node-tag { font-size: 9px; color: var(--accent); font-weight: 600; letter-spacing: 3px; margin-bottom: 8px; display: block; }
-
         .node-title { font-family: 'Syncopate', sans-serif; font-size: 24px; font-weight: 700; color: #fff; text-transform: uppercase; letter-spacing: -1px; }
 
         .node-details { max-height: 0; opacity: 0; overflow: hidden; transition: 0.5s ease; transform: translateY(15px); }
-
         .node.active .node-details { max-height: 250px; opacity: 1; transform: translateY(0); margin-top: 15px; }
 
         .node-desc { font-size: 11px; color: #888; line-height: 1.5; margin-bottom: 20px; }
-
         .enroll-btn {
             display: inline-block; background: var(--accent); color: #000;
             padding: 12px 20px; font-size: 9px; font-weight: 800;
             text-transform: uppercase; text-decoration: none; letter-spacing: 2px; transition: 0.3s;
         }
 
-        .enroll-btn:hover { background: #fff; }
-
         body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(circle at center, #111 0%, #000 100%); z-index: -1; }
 
-        /* --- FULL SCREEN DESKTOP OVERHAUL --- */
+        /* --- DESKTOP RECONSTRUCTION --- */
         @media screen and (min-width: 1000px) {
+            body { align-items: stretch; }
+            
             .app-shell {
-                max-width: 100vw !important; 
+                max-width: 100% !important; 
                 width: 100vw !important; 
                 border: none !important;
             }
 
             .brand-section {
-                max-width: 100vw !important; 
-                width: 100vw !important;
-                display: flex !important; 
-                justify-content: space-between !important;
-                align-items: center !important; 
-                padding: 20px 60px !important;
-                text-align: left !important;
+                max-width: 100% !important; 
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: center !important;
+                padding: 30px 0 !important;
+                height: 120px !important;
             }
 
-            .brand-sub { display: block !important; letter-spacing: 4px !important; opacity: 0.5; }
-            .nav-hud { margin-top: 0 !important; border: none !important; gap: 40px !important; }
+            .nav-hud {
+                position: absolute !important;
+                width: 100% !important;
+                top: 50% !important;
+                transform: translateY(-50%) !important;
+                padding: 0 60px !important;
+                border: none !important;
+                margin: 0 !important;
+                pointer-events: none; /* Allows clicking through to header if needed */
+            }
+            .nav-hud a, .status { pointer-events: auto; }
 
             .course-stream {
-                display: flex !important; 
+                display: flex !important;
                 flex-direction: row !important;
-                padding-top: 90px !important; 
+                padding-top: 120px !important; 
                 overflow: hidden !important;
             }
 
@@ -147,30 +155,18 @@
                 height: 100% !important; 
                 border-bottom: none !important;
                 border-right: 1px solid var(--border) !important;
-                transition: flex 0.8s cubic-bezier(0.23, 1, 0.32, 1) !important;
             }
 
-            .node.active {
-                flex: 2 !important; 
+            .node.active { flex: 2 !important; }
+
+            .node-content { 
+                padding: 60px !important; 
+                text-align: center !important; 
+                align-items: center !important;
             }
-
-            .node-img { opacity: 0.15 !important; }
-            .node:hover .node-img { opacity: 0.4 !important; }
-            .node.active .node-img { opacity: 0.6 !important; transform: scale(1) !important; filter: grayscale(0) !important; }
-
-            .node-content { padding: 60px !important; justify-content: center !important; }
-            .node.active .node-content { justify-content: center !important; padding-bottom: 60px !important; }
-
-            .node-title { font-size: 4vw !important; letter-spacing: -2px !important; }
-            .node-tag { font-size: 11px !important; margin-bottom: 15px !important; }
             
-            .node-details { 
-                max-height: none !important; 
-                opacity: 0 !important; 
-                transform: translateY(20px) !important; 
-                transition: 0.5s ease !important;
-            }
-            .node.active .node-details { opacity: 1 !important; transform: translateY(0) !important; }
+            .node-title { font-size: 3.5vw !important; margin-bottom: 20px !important; }
+            .node-desc { max-width: 350px !important; font-size: 13px !important; }
         }
     </style>
 </head>
@@ -178,10 +174,8 @@
 
 <div class="app-shell">
     <header class="brand-section" id="header">
-        <div style="text-align: left;">
-            <span class="brand-name">Royal Red Bull</span>
-            <span class="brand-sub">College of Music</span>
-        </div>
+        <span class="brand-name">Royal Red Bull</span>
+        <span class="brand-sub">College of Music</span>
         <div class="nav-hud">
             <a href="index.html">Home</a>
             <div class="status"><span></span> System_Active</div>
@@ -236,14 +230,11 @@
         const isDesktop = window.innerWidth >= 1000;
         
         const isActive = el.classList.contains('active');
-        
-        // Reset all nodes
         allNodes.forEach(n => n.classList.remove('active'));
         
         if (!isActive) {
             el.classList.add('active');
             
-            // Auto-scroll logic strictly for Mobile only
             if (!isDesktop) {
                 setTimeout(() => {
                     const headerHeight = header.offsetHeight;
@@ -264,5 +255,5 @@
 </script>
 
 </body>
-    </html>
-    
+                </html>
+                

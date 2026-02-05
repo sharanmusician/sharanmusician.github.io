@@ -67,7 +67,7 @@
         .course-stream {
             flex: 1; overflow-y: scroll; padding-top: 180px; 
             padding-bottom: 0; -webkit-overflow-scrolling: touch;
-            transition: padding-bottom 0.4s ease; /* Smoothly adds space only when needed */
+            transition: padding-bottom 0.4s ease;
         }
 
         .node {
@@ -173,30 +173,30 @@
         const header = document.getElementById('header');
         const isActive = el.classList.contains('active');
         
-        // Reset all nodes
+        // Reset nodes
         document.querySelectorAll('.node').forEach(n => n.classList.remove('active'));
-        stream.style.paddingBottom = "0px"; // Reset padding
         
         if (!isActive) {
             el.classList.add('active');
             
-            // If it's the 3rd course, add dynamic padding to allow scrolling
-            const nodes = document.querySelectorAll('.node');
-            if (el === nodes[nodes.length - 1]) {
-                stream.style.paddingBottom = "300px";
-            }
+            // Critical fix: Ensure there is always enough space to scroll the clicked item to top
+            stream.style.paddingBottom = "400px";
             
             setTimeout(() => {
                 const headerHeight = header.offsetHeight;
                 const elementTop = el.offsetTop;
+                
                 stream.scrollTo({
                     top: elementTop - headerHeight,
                     behavior: 'smooth'
                 });
-            }, 100);
+            }, 150); // Slightly longer delay to allow expansion to start
+        } else {
+            stream.style.paddingBottom = "0px";
         }
     }
 </script>
 
 </body>
-</html>
+                </html>
+                

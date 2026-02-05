@@ -3,172 +3,158 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Selected Works | Sharan Musician</title>
+    <title>Selected Works — Sharan Musician</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,900;1,900&family=Inter:wght@100;300;400;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
     <style>
-        /* ================= THE LUXURY STANDARD ================= */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        /* ================= THE LUXURY ARCHIVE ================= */
+        :root {
+            --accent: #1db954;
+            --bg: #030304;
+            --glass: rgba(20, 20, 25, 0.7);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; } /* Custom cursor for 20cr feel */
+        
         body {
             font-family: 'Inter', sans-serif;
-            background: #020203; /* Deepest onyx */
+            background: var(--bg);
             color: #ffffff;
             overflow-x: hidden;
             user-select: none;
             -webkit-user-select: none;
         }
 
-        /* Minimalist Scroll */
-        ::-webkit-scrollbar { width: 2px; }
-        ::-webkit-scrollbar-thumb { background: #1db954; }
+        /* Smooth Entrance */
+        body { animation: fadeInPage 1.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        @keyframes fadeInPage { from { opacity: 0; filter: blur(10px); } to { opacity: 1; filter: blur(0); } }
+
+        /* ================= CUSTOM CURSOR ================= */
+        #cursor {
+            position: fixed; width: 10px; height: 10px; background: var(--accent);
+            border-radius: 50%; pointer-events: none; z-index: 9999;
+            transition: transform 0.1s ease; mix-blend-mode: difference;
+        }
 
         /* ================= FLOATING ACTION BAR ================= */
         .top-nav {
-            position: fixed;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 8px 8px 8px 24px;
-            background: rgba(20, 20, 25, 0.6);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 100px;
+            position: fixed; top: 40px; left: 50%; transform: translateX(-50%);
+            z-index: 2000; display: flex; align-items: center; gap: 30px;
+            padding: 10px 10px 10px 30px; background: var(--glass);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 100px;
         }
-        .nav-logo { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 4px; color: #666; }
+        .nav-logo { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 5px; color: #888; }
         
         .close-btn {
-            background: #1db954;
-            color: #000;
-            padding: 10px 24px;
-            border-radius: 100px;
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-decoration: none;
-            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            background: #fff; color: #000; padding: 12px 28px; border-radius: 100px;
+            font-size: 11px; font-weight: 800; text-transform: uppercase;
+            letter-spacing: 1.5px; text-decoration: none; transition: all 0.4s;
         }
-        .close-btn:hover { background: #fff; transform: scale(1.05); }
+        .close-btn:hover { background: var(--accent); transform: scale(1.05); }
 
-        /* ================= HERO SECTION ================= */
+        /* ================= HERO ================= */
         header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 10%;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            height: 100vh; display: flex; flex-direction: column;
+            justify-content: center; padding: 0 12%;
         }
-        .hero-label { font-family: 'JetBrains Mono', monospace; color: #1db954; font-size: 12px; letter-spacing: 8px; margin-bottom: 30px; }
-        .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(4rem, 15vw, 12rem); font-weight: 900; line-height: 0.85; letter-spacing: -5px; }
+        .hero-label { font-family: 'JetBrains Mono', monospace; color: var(--accent); font-size: 12px; letter-spacing: 10px; margin-bottom: 20px; opacity: 0.6; }
+        .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(5rem, 18vw, 14rem); font-weight: 900; line-height: 0.8; letter-spacing: -6px; }
+        .hero-title em { font-style: italic; font-weight: 400; color: transparent; -webkit-text-stroke: 1px #fff; }
 
-        /* ================= PROJECT ARCHITECTURE ================= */
-        .work-grid {
-            padding: 150px 10%;
-            display: flex;
-            flex-direction: column;
-            gap: 300px; /* High-end breathing space */
-        }
+        /* ================= PROJECT CARDS (3:4 Ratio) ================= */
+        .work-grid { padding: 100px 12% 200px; display: flex; flex-direction: column; gap: 250px; }
 
         .project-card {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            align-items: center;
-            cursor: pointer;
-            transition: transform 0.8s ease;
+            display: grid; grid-template-columns: repeat(12, 1fr); align-items: center;
+            transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
         }
 
-        /* 3:4 Portrait Image Positioning */
         .project-img-box {
-            grid-column: 1 / 7;
-            aspect-ratio: 3 / 4;
-            overflow: hidden;
-            background: #0a0a0c;
-            position: relative;
-            z-index: 1;
-            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-            border: 1px solid rgba(255,255,255,0.05);
+            grid-column: 1 / 7; aspect-ratio: 3 / 4; overflow: hidden;
+            background: #000; position: relative; border-radius: 2px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
         }
-        .project-img-box img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.5); transition: 1.2s ease; }
+        
+        .project-img-box img { 
+            width: 100%; height: 100%; object-fit: cover; 
+            filter: grayscale(100%) contrast(1.1); transition: 1.5s cubic-bezier(0.2, 1, 0.3, 1);
+        }
 
-        /* Text Overlap Logic */
         .project-content {
-            grid-column: 6 / 13;
-            z-index: 2;
-            padding-left: 50px;
-            pointer-events: none;
+            grid-column: 6 / 13; padding-left: 80px; z-index: 5;
         }
 
-        .index { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: #1db954; margin-bottom: 20px; display: block; }
-        .title { font-family: 'Playfair Display', serif; font-size: clamp(3rem, 8vw, 7rem); line-height: 1; margin-bottom: 20px; font-weight: 900; }
-        .role { font-size: 10px; text-transform: uppercase; letter-spacing: 5px; color: #666; margin-bottom: 30px; display: block; }
-        .description { font-weight: 300; font-size: 1.1rem; line-height: 1.8; color: #888; max-width: 400px; }
+        .index { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--accent); margin-bottom: 30px; display: block; }
+        .title { font-family: 'Playfair Display', serif; font-size: clamp(4rem, 10vw, 8rem); line-height: 0.9; margin-bottom: 30px; letter-spacing: -2px; }
+        .role { font-size: 10px; text-transform: uppercase; letter-spacing: 6px; color: #555; margin-bottom: 40px; display: block; font-weight: 700; }
+        .description { font-weight: 300; font-size: 1.2rem; line-height: 2; color: #777; max-width: 420px; }
 
-        /* Reverse Alignment for Project 2 */
+        /* Reverse Layout */
         .project-card.alt .project-img-box { grid-column: 7 / 13; }
-        .project-card.alt .project-content { grid-column: 1 / 8; text-align: right; padding-left: 0; padding-right: 50px; display: flex; flex-direction: column; align-items: flex-end; }
+        .project-card.alt .project-content { grid-column: 1 / 8; text-align: right; padding-left: 0; padding-right: 80px; display: flex; flex-direction: column; align-items: flex-end; }
 
-        /* ================= THE 20CR GLOW & ELEVATION ================= */
-        .active-glow { transform: translateY(-30px); }
+        /* ================= THE "20CR" ACTIVE STATE ================= */
+        .active-glow { transform: translateY(-40px); }
         .active-glow .project-img-box {
-            box-shadow: 0 100px 150px rgba(0,0,0,0.9), 0 0 60px rgba(29, 185, 84, 0.25);
-            border-color: rgba(29, 185, 84, 0.5);
+            box-shadow: 0 80px 150px rgba(0,0,0,0.9), 0 0 80px rgba(29, 185, 84, 0.3);
+            border: 1px solid rgba(29, 185, 84, 0.4);
         }
-        .active-glow .project-img-box img { filter: saturate(1.1); transform: scale(1.05); }
-        .active-glow .title { color: #1db954; transition: 0.4s; }
+        .active-glow .project-img-box img { filter: grayscale(0%) saturate(1.2); transform: scale(1.1); }
+        .active-glow .title { color: #fff; transform: translateX(20px); transition: transform 0.6s ease; }
+        .project-card.alt.active-glow .title { transform: translateX(-20px); }
 
-        /* ================= MOBILE ADAPTATION ================= */
-        @media (max-width: 900px) {
-            .work-grid { padding: 100px 5%; gap: 150px; }
-            .project-card, .project-card.alt { display: flex; flex-direction: column; align-items: flex-start; text-align: left; }
-            .project-img-box { width: 100%; order: 2; }
-            .project-content, .project-card.alt .project-content { order: 1; padding: 0 0 40px 0; align-items: flex-start; text-align: left; }
-            .hero-title { font-size: 5rem; letter-spacing: -2px; }
-            .title { font-size: 4rem; }
+        /* ================= MOBILE ================= */
+        @media (max-width: 1000px) {
+            .work-grid { padding: 50px 5%; }
+            .project-card, .project-card.alt { display: flex; flex-direction: column; }
+            .project-img-box { width: 100%; margin-bottom: 40px; }
+            .project-content, .project-card.alt .project-content { padding: 0; text-align: left; align-items: flex-start; }
+            .hero-title { font-size: 4rem; }
+            .title { font-size: 3.5rem; }
+            #cursor { display: none; }
         }
     </style>
 </head>
 <body>
 
+<div id="cursor"></div>
+
 <nav class="top-nav">
-    <span class="nav-logo">SHARAN // PROJECTS</span>
+    <span class="nav-logo">SHARAN // EST. 2023</span>
     <a href="index.html" class="close-btn">Close Portfolio</a>
 </nav>
 
 <header>
-    <span class="hero-label">SOUND TO CINEMA</span>
-    <h1 class="hero-title">Sonic<br><em>Vision.</em></h1>
+    <span class="hero-label">DIRECTORIAL REEL</span>
+    <h1 class="hero-title">Selected<br><em>Works.</em></h1>
 </header>
 
 <main class="work-grid">
     
-    <section class="project-card" onclick="activateGlow(this)">
+    <section class="project-card" onclick="activateProject(this)">
         <div class="project-img-box">
-            <img src="hunter_cover.jpg" alt="Hunter">
+            <img src="hunter_cover.jpg" alt="Hunter Short Film">
         </div>
         <div class="project-content">
-            <span class="index">01.</span>
+            <span class="index">001.</span>
             <span class="role">Original Background Score</span>
             <h2 class="title">Hunter</h2>
             <p class="description">
-                2023. A short film score rooted in atmospheric tension and dark minimalist synthesis. Engineered to heighten the psychological weight of every scene.
+                2023. Cinematic depth achieved through minimalist analog textures. A study in tension, silence, and sudden sonic violence.
             </p>
         </div>
     </section>
 
-    <section class="project-card alt" onclick="activateGlow(this)">
+    <section class="project-card alt" onclick="activateProject(this)">
         <div class="project-img-box">
-            <img src="webseries_cover.jpg" alt="IPC 100">
+            <img src="webseries_cover.jpg" alt="IPC 100 Web Series">
         </div>
         <div class="project-content">
-            <span class="index">02.</span>
+            <span class="index">002.</span>
             <span class="role">Leading Music Director</span>
             <h2 class="title">IPC 100</h2>
             <p class="description">
-                2024. Premier web series musical direction. Created a high-stakes sonic identity utilizing a blend of modern industrial soundscapes and cinematic orchestral layers.
+                2024. A flagship web series score merging industrial electronics with classical suspense. Defining the modern sound of crime drama.
             </p>
         </div>
     </section>
@@ -176,14 +162,34 @@
 </main>
 
 <script>
-    function activateGlow(element) {
-        document.querySelectorAll('.project-card').forEach(card => {
-            card.classList.remove('active-glow');
-        });
+    // Project Selection Glow Logic
+    function activateProject(element) {
+        document.querySelectorAll('.project-card').forEach(card => card.classList.remove('active-glow'));
         element.classList.add('active-glow');
     }
+
+    // Custom Luxury Cursor
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    document.addEventListener('mousedown', () => cursor.style.transform = 'scale(4)');
+    document.addEventListener('mouseup', () => cursor.style.transform = 'scale(1)');
+
+    // Scroll Observer for Subtle Auto-Glow
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) {
+                // Optional: Auto-glow on scroll
+                // entry.target.classList.add('active-glow');
+            }
+        });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.project-card').forEach(card => observer.observe(card));
 </script>
 
 </body>
-        </html>
-        
+</html>

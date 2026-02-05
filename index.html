@@ -82,7 +82,9 @@
             width: 100%; 
             background: #111118; 
             border-bottom: 1px solid rgba(255,255,255,0.03);
-            padding-bottom: 0px; 
+            /* REDUCED BACKGROUND HEIGHT */
+            padding-top: 2px;
+            padding-bottom: 2px; 
             justify-content: space-evenly; 
         }
         nav button, nav a { 
@@ -93,7 +95,7 @@
             background: none; 
             color: #999; 
             font-size: 14px; 
-            padding: 12px 0; 
+            padding: 8px 0; /* Reduced vertical padding */
             width: 100%;
         }
         nav button.active { color: #1db954; font-weight: 700; }
@@ -246,7 +248,8 @@
                 overflow-x: auto; 
                 white-space: nowrap; 
                 justify-content: flex-start; 
-                padding-bottom: 0px; 
+                padding-top: 2px;
+                padding-bottom: 2px; 
             }
             nav button, nav a { 
                 flex: 0 0 25%; 
@@ -419,16 +422,4 @@
         hideTimeout = setTimeout(() => muteBtn.classList.add('hidden'), 500);
     }
     
-    heroWrapper.addEventListener('click', toggleMute);
-
-    const navButtons = document.querySelectorAll('#mainNav button');
-    navButtons.forEach(btn => {
-        btn.addEventListener('click', () => {
-            navButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-        });
-    });
-</script>
-
-</body>
-</html>
+    heroWrapper.addEventList

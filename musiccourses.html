@@ -13,8 +13,26 @@
             --transition: all 0.6s cubic-bezier(0.2, 1, 0.2, 1);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; cursor: default; }
-        body, html { background: var(--bg); color: #fff; font-family: 'Space Grotesk', sans-serif; overflow-x: hidden; scroll-behavior: smooth; }
+        /* --- SECURITY: PREVENT SELECTION & TOUCH --- */
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            cursor: default;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body, html { 
+            background: var(--bg); 
+            color: #fff; 
+            font-family: 'Space Grotesk', sans-serif; 
+            overflow-x: hidden; 
+            scroll-behavior: smooth; 
+        }
 
         /* --- STACKED HEADER --- */
         header {
@@ -23,18 +41,37 @@
             border-bottom: 1px solid var(--border);
         }
         .brand-name { 
-            font-family: 'Syncopate', sans-serif; font-weight: 700; font-size: 20px; 
-            letter-spacing: 5px; text-transform: uppercase; 
-            white-space: nowrap; display: block; width: 100%;
+            font-family: 'Syncopate', sans-serif; 
+            font-weight: 700; 
+            font-size: 20px; 
+            letter-spacing: 5px; 
+            text-transform: uppercase; 
+            white-space: nowrap; 
+            display: block; 
+            width: 100%;
         }
         .brand-sub { 
-            font-size: 10px; letter-spacing: 6px; opacity: 0.5; 
-            text-transform: uppercase; display: block; margin: 12px 0 25px; 
+            font-size: 10px; 
+            letter-spacing: 6px; 
+            opacity: 0.5; 
+            text-transform: uppercase; 
+            display: block; 
+            margin: 12px 0 25px; 
         }
-        .nav-links { display: flex; justify-content: center; gap: 40px; }
+        .nav-links { 
+            display: flex; 
+            justify-content: center; 
+            gap: 40px; 
+        }
         .nav-links a { 
-            color: #fff; text-decoration: none; font-size: 10px; 
-            letter-spacing: 2px; text-transform: uppercase; opacity: 0.6; transition: 0.3s;
+            color: #fff; 
+            text-decoration: none; 
+            font-size: 10px; 
+            letter-spacing: 2px; 
+            text-transform: uppercase; 
+            opacity: 0.6; 
+            transition: 0.3s;
+            cursor: pointer;
         }
         .nav-links a:hover { opacity: 1; color: var(--accent); }
 
@@ -50,7 +87,7 @@
             position: absolute; inset: 0; opacity: 0.2; filter: grayscale(1); 
             background-size: cover; background-position: center; transition: var(--transition); 
         }
-        /* Subtled down the zoom from 1.1 to 1.03 for professional feel */
+        /* Professional Subtle Zoom */
         .m-card.active .m-img { opacity: 0.4; filter: grayscale(0); transform: scale(1.03); }
 
         .m-content { 
@@ -67,7 +104,7 @@
 
         @media (min-width: 1000px) {
             .mobile-view { display: none; }
-            .desktop-view { display: flex; height: 60vh; width: 100%; }
+            .desktop-view { display: flex; height: 65vh; width: 100%; }
             .d-panel { 
                 flex: 1; position: relative; overflow: hidden; transition: var(--transition);
                 border-right: 1px solid var(--border); display: flex; align-items: flex-end; padding: 60px;
@@ -75,9 +112,9 @@
             .d-panel:hover { flex: 1.5; }
             .d-img { position: absolute; inset: 0; background-size: cover; background-position: center; filter: grayscale(1) brightness(0.2); transition: var(--transition); }
             .d-panel:hover .d-img { filter: grayscale(0) brightness(0.5); transform: scale(1.02); }
-            .d-content { position: relative; z-index: 2; }
+            .d-content { position: relative; z-index: 2; pointer-events: none; }
             .d-info { max-height: 0; opacity: 0; transition: var(--transition); }
-            .d-panel:hover .d-info { max-height: 200px; opacity: 1; margin-top: 20px; }
+            .d-panel:hover .d-info { max-height: 200px; opacity: 1; margin-top: 20px; pointer-events: auto; }
         }
 
         /* --- SHARED UI --- */
@@ -87,6 +124,7 @@
         .btn { 
             display: inline-block; padding: 12px 24px; background: var(--accent); color: #000; 
             text-decoration: none; font-size: 9px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase;
+            cursor: pointer;
         }
 
         /* --- PROFESSIONAL FOOTER --- */
@@ -94,9 +132,7 @@
             padding: 100px 20px; text-align: center; background: #000;
             border-top: 1px solid var(--border);
         }
-        .institutional-roadmap {
-            max-width: 600px; margin: 0 auto;
-        }
+        .institutional-roadmap { max-width: 600px; margin: 0 auto; }
         .roadmap-line { width: 40px; height: 1px; background: var(--accent); margin: 20px auto; }
         .cs-title { 
             font-family: 'Syncopate', sans-serif; font-size: 18px; 
@@ -112,7 +148,7 @@
         }
     </style>
 </head>
-<body>
+<body oncontextmenu="return false;">
 
 <header>
     <h1 class="brand-name">Royal Red Bull</h1>
@@ -169,7 +205,7 @@
             <h2 class="title">Piano</h2>
             <div class="d-info">
                 <p class="desc">Master neoclassical resonance and elite performance psychology.</p>
-                <a href="#" class="btn">View Course</a>
+                <a href="https://drive.google.com/drive/folders/18ooO_oNfXI-tN7AvV0iME_CsXNAqO5wx" target="_blank" class="btn">View Course</a>
             </div>
         </div>
     </div>
@@ -180,7 +216,7 @@
             <h2 class="title">Drums</h2>
             <div class="d-info">
                 <p class="desc">Engineering rhythm and session geometry for the world's elite.</p>
-                <a href="#" class="btn">View Course</a>
+                <a href="https://drive.google.com/drive/folders/1BZcd2wGSugxzQSZhyQgAMuUJ9gzGUSA7" target="_blank" class="btn">View Course</a>
             </div>
         </div>
     </div>
@@ -191,7 +227,7 @@
             <h2 class="title">Production</h2>
             <div class="d-info">
                 <p class="desc">High-fidelity signal chains and the psychology of sound design.</p>
-                <a href="#" class="btn">View Course</a>
+                <a href="https://drive.google.com/drive/folders/1fwydNplKrsFkeAXLmNebrKtwbrnN91pl" target="_blank" class="btn">View Course</a>
             </div>
         </div>
     </div>
@@ -210,6 +246,7 @@
 </footer>
 
 <script>
+    // --- UI LOGIC ---
     function toggleNode(el) {
         const allCards = document.querySelectorAll('.m-card');
         const isActive = el.classList.contains('active');
@@ -218,14 +255,22 @@
 
         if (!isActive) {
             el.classList.add('active');
-            
             setTimeout(() => {
                 const offset = el.offsetTop - (window.innerHeight / 2) + (el.offsetHeight / 2);
                 window.scrollTo({ top: offset, behavior: 'smooth' });
             }, 400);
         }
     }
+
+    // --- SECURITY LOGIC ---
+    // Disable Keyboard Shortcuts
+    document.onkeydown = function(e) {
+        if(e.keyCode == 123) return false; // F12
+        if(e.ctrlKey && (e.keyCode == 67 || e.keyCode == 85 || e.keyCode == 73 || e.keyCode == 83 || (e.shiftKey && e.keyCode == 73))) return false;
+        if(e.metaKey && (e.keyCode == 67 || (e.altKey && e.keyCode == 73))) return false; // Mac Cmd+C etc
+    };
 </script>
 
 </body>
-</html>
+    </html>
+    

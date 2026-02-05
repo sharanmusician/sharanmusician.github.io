@@ -2,229 +2,156 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Academy | Sharan Musician</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academy | Sharan</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        /* ================= THE SOVEREIGN CORE ================= */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         :root {
             --accent: #1db954;
-            --gold: #c5a358;
-            --bg: #050505;
-            --card-bg: #0c0c0c;
-            --text-dim: #666666;
-            --p-x: clamp(1.5rem, 6vw, 10rem);
+            --bg: #000000;
+            --glass: rgba(255, 255, 255, 0.03);
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
             color: #fff;
-            line-height: 1.5;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
-        /* ================= PREMIUM NAVIGATION ================= */
+        /* ================= THE FIXED NAV ================= */
         .nav {
-            position: fixed; top: 0; width: 100%; height: 90px;
+            position: fixed; top: 0; width: 100%; height: 100px;
             display: flex; align-items: center; justify-content: space-between;
-            padding: 0 var(--p-x); background: rgba(5, 5, 5, 0.85);
-            backdrop-filter: blur(30px); z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
+            padding: 0 6%; z-index: 1000; mix-blend-mode: difference;
         }
-        .brand { font-family: 'JetBrains Mono'; font-size: 11px; letter-spacing: 5px; font-weight: 800; text-transform: uppercase; color: var(--accent); }
-        .close-btn {
-            font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
-            text-decoration: none; color: #fff; padding: 10px 24px;
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 100px;
-            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-        .close-btn:hover { background: #fff; color: #000; }
+        .brand { font-family: 'JetBrains Mono'; font-size: 11px; letter-spacing: 10px; text-transform: uppercase; }
+        .close-link { font-size: 10px; font-weight: 800; text-transform: uppercase; text-decoration: none; color: #fff; letter-spacing: 2px; }
 
-        /* ================= HERO SECTION ================= */
-        .hero {
-            padding: 180px var(--p-x) 80px;
-            max-width: 1800px;
-        }
-        .hero-tag { font-family: 'JetBrains Mono'; font-size: 12px; letter-spacing: 8px; color: var(--gold); text-transform: uppercase; margin-bottom: 25px; display: block; }
-        .hero h1 { 
-            font-size: clamp(3.5rem, 12vw, 9rem); font-weight: 800; 
-            text-transform: uppercase; letter-spacing: -5px; line-height: 0.85;
-            background: linear-gradient(to bottom, #fff 50%, #333 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
+        /* ================= SPLIT SCENE LAYOUT ================= */
+        .main-wrapper { display: flex; width: 100%; }
 
-        /* ================= COURSE GALLERY ================= */
-        .academy-list { padding-bottom: 150px; }
-
-        .category-group { margin-bottom: 100px; padding: 0 var(--p-x); }
-        .category-header {
-            font-family: 'JetBrains Mono'; font-size: 11px; letter-spacing: 4px;
-            color: var(--text-dim); text-transform: uppercase; margin-bottom: 40px;
-            display: flex; align-items: center; gap: 20px;
+        /* Left Side: Sticky Title */
+        .side-title {
+            width: 40%; height: 100vh; position: sticky; top: 0;
+            display: flex; flex-direction: column; justify-content: center;
+            padding-left: 6%; background: var(--bg); z-index: 10;
         }
-        .category-header::after { content: ''; flex: 1; height: 1px; background: rgba(255,255,255,0.05); }
+        .side-title span { font-family: 'JetBrains Mono'; color: var(--accent); font-size: 12px; letter-spacing: 5px; margin-bottom: 20px; }
+        .side-title h1 { font-size: clamp(3rem, 8vw, 7rem); line-height: 0.85; font-weight: 800; text-transform: uppercase; letter-spacing: -5px; }
 
-        .course-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 30px;
-        }
+        /* Right Side: Scrolling Content */
+        .scroll-content { width: 60%; }
 
-        .course-card {
-            background: var(--card-bg);
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.04);
+        .course-section {
+            height: 100vh; width: 100%; position: relative;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            padding: 60px; border-left: 1px solid rgba(255,255,255,0.05);
             overflow: hidden;
-            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
         }
 
-        /* Grid Assignments for Desktop */
-        .card-large { grid-column: span 8; }
-        .card-small { grid-column: span 4; }
-
-        .card-img {
-            width: 100%; height: 450px;
-            position: relative; overflow: hidden;
-            background: #111;
+        .bg-img {
+            position: absolute; inset: 0; z-index: -1;
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .card-img img { 
-            width: 100%; height: 100%; object-fit: cover; 
-            opacity: 0.4; transition: 1.2s cubic-bezier(0.16, 1, 0.3, 1); 
-            filter: grayscale(1);
+        .bg-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.4; filter: grayscale(1); transition: 1s; }
+
+        .course-section:hover .bg-img img { opacity: 0.7; filter: grayscale(0); transform: scale(1.1); }
+
+        .course-info { max-width: 500px; transform: translateY(20px); opacity: 0; transition: 0.8s ease; }
+        .course-section.visible .course-info { transform: translateY(0); opacity: 1; }
+
+        .course-num { font-family: 'JetBrains Mono'; color: rgba(255,255,255,0.2); font-size: 80px; font-weight: 800; line-height: 1; position: absolute; top: 40px; right: 40px; }
+        .course-name { font-size: 3.5rem; font-weight: 800; text-transform: uppercase; letter-spacing: -2px; margin-bottom: 15px; }
+        .course-p { color: #888; font-size: 1.1rem; line-height: 1.7; margin-bottom: 30px; }
+
+        .cta-btn {
+            display: inline-block; padding: 18px 40px; border: 1px solid #fff;
+            color: #fff; text-decoration: none; font-size: 11px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 3px; border-radius: 100px;
+            transition: 0.4s;
         }
+        .cta-btn:hover { background: #fff; color: #000; }
 
-        .card-content { padding: 40px; }
-        .card-label { font-family: 'JetBrains Mono'; color: var(--accent); font-size: 10px; letter-spacing: 3px; margin-bottom: 15px; display: block; }
-        .card-title { font-size: 2.2rem; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; letter-spacing: -1px; }
-        .card-desc { color: var(--text-dim); font-size: 1.05rem; line-height: 1.7; max-width: 500px; margin-bottom: 30px; }
-
-        /* INTERACTIVE STATES */
-        .course-card:hover { border-color: var(--accent); transform: translateY(-10px); }
-        .course-card:hover .card-img img { opacity: 0.8; filter: grayscale(0); transform: scale(1.05); }
-
-        /* ================= MOBILE ADAPTATION ================= */
-        @media (max-width: 1024px) {
-            .course-grid { display: flex; flex-direction: column; }
-            .card-img { height: 300px; }
-            .card-title { font-size: 1.8rem; }
-            .hero { padding-top: 140px; }
+        /* ================= MOBILE OPTIMIZATION ================= */
+        @media (max-width: 1000px) {
+            .main-wrapper { flex-direction: column; }
+            .side-title { 
+                width: 100%; height: auto; position: relative; 
+                padding: 140px 6% 60px; 
+            }
+            .scroll-content { width: 100%; }
+            .course-section { height: 80vh; border-left: none; border-top: 1px solid rgba(255,255,255,0.05); padding: 40px 6%; }
+            .course-name { font-size: 2.2rem; }
+            .course-num { font-size: 50px; top: 20px; right: 20px; }
         }
-
-        /* ================= PREMIUM BUTTON ================= */
-        .enroll-btn {
-            display: inline-flex; align-items: center; gap: 15px;
-            color: #fff; font-family: 'JetBrains Mono'; font-size: 11px;
-            font-weight: 700; text-transform: uppercase; letter-spacing: 2px;
-            text-decoration: none; border-bottom: 1px solid var(--accent);
-            padding-bottom: 5px;
-        }
-
     </style>
 </head>
 <body>
 
 <nav class="nav">
-    <div class="brand">Academy</div>
-    <a href="index.html" class="close-btn">Close</a>
+    <div class="brand">ACADEMY</div>
+    <a href="#" class="close-link">Close Portfolio</a>
 </nav>
 
-<header class="hero">
-    <span class="hero-tag">Professional Mentorship</span>
-    <h1>Master<br>The Sound.</h1>
-</header>
+<div class="main-wrapper">
+    <aside class="side-title">
+        <span>CURATED CURRICULUM</span>
+        <h1>The<br>Sovereign<br>Tier.</h1>
+    </aside>
 
-<main class="academy-list">
-
-    <section class="category-group">
-        <div class="category-header">01 // Performance</div>
-        <div class="course-grid">
-            
-            <div class="course-card card-large">
-                <div class="card-img">
-                    <img src="piano_img.jpg" alt="Piano">
-                </div>
-                <div class="card-content">
-                    <span class="card-label">8 Week Intensive</span>
-                    <h2 class="card-title">Cinematic Piano Mastery</h2>
-                    <p class="card-desc">Advanced harmonic structures and emotive playing techniques for the modern composer.</p>
-                    <a href="#" class="enroll-btn">View Curriculum &rsaquo;</a>
-                </div>
+    <main class="scroll-content">
+        
+        <section class="course-section">
+            <div class="bg-img"><img src="piano_lux.jpg" alt="Piano"></div>
+            <div class="course-num">01</div>
+            <div class="course-info">
+                <h2 class="course-name">Cinematic Piano</h2>
+                <p class="course-p">Advanced architectural movements and emotive soundscapes. Reserved for high-level performance mastery.</p>
+                <a href="#" class="cta-btn">Private Admission</a>
             </div>
+        </section>
 
-            <div class="course-card card-small">
-                <div class="card-img">
-                    <img src="drums_img.jpg" alt="Drums">
-                </div>
-                <div class="card-content">
-                    <span class="card-label">Rhythm Section</span>
-                    <h2 class="card-title">Drums</h2>
-                    <p class="card-desc">The science of the pocket and rhythmic identity.</p>
-                    <a href="#" class="enroll-btn">View &rsaquo;</a>
-                </div>
+        <section class="course-section">
+            <div class="bg-img"><img src="drums_lux.jpg" alt="Drums"></div>
+            <div class="course-num">02</div>
+            <div class="course-info">
+                <h2 class="course-name">Rhythm & Pocket</h2>
+                <p class="course-p">The science of timing. Developing a world-class rhythmic identity through syncopation and feel.</p>
+                <a href="#" class="cta-btn">Explore Course</a>
             </div>
+        </section>
 
-        </div>
-    </section>
-
-    <section class="category-group">
-        <div class="category-header">02 // Technology</div>
-        <div class="course-grid">
-            
-            <div class="course-card card-small">
-                <div class="card-img">
-                    <img src="theory_img.jpg" alt="Theory">
-                </div>
-                <div class="card-content">
-                    <span class="card-label">Foundation</span>
-                    <h2 class="card-title">Music Theory</h2>
-                    <p class="card-desc">The universal language of sound decoded for producers.</p>
-                    <a href="#" class="enroll-btn">View &rsaquo;</a>
-                </div>
+        <section class="course-section">
+            <div class="bg-img"><img src="prod_lux.jpg" alt="Production"></div>
+            <div class="course-num">03</div>
+            <div class="course-info">
+                <h2 class="course-name">Sound Design</h2>
+                <p class="course-p">Engineering the future. Master the digital and analog signal chains that define global hits.</p>
+                <a href="#" class="cta-btn">Join Academy</a>
             </div>
+        </section>
 
-            <div class="course-card card-large">
-                <div class="card-img">
-                    <img src="prod_img.jpg" alt="Production">
-                </div>
-                <div class="card-content">
-                    <span class="card-label">Pro Series</span>
-                    <h2 class="card-title">Music Production & Sound Design</h2>
-                    <p class="card-desc">Master Ableton Live, Logic Pro, and professional mixing workflows to reach global industry standards.</p>
-                    <a href="#" class="enroll-btn">View Curriculum &rsaquo;</a>
-                </div>
-            </div>
-
-        </div>
-    </section>
-
-</main>
+    </main>
+</div>
 
 <script>
-    // Smooth Entrance Logic
-    const revealOptions = { threshold: 0.15 };
-    const revealCallback = (entries) => {
+    // Intersection Observer for the "reveal" effect on scroll
+    const observerOptions = { threshold: 0.3 };
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                entry.target.style.opacity = "1";
-                entry.target.style.transform = "translateY(0)";
+                entry.target.classList.add('visible');
             }
         });
-    };
+    }, observerOptions);
 
-    const observer = new IntersectionObserver(revealCallback, revealOptions);
-
-    document.querySelectorAll('.course-card').forEach(card => {
-        card.style.opacity = "0";
-        card.style.transform = "translateY(40px)";
-        card.style.transition = "all 0.9s cubic-bezier(0.16, 1, 0.3, 1)";
-        observer.observe(card);
+    document.querySelectorAll('.course-section').forEach(section => {
+        observer.observe(section);
     });
 </script>
 
 </body>
-                    </html>
-                    
+</html>

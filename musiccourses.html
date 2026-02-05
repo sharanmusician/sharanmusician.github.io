@@ -3,284 +3,300 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SHARAN | ULTRA PRO</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <title>ROYAL RED BULL | COLLEGE OF MUSIC</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;600&display=swap" rel="stylesheet">
     <style>
         :root { 
-            --accent: #1db954; 
-            --bg: #050505; 
-            --panel-bg: #0a0a0a;
-            --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            /* 20cr PALETTE: Crimson, Off-White, Deep Black */
+            --accent: #E91E25; /* Royal Red */
+            --text-main: #E0E0E0;
+            --bg: #030303; 
+            --card-bg: #0D0D0D;
+            --glass: rgba(5, 5, 5, 0.85);
+            --border: rgba(255, 255, 255, 0.08);
+            --transition: 0.5s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
+        * { box-sizing: border-box; margin: 0; padding: 0; cursor: default; -webkit-tap-highlight-color: transparent; }
+        
+        /* HIDE SCROLLBAR BUT ALLOW SCROLLING */
+        ::-webkit-scrollbar { width: 0px; background: transparent; }
         
         body, html { 
-            height: 100vh; background: var(--bg); color: #fff;
-            font-family: 'Plus Jakarta Sans', sans-serif; overflow: hidden;
+            height: 100vh; 
+            background: var(--bg); 
+            color: var(--text-main);
+            font-family: 'Space Grotesk', sans-serif; 
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
         }
 
-        /* --- BRANDING HEADER (MOVED TOP) --- */
-        .brand-header {
-            position: fixed;
-            top: 40px; /* Aligned with top padding */
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            z-index: 200; /* Higher than HUD */
-            pointer-events: none;
+        /* --- CENTRAL APP CONTAINER (Mobile View on Desktop) --- */
+        .app-container {
             width: 100%;
+            max-width: 480px; /* Limits width on desktop to look like mobile */
+            height: 100vh;
+            position: relative;
+            background: var(--bg);
+            border-left: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
         }
 
-        .brand-name {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 800;
-            font-size: clamp(16px, 2.5vw, 22px); /* Larger & Attractive */
-            letter-spacing: 5px;
-            color: #fff;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-            text-shadow: 0 0 20px rgba(255,255,255,0.1);
+        /* --- FIXED HEADER SECTION --- */
+        .header-section {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            padding: 30px 25px;
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            z-index: 100;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
         }
 
-        .brand-sub {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: clamp(9px, 1.5vw, 11px);
-            color: var(--accent);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            opacity: 0.9;
-        }
-
-        /* --- NANO HUD --- */
-        .hud-ui {
-            position: fixed; inset: 0; padding: 40px;
-            padding-top: 100px; /* Pushed down to make room for Title */
-            display: flex; flex-direction: column; justify-content: space-between;
-            pointer-events: none; z-index: 100;
-        }
-        .hud-top, .hud-bottom { display: flex; justify-content: space-between; align-items: center; }
+        .brand-block { text-align: center; }
         
-        .nav-link { 
-            font-family: 'JetBrains Mono'; font-size: 10px; color: rgba(255,255,255,0.4); 
-            text-decoration: none; pointer-events: auto; letter-spacing: 2px;
+        .brand-title {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            color: #fff;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        
+        .brand-subtitle {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 9px;
+            color: var(--accent);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .nav-item {
+            font-size: 9px;
+            color: #666;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: 0.3s;
         }
-        .nav-link:hover { color: var(--accent); }
-
-        .status-tag {
-            font-family: 'JetBrains Mono'; font-size: 9px; color: #444;
-            display: flex; align-items: center; gap: 8px;
-        }
-        .status-tag::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 10px var(--accent); }
-
-        /* --- THE MONOLITH ENGINE --- */
-        .viewport {
-            height: 100vh; width: 100vw; display: flex; align-items: center; justify-content: center;
-            padding-top: 60px; /* Offset for header */
+        .nav-item:hover { color: #fff; }
+        
+        .active-dot {
+            width: 6px; height: 6px; 
+            background: var(--accent); 
+            border-radius: 50%; 
+            box-shadow: 0 0 8px var(--accent);
         }
 
-        .monolith {
-            width: 90vw; height: 65vh; /* Slightly reduced height to balance top header */
-            display: flex; gap: 4px;
-            background: rgba(255,255,255,0.03); padding: 4px;
+        /* --- SCROLLABLE COURSE STREAM --- */
+        .scroll-stream {
+            flex: 1;
+            overflow-y: scroll;
+            padding-top: 140px; /* Space for fixed header */
+            padding-bottom: 40px;
         }
 
         .node {
-            flex: 1; position: relative; overflow: hidden;
-            background: var(--panel-bg); display: flex; 
-            align-items: center; justify-content: center;
-            transition: flex var(--transition);
-            pointer-events: auto;
+            position: relative;
+            width: 100%;
+            height: 160px; /* Compact closed state */
+            background: var(--card-bg);
+            border-bottom: 1px solid var(--border);
+            overflow: hidden;
+            transition: height var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .node.active { flex: 1.25; align-items: flex-end; }
+        .node.active { height: 400px; /* Expanded state */ }
 
-        .node-img {
-            position: absolute; inset: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.2; filter: grayscale(1) brightness(0.5);
+        .node-bg {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+            filter: grayscale(100%);
             transition: var(--transition);
         }
-        
-        .node::after {
-            content: ''; position: absolute; inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,1) 0%, transparent 80%);
-            opacity: 0.8; transition: var(--transition);
+
+        .node.active .node-bg { opacity: 0.7; filter: grayscale(0%); transform: scale(1.05); }
+
+        .node-overlay {
+            position: absolute; inset: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.9) 90%);
         }
 
-        .node.active .node-img { opacity: 0.6; filter: grayscale(0) brightness(0.8); }
-
         .node-content {
-            position: relative; z-index: 10; padding: 40px; width: 100%;
+            position: relative; z-index: 10;
+            width: 100%; padding: 30px;
             text-align: center;
             transition: var(--transition);
         }
 
-        .node.active .node-content { text-align: left; padding: 40px; }
+        .node.active .node-content { text-align: left; padding-top: 120px; }
 
-        .node-tag { 
-            font-family: 'JetBrains Mono'; font-size: 10px; color: var(--accent); 
-            letter-spacing: 3px; margin-bottom: 12px; display: block; 
-        }
-        
-        .node-title { 
-            font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800; 
-            text-transform: uppercase; letter-spacing: -1px; line-height: 0.85; 
+        .node-num {
+            font-size: 9px; color: var(--accent);
+            letter-spacing: 2px; margin-bottom: 8px;
+            display: block; font-weight: 600;
         }
 
+        .node-title {
+            font-family: 'Syncopate', sans-serif;
+            font-weight: 700;
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+            color: #fff;
+        }
+
+        /* HIDDEN DETAILS */
         .node-details {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-top: 0;
-            opacity: 0;
-            height: 0;
+            max-height: 0; opacity: 0;
             overflow: hidden;
             transform: translateY(10px);
-            transition: opacity 0.3s ease, transform 0.3s ease, height 0.3s ease, margin 0.3s ease;
-            pointer-events: none;
+            transition: 0.5s ease;
+            margin-top: 0;
         }
 
         .node.active .node-details {
-            opacity: 1;
-            height: 70px; 
-            margin-top: 20px;
+            max-height: 200px; opacity: 1;
             transform: translateY(0);
-            pointer-events: auto;
+            margin-top: 20px;
         }
 
-        .node-desc { 
-            font-size: 0.75rem; color: #888; max-width: 280px;
-            line-height: 1.4; text-align: left;
+        .node-desc {
+            font-size: 11px; color: #aaa;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            max-width: 90%;
         }
 
-        .enroll-btn {
-            background: var(--accent); color: #000;
-            font-family: 'JetBrains Mono'; font-size: 9px; font-weight: 800;
-            padding: 8px 14px; text-decoration: none;
-            letter-spacing: 1px; transition: 0.2s;
-            white-space: nowrap;
+        .action-btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 12px 24px;
+            text-decoration: none;
+            clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+            transition: 0.3s;
+        }
+        
+        .action-btn:hover {
+            background: #fff; color: #000;
+            box-shadow: 0 0 20px rgba(255,255,255,0.3);
         }
 
-        .enroll-btn:hover { background: #fff; box-shadow: 0 0 15px var(--accent); }
-
-        /* --- CURSOR SYSTEM --- */
-        #cursor-dot { position: fixed; width: 6px; height: 6px; background: #fff; border-radius: 50%; z-index: 1000; pointer-events: none; mix-blend-mode: difference; }
-        #cursor-aura { 
-            position: fixed; width: 40px; height: 40px; border: 1px solid rgba(255,255,255,0.2); 
-            border-radius: 50%; z-index: 999; pointer-events: none; 
-            transition: transform 0.1s ease-out;
-        }
-
-        @media (max-width: 900px) {
-            .brand-header { top: 30px; }
-            .hud-ui { padding-top: 100px; }
-            .monolith { flex-direction: column; height: 75vh; width: 95vw; }
-            .node.active { flex: 1.3; }
-            .node-title { font-size: 2rem; }
-            .node-content { padding: 25px !important; }
-            .node-details { flex-direction: column; align-items: flex-start; gap: 10px; height: auto !important; }
-            #cursor-dot, #cursor-aura { display: none; }
-            * { cursor: auto !important; }
+        /* --- DESKTOP BG --- */
+        @media (min-width: 500px) {
+            body { 
+                background-image: radial-gradient(circle at 50% 50%, #111 0%, #000 100%);
+            }
         }
     </style>
 </head>
 <body>
 
-<div id="cursor-dot"></div>
-<div id="cursor-aura"></div>
+<div class="app-container">
+    
+    <nav class="header-section">
+        <div class="brand-block">
+            <div class="brand-title">Royal Red Bull</div>
+            <div class="brand-subtitle">College of Music</div>
+        </div>
+        <div class="nav-bar">
+            <a href="index.html" class="nav-item">Home</a>
+            <div class="active-dot"></div>
+            <a href="community.html" class="nav-item">Connect</a>
+        </div>
+    </nav>
 
-<div class="brand-header">
-    <div class="brand-name">Royal Red Bull</div>
-    <div class="brand-sub">College of Music</div>
-</div>
-
-<nav class="hud-ui">
-    <div class="hud-top">
-        <a href="index.html" class="nav-link">← HOME</a>
-        <div class="status-tag">SYSTEM_ACTIVE</div>
-        <a href="community.html" class="nav-link">CONNECT</a>
-    </div>
-    <div class="hud-bottom">
-        <span class="nav-link"></span> <span class="nav-link"></span> </div>
-</nav>
-
-<section class="viewport">
-    <main class="monolith">
+    <section class="scroll-stream">
         
-        <div class="node" onclick="activateNode(this)">
-            <img src="https://images.unsplash.com/photo-1552422535-c45813c61732?q=80&w=2070" class="node-img">
+        <div class="node" onclick="toggleNode(this)">
+            <img src="https://images.unsplash.com/photo-1552422535-c45813c61732?q=80&w=2070" class="node-bg">
+            <div class="node-overlay"></div>
             <div class="node-content">
-                <span class="node-tag">01 // PERFORMANCE</span>
+                <span class="node-num">01 // CLASSICAL</span>
                 <h2 class="node-title">Piano</h2>
                 <div class="node-details">
-                    <p class="node-desc">Mastering neoclassical resonance and emotive performance architecture.</p>
-                    <a href="PASTE_PIANO_DRIVE_LINK" class="enroll-btn" target="_blank">ENROLL_DRIVE</a>
+                    <p class="node-desc">Master the architecture of resonance. A curriculum designed for the modern virtuoso.</p>
+                    <a href="PASTE_PIANO_LINK" class="action-btn" target="_blank">Access Curriculum</a>
                 </div>
             </div>
         </div>
 
-        <div class="node" onclick="activateNode(this)">
-            <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=2070" class="node-img">
+        <div class="node" onclick="toggleNode(this)">
+            <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=2070" class="node-bg">
+            <div class="node-overlay"></div>
             <div class="node-content">
-                <span class="node-tag">02 // KINETIC</span>
+                <span class="node-num">02 // RHYTHMIC</span>
                 <h2 class="node-title">Drums</h2>
                 <div class="node-details">
-                    <p class="node-desc">The geometry of the pocket. Engineering rhythm for elite sessions.</p>
-                    <a href="PASTE_DRUMS_DRIVE_LINK" class="enroll-btn" target="_blank">ENROLL_DRIVE</a>
+                    <p class="node-desc">Precision engineering for the pocket. Define the heartbeat of the session.</p>
+                    <a href="PASTE_DRUMS_LINK" class="action-btn" target="_blank">Access Curriculum</a>
                 </div>
             </div>
         </div>
 
-        <div class="node" onclick="activateNode(this)">
-            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070" class="node-img">
+        <div class="node" onclick="toggleNode(this)">
+            <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070" class="node-bg">
+            <div class="node-overlay"></div>
             <div class="node-content">
-                <span class="node-tag">03 // SYNTHESIS</span>
+                <span class="node-num">03 // SYNTHESIS</span>
                 <h2 class="node-title">Prod.</h2>
                 <div class="node-details">
-                    <p class="node-desc">High-end signal chains and the psychology of sound design.</p>
-                    <a href="PASTE_PROD_DRIVE_LINK" class="enroll-btn" target="_blank">ENROLL_DRIVE</a>
+                    <p class="node-desc">Sonic psychology and high-fidelity signal chains for chart-topping production.</p>
+                    <a href="PASTE_PROD_LINK" class="action-btn" target="_blank">Access Curriculum</a>
                 </div>
             </div>
         </div>
+        
+        <div style="height: 100px;"></div>
 
-    </main>
-</section>
+    </section>
+
+</div>
 
 <script>
-    const dot = document.getElementById('cursor-dot');
-    const aura = document.getElementById('cursor-aura');
-
-    function activateNode(selectedNode) {
+    function toggleNode(element) {
+        // Close others
         document.querySelectorAll('.node').forEach(node => {
-            if (node !== selectedNode) node.classList.remove('active');
+            if (node !== element) node.classList.remove('active');
         });
-        selectedNode.classList.toggle('active');
+        // Toggle clicked
+        element.classList.toggle('active');
+        
+        // Auto scroll to center the active element slightly
+        if(element.classList.contains('active')) {
+            setTimeout(() => {
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 300);
+        }
     }
-
-    document.addEventListener('mousemove', e => {
-        dot.style.left = e.clientX + 'px';
-        dot.style.top = e.clientY + 'px';
-        aura.animate({
-            left: (e.clientX - 20) + 'px',
-            top: (e.clientY - 20) + 'px'
-        }, { duration: 400, fill: "forwards" });
-    });
-
-    document.querySelectorAll('.node, .nav-link, .enroll-btn').forEach(el => {
-        el.addEventListener('mouseenter', () => {
-            aura.style.transform = 'scale(1.5)';
-            aura.style.borderColor = 'var(--accent)';
-            aura.style.backgroundColor = 'rgba(29, 185, 84, 0.05)';
-        });
-        el.addEventListener('mouseleave', () => {
-            aura.style.transform = 'scale(1)';
-            aura.style.borderColor = 'rgba(255,255,255,0.2)';
-            aura.style.backgroundColor = 'transparent';
-        });
-    });
 </script>
 
 </body>
-                        </html>
-                        
+</html>

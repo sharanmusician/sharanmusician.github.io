@@ -10,7 +10,8 @@
             --accent: #1db954; 
             --bg: #050505; 
             --panel-bg: #0a0a0a;
-            --transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Faster, snappier curve */
+            /* Snappier transition for professional feel */
+            --transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
@@ -59,7 +60,8 @@
             pointer-events: auto;
         }
 
-        .node.active { flex: 1.8; align-items: flex-end; }
+        /* MINIMAL PROFESSIONAL ZOOM: Reduced growth factor to 1.25 */
+        .node.active { flex: 1.25; align-items: flex-end; }
 
         .node-img {
             position: absolute; inset: 0; width: 100%; height: 100%;
@@ -78,10 +80,10 @@
         .node-content {
             position: relative; z-index: 10; padding: 40px; width: 100%;
             text-align: center;
-            transition: var(--transition), padding 0.5s ease;
+            transition: var(--transition);
         }
 
-        .node.active .node-content { text-align: left; padding: 50px; }
+        .node.active .node-content { text-align: left; padding: 40px; }
 
         .node-tag { 
             font-family: 'JetBrains Mono'; font-size: 10px; color: var(--accent); 
@@ -89,11 +91,11 @@
         }
         
         .node-title { 
-            font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; 
-            text-transform: uppercase; letter-spacing: -2px; line-height: 0.85; 
+            font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 800; 
+            text-transform: uppercase; letter-spacing: -1px; line-height: 0.85; 
         }
 
-        /* SMOOTH REVEAL CONTAINER */
+        /* SMOOTH SNAPPY REVEAL */
         .node-details {
             display: flex;
             justify-content: space-between;
@@ -101,33 +103,34 @@
             margin-top: 0;
             opacity: 0;
             height: 0;
-            transform: translateY(20px);
-            transition: opacity 0.4s ease, transform 0.4s ease, height 0.4s ease, margin 0.4s ease;
+            overflow: hidden;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease, height 0.3s ease, margin 0.3s ease;
             pointer-events: none;
         }
 
         .node.active .node-details {
             opacity: 1;
-            height: 80px; /* Specific height for instant snapping */
-            margin-top: 25px;
+            height: 70px; 
+            margin-top: 20px;
             transform: translateY(0);
             pointer-events: auto;
         }
 
         .node-desc { 
-            font-size: 0.8rem; color: #888; max-width: 320px;
-            line-height: 1.5; text-align: left;
+            font-size: 0.75rem; color: #888; max-width: 280px;
+            line-height: 1.4; text-align: left;
         }
 
         .enroll-btn {
             background: var(--accent); color: #000;
             font-family: 'JetBrains Mono'; font-size: 9px; font-weight: 800;
-            padding: 10px 16px; text-decoration: none;
+            padding: 8px 14px; text-decoration: none;
             letter-spacing: 1px; transition: 0.2s;
             white-space: nowrap;
         }
 
-        .enroll-btn:hover { background: #fff; box-shadow: 0 0 20px var(--accent); }
+        .enroll-btn:hover { background: #fff; box-shadow: 0 0 15px var(--accent); }
 
         /* --- CURSOR SYSTEM --- */
         #cursor-dot { position: fixed; width: 6px; height: 6px; background: #fff; border-radius: 50%; z-index: 1000; pointer-events: none; mix-blend-mode: difference; }
@@ -139,10 +142,10 @@
 
         @media (max-width: 900px) {
             .monolith { flex-direction: column; height: 85vh; width: 95vw; }
-            .node.active { flex: 1.8; }
-            .node-title { font-size: 2.2rem; }
-            .node-content { padding: 30px !important; }
-            .node-details { flex-direction: column; align-items: flex-start; gap: 15px; height: auto !important; }
+            .node.active { flex: 1.3; }
+            .node-title { font-size: 2rem; }
+            .node-content { padding: 25px !important; }
+            .node-details { flex-direction: column; align-items: flex-start; gap: 10px; height: auto !important; }
             #cursor-dot, #cursor-aura { display: none; }
             * { cursor: auto !important; }
         }
@@ -173,8 +176,8 @@
                 <span class="node-tag">01 // PERFORMANCE</span>
                 <h2 class="node-title">Piano</h2>
                 <div class="node-details">
-                    <p class="node-desc">Mastering neoclassical resonance and the architecture of emotive performance.</p>
-                    <a href="PASTE_PIANO_DRIVE_LINK_HERE" class="enroll-btn" target="_blank">ENROLL_DRIVE</a>
+                    <p class="node-desc">Mastering neoclassical resonance and emotive performance architecture.</p>
+                    <a href="PASTE_PIANO_DRIVE_LINK" class="enroll-btn" target="_blank">ENROLL_DRIVE</a>
                 </div>
             </div>
         </div>
@@ -185,8 +188,8 @@
                 <span class="node-tag">02 // KINETIC</span>
                 <h2 class="node-title">Drums</h2>
                 <div class="node-details">
-                    <p class="node-desc">The geometry of the pocket. Engineering rhythm for the world's elite sessions.</p>
-                    <a href="PASTE_DRUMS_DRIVE_LINK_HERE" class="enroll-btn" target="_blank">ENROLL_DRIVE</a>
+                    <p class="node-desc">The geometry of the pocket. Engineering rhythm for elite sessions.</p>
+                    <a href="PASTE_DRUMS_DRIVE_LINK" class="enroll-btn" target="_blank">ENROLL_DRIVE</a>
                 </div>
             </div>
         </div>
@@ -197,8 +200,8 @@
                 <span class="node-tag">03 // SYNTHESIS</span>
                 <h2 class="node-title">Prod.</h2>
                 <div class="node-details">
-                    <p class="node-desc">High-end signal chains and the psychology of chart-topping sound design.</p>
-                    <a href="PASTE_PROD_DRIVE_LINK_HERE" class="enroll-btn" target="_blank">ENROLL_DRIVE</a>
+                    <p class="node-desc">High-end signal chains and the psychology of sound design.</p>
+                    <a href="PASTE_PROD_DRIVE_LINK" class="enroll-btn" target="_blank">ENROLL_DRIVE</a>
                 </div>
             </div>
         </div>
@@ -211,8 +214,7 @@
     const aura = document.getElementById('cursor-aura');
 
     function activateNode(selectedNode) {
-        const nodes = document.querySelectorAll('.node');
-        nodes.forEach(node => {
+        document.querySelectorAll('.node').forEach(node => {
             if (node !== selectedNode) node.classList.remove('active');
         });
         selectedNode.classList.toggle('active');

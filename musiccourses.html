@@ -180,28 +180,31 @@
         if (!isActive) {
             el.classList.add('active');
             
-            // Wait for the expansion transition to progress
             setTimeout(() => {
                 const headerHeight = header.offsetHeight;
                 const streamHeight = stream.offsetHeight;
-                
-                // Calculate the target scroll position to center the 'el' 
-                // within the available space below the header
                 const elementTop = el.offsetTop;
                 const elementHeight = el.offsetHeight;
-                
-                // The formula: Top of element - (Half of container height) + (Half of element height)
-                // We subtract half the header height to keep the visual center balanced
-                const scrollToPos = elementTop - (streamHeight / 2) + (elementHeight / 2) - (headerHeight / 2);
 
-                stream.scrollTo({
-                    top: scrollToPos,
-                    behavior: 'smooth'
-                });
-            }, 200); 
+                // CHECK: If it's the last course, scroll to the absolute bottom
+                if (el === allNodes[allNodes.length - 1]) {
+                    stream.scrollTo({
+                        top: stream.scrollHeight,
+                        behavior: 'smooth'
+                    });
+                } else {
+                    // Standard centering logic for others
+                    const scrollToPos = elementTop - (streamHeight / 2) + (elementHeight / 2) - (headerHeight / 2);
+                    stream.scrollTo({
+                        top: scrollToPos,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 250); // Slightly increased delay to ensure height expansion is captured
         }
     }
 </script>
+
     
 
 </body>

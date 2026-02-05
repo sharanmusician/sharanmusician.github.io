@@ -82,9 +82,9 @@
             width: 100%; 
             background: #111118; 
             border-bottom: 1px solid rgba(255,255,255,0.03);
-            /* REDUCED BACKGROUND HEIGHT */
-            padding-top: 2px;
-            padding-bottom: 2px; 
+            /* MINIMIZED HEIGHT */
+            padding-top: 0;
+            padding-bottom: 0; 
             justify-content: space-evenly; 
         }
         nav button, nav a { 
@@ -94,8 +94,8 @@
         nav button { 
             background: none; 
             color: #999; 
-            font-size: 14px; 
-            padding: 8px 0; /* Reduced vertical padding */
+            font-size: 13px; /* Slightly smaller font for professionalism */
+            padding: 6px 0; /* Extremely low padding for slim profile */
             width: 100%;
         }
         nav button.active { color: #1db954; font-weight: 700; }
@@ -248,15 +248,15 @@
                 overflow-x: auto; 
                 white-space: nowrap; 
                 justify-content: flex-start; 
-                padding-top: 2px;
-                padding-bottom: 2px; 
+                padding-top: 0;
+                padding-bottom: 0; 
             }
             nav button, nav a { 
                 flex: 0 0 25%; 
             }
             nav button {
-                padding: 10px 0; 
-                font-size: 14px; 
+                padding: 8px 0; /* Slim mobile profile */
+                font-size: 13px; 
             }
             
             main { display: flex; flex-direction: column; padding: 20px; }
@@ -419,7 +419,4 @@
         video.muted = !video.muted;
         muteIconContainer.innerHTML = video.muted ? muteSVG : unmuteSVG;
         muteBtn.classList.remove('hidden');
-        hideTimeout = setTimeout(() => muteBtn.classList.add('hidden'), 500);
-    }
-    
-    heroWrapper.addEventList
+        hideTimeout = setTimeout(() => muteBtn.cl

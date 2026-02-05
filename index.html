@@ -237,12 +237,18 @@
         <section class="profiles-section">  
             <h3 style="margin-bottom:20px; font-weight: 500;">Profiles</h3>
             <div class="profile-slider custom-scroll">  
-                <a href="#" class="profile-item"><img src="spotify.jpg" alt="Spotify"><div>Spotify</div></a>
-                <a href="#" class="profile-item"><img src="google.jpg" alt="Google"><div>Google</div></a>
-                <a href="#" class="profile-item"><img src="instagram.jpg" alt="Instagram"><div>Instagram</div></a>
-                <a href="#" class="profile-item"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
-                <a href="#" class="profile-item"><img src="facebook.jpg" alt="FaceBook"><div>FaceBook</div></a>
-                <a href="#" class="profile-item"><img src="x.jpg" alt="X"><div>X (Twitter)</div></a>
+                <a href="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=pRXJonnGRHWT5XegBTw-eA" target="_blank" class="profile-item"><img src="spotify.jpg" alt="Spotify"><div>Spotify</div></a>
+                <a href="https://g.co/kgs/gtv47AQ" target="_blank" class="profile-item"><img src="google.jpg" alt="Google"><div>Google</div></a>
+                <a href="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0" target="_blank" class="profile-item"><img src="instagram.jpg" alt="Instagram"><div>Instagram</div></a>
+                <a href="https://youtube.com/@sharan.musician?si=wZlASMES3BCSoclb" target="_blank" class="profile-item"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
+                <a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" target="_blank" class="profile-item"><img src="facebook.jpg" alt="FaceBook"><div>FaceBook</div></a>
+                <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" target="_blank" class="profile-item"><img src="x.jpg" alt="X"><div>X (Twitter)</div></a>
+                <a href="https://www.imdb.com/name/nm17859010/?ref_=ext_shr" target="_blank" class="profile-item"><img src="imdb.jpg" alt="IMDb"><div>IMDb</div></a>
+                <a href="https://music.apple.com/us/artist/sharan-musician/1671976313" target="_blank" class="profile-item"><img src="applemusic.jpg" alt="Apple Music"><div>Apple Music</div></a>
+                <a href="https://music.amazon.in/artists/B0BVRTY3NT/sharan-musician?marketplaceId=A21TJRUUN4KGV&musicTerritory=IN&ref=dm_sh_gweJQXn29RCPnuig7hXbrTAHB" target="_blank" class="profile-item"><img src="amazonmusic.jpg" alt="Amazon Music"><div>Amazon Music</div></a>
+                <a href="https://www.jiosaavn.com/artist/sharan-musician-songs/VgKiJSk2Acg_" target="_blank" class="profile-item"><img src="jiosaavn.jpg" alt="JioSaavn"><div>JioSaavn</div></a>
+                <a href="https://gaana.com/artist/sharan-musician" target="_blank" class="profile-item"><img src="gaana.jpg" alt="Gaana"><div>Gaana</div></a>
+                <a href="https://music.youtube.com/channel/UC0MZGJWNgvN5NR0P07joNKA?si=VovJo-lE_uh7GwKz" target="_blank" class="profile-item"><img src="youtubemusic.jpg" alt="YouTube Music"><div>YouTube Music</div></a>
             </div>  
         </section>
 
@@ -253,6 +259,11 @@
                     <img src="https://via.placeholder.com/300x210">
                     <h4>Official Vinyl</h4>
                     <p style="color: #aaa; font-weight: 700;">₹3,499</p>
+                </div>
+                <div class="product" onclick="highlightItem(this)">
+                    <img src="https://via.placeholder.com/300x210">
+                    <h4>Premium Hoodie</h4>
+                    <p style="color: #aaa; font-weight: 700;">₹2,299</p>
                 </div>
             </div>
         </section>
@@ -275,7 +286,6 @@
 
 <script src="newsdata.js"></script>
 <script>
-    // 1. FAST NEWS LOADING (SL No 1)
     function loadNewsFast() {
         if (typeof newsArchive !== 'undefined' && newsArchive.length > 0) {
             const item = newsArchive.find(n => n.sl === 1) || newsArchive[0];
@@ -288,7 +298,6 @@
     }
     window.addEventListener('DOMContentLoaded', loadNewsFast);
 
-    // 2. HERO VIDEO MUTE/UNMUTE LOGIC
     const video = document.getElementById('heroVideo');
     const heroWrapper = document.getElementById('heroWrapper');
     const muteBtn = document.getElementById('muteToggle');
@@ -301,14 +310,8 @@
     heroWrapper.addEventListener('click', () => {
         clearTimeout(iconTimeout);
         video.muted = !video.muted;
-        
-        // Update Icon
         muteIconContainer.innerHTML = video.muted ? muteSVG : unmuteSVG;
-        
-        // Show icon
         muteBtn.classList.add('show');
-        
-        // STRICT: Hide after 0.5 seconds
         iconTimeout = setTimeout(() => {
             muteBtn.classList.remove('show');
         }, 500);
@@ -321,4 +324,5 @@
 </script>
 
 </body>
-</html>
+                </html>
+                

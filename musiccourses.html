@@ -2,211 +2,166 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Academy | Sovereign Tier</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHARAN | ACADEMY</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        /* ================= THE ARCHITECT'S ENGINE ================= */
+        /* ================= THE ARCHITECT'S MANIFESTO ================= */
         * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
-        :root {
-            --accent: #1db954;
-            --gold: #c5a358;
-            --bg: #000000;
-            --surface: #0a0a0a;
-            --border: rgba(255, 255, 255, 0.05);
-        }
-
-        body {
+        
+        body, html { 
+            height: 100vh; background: #000; color: #fff;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background: var(--bg);
-            color: #fff;
-            height: 100vh;
             overflow: hidden;
-            -webkit-font-smoothing: antialiased;
         }
 
-        /* CUSTOM MAGNETIC CURSOR */
+        /* CUSTOM GLITCH CURSOR */
         #cursor {
-            position: fixed; width: 12px; height: 12px;
-            background: var(--accent); border-radius: 50%;
-            pointer-events: none; z-index: 10000;
-            transition: transform 0.1s ease-out;
+            position: fixed; width: 10px; height: 10px; background: #fff;
+            border-radius: 50%; pointer-events: none; z-index: 10000;
         }
-        #cursor-aura {
-            position: fixed; width: 60px; height: 60px;
-            border: 1px solid var(--accent); border-radius: 50%;
-            pointer-events: none; z-index: 9999;
+        #cursor-follower {
+            position: fixed; width: 60px; height: 60px; border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 50%; pointer-events: none; z-index: 9999;
             transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* ================= NAVIGATION ================= */
-        .header {
-            position: fixed; top: 0; width: 100%; height: 100px;
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 0 4%; z-index: 1000;
+        /* FIXED NAV FRAME */
+        .frame {
+            position: fixed; inset: 0; border: 20px solid #000;
+            z-index: 500; pointer-events: none;
         }
-        .brand { font-family: 'JetBrains Mono'; font-size: 10px; letter-spacing: 12px; font-weight: 800; color: var(--gold); text-transform: uppercase; }
-        .nav-meta { font-family: 'JetBrains Mono'; font-size: 9px; color: #444; letter-spacing: 2px; }
+        .nav-top {
+            position: fixed; top: 40px; left: 40px; right: 40px;
+            display: flex; justify-content: space-between; z-index: 1000;
+        }
+        .logo { font-family: 'JetBrains Mono'; font-size: 12px; letter-spacing: 10px; }
+        .status { font-family: 'JetBrains Mono'; font-size: 9px; color: #444; }
 
-        /* ================= THE MAIN INTERFACE ================= */
-        .main-stage {
-            display: flex; height: 100vh; padding: 120px 2% 40px; gap: 20px;
+        /* KINETIC BACKGROUND GALLERY */
+        .bg-gallery {
+            position: absolute; inset: 0; z-index: 1;
+            transition: 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .bg-layer {
+            position: absolute; inset: 0; opacity: 0;
+            background-size: cover; background-position: center;
+            transition: 1.2s ease; transform: scale(1.1);
+        }
+        .bg-layer.active { opacity: 0.4; transform: scale(1); filter: grayscale(1); }
+
+        /* THE TEXT SCENE */
+        .scene {
+            position: relative; z-index: 10; height: 100vh;
+            display: flex; flex-direction: column; justify-content: center;
+            padding-left: 8%;
         }
 
-        /* Left Side: Dynamic Selector */
-        .terminal {
-            flex: 1; display: flex; flex-direction: column; justify-content: space-between;
-            padding: 40px; border-radius: 20px; border: 1px solid var(--border);
-            background: var(--surface);
+        .item {
+            position: relative; display: inline-block;
+            margin: -2vh 0; /* Tight overlapping */
         }
 
-        .terminal-header span { font-family: 'JetBrains Mono'; color: var(--accent); font-size: 11px; letter-spacing: 5px; }
-        .terminal-header h2 { font-size: 3.5rem; font-weight: 800; letter-spacing: -3px; margin-top: 10px; line-height: 0.9; }
-
-        .selector-group { display: flex; flex-direction: column; gap: 15px; }
-        .selector-item {
-            font-size: 1.2rem; font-weight: 400; color: #444;
-            padding: 15px 0; border-bottom: 1px solid var(--border);
-            transition: 0.4s; position: relative;
+        .item-link {
+            font-size: clamp(4rem, 12vw, 15rem);
+            font-weight: 800; text-transform: uppercase;
+            color: transparent; -webkit-text-stroke: 1px rgba(255,255,255,0.1);
+            text-decoration: none; transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            display: block; line-height: 0.85;
         }
-        .selector-item:hover { color: #fff; padding-left: 20px; }
-        .selector-item.active { color: #fff; border-bottom: 1px solid var(--accent); }
-        .selector-item.active::before { content: '→'; position: absolute; left: -30px; color: var(--accent); }
 
-        /* Right Side: Immersive Visuals */
-        .canvas {
-            flex: 2; border-radius: 20px; overflow: hidden;
-            position: relative; border: 1px solid var(--border);
+        .item-link:hover {
+            color: #fff; -webkit-text-stroke: 0px transparent;
+            padding-left: 30px;
         }
-        .canvas-img {
-            position: absolute; inset: 0; width: 100%; height: 100%;
-            object-fit: cover; opacity: 0.3; transition: 1.5s cubic-bezier(0.16, 1, 0.3, 1);
-            filter: saturate(0);
-        }
-        .active-view .canvas-img { opacity: 0.6; filter: saturate(1); transform: scale(1.05); }
 
-        .canvas-overlay {
-            position: absolute; bottom: 60px; left: 60px; max-width: 500px;
-            z-index: 10;
-        }
-        .canvas-overlay h3 { font-size: 4rem; font-weight: 800; text-transform: uppercase; letter-spacing: -4px; margin-bottom: 20px; line-height: 0.8; }
-        .canvas-overlay p { color: #888; font-size: 1.1rem; line-height: 1.8; margin-bottom: 30px; }
+        .item-link:hover + .item-meta { opacity: 1; transform: translateX(20px); }
 
-        /* CALL TO ACTION BUTTON */
-        .cta-sovereign {
-            display: inline-flex; align-items: center; gap: 20px;
-            padding: 20px 40px; background: #fff; color: #000;
-            border-radius: 100px; text-decoration: none; font-weight: 800;
-            font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
-            transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        .item-meta {
+            position: absolute; top: 50%; left: 100%;
+            transform: translateY(-50%); opacity: 0;
+            transition: 0.4s; pointer-events: none;
+            width: 300px;
         }
-        .cta-sovereign:hover { background: var(--accent); color: #fff; transform: scale(1.05); }
+        .item-meta span { font-family: 'JetBrains Mono'; color: #1db954; font-size: 11px; letter-spacing: 5px; }
+        .item-meta p { font-size: 1rem; color: #888; margin-top: 10px; }
 
-        /* ================= MOBILE ADAPTATION ================= */
-        @media (max-width: 1024px) {
+        /* MOBILE OVERRIDE */
+        @media (max-width: 900px) {
             * { cursor: auto !important; }
-            #cursor, #cursor-aura { display: none; }
-            body { overflow-y: auto; height: auto; }
-            .main-stage { flex-direction: column; padding-top: 100px; height: auto; }
-            .terminal { height: 400px; }
-            .canvas { height: 600px; }
-            .canvas-overlay h3 { font-size: 2.5rem; }
-            .brand { letter-spacing: 5px; }
+            .item-link { -webkit-text-stroke: 0px; color: #fff; font-size: 3.5rem; margin: 10px 0; }
+            .frame { border: 10px solid #000; }
+            .item-meta { position: relative; left: 0; transform: none; opacity: 1; display: block; margin-top: 10px; }
+            body { overflow-y: auto; }
+            .scene { height: auto; padding: 150px 20px; }
         }
     </style>
 </head>
 <body>
 
 <div id="cursor"></div>
-<div id="cursor-aura"></div>
+<div id="cursor-follower"></div>
+<div class="frame"></div>
 
-<header class="header">
-    <div class="brand">Sharan // Sovereign</div>
-    <div class="nav-meta">SYSTEM STATUS: OPTIMIZED [2026]</div>
-</header>
+<nav class="nav-top">
+    <div class="logo">SHARAN // ACADEMY</div>
+    <div class="status">2026 SOVEREIGN EDITION</div>
+</nav>
 
-<main class="main-stage">
-    
-    <aside class="terminal">
-        <div class="terminal-header">
-            <span>DISCIPLINE SELECTOR</span>
-            <h2>Curated<br>Excellence.</h2>
+<div class="bg-gallery">
+    <div id="bg-piano" class="bg-layer active" style="background-image: url('https://images.unsplash.com/photo-1520529611472-3f820bb20600?q=80&w=2070')"></div>
+    <div id="bg-drums" class="bg-layer" style="background-image: url('https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=2070')"></div>
+    <div id="bg-prod" class="bg-layer" style="background-image: url('https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070')"></div>
+</div>
+
+<main class="scene">
+
+    <div class="item" onmouseover="changeBg('piano')">
+        <a href="#" class="item-link">Piano</a>
+        <div class="item-meta">
+            <span>DISCIPLINE 01</span>
+            <p>Architectural performance and neoclassical composition.</p>
         </div>
+    </div>
 
-        <nav class="selector-group">
-            <div class="selector-item active" onmouseover="updateView('piano')">01 // CINEMATIC PIANO</div>
-            <div class="selector-item" onmouseover="updateView('drums')">02 // RHYTHMIC GEOMETRY</div>
-            <div class="selector-item" onmouseover="updateView('prod')">03 // SONIC ARCHITECTURE</div>
-            <div class="selector-item" onmouseover="updateView('theory')">04 // THEORY PHYSICS</div>
-        </nav>
-
-        <div class="terminal-footer">
-            <p style="font-family: 'JetBrains Mono'; font-size: 10px; color: #444;">&copy; ACCESS GRANTED PERPETUAL</p>
+    <div class="item" onmouseover="changeBg('drums')">
+        <a href="#" class="item-link">Drums</a>
+        <div class="item-meta">
+            <span>DISCIPLINE 02</span>
+            <p>Rhythmic geometry and live session physics.</p>
         </div>
-    </aside>
+    </div>
 
-    <section class="canvas active-view" id="view-container">
-        <img src="https://images.unsplash.com/photo-1520529611472-3f820bb20600?q=80&w=2070" class="canvas-img" id="main-img">
-        <div class="canvas-overlay">
-            <h3 id="course-title">Cinematic<br>Piano</h3>
-            <p id="course-desc">High-frequency performance mastery focusing on neoclassical textures and architectural composition.</p>
-            <a href="#" class="cta-sovereign">Apply For Admission</a>
+    <div class="item" onmouseover="changeBg('prod')">
+        <a href="#" class="item-link">Production</a>
+        <div class="item-meta">
+            <span>DISCIPLINE 03</span>
+            <p>Sonic design and high-end studio engineering.</p>
         </div>
-    </section>
+    </div>
 
 </main>
 
 <script>
-    // CURSOR LOGIC
     const cursor = document.getElementById('cursor');
-    const aura = document.getElementById('cursor-aura');
+    const follower = document.getElementById('cursor-follower');
 
     document.addEventListener('mousemove', (e) => {
-        const x = e.clientX;
-        const y = e.clientY;
-        cursor.style.transform = `translate(${x - 6}px, ${y - 6}px)`;
-        aura.style.transform = `translate(${x - 30}px, ${y - 30}px)`;
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        
+        // Follower with lag
+        setTimeout(() => {
+            follower.style.left = (e.clientX - 25) + 'px';
+            follower.style.top = (e.clientY - 25) + 'px';
+        }, 50);
     });
 
-    // CONTENT DATA
-    const data = {
-        piano: {
-            title: "Cinematic<br>Piano",
-            desc: "High-frequency performance mastery focusing on neoclassical textures and architectural composition.",
-            img: "https://images.unsplash.com/photo-1520529611472-3f820bb20600?q=80&w=2070"
-        },
-        drums: {
-            title: "Rhythmic<br>Geometry",
-            desc: "The science of timing. Developing a world-class pocket through syncopation and session-standard physics.",
-            img: "https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?q=80&w=2070"
-        },
-        prod: {
-            title: "Sonic<br>Architecture",
-            desc: "Engineering the future. A deep-dive into industry-standard signal chains and hybrid studio workflows.",
-            img: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=2070"
-        },
-        theory: {
-            title: "Theory<br>Physics",
-            desc: "The universal language of sound decoded. Harmonic structures for the elite producer and composer.",
-            img: "https://images.unsplash.com/photo-1507838596058-a96249de614a?q=80&w=2070"
-        }
-    };
-
-    function updateView(key) {
-        // Update Classes
-        document.querySelectorAll('.selector-item').forEach(el => el.classList.remove('active'));
-        event.target.classList.add('active');
-
-        // Transition Animation
-        const container = document.getElementById('view-container');
-        container.style.opacity = '0.5';
-        
-        setTimeout(() => {
-            document.getElementById('main-img').src = data[key].img;
-            document.getElementById('course-title').innerHTML = data[key].title;
-            document.getElementById('course-desc').innerText = data[key].desc;
-            container.style.opacity = '1';
-        }, 200);
+    function changeBg(id) {
+        document.querySelectorAll('.bg-layer').forEach(layer => {
+            layer.classList.remove('active');
+        });
+        document.getElementById('bg-' + id).classList.add('active');
     }
 </script>
 

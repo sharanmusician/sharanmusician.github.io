@@ -6,188 +6,183 @@
     <title>Academy | Sharan Musician</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;600;800&family=JetBrains+Mono&display=swap" rel="stylesheet">
     <style>
-        /* ================= PREMIUM RESET ================= */
+        /* ================= THE ELITE ARCHITECTURE ================= */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         :root {
             --accent: #1db954;
             --bg: #050505;
-            --card-bg: #0a0a0a;
-            --text-main: #ffffff;
-            --text-dim: #777777;
+            --surface: #0a0a0a;
+            --border: rgba(255,255,255,0.06);
         }
 
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             background: var(--bg);
-            color: var(--text-main);
+            color: #fff;
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
         }
 
         /* ================= NAV ================= */
-        .header-nav {
-            position: fixed; top: 0; width: 100%; height: 90px;
+        .nav {
+            position: fixed; top: 0; width: 100%; height: 80px;
             display: flex; align-items: center; justify-content: space-between;
-            padding: 0 6%; background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(25px); z-index: 1000;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
+            padding: 0 5%; background: rgba(5,5,5,0.8);
+            backdrop-filter: blur(20px); z-index: 1000;
+            border-bottom: 1px solid var(--border);
         }
-        .brand { font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; }
-        
-        .close-btn {
-            background: rgba(255, 255, 255, 0.05); color: #fff;
-            padding: 8px 18px; border-radius: 100px; font-weight: 600; font-size: 10px;
-            text-transform: uppercase; letter-spacing: 1.5px; text-decoration: none;
-            border: 1px solid rgba(255, 255, 255, 0.1); transition: 0.4s;
+        .nav-brand { font-size: 13px; font-weight: 800; letter-spacing: 3px; text-transform: uppercase; }
+        .close-link { 
+            font-size: 10px; font-weight: 700; text-transform: uppercase; 
+            letter-spacing: 2px; color: #fff; text-decoration: none;
+            padding: 8px 20px; border: 1px solid var(--border); border-radius: 4px;
         }
-        .close-btn:hover { background: #fff; color: #000; }
 
         /* ================= HERO ================= */
-        .hero { padding: 200px 6% 100px; max-width: 1400px; }
-        .hero h1 { 
-            font-size: clamp(3rem, 10vw, 7rem); font-weight: 800; 
-            text-transform: uppercase; letter-spacing: -4px; line-height: 0.85;
+        .hero {
+            padding: 160px 5% 60px;
+            display: flex; align-items: flex-end; justify-content: space-between;
         }
-        .hero p { color: var(--accent); font-family: 'JetBrains Mono'; font-size: 12px; letter-spacing: 8px; margin-top: 30px; font-weight: 600; }
+        .hero h1 { font-size: clamp(3rem, 10vw, 8rem); font-weight: 800; line-height: 0.9; letter-spacing: -5px; }
+        .hero-sub { text-align: right; max-width: 300px; color: var(--accent); font-family: 'JetBrains Mono'; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* ================= DYNAMIC ALTERNATING LAYOUT ================= */
-        .course-list { width: 100%; padding-bottom: 150px; }
+        /* ================= BENTO GRID ================= */
+        .bento-grid {
+            padding: 0 5% 100px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(2, 400px);
+            gap: 20px;
+        }
 
-        .course-row {
-            display: flex; align-items: center; width: 100%;
-            min-height: 80vh; padding: 50px 6%; gap: 80px;
-            border-bottom: 1px solid rgba(255,255,255,0.03);
+        .bento-item {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
         }
-        .course-row:nth-child(even) { flex-direction: row-reverse; }
 
-        .course-visual {
-            flex: 1; height: 500px; border-radius: 30px; overflow: hidden;
-            position: relative; border: 1px solid rgba(255,255,255,0.05);
-        }
-        .course-visual img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: 1s; }
-        
-        .course-content { flex: 1; max-width: 600px; }
-        .course-num { font-family: 'JetBrains Mono'; color: var(--accent); font-size: 14px; margin-bottom: 20px; display: block; }
-        .course-title { font-size: 4rem; font-weight: 800; text-transform: uppercase; letter-spacing: -2px; margin-bottom: 20px; }
-        .course-details { color: var(--text-dim); line-height: 1.8; font-size: 1.2rem; margin-bottom: 40px; }
+        /* Featured Production Card */
+        .item-featured { grid-column: span 2; grid-row: span 2; }
+        .item-tall { grid-row: span 2; }
 
-        .course-stats {
-            display: flex; gap: 40px; margin-bottom: 50px;
-            font-family: 'JetBrains Mono'; font-size: 11px; text-transform: uppercase; color: #444;
+        .bento-img {
+            position: absolute; inset: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            opacity: 0.4;
+            filter: saturate(0) brightness(0.5);
+            transition: 0.8s ease;
         }
-        .course-stats b { color: #fff; display: block; font-size: 14px; margin-bottom: 5px; }
 
-        .enroll-action {
-            display: inline-flex; align-items: center; gap: 20px;
-            color: #fff; font-weight: 800; text-transform: uppercase;
-            font-size: 12px; letter-spacing: 2px; text-decoration: none;
+        .bento-content {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            padding: 40px;
+            z-index: 2;
         }
-        .enroll-action .circle-btn {
-            width: 60px; height: 60px; border-radius: 50%; border: 1px solid #fff;
-            display: flex; align-items: center; justify-content: center; transition: 0.4s;
+
+        .cat-tag {
+            font-family: 'JetBrains Mono'; color: var(--accent);
+            font-size: 10px; text-transform: uppercase; margin-bottom: 10px; display: block;
         }
-        .course-row:hover .circle-btn { background: var(--accent); border-color: var(--accent); transform: scale(1.1); }
-        .course-row:hover .course-visual img { opacity: 1; transform: scale(1.05); }
+
+        .course-title { font-size: 2.5rem; font-weight: 800; text-transform: uppercase; margin-bottom: 10px; }
+        .course-desc { color: #888; font-size: 1rem; line-height: 1.5; max-width: 400px; opacity: 0; transform: translateY(20px); transition: 0.5s; }
+
+        /* Hover Logic */
+        .bento-item:hover { border-color: var(--accent); transform: scale(0.98); }
+        .bento-item:hover .bento-img { opacity: 0.8; filter: saturate(1) brightness(0.8); transform: scale(1.05); }
+        .bento-item:hover .course-desc { opacity: 1; transform: translateY(0); }
+
+        .btn-view {
+            margin-top: 30px; padding: 12px 25px; background: #fff; color: #000;
+            font-size: 11px; font-weight: 900; text-transform: uppercase;
+            border-radius: 4px; display: inline-block; opacity: 0; transition: 0.5s;
+        }
+        .bento-item:hover .btn-view { opacity: 1; }
 
         /* ================= MOBILE ================= */
-        @media (max-width: 1100px) {
-            .course-row, .course-row:nth-child(even) { flex-direction: column; gap: 40px; text-align: center; }
-            .course-visual { width: 100%; height: 350px; }
-            .course-title { font-size: 2.5rem; }
-            .course-stats { justify-content: center; }
-            .course-content { order: 2; }
-            .course-visual { order: 1; }
+        @media (max-width: 1000px) {
+            .bento-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+            .item-featured, .item-tall { grid-column: span 1; grid-row: span 1; height: 450px; }
+            .hero { flex-direction: column; align-items: flex-start; gap: 30px; }
+            .course-title { font-size: 1.8rem; }
         }
     </style>
 </head>
 <body>
 
-<nav class="header-nav">
-    <div class="brand">Academy</div>
-    <a href="index.html" class="close-btn">Close</a>
+<nav class="nav">
+    <div class="nav-brand">Academy // Select</div>
+    <a href="index.html" class="close-link">✕ Close</a>
 </nav>
 
 <header class="hero">
-    <p>MASTERCLASS SERIES</p>
-    <h1>Learn the<br>Craft.</h1>
+    <h1>Curated<br>Curriculum.</h1>
+    <div class="hero-sub">Defining the next generation of sound architects and performers.</div>
 </header>
 
-<main class="course-list">
+<main class="bento-grid">
 
-    <section class="course-row">
-        <div class="course-visual">
-            <img src="piano_img.jpg" alt="Piano Mastery">
-        </div>
-        <div class="course-content">
-            <span class="course-num">01 // INSTRUMENTAL</span>
-            <h2 class="course-title">Piano Mastery</h2>
-            <p class="course-details">Unlock cinematic textures and advanced harmonic movements. This course focuses on emotive storytelling through the keys, designed for both beginners and session players.</p>
-            <div class="course-stats">
-                <div><b>Duration</b> 12 Weeks</div>
-                <div><b>Level</b> Beginner to Pro</div>
-                <div><b>Modules</b> 24 Units</div>
-            </div>
-            <a href="#" class="enroll-action">
-                <div class="circle-btn">→</div> View Curriculum
-            </a>
-        </div>
-    </section>
-
-    <section class="course-row">
-        <div class="course-visual">
-            <img src="drums_img.jpg" alt="Drums Mastery">
-        </div>
-        <div class="course-content">
-            <span class="course-num">02 // PERCURSION</span>
-            <h2 class="course-title">Drums & Pocket</h2>
-            <p class="course-details">Finding your unique groove. We dive deep into ghost notes, rhythmic syncopation, and the "human feel" that makes a professional session drummer stand out.</p>
-            <div class="course-stats">
-                <div><b>Duration</b> 10 Weeks</div>
-                <div><b>Level</b> Intermediate</div>
-                <div><b>Modules</b> 18 Units</div>
-            </div>
-            <a href="#" class="enroll-action">
-                <div class="circle-btn">→</div> View Curriculum
-            </a>
-        </div>
-    </section>
-
-    <section class="course-row">
-        <div class="course-visual">
-            <img src="production_img.jpg" alt="Production Mastery">
-        </div>
-        <div class="course-content">
-            <span class="course-num">03 // TECHNOLOGY</span>
+    <div class="bento-item item-featured">
+        <img src="prod_bg.jpg" alt="Production" class="bento-img">
+        <div class="bento-content">
+            <span class="cat-tag">Technology // 01</span>
             <h2 class="course-title">Music Production</h2>
-            <p class="course-details">The complete modern toolkit. Master Ableton Live, Logic Pro, and the secrets of professional hybrid mixing to take your bedroom demos to a global standard.</p>
-            <div class="course-stats">
-                <div><b>Duration</b> 16 Weeks</div>
-                <div><b>Level</b> Advanced</div>
-                <div><b>Modules</b> 40 Units</div>
-            </div>
-            <a href="#" class="enroll-action">
-                <div class="circle-btn">→</div> View Curriculum
-            </a>
+            <p class="course-desc">A deep dive into industry-standard workflows, hybrid mixing, and the psychology of sound design.</p>
+            <div class="btn-view">Access Studio</div>
         </div>
-    </section>
+    </div>
+
+    <div class="bento-item item-tall">
+        <img src="piano_bg.jpg" alt="Piano" class="bento-img">
+        <div class="bento-content">
+            <span class="cat-tag">Performance // 02</span>
+            <h2 class="course-title" style="font-size: 1.8rem;">Modern<br>Piano</h2>
+            <p class="course-desc">Neo-classical composition and performance techniques.</p>
+            <div class="btn-view">Join Class</div>
+        </div>
+    </div>
+
+    <div class="bento-item">
+        <img src="drums_bg.jpg" alt="Drums" class="bento-img">
+        <div class="bento-content">
+            <span class="cat-tag">Rhythm // 03</span>
+            <h2 class="course-title" style="font-size: 1.8rem;">Drums</h2>
+            <div class="btn-view">Join</div>
+        </div>
+    </div>
+
+    <div class="bento-item">
+        <div class="bento-content">
+            <span class="cat-tag">Foundation // 04</span>
+            <h2 class="course-title" style="font-size: 1.5rem;">Theory For<br>Producers</h2>
+            <p class="course-desc">Harmony without the headaches.</p>
+            <div class="btn-view">Open</div>
+        </div>
+    </div>
 
 </main>
 
 <script>
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.opacity = "1";
-                entry.target.style.transform = "translateY(0)";
-            }
+    // Entry animation
+    window.addEventListener('DOMContentLoaded', () => {
+        const items = document.querySelectorAll('.bento-item');
+        items.forEach((item, index) => {
+            setTimeout(() => {
+                item.style.opacity = "1";
+                item.style.transform = "translateY(0)";
+            }, index * 150);
         });
-    }, { threshold: 0.1 });
+    });
 
-    document.querySelectorAll('.course-row').forEach(row => {
-        row.style.opacity = "0";
-        row.style.transform = "translateY(100px)";
-        row.style.transition = "all 1s cubic-bezier(0.16, 1, 0.3, 1)";
-        observer.observe(row);
+    // Initial state for JS animation
+    document.querySelectorAll('.bento-item').forEach(item => {
+        item.style.opacity = "0";
+        item.style.transform = "translateY(30px)";
     });
 </script>
 

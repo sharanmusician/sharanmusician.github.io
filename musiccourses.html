@@ -10,7 +10,7 @@
             --accent: #1db954; 
             --bg: #050505; 
             --panel-bg: #0a0a0a;
-            --transition: 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+            --transition: 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Faster, snappier curve */
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; cursor: none; }
@@ -20,7 +20,7 @@
             font-family: 'Plus Jakarta Sans', sans-serif; overflow: hidden;
         }
 
-        /* --- NANO HUD & NAVIGATION --- */
+        /* --- NANO HUD --- */
         .hud-ui {
             position: fixed; inset: 0; padding: 40px;
             display: flex; flex-direction: column; justify-content: space-between;
@@ -54,13 +54,12 @@
         .node {
             flex: 1; position: relative; overflow: hidden;
             background: var(--panel-bg); display: flex; 
-            align-items: center; justify-content: center; /* Center content when closed */
+            align-items: center; justify-content: center;
             transition: flex var(--transition);
             pointer-events: auto;
         }
 
-        /* SUBTLE ZOOM: Changed from 3 to 1.6 for a professional expansion */
-        .node.active { flex: 1.6; align-items: flex-end; justify-content: flex-start; }
+        .node.active { flex: 1.8; align-items: flex-end; }
 
         .node-img {
             position: absolute; inset: 0; width: 100%; height: 100%;
@@ -78,11 +77,10 @@
 
         .node-content {
             position: relative; z-index: 10; padding: 40px; width: 100%;
-            text-align: center; /* Center alignment for inactive state */
-            transition: var(--transition);
+            text-align: center;
+            transition: var(--transition), padding 0.5s ease;
         }
 
-        /* Shift text to left only when active */
         .node.active .node-content { text-align: left; padding: 50px; }
 
         .node-tag { 
@@ -95,22 +93,25 @@
             text-transform: uppercase; letter-spacing: -2px; line-height: 0.85; 
         }
 
-        /* HIDDEN ELEMENTS */
+        /* SMOOTH REVEAL CONTAINER */
         .node-details {
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
-            margin-top: 25px;
-            max-height: 0;
+            margin-top: 0;
             opacity: 0;
-            overflow: hidden;
-            transition: 0.5s var(--transition);
+            height: 0;
+            transform: translateY(20px);
+            transition: opacity 0.4s ease, transform 0.4s ease, height 0.4s ease, margin 0.4s ease;
+            pointer-events: none;
         }
 
         .node.active .node-details {
-            max-height: 200px;
             opacity: 1;
+            height: 80px; /* Specific height for instant snapping */
             margin-top: 25px;
+            transform: translateY(0);
+            pointer-events: auto;
         }
 
         .node-desc { 
@@ -121,12 +122,12 @@
         .enroll-btn {
             background: var(--accent); color: #000;
             font-family: 'JetBrains Mono'; font-size: 9px; font-weight: 800;
-            padding: 8px 14px; text-decoration: none;
-            letter-spacing: 1px; transition: 0.3s;
-            white-space: nowrap; margin-bottom: 5px;
+            padding: 10px 16px; text-decoration: none;
+            letter-spacing: 1px; transition: 0.2s;
+            white-space: nowrap;
         }
 
-        .enroll-btn:hover { background: #fff; transform: translateY(-2px); }
+        .enroll-btn:hover { background: #fff; box-shadow: 0 0 20px var(--accent); }
 
         /* --- CURSOR SYSTEM --- */
         #cursor-dot { position: fixed; width: 6px; height: 6px; background: #fff; border-radius: 50%; z-index: 1000; pointer-events: none; mix-blend-mode: difference; }
@@ -138,10 +139,10 @@
 
         @media (max-width: 900px) {
             .monolith { flex-direction: column; height: 85vh; width: 95vw; }
-            .node.active { flex: 1.5; }
+            .node.active { flex: 1.8; }
             .node-title { font-size: 2.2rem; }
             .node-content { padding: 30px !important; }
-            .node-details { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .node-details { flex-direction: column; align-items: flex-start; gap: 15px; height: auto !important; }
             #cursor-dot, #cursor-aura { display: none; }
             * { cursor: auto !important; }
         }
@@ -159,7 +160,7 @@
         <a href="community.html" class="nav-link">CONNECT</a>
     </div>
     <div class="hud-bottom">
-        <span class="nav-link"></span> <span class="nav-link">SCROLL // SELECT</span>
+        <span class="nav-link"></span> <span class="nav-link">SELECT // NODE</span>
     </div>
 </nav>
 
@@ -173,7 +174,7 @@
                 <h2 class="node-title">Piano</h2>
                 <div class="node-details">
                     <p class="node-desc">Mastering neoclassical resonance and the architecture of emotive performance.</p>
-                    <a href="piano-enroll.html" class="enroll-btn">GO_TO_COURSE</a>
+                    <a href="PASTE_PIANO_DRIVE_LINK_HERE" class="enroll-btn" target="_blank">ENROLL_DRIVE</a>
                 </div>
             </div>
         </div>
@@ -185,7 +186,7 @@
                 <h2 class="node-title">Drums</h2>
                 <div class="node-details">
                     <p class="node-desc">The geometry of the pocket. Engineering rhythm for the world's elite sessions.</p>
-                    <a href="drums-enroll.html" class="enroll-btn">GO_TO_COURSE</a>
+                    <a href="PASTE_DRUMS_DRIVE_LINK_HERE" class="enroll-btn" target="_blank">ENROLL_DRIVE</a>
                 </div>
             </div>
         </div>
@@ -197,7 +198,7 @@
                 <h2 class="node-title">Prod.</h2>
                 <div class="node-details">
                     <p class="node-desc">High-end signal chains and the psychology of chart-topping sound design.</p>
-                    <a href="prod-enroll.html" class="enroll-btn">GO_TO_COURSE</a>
+                    <a href="PASTE_PROD_DRIVE_LINK_HERE" class="enroll-btn" target="_blank">ENROLL_DRIVE</a>
                 </div>
             </div>
         </div>
@@ -210,7 +211,8 @@
     const aura = document.getElementById('cursor-aura');
 
     function activateNode(selectedNode) {
-        document.querySelectorAll('.node').forEach(node => {
+        const nodes = document.querySelectorAll('.node');
+        nodes.forEach(node => {
             if (node !== selectedNode) node.classList.remove('active');
         });
         selectedNode.classList.toggle('active');

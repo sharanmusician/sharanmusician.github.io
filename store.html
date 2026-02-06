@@ -40,7 +40,7 @@
         }
         .logo { font-size: 13px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--neon-green); }
 
-        /* --- HERO & EXACT IG BADGE ALIGNMENT --- */
+        /* --- HERO & EXACT IG BADGE --- */
         .store-hero {
             padding: 40px 20px 20px;
             text-align: center;
@@ -50,7 +50,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .store-name {
@@ -62,10 +62,10 @@
             line-height: 1;
         }
 
-        /* High-Fidelity Instagram Badge */
-        .ig-verified {
-            width: 26px;
-            height: 26px;
+        /* Official Instagram Verified Shape */
+        .ig-badge {
+            width: 24px;
+            height: 24px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -118,7 +118,6 @@
             text-transform: uppercase;
             text-decoration: none;
             z-index: 10;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         /* --- INFO CARDS --- */
@@ -148,7 +147,7 @@
             color: var(--royal-white);
         }
 
-        /* --- FOOTER SYNC --- */
+        /* --- FOOTER --- */
         .bottom-nav {
             position: fixed; 
             bottom: 0; 
@@ -191,10 +190,10 @@
 <div class="store-hero">
     <div class="verified-wrapper">
         <h1 class="store-name">MY Store</h1>
-        <div class="ig-verified">
-            <svg viewBox="0 0 24 24" width="26" height="26">
-                <path fill="#0095f6" d="M12 2.09l1.49 1.48 2.09-.31.81 1.94 1.95.8-.31 2.1 1.48 1.49L18 11.09l.31 2.09-1.94.81-.8 1.95-2.1-.31-1.49 1.48-1.5-1.48-2.09.31-.81-1.94-1.95-.8.31-2.1-1.48-1.49L6 12.91l-.31-2.09 1.94-.81.8-1.95 2.1.31L12 2.09z"/>
-                <path fill="#fff" d="M9.99 13.59l-1.6-1.59-1.4 1.41 3 3 6-6-1.4-1.41z"/>
+        <div class="ig-badge">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L14.4 4.8L17.8 4.4L18.4 7.8L21.4 9.2L20.2 12.4L22.2 15.2L19.4 17.4L18.6 20.8L15.2 20.6L12.8 23L10.4 20.6L7 20.8L6.2 17.4L3.4 15.2L5.4 12.4L4.2 9.2L7.2 7.8L7.8 4.4L11.2 4.8L12 2Z" fill="#0095f6"/>
+                <path d="M10 14.5L7.5 12L8.5 11L10 12.5L14.5 8L15.5 9L10 14.5Z" fill="white"/>
             </svg>
         </div>
     </div>
@@ -204,39 +203,29 @@
 <div class="map-section">
     <div class="map-window">
         <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.4446342898715!2d77.1517409!3d8.2083164!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04f74659b15d0b%3A0xc3f92f6b8a8b16c!2sPuthukkadai%2C%20Tamil%20Nadu%20629171!5e0!3m2!1sen!2sin!4v1700000000000" 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3947.670404325492!2d77.15852511478194!3d8.26620009405232!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b0509a2b8e39f37%3A0x6b4c6e6430335e23!2sPuthukkadai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1707230000000!5m2!1sen!2sin" 
             allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade">
+            loading="lazy">
         </iframe>
-        <a href="Https://maps.app.goo.gl/nPbwyiwKAJWEBTLY7" target="_blank" class="map-btn">Get Directions</a>
+        <a href="https://maps.google.com/?q=8.2662,77.1611" target="_blank" class="map-btn">Get Directions</a>
     </div>
 </div>
 
 <div class="info-section">
     <div class="info-card">
-        <span class="card-label">Store Location</span>
+        <span class="card-label">Official Address</span>
         <div class="card-content">
             <strong>MY Food Products</strong><br>
-            <span style="color: var(--text-gray); font-size: 12px;">A Unit of Munchirai YMCA Trust</span><br><br>
             KPN Lane, Kollemcode Road,<br>
             Puthukkadai – 629171, India
         </div>
     </div>
 
     <div class="info-card">
-        <span class="card-label">Business Hours</span>
+        <span class="card-label">Operating Hours</span>
         <div class="card-content">
             <span style="font-size: 18px; font-weight: 800;">9:00 AM – 8:30 PM</span><br>
             <span style="color: var(--neon-green); font-size: 11px;">OPEN DAILY</span>
-        </div>
-    </div>
-
-    <div class="info-card">
-        <span class="card-label">Contact Details</span>
-        <div class="card-content">
-            <a href="tel:+919345192020" style="color:white; text-decoration:none; display:block; margin-bottom:10px;">📞 +91 93451 92020</a>
-            <a href="mailto:munchiraiymcaestore@gmail.com" style="color:white; text-decoration:none;">📧 munchiraiymcaestore@gmail.com</a>
         </div>
     </div>
 </div>
@@ -260,4 +249,5 @@
 </div>
 
 </body>
-</html>
+        </html>
+    

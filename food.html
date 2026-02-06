@@ -203,6 +203,14 @@
     };
 
     renderItems();
+
+// Add this at the very end of your script in food.html
+window.addEventListener('DOMContentLoaded', () => {
+    const params = new URLSearchParams(window.location.search);
+    const productId = params.get('id');
+    if (productId) showProduct(productId);
+});
+
 </script>
 </body>
 </html>

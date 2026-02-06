@@ -16,196 +16,151 @@
         body {
             margin: 0;
             padding-bottom: 80px;
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-dark);
             color: var(--royal-white);
-            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
         }
 
         header {
             background-color: var(--bg-dark);
             padding: 12px 15px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            position: sticky; top: 0; z-index: 1000;
             border-bottom: 1px solid #1f1f23;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+            display: flex; justify-content: space-between; align-items: center;
         }
 
-        .back-btn { color: var(--neon-green); text-decoration: none; font-size: 13px; font-weight: 800; text-transform: uppercase; }
-        .logo { font-size: 14px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
+        .back-btn { color: var(--neon-green); text-decoration: none; font-size: 13px; font-weight: 800; }
 
+        /* --- SELECTED PRODUCT VIEW (AMAZON STYLE) --- */
+        #detailView {
+            display: none;
+            padding: 20px 15px;
+            background: linear-gradient(to bottom, #111114, #0a0a0c);
+            border-bottom: 1px solid #1f1f23;
+        }
+
+        .detail-img { width: 100%; border-radius: 15px; aspect-ratio: 1/1; object-fit: cover; }
+        .detail-title { font-size: 24px; font-weight: 800; margin: 15px 0 5px 0; }
+        .detail-price { font-size: 20px; color: var(--neon-green); font-weight: 800; margin-bottom: 10px; }
+        .detail-desc { font-size: 14px; line-height: 1.6; color: var(--text-gray); margin-bottom: 20px; }
+
+        /* --- COMMON BUTTONS --- */
+        .btn-group { display: flex; flex-direction: column; gap: 8px; }
+        .ig-btn {
+            background: var(--neon-green); color: black; text-align: center;
+            text-decoration: none; font-size: 11px; font-weight: 900;
+            padding: 12px; border-radius: 8px; text-transform: uppercase;
+        }
+        .cart-btn {
+            background: transparent; color: var(--neon-green);
+            border: 1px solid var(--neon-green); text-align: center;
+            font-size: 11px; font-weight: 900; padding: 12px;
+            border-radius: 8px; text-transform: uppercase; cursor: pointer;
+        }
+
+        /* --- SUGGESTED GRID --- */
+        .section-label { padding: 20px 15px 5px; font-size: 14px; font-weight: 800; text-transform: uppercase; color: var(--neon-green); }
+        
         .product-container {
             display: grid;
-            grid-template-columns: 1fr 1fr; 
+            grid-template-columns: 1fr 1fr;
             gap: 12px;
-            padding: 12px;
+            padding: 15px;
         }
 
-        /* --- CARD STYLES --- */
         .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 10px;
-            border: 1px solid #1f1f23;
-            display: flex;
-            flex-direction: column;
-            cursor: pointer;
+            background: var(--card-bg); border-radius: 12px;
+            padding: 10px; border: 1px solid #1f1f23;
+            display: flex; flex-direction: column;
         }
 
-        .img-box {
-            width: 100%;
-            aspect-ratio: 1/1;
-            border-radius: 8px;
-            overflow: hidden;
-            margin-bottom: 10px;
-        }
-
+        .img-box { width: 100%; aspect-ratio: 1/1; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
-
-        .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; margin-bottom: 4px; }
-        .p-price { font-size: 14px; font-weight: 800; color: var(--royal-white); margin-bottom: 10px; }
-
-        /* --- BUTTONS --- */
-        .btn-group { display: flex; flex-direction: column; gap: 6px; }
-
-        .ig-btn {
-            background: var(--neon-green);
-            color: black;
-            text-align: center;
-            text-decoration: none;
-            font-size: 9px;
-            font-weight: 900;
-            padding: 8px 2px;
-            border-radius: 6px;
-            text-transform: uppercase;
-        }
-
-        .cart-btn {
-            background: transparent;
-            color: var(--neon-green);
-            border: 1px solid var(--neon-green);
-            text-align: center;
-            font-size: 9px;
-            font-weight: 900;
-            padding: 8px 2px;
-            border-radius: 6px;
-            text-transform: uppercase;
-            cursor: pointer;
-        }
-
-        /* --- AMAZON STYLE MODAL --- */
-        #productModal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9);
-            z-index: 2000;
-            overflow-y: auto;
-        }
-
-        .modal-content {
-            background: var(--bg-dark);
-            margin: 20px auto;
-            padding: 20px;
-            width: 90%;
-            max-width: 500px;
-            border-radius: 15px;
-            position: relative;
-        }
-
-        .close-modal {
-            position: absolute; top: 15px; right: 20px;
-            font-size: 30px; color: var(--text-gray); cursor: pointer;
-        }
-
-        .modal-img { width: 100%; border-radius: 10px; margin-bottom: 15px; }
-        .modal-title { font-size: 22px; font-weight: 800; margin-bottom: 5px; }
-        .modal-price { font-size: 20px; color: var(--neon-green); font-weight: 800; margin-bottom: 15px; }
-        .modal-desc { font-size: 14px; line-height: 1.6; color: var(--text-gray); margin-bottom: 20px; }
-
-        /* --- BOTTOM NAV --- */
-        .bottom-nav {
-            position: fixed; bottom: 0; width: 100%; background: #0f0f12;
-            display: flex; justify-content: space-around; padding: 12px 0;
-            border-top: 1px solid #1f1f23; z-index: 1001;
-        }
-        .nav-item { color: var(--text-gray); text-decoration: none; font-size: 10px; text-align: center; }
-        .nav-item.active { color: var(--neon-green); }
+        .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; }
+        .p-price { font-size: 14px; font-weight: 800; color: var(--royal-white); margin: 5px 0; }
+        
+        .card-btns { display: flex; flex-direction: column; gap: 4px; margin-top: auto; }
+        .card-btns .ig-btn, .card-btns .cart-btn { padding: 6px; font-size: 8px; border-radius: 4px; }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="merchandise.html" class="back-btn">← Back</a>
-    <div class="logo">Organic Provisions</div>
+    <a href="merchandise.html" class="back-btn" id="headerBack">← BACK</a>
+    <div style="font-weight: 900; font-size: 14px;">ORGANIC FOOD</div>
     <div style="font-size: 20px;">🛒</div>
 </header>
 
-<div class="product-container" id="foodGrid"></div>
-
-<div id="productModal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <img id="mImg" class="modal-img" src="">
-        <div id="mTitle" class="modal-title"></div>
-        <div id="mPrice" class="modal-price"></div>
-        <div id="mDesc" class="modal-desc"></div>
-        <div class="btn-group">
-            <a id="mIG" href="" class="ig-btn">Order via Instagram</a>
-            <button class="cart-btn" onclick="addToCartFromModal()">Add to Cart</button>
-        </div>
+<div id="detailView">
+    <img id="dImg" class="detail-img" src="">
+    <h2 id="dTitle" class="detail-title"></h2>
+    <div id="dPrice" class="detail-price"></div>
+    <p id="dDesc" class="detail-desc"></p>
+    <div class="btn-group">
+        <a id="dIG" href="" class="ig-btn">Order via Instagram</a>
+        <button class="cart-btn" onclick="alert('Added to cart!')">Add to Cart</button>
     </div>
 </div>
 
-<div class="bottom-nav">
-    <a href="index.html" class="nav-item">🏠<br>Home</a>
-    <a href="food.html" class="nav-item active">🌿<br>Food</a>
-    <a href="cart.html" class="nav-item">🛒<br>Cart</a>
-</div>
+<div class="section-label" id="gridLabel">All Organic Products</div>
+<div class="product-container" id="foodGrid"></div>
 
 <script src="products.js"></script>
 <script>
     const foodGrid = document.getElementById('foodGrid');
-    const modal = document.getElementById('productModal');
+    const detailView = document.getElementById('detailView');
+    const gridLabel = document.getElementById('gridLabel');
 
-    function renderFood() {
-        if (typeof merchandise === 'undefined') {
-            foodGrid.innerHTML = "Database Error";
-            return;
-        }
+    function renderItems() {
+        if (typeof merchandise === 'undefined') return;
 
         const foodItems = merchandise.filter(item => item.category === "Organic Food");
 
         foodGrid.innerHTML = foodItems.map(p => `
-            <div class="card" onclick="openModal('${p.id}')">
+            <div class="card" onclick="showProduct('${p.id}')">
                 <div class="img-box"><img src="${p.image}"></div>
                 <div class="p-name">${p.title}</div>
                 <div class="p-price">${p.price}</div>
-                <div class="btn-group">
-                    <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-btn" onclick="event.stopPropagation()">Order via Instagram</a>
-                    <button class="cart-btn" onclick="event.stopPropagation(); alert('Added to cart!')">Add to Cart</button>
+                <div class="card-btns">
+                    <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-btn" onclick="event.stopPropagation()">Instagram</a>
+                    <button class="cart-btn" onclick="event.stopPropagation(); alert('Added!')">Cart</button>
                 </div>
             </div>
         `).join('');
     }
 
-    function openModal(id) {
+    function showProduct(id) {
         const p = merchandise.find(item => item.id === id);
-        document.getElementById('mImg').src = p.image;
-        document.getElementById('mTitle').innerText = p.title;
-        document.getElementById('mPrice').innerText = p.price;
-        document.getElementById('mDesc').innerText = p.description;
-        document.getElementById('mIG').href = "https://instagram.com/myfoodproductsputhukkadai";
-        modal.style.display = 'block';
+        if (!p) return;
+
+        // Update Detail View
+        document.getElementById('dImg').src = p.image;
+        document.getElementById('dTitle').innerText = p.title;
+        document.getElementById('dPrice').innerText = p.price;
+        document.getElementById('dDesc').innerText = p.description; // Taken from products.js
+        document.getElementById('dIG').href = "https://instagram.com/myfoodproductsputhukkadai";
+
+        // Show UI Changes
+        detailView.style.display = 'block';
+        gridLabel.innerText = "Suggested Products";
+        window.scrollTo(0, 0);
+
+        // Change Header Back Button Behavior
+        const backBtn = document.getElementById('headerBack');
+        backBtn.innerText = "← CLOSE VIEW";
+        backBtn.href = "javascript:closeDetail()";
     }
 
-    function closeModal() { modal.style.display = 'none'; }
-    window.onclick = (event) => { if (event.target == modal) closeModal(); }
+    function closeDetail() {
+        detailView.style.display = 'none';
+        gridLabel.innerText = "All Organic Products";
+        const backBtn = document.getElementById('headerBack');
+        backBtn.innerText = "← BACK";
+        backBtn.href = "merchandise.html";
+    }
 
-    renderFood();
+    renderItems();
 </script>
 </body>
 </html>

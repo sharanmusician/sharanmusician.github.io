@@ -23,7 +23,7 @@
 
         body {
             margin: 0;
-            padding-bottom: 70px; /* Matched exactly to merchandise.html */
+            padding-bottom: 80px; 
             font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg-dark);
             color: var(--royal-white);
@@ -76,7 +76,6 @@
         .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; }
         .p-price { font-size: 14px; font-weight: 800; color: var(--royal-white); margin-bottom: 10px; }
         
-        /* --- CARD BUTTONS --- */
         .card-btns { display: flex; flex-direction: column; gap: 5px; margin-top: auto; }
         
         .cart-btn {
@@ -94,17 +93,18 @@
 
         hr { border: 0; border-top: 1px solid #1f1f23; margin: 20px 15px; }
 
-        /* --- UPDATED BOTTOM NAV (EXACT SYNC WITH MERCHANDISE.HTML) --- */
+        /* --- UNIVERSAL FOOTER SYNC --- */
         .bottom-nav {
             position: fixed; bottom: 0; width: 100%; background: #0f0f12;
-            display: flex; justify-content: space-around; padding: 10px 0;
+            display: flex; justify-content: space-around; padding: 8px 0;
             border-top: 1px solid #1f1f23; z-index: 1001; align-items: center;
+            height: 65px;
         }
-        .nav-item { color: var(--text-gray); text-decoration: none; font-size: 10px; text-align: center; }
+        .nav-item { color: var(--text-gray); text-decoration: none; font-size: 10px; text-align: center; flex: 1; }
         .nav-item.active { color: var(--neon-green); }
         .nav-item img.logo-circle {
-            width: 34px; height: 34px; border-radius: 50%; object-fit: cover; 
-            border: 1px solid #333; vertical-align: middle;
+            width: 34px !important; height: 34px !important; border-radius: 50%; 
+            object-fit: cover; border: 1px solid #333; display: block; margin: 0 auto;
         }
 
     </style>
@@ -133,15 +133,15 @@
 
 <div class="bottom-nav">
     <a href="merchandise.html" class="nav-item">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 2px;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
         <br>Home
     </a>
     <a href="bestsellers.html" class="nav-item active">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
         <br>Best Sellers
     </a>
     <a href="store.html" class="nav-item">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z"></path></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 2px;"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z"></path></svg>
         <br>Visit Store
     </a>
     <a href="index.html" class="nav-item">
@@ -157,7 +157,6 @@
         if (typeof merchandise === 'undefined') return;
 
         const activeInventory = merchandise.filter(m => m.inStock === true);
-
         const fixedIds = ["RRB-001", "RRB-002"];
         const fixedItems = activeInventory.filter(m => fixedIds.includes(m.id));
         const otherFood = activeInventory.filter(m => !fixedIds.includes(m.id) && m.category === "Organic Food");

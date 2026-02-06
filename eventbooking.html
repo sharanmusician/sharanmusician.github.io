@@ -14,56 +14,106 @@
             color: #f5f5f5;
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
             user-select: none;
             -webkit-user-select: none;
         }
 
+        /* --- BACKGROUND GRADIENT --- */
         .bg-glow {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at 50% -20%, #1db95422 0%, transparent 50%);
             z-index: -1;
         }
 
+        /* --- NAVIGATION --- */
+        .nav-home {
+            position: absolute; top: 40px; left: 40px;
+            text-decoration: none; color: rgba(255, 255, 255, 0.9);
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 2px; display: flex; align-items: center; gap: 12px;
+            padding: 12px 24px; background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; 
+            transition: all 0.3s ease; z-index: 100;
+        }
+        .nav-home:hover { background: rgba(255, 255, 255, 0.08); border-color: #1db954; color: #fff; }
+
+        /* --- HEADER --- */
         header { padding: 140px 20px 40px 20px; text-align: center; max-width: 1200px; margin: 0 auto; }
         .musician-name { 
-            font-family: 'Playfair Display', serif; font-size: 3.5rem; 
+            font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 10px;
             background: linear-gradient(to bottom, #fff, #888);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+        .subtitle { letter-spacing: 5px; text-transform: uppercase; color: #1db954; font-weight: 700; font-size: 0.8rem; }
 
-        .booking-section { 
-            max-width: 800px; margin: 60px auto; background: #0a0a0e; 
-            padding: 60px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05); 
-            transition: all 0.5s ease;
+        .cta-container { display: flex; justify-content: center; gap: 20px; margin: 40px 0; }
+
+        /* --- BUTTONS --- */
+        .btn {
+            padding: 16px 35px; border-radius: 50px; font-weight: 700;
+            text-transform: uppercase; font-size: 11px; letter-spacing: 2px;
+            cursor: pointer; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            text-decoration: none; display: inline-block; border: none;
         }
-        
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
+        .btn-primary { background: #1db954; color: white; box-shadow: 0 10px 20px rgba(29, 185, 84, 0.2); }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(29, 185, 84, 0.4); }
+        .btn-outline { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.2); }
+        .btn-outline:hover { background: white; color: black; }
+
+        /* --- EVENT TIERS --- */
+        .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 60px auto; padding: 0 20px; }
+        .tier-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; text-align: center; }
+        .tier-card h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 15px; }
+        .tier-price { font-size: 1.5rem; font-weight: 700; color: #fff; display: block; margin-bottom: 20px; }
+
+        /* --- BOOKING SECTION & FORM --- */
+        .booking-section {
+            max-width: 800px; margin: 80px auto; background: #0a0a0e;
+            padding: 60px; border-radius: 40px; border: 1px solid rgba(255,255,255,0.05);
+            position: relative; overflow: hidden;
+            transition: all 0.6s ease;
+        }
+        .form-row { display: flex; gap: 20px; margin-bottom: 25px; }
+        .form-row > div { flex: 1; }
         .form-group { margin-bottom: 25px; }
-        label { display: block; font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 2px; margin-bottom: 8px; }
+        label { display: block; font-size: 10px; text-transform: uppercase; color: #555; letter-spacing: 2px; margin-bottom: 10px; font-weight: 700; }
 
         input, select, textarea {
-            width: 100%; padding: 15px; background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
-            color: #fff; height: 54px; font-family: 'Inter', sans-serif;
+            width: 100%; padding: 18px; background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 12px;
+            color: #fff; outline: none; font-family: 'Inter', sans-serif;
+            font-size: 14px; transition: 0.3s;
         }
-        textarea { height: auto; user-select: text; }
-        input:focus { border-color: #1db954; outline: none; }
+        input:focus, select:focus, textarea:focus { border-color: #1db954; background: rgba(255,255,255,0.04); }
+        input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(1); opacity: 0.5; }
 
-        .btn-primary { 
-            width: 100%; background: #1db954; color: white; padding: 18px; 
-            border-radius: 10px; border: none; font-weight: 700; 
-            text-transform: uppercase; cursor: pointer; transition: 0.3s;
+        /* --- SUCCESS POPUP DESIGN --- */
+        #success-state {
+            display: none; text-align: center; padding: 40px 20px;
+            animation: fadeIn 0.8s ease forwards;
         }
-        .btn-primary:hover { background: #1aa34a; transform: translateY(-2px); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Success Message Styling */
-        #form-status { display: none; text-align: center; padding: 20px; }
-        #form-status h2 { font-family: 'Playfair Display', serif; color: #1db954; margin-bottom: 15px; }
-        #form-status p { color: #888; }
+        .success-icon {
+            width: 80px; height: 80px; background: #1db954; color: #fff;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 30px; box-shadow: 0 20px 40px rgba(29, 185, 84, 0.3);
+        }
+        .success-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 15px; color: #fff; }
+        .success-msg { color: #888; font-size: 1.1rem; max-width: 450px; margin: 0 auto 40px; line-height: 1.8; }
 
+        footer { text-align: center; padding: 60px 20px; color: #444; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+
+        /* --- MOBILE OPTIMIZATION --- */
         @media (max-width: 768px) {
-            .booking-section { padding: 30px; margin: 20px; }
-            .form-row { grid-template-columns: 1fr; }
+            .nav-home { top: 20px; left: 20px; padding: 10px 16px; font-size: 10px; }
+            header { padding-top: 100px; }
+            .musician-name { font-size: 2.5rem; }
+            .booking-section { padding: 40px 25px; margin: 40px 15px; border-radius: 30px; }
+            .form-row { flex-direction: column; gap: 20px; }
+            .cta-container { flex-direction: column; }
+            .btn { width: 100%; text-align: center; }
         }
     </style>
 </head>
@@ -71,15 +121,40 @@
 
 <div class="bg-glow"></div>
 
+<a href="index.html" class="nav-home">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+    Home
+</a>
+
 <header>
+    <div class="subtitle">Global Artist Booking</div>
     <h1 class="musician-name">Sharan Musician</h1>
+    <p style="color: #666; max-width: 600px; margin: 0 auto;">Reserve an unparalleled sonic journey. From intimate lounges to stadium-scale performances, Sharan delivers a world-class musical atmosphere.</p>
+    
+    <div class="cta-container">
+        <a href="https://drive.google.com/drive/folders/1C-cp90aqIc3ECZ7BM0imJD_4NuKFY8X0" target="_blank" class="btn btn-outline">Technical Rider & Catalogue</a>
+        <a href="#book-now" class="btn btn-primary">Secure Booking</a>
+    </div>
 </header>
 
+<section class="tiers">
+    <div class="tier-card">
+        <h3>Private Lounge</h3>
+        <p>Ideal for luxury weddings and intimate gatherings.</p>
+        <span class="tier-price">₹2,999.00</span>
+    </div>
+    <div class="tier-card">
+        <h3>Concert / Festival</h3>
+        <p>Full-scale stage production with high-impact visuals.</p>
+        <span class="tier-price">₹19,999.00</span>
+    </div>
+</section>
+
 <div class="booking-section" id="booking-container">
-    <div id="form-content">
+    <div id="form-state">
         <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 40px; text-align: center;">Inquiry Form</h2>
         
-        <form id="booking-form" action="https://formspree.io/f/mpqjzapb" method="POST">
+        <form id="ajax-form" action="https://formspree.io/f/mpqjzapb" method="POST">
             <div class="form-row">
                 <div>
                     <label>Full Name</label>
@@ -98,62 +173,87 @@
 
             <div class="form-row">
                 <div>
+                    <label>Event Type</label>
+                    <select name="event_type">
+                        <option>Corporate Event</option>
+                        <option>Public Concert</option>
+                        <option>Wedding / Private</option>
+                        <option>Other</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Venue Location</label>
+                    <input type="text" name="location" placeholder="City, Country" required>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div>
                     <label>Event Date</label>
                     <input type="date" name="date" required>
                 </div>
                 <div>
                     <label>Performance Timing</label>
-                    <input type="text" name="timing" placeholder="e.g. 7 PM - 9 PM" required>
+                    <input type="text" name="timing" placeholder="e.g. 7:00 PM - 9:00 PM" required>
                 </div>
             </div>
 
             <div class="form-group">
-                <label>Message</label>
-                <textarea rows="4" name="message" placeholder="Special requirements..."></textarea>
+                <label>Message / Special Requirements</label>
+                <textarea rows="4" name="message" placeholder="Tell us about your vision..."></textarea>
             </div>
-
-            <button type="submit" class="btn-primary" id="submit-btn">Send Booking Request</button>
+            
+            <input type="hidden" name="_subject" value="New Booking Request - Sharan Musician">
+            <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%; border-radius: 12px; height: 60px;">Send Booking Request</button>
         </form>
     </div>
 
-    <div id="form-status">
-        <div style="font-size: 50px; margin-bottom: 20px;">✓</div>
-        <h2>Request Received</h2>
-        <p>Thank you for your inquiry. Sharan's team will contact you shortly to confirm the details.</p>
+    <div id="success-state">
+        <div class="success-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <h2 class="success-title">Booking Reserved</h2>
+        <p class="success-msg">Your inquiry has been successfully transmitted to our executive team. We are currently reviewing your event requirements and will contact you shortly to finalize the sonic experience.</p>
+        <a href="index.html" class="btn btn-outline" style="border-radius: 12px;">Back to Home</a>
     </div>
 </div>
 
-<script>
-    const form = document.getElementById("booking-form");
-    const formContent = document.getElementById("form-content");
-    const statusBox = document.getElementById("form-status");
-    const submitBtn = document.getElementById("submit-btn");
+<footer>
+    © 2026 Sharan Musician | ALL RIGHTS RESERVED.
+</footer>
 
-    form.addEventListener("submit", async function(event) {
-        event.preventDefault();
-        submitBtn.innerHTML = "Sending...";
+<script>
+    const form = document.getElementById("ajax-form");
+    const submitBtn = document.getElementById("submit-btn");
+    const formState = document.getElementById("form-state");
+    const successState = document.getElementById("success-state");
+
+    form.addEventListener("submit", async function(e) {
+        e.preventDefault();
+        submitBtn.innerHTML = "Processing Request...";
         submitBtn.disabled = true;
 
-        const data = new FormData(event.target);
-        
+        const formData = new FormData(form);
+
         try {
-            const response = await fetch(event.target.action, {
-                method: form.method,
-                body: data,
+            const response = await fetch(form.action, {
+                method: "POST",
+                body: formData,
                 headers: { 'Accept': 'application/json' }
             });
 
             if (response.ok) {
-                // Hide form and show success message smoothly
-                formContent.style.display = "none";
-                statusBox.style.display = "block";
+                // Smoothly switch states
+                formState.style.display = "none";
+                successState.style.display = "block";
+                window.scrollTo({ top: document.getElementById('booking-container').offsetTop - 100, behavior: 'smooth' });
             } else {
-                alert("Oops! There was a problem submitting your form.");
+                alert("The secure server is currently busy. Please try again in a few moments.");
                 submitBtn.innerHTML = "Send Booking Request";
                 submitBtn.disabled = false;
             }
         } catch (error) {
-            alert("Connection error. Please try again.");
+            alert("Connection error. Please check your internet and try again.");
             submitBtn.innerHTML = "Send Booking Request";
             submitBtn.disabled = false;
         }

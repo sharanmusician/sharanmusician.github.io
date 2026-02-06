@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Sharan Musician</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-black: #08080c;
+            --accent-green: #1db954;
+            --surface: #111116;
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #f5f5f5;
+            --text-muted: #88888b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            background: rgba(8, 8, 12, 0.8);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
+        .nav-logo img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+        }
+
+        .home-link {
+            color: var(--accent-green);
+            text-decoration: none;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            padding: 8px 16px;
+            border: 1px solid var(--accent-green);
+            border-radius: 4px;
+            transition: 0.3s ease;
+        }
+
+        .home-link:hover {
+            background: var(--accent-green);
+            color: #000;
+        }
+
+        /* --- CONTACT CONTENT --- */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+        }
+
+        .contact-card {
+            max-width: 800px;
+            width: 100%;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 50px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+        }
+
+        .contact-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-green), transparent);
+        }
+
+        .label {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-green);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 25px;
+            letter-spacing: -1px;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 30px;
+            border-top: 1px solid var(--border);
+            padding-top: 40px;
+        }
+
+        .info-item h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .email-link {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.5rem;
+            color: var(--accent-green);
+            text-decoration: none;
+            word-break: break-all;
+            transition: opacity 0.2s;
+        }
+
+        .email-link:hover {
+            opacity: 0.7;
+        }
+
+        .note {
+            margin-top: 40px;
+            padding: 20px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            border-left: 2px solid #222;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 40px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .social-notice {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #444;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .contact-card { padding: 30px 20px; }
+            h1 { font-size: 2.2rem; }
+            .email-link { font-size: 1.1rem; }
+            nav { padding: 15px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="index.html" class="nav-logo">
+            <img src="logo.png" alt="Sharan Musician">
+            <span>SHARAN</span>
+        </a>
+        <a href="index.html" class="home-link">Back to Home</a>
+    </nav>
+
+    <main>
+        <section class="contact-card">
+            <span class="label">Inquiries & Bookings</span>
+            <h1>Let’s build the <br>soundtrack.</h1>
+            
+            <p class="intro-text">
+                For professional inquiries, project collaborations, and performance bookings, please reach out using the contact information below. 
+                Sharan Musician works with film and OTT production houses, brands, and creative studios globally.
+            </p>
+
+            <div class="info-grid">
+                <div class="info-item">
+                    <h3>Professional Email</h3>
+                    <a href="mailto:sharanmusician@gmail.com" class="email-link">sharanmusician@gmail.com</a>
+                </div>
+            </div>
+
+            <div class="note">
+                <b>Collaboration Note:</b> For media, licensing, and long-term collaborations, please include a brief overview of the project in your message. To maintain focus on high-quality work, only relevant and professional inquiries will receive a response.
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p class="social-notice">Official Channel for Professional Communication</p>
+    </footer>
+
+</body>
+</html>

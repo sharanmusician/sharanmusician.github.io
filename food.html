@@ -15,7 +15,7 @@
 
         body {
             margin: 0;
-            padding-bottom: 70px;
+            padding-bottom: 80px;
             font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg-dark);
             color: var(--royal-white);
@@ -38,7 +38,7 @@
         .back-btn { color: var(--neon-green); text-decoration: none; font-size: 13px; font-weight: 800; text-transform: uppercase; }
         .logo { font-size: 14px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
 
-        /* --- TITLE AREA --- */
+        /* --- TITLE SECTION --- */
         .page-title-area {
             padding: 30px 15px;
             background: linear-gradient(to bottom, #004d0022, var(--bg-dark));
@@ -48,7 +48,7 @@
         .page-title-area h1 { margin: 0; font-size: 22px; text-transform: uppercase; letter-spacing: 2px; }
         .page-title-area p { color: var(--neon-green); font-size: 11px; font-weight: bold; margin-top: 5px; text-transform: uppercase; }
 
-        /* --- 2 CARDS PER ROW GRID --- */
+        /* --- 2-COLUMN GRID --- */
         .product-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -96,7 +96,7 @@
             margin-top: auto;
         }
 
-        /* Stock Overlay */
+        /* Stock Status */
         .out-of-stock { opacity: 0.6; }
         .stock-tag { 
             position: absolute; top: 15px; right: 15px; 
@@ -126,7 +126,7 @@
 
 <div class="page-title-area">
     <h1>The Royal Pantry</h1>
-    <p>Premium Organic Food Selection</p>
+    <p>Authentic Organic Food Selection</p>
 </div>
 
 <div class="product-container" id="foodGrid">
@@ -144,36 +144,38 @@
 <script>
     const foodGrid = document.getElementById('foodGrid');
 
-    function renderFood() {
-        // Filter strictly by the category "Organic Food"
-        const foodItems = merchandise.filter(item => item.category === "Organic Food");
-
-        if (foodItems.length === 0) {
-            foodGrid.innerHTML = "<p style='grid-column: span 2; text-align:center; padding: 50px 0;'>No organic food found.</p>";
+    function renderFoodItems() {
+        // We look for 'merchandise' because that is the name used in your products.js
+        if (typeof merchandise === 'undefined') {
+            foodGrid.innerHTML = "<p style='grid-column: span 2; text-align:center;'>Error: merchandise database not found.</p>";
             return;
         }
 
-        foodGrid.innerHTML = foodItems.map(product => `
+        // Filter strictly for the "Organic Food" category
+        const foodList = merchandise.filter(item => item.category === "Organic Food");
+
+        if (foodList.length === 0) {
+            foodGrid.innerHTML = "<p style='grid-column: span 2; text-align:center; padding: 40px;'>No items found in this category.</p>";
+            return;
+        }
+
+        foodGrid.innerHTML = foodList.map(product => `
             <div class="card ${product.inStock ? '' : 'out-of-stock'}">
-                ${product.inStock ? '' : '<span class="stock-tag">SOLD OUT</span>'}
+                ${product.inStock ? '' : '<span class="stock-tag">OUT OF STOCK</span>'}
                 <div class="img-box">
                     <img src="${product.image}" alt="${product.title}">
                 </div>
                 <div class="p-name">${product.title}</div>
                 <div class="p-price">${product.price}</div>
                 <a href="https://www.instagram.com/myfoodproductsputhukkadai?igsh=ODY5bGNmMzJnNmNz" class="ig-btn">
-                    ${product.inStock ? 'Order via Instagram' : 'Request Stock'}
+                    ${product.inStock ? 'Order via Instagram' : 'Enquire Stock'}
                 </a>
             </div>
         `).join('');
     }
 
-    // Initialize display
-    if (typeof merchandise !== 'undefined') {
-        renderFood();
-    } else {
-        foodGrid.innerHTML = "<p style='grid-column: span 2; text-align:center;'>Database not found...</p>";
-    }
+    // Run the function
+    renderFoodItems();
 </script>
 
 </body>

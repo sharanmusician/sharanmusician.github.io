@@ -14,11 +14,9 @@
             --verified-blue: #0095f6;
         }
 
-        /* --- GLOBAL & PROTECTION --- */
         * {
             -webkit-user-select: none;
             user-select: none;
-            -webkit-touch-callout: none;
             box-sizing: border-box;
         }
 
@@ -40,86 +38,85 @@
             border-bottom: 1px solid #1f1f23;
             position: sticky; top: 0; z-index: 1000;
         }
-        .logo { font-size: 14px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--neon-green); }
+        .logo { font-size: 13px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--neon-green); }
 
-        /* --- STORE HERO SECTION --- */
+        /* --- HERO & PERFECT ALIGNMENT --- */
         .store-hero {
             padding: 40px 20px 20px;
             text-align: center;
         }
 
         .verified-wrapper {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 8px; /* Precise gap between name and badge */
-            margin-bottom: 8px;
+            gap: 10px;
         }
 
         .store-name {
-            font-size: 32px;
+            font-size: 34px;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: -1px;
             margin: 0;
-            line-height: 1; /* Helps vertical alignment */
+            display: flex;
+            align-items: center;
         }
 
-        /* Fixed Instagram Badge Alignment */
         .ig-verified {
             width: 28px;
             height: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin-top: 2px; /* Fine-tuned vertical alignment */
         }
 
         .store-tagline {
             color: var(--neon-green);
-            font-size: 12px;
-            font-weight: 700;
+            font-size: 11px;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 5px;
+            letter-spacing: 3px;
+            margin-top: 10px;
+            display: block;
         }
 
-        /* --- FULL WIDTH MAP WINDOW --- */
-        .map-container {
-            width: 100%;
-            padding: 0 10px;
-            margin: 20px 0;
+        /* --- LIVE MAP WINDOW --- */
+        .map-section {
+            padding: 0 15px;
+            margin: 25px 0;
         }
 
         .map-window {
             width: 100%;
-            height: 250px;
+            height: 240px;
             background: #18181b;
-            border-radius: 12px;
+            border-radius: 14px;
             overflow: hidden;
             position: relative;
-            border: 1px solid #333;
+            border: 1px solid #2a2a2e;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .map-window iframe {
             width: 100%;
             height: 100%;
             border: 0;
-            filter: grayscale(1) invert(1) contrast(1.2) opacity(0.7);
+            /* Inverts map for premium dark look */
+            filter: grayscale(1) invert(92%) contrast(100%);
         }
 
         .map-btn {
             position: absolute;
-            bottom: 15px;
-            right: 15px;
+            bottom: 12px;
+            right: 12px;
             background: var(--neon-green);
             color: black;
-            padding: 10px 18px;
-            border-radius: 6px;
+            padding: 12px 20px;
+            border-radius: 8px;
             font-size: 10px;
             font-weight: 900;
             text-transform: uppercase;
             text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.4);
+            z-index: 10;
         }
 
         /* --- INFO CARDS --- */
@@ -128,8 +125,8 @@
         .info-card {
             background: var(--card-bg);
             border-radius: 12px;
-            padding: 20px;
-            margin-bottom: 12px;
+            padding: 22px;
+            margin-bottom: 14px;
             border: 1px solid #1f1f23;
         }
 
@@ -138,28 +135,18 @@
             color: var(--neon-green);
             font-weight: 800;
             text-transform: uppercase;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             display: block;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
         }
 
         .card-content {
             font-size: 14px;
-            line-height: 1.6;
+            line-height: 1.7;
             color: var(--royal-white);
         }
 
-        .contact-link {
-            display: flex;
-            align-items: center;
-            color: var(--royal-white);
-            text-decoration: none;
-            margin-top: 12px;
-            font-weight: 600;
-            gap: 10px;
-        }
-
-        /* --- STICKY FOOTER (STRICT SYNC) --- */
+        /* --- COMPRESSED FOOTER --- */
         .bottom-nav {
             position: fixed; 
             bottom: 0; 
@@ -189,7 +176,6 @@
             border-radius: 50%; 
             object-fit: cover; 
             border: 1px solid #333; 
-            vertical-align: middle;
         }
 
     </style>
@@ -203,32 +189,27 @@
 <div class="store-hero">
     <div class="verified-wrapper">
         <h1 class="store-name">MY Store</h1>
-        <svg class="ig-verified" viewBox="0 0 24 24" fill="var(--verified-blue)">
-            <path d="M12 2L14.4 4.8L17.8 4.4L18.4 7.8L21.4 9.2L20.2 12.4L22.2 15.2L19.4 17.4L18.6 20.8L15.2 20.6L12.8 23L10.4 20.6L7 20.8L6.2 17.4L3.4 15.2L5.4 12.4L4.2 9.2L7.2 7.8L7.8 4.4L11.2 4.8L12 2ZM10.4 15.6L16.2 9.8L15 8.6L10.4 13.2L8.2 11L7 12.2L10.4 15.6Z"/>
+        <svg class="ig-verified" viewBox="0 0 24 24">
+            <path fill="#0095f6" d="M12 2L14.4 4.8L17.8 4.4L18.4 7.8L21.4 9.2L20.2 12.4L22.2 15.2L19.4 17.4L18.6 20.8L15.2 20.6L12.8 23L10.4 20.6L7 20.8L6.2 17.4L3.4 15.2L5.4 12.4L4.2 9.2L7.2 7.8L7.8 4.4L11.2 4.8L12 2Z"/>
+            <path fill="white" d="M10.4 15.6L16.2 9.8L15 8.6L10.4 13.2L8.2 11L7 12.2L10.4 15.6Z"/>
         </svg>
     </div>
-    <div class="store-tagline">Organic Food Products Shop</div>
+    <span class="store-tagline">Organic Food Products Shop</span>
 </div>
 
-<div class="map-container">
+<div class="map-section">
     <div class="map-window">
-        <iframe src="https://www.google.com/maps/embed?pb=..."></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.123456789!2d77.123456!3d8.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwMDcnMTIuNCJOIDc3wrAwNyc0OC40IkU!5e0!3m2!1sen!2sin!4v1625000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
         <a href="Https://maps.app.goo.gl/nPbwyiwKAJWEBTLY7" target="_blank" class="map-btn">Get Directions</a>
     </div>
 </div>
 
 <div class="info-section">
     <div class="info-card">
-        <span class="card-label">The Vision</span>
-        <div class="card-content">
-            MY Store is a premium organic food outlet offering quality natural and healthy food items. We operate as both a physical store and an online outlet.
-        </div>
-    </div>
-
-    <div class="info-card">
-        <span class="card-label">Corporate Address</span>
+        <span class="card-label">Store Details</span>
         <div class="card-content">
             <strong>MY Food Products</strong><br>
+            <span style="color: var(--text-gray); font-size: 12px;">A Unit of Munchirai YMCA Trust</span><br><br>
             KPN Lane, Kollemcode Road,<br>
             Puthukkadai – 629171, India
         </div>
@@ -237,16 +218,16 @@
     <div class="info-card">
         <span class="card-label">Business Hours</span>
         <div class="card-content">
-            <div style="font-weight: 800; font-size: 18px; margin-bottom: 5px;">9:00 AM – 8:30 PM</div>
-            <div style="font-size: 11px; color: var(--neon-green); font-weight: 700;">OPEN EVERY DAY</div>
+            <span style="font-size: 18px; font-weight: 800;">9:00 AM – 8:30 PM</span><br>
+            <span style="color: var(--neon-green); font-size: 11px;">OPEN ALL DAYS</span>
         </div>
     </div>
 
     <div class="info-card">
-        <span class="card-label">Connect</span>
+        <span class="card-label">Online Support</span>
         <div class="card-content">
-            <a href="tel:+919345192020" class="contact-link"><span>📞</span> +91 93451 92020</a>
-            <a href="mailto:munchiraiymcaestore@gmail.com" class="contact-link"><span>📧</span> munchiraiymcaestore@gmail.com</a>
+            <a href="tel:+919345192020" style="color:white; text-decoration:none; display:block; margin-bottom:10px;">📞 +91 93451 92020</a>
+            <a href="mailto:munchiraiymcaestore@gmail.com" style="color:white; text-decoration:none;">📧 munchiraiymcaestore@gmail.com</a>
         </div>
     </div>
 </div>

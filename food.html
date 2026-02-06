@@ -150,9 +150,12 @@
     const detailView = document.getElementById('detailView');
     const brandMain = document.getElementById('brandMain');
 
-    function renderItems() {
+    // Updated to handle excluding the currently viewed product
+    function renderItems(excludeId = null) {
         if (typeof merchandise === 'undefined') return;
-        const foodItems = merchandise.filter(item => item.category === "Organic Food");
+        const foodItems = merchandise.filter(item => 
+            item.category === "Organic Food" && item.id !== excludeId
+        );
         foodGrid.innerHTML = foodItems.map(p => `
             <div class="card" onclick="showProduct('${p.id}')">
                 <div class="img-box"><img src="${p.image}"></div>
@@ -174,8 +177,13 @@
         document.getElementById('dPrice').innerText = p.price;
         document.getElementById('dDesc').innerText = p.description;
         document.getElementById('dIG').href = "https://instagram.com/myfoodproductsputhukkadai";
+        
         detailView.style.display = 'block';
         brandMain.innerText = "Suggested for you";
+        
+        // Hide the current product from the list below
+        renderItems(id);
+        
         window.scrollTo({top: 0, behavior: 'smooth'});
         const backBtn = document.getElementById('headerBack');
         backBtn.innerText = "← CLOSE VIEW";
@@ -186,6 +194,8 @@
     function closeDetail() {
         detailView.style.display = 'none';
         brandMain.innerText = "MY Food Products";
+        // Restore all products to the grid
+        renderItems();
         const backBtn = document.getElementById('headerBack');
         backBtn.innerText = "← BACK";
         backBtn.href = "merchandise.html";
@@ -196,21 +206,22 @@
         if (detailView.style.display === 'block') {
             detailView.style.display = 'none';
             brandMain.innerText = "MY Food Products";
+            renderItems();
             const backBtn = document.getElementById('headerBack');
             backBtn.innerText = "← BACK";
             backBtn.href = "merchandise.html";
         }
     };
 
+    // Initial load
     renderItems();
 
-// Add this at the very end of your script in food.html
-window.addEventListener('DOMContentLoaded', () => {
-    const params = new URLSearchParams(window.location.search);
-    const productId = params.get('id');
-    if (productId) showProduct(productId);
-});
-
+    // Trigger Big View if ID is in the URL (from Home Page click)
+    window.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get('id');
+        if (productId) showProduct(productId);
+    });
 </script>
 </body>
 </html>

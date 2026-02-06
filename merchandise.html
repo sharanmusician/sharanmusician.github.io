@@ -11,7 +11,6 @@
             --neon-green: #00c853;    
             --royal-white: #ffffff;
             --text-gray: #a0a0a0;
-            --amazon-orange: #ff9900;
         }
 
         body {
@@ -73,7 +72,47 @@
             border-bottom: 4px solid var(--neon-green);
         }
 
-        /* --- TRENDING: 2 PER ROW --- */
+        /* --- UPDATED CATEGORY TRACK --- */
+        .category-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            padding: 15px;
+            background: #0f0f12;
+            border-bottom: 1px solid #1f1f23;
+        }
+
+        .category-track {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+            scrollbar-width: none;
+        }
+        .category-track::-webkit-scrollbar { display: none; }
+
+        .cat-btn {
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .cat-active { background: var(--neon-green); color: black; }
+        .cat-locked { border: 1px solid #222; background: #16161a; color: #555; cursor: not-allowed; }
+
+        .status-label {
+            font-size: 10px;
+            color: var(--neon-green);
+            letter-spacing: 1px;
+            font-weight: bold;
+            padding-left: 5px;
+            text-transform: uppercase;
+        }
+
+        /* --- SECTIONS --- */
         .section-header {
             padding: 20px 15px 10px;
             display: flex;
@@ -91,16 +130,13 @@
             padding: 0 15px;
         }
 
-        /* --- HORIZONTAL SCROLL SECTION (More like Amazon) --- */
         .horizontal-scroll {
             display: flex;
             overflow-x: auto;
             gap: 12px;
             padding: 10px 15px;
-            scroll-snap-type: x mandatory;
             scrollbar-width: none;
         }
-
         .horizontal-scroll::-webkit-scrollbar { display: none; }
 
         /* --- PRODUCT CARDS --- */
@@ -109,7 +145,7 @@
             border-radius: 12px;
             padding: 12px;
             border: 1px solid #1f1f23;
-            min-width: 140px; /* For horizontal scroll */
+            min-width: 140px;
         }
 
         .img-placeholder {
@@ -136,7 +172,7 @@
             text-transform: uppercase;
         }
 
-        /* --- BOTTOM NAVIGATION (Amazon Style) --- */
+        /* --- BOTTOM NAVIGATION --- */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -170,15 +206,19 @@
 
 <div class="hero-slider">
     <div>
-        <h2 style="margin:0; font-size: 20px;">MY Food<br><span style="color:var(--neon-green)">Producs</span></h2>
+        <h2 style="margin:0; font-size: 20px;">MY Food<br><span style="color:var(--neon-green)">Products</span></h2>
         <p style="font-size: 12px; color: var(--text-gray);">New Arrivals from the Munchirai YMCA Trust</p>
     </div>
 </div>
 
-<div style="display:flex; gap:10px; padding:15px; overflow-x:auto; background:#0f0f12;">
-    <a href="food.html" style="background:var(--neon-green); color:black; padding:8px 15px; border-radius:20px; font-size:12px; font-weight:bold; text-decoration:none; white-space:nowrap;">Organic Provisions</a>
-    <span style="border:1px solid #333; padding:8px 15px; border-radius:20px; font-size:12px; color:#555; white-space:nowrap;">Clothing</span>
-    <span style="border:1px solid #333; padding:8px 15px; border-radius:20px; font-size:12px; color:#555; white-space:nowrap;">Accessories</span>
+<div class="category-section">
+    <div class="category-track">
+        <a href="food.html" class="cat-btn cat-active">Organic Provisions</a>
+        <span class="cat-btn cat-locked">Clothing</span>
+        <span class="cat-btn cat-locked">Accessories</span>
+        <span class="cat-btn cat-locked">Shoes</span>
+    </div>
+    <div class="status-label">● OTHERS ARE COMING SOON</div>
 </div>
 
 <div class="section-header">
@@ -244,5 +284,4 @@
 </div>
 
 </body>
-        </html>
-        
+</html>

@@ -29,7 +29,7 @@ const merchandise = [
         price: "₹50.00",
         description: "Produced from organic Ragi millet.",
         image: "ragi-flour.jpg",
-        inStock: false
+        inStock: true
     },
     {
         id: "RRB-004",
@@ -65,7 +65,7 @@ const merchandise = [
         price: "₹100.00",
         description: "Produced from organic unpolished Black Kavuni rice.",
         image: "black-kavuni.jpg",
-        inStock: false
+        inStock: true
     },
     {
         id: "RRB-008",

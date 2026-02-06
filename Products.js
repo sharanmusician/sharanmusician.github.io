@@ -1,4 +1,12 @@
+/**
+ * Mall of Royal Red Bull
+ * Global Inventory Database v2.0
+ * Categories: Clothing, Accessories, Food
+ */
+
 const merchandise = [
+
+      // --- FOOD (Gourmet / Energy) ---
     {
         id: "RRB-001",
         title: "Avalose-Sweet 400g",
@@ -55,6 +63,8 @@ const merchandise = [
         image: "https://drive.google.com/file/d/1Ut_QMbgsXAAa6WOOQ2sA-K92GbqQkltT/view?usp=drivesdk",
         inStock: false
     },
+
+    // --- CLOTHING ---
     {
         id: "RRB-008",
         title: "Founder's Edition Vinyl Mat",
@@ -63,6 +73,9 @@ const merchandise = [
         image: "https://images.unsplash.com/photo-1603048588665-791ca8aea617?q=80&w=1000",
         inStock: true
     }
+
+     // --- ACCESSORIES ---
+    
 ];
 
 // This makes the data available to your HTML file

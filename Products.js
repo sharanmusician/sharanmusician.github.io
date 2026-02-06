@@ -6,7 +6,7 @@
 
 const merchandise = [
 
-      // --- FOOD (Gourmet / Energy) ---
+      // --- ORGANIC FOOD (Gourmet / Energy) ---
     {
         id: "RRB-001",
         title: "Avalose-Sweet 400g",
@@ -75,6 +75,8 @@ const merchandise = [
     }
 
      // --- ACCESSORIES ---
+
+      // --- SHOES ---
     
 ];
 

@@ -22,7 +22,6 @@
             scroll-behavior: smooth;
         }
 
-        /* --- HEADER --- */
         header {
             background-color: var(--bg-dark);
             padding: 12px 15px;
@@ -33,20 +32,20 @@
 
         .back-btn { color: var(--neon-green); text-decoration: none; font-size: 13px; font-weight: 800; text-transform: uppercase; }
 
-        /* --- TOP DETAIL VIEW (AMAZON STYLE) --- */
+        /* --- PRODUCT DETAIL SECTION (AMAZON STYLE) --- */
         #detailView {
             display: none;
             padding: 20px 15px;
             background: linear-gradient(to bottom, #111114, #0a0a0c);
-            border-bottom: 1px solid #1f1f23;
+            border-bottom: 2px solid #1f1f23;
         }
 
-        .detail-img { width: 100%; border-radius: 15px; aspect-ratio: 1/1; object-fit: cover; border: 1px solid #1f1f23; }
+        .detail-img { width: 100%; border-radius: 15px; aspect-ratio: 1/1; object-fit: cover; }
         .detail-title { font-size: 24px; font-weight: 800; margin: 15px 0 5px 0; }
         .detail-price { font-size: 20px; color: var(--neon-green); font-weight: 800; margin-bottom: 10px; }
         .detail-desc { font-size: 14px; line-height: 1.6; color: var(--text-gray); margin-bottom: 20px; }
 
-        /* --- GLOBAL BUTTON STYLES --- */
+        /* --- STACKED BUTTONS --- */
         .btn-group { display: flex; flex-direction: column; gap: 8px; }
         
         .cart-btn {
@@ -62,7 +61,7 @@
             padding: 12px; border-radius: 8px; text-transform: uppercase;
         }
 
-        /* --- SUGGESTED GRID --- */
+        /* --- GRID STYLES --- */
         .section-label { padding: 20px 15px 5px; font-size: 14px; font-weight: 800; text-transform: uppercase; color: var(--neon-green); letter-spacing: 1px; }
         
         .product-container {
@@ -76,19 +75,16 @@
             background: var(--card-bg); border-radius: 12px;
             padding: 10px; border: 1px solid #1f1f23;
             display: flex; flex-direction: column;
-            transition: transform 0.2s;
         }
 
-        .img-box { width: 100%; aspect-ratio: 1/1; border-radius: 8px; overflow: hidden; margin-bottom: 8px; background: #000; }
+        .img-box { width: 100%; aspect-ratio: 1/1; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; margin-bottom: 2px; }
-        .p-price { font-size: 14px; font-weight: 800; color: var(--royal-white); margin-bottom: 8px; }
+        .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; }
+        .p-price { font-size: 14px; font-weight: 800; color: var(--royal-white); margin-bottom: 10px; }
         
-        /* Small buttons for Grid cards */
         .card-btns { display: flex; flex-direction: column; gap: 5px; margin-top: auto; }
         .card-btns .cart-btn, .card-btns .ig-btn { padding: 8px 4px; font-size: 8px; border-radius: 6px; }
 
-        /* --- BOTTOM NAV --- */
         .bottom-nav {
             position: fixed; bottom: 0; width: 100%; background: #0f0f12;
             display: flex; justify-content: space-around; padding: 12px 0;
@@ -135,6 +131,7 @@
     function renderItems() {
         if (typeof merchandise === 'undefined') return;
 
+        // Filter strictly for Organic Food
         const foodItems = merchandise.filter(item => item.category === "Organic Food");
 
         foodGrid.innerHTML = foodItems.map(p => `
@@ -143,8 +140,8 @@
                 <div class="p-name">${p.title}</div>
                 <div class="p-price">${p.price}</div>
                 <div class="card-btns">
-                    <button class="cart-btn" onclick="event.stopPropagation(); alert('Added to cart!')">Add to Cart</button>
-                    <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-btn" onclick="event.stopPropagation()">Instagram</a>
+                    <button class="cart-btn" onclick="event.stopPropagation(); alert('Added!')">Add to Cart</button>
+                    <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-btn" onclick="event.stopPropagation()">Order via Instagram</a>
                 </div>
             </div>
         `).join('');
@@ -154,19 +151,19 @@
         const p = merchandise.find(item => item.id === id);
         if (!p) return;
 
-        // Populate Detail View using data from products.js
+        // Update Detail View from products.js
         document.getElementById('dImg').src = p.image;
         document.getElementById('dTitle').innerText = p.title;
         document.getElementById('dPrice').innerText = p.price;
-        document.getElementById('dDesc').innerText = p.description; // Directly from your JS
+        document.getElementById('dDesc').innerText = p.description;
         document.getElementById('dIG').href = "https://instagram.com/myfoodproductsputhukkadai";
 
-        // UI Transition
+        // UI Changes
         detailView.style.display = 'block';
-        gridLabel.innerText = "Suggested for you";
+        gridLabel.innerText = "Suggested Products";
         window.scrollTo({top: 0, behavior: 'smooth'});
 
-        // Update Header Button
+        // Update Header
         const backBtn = document.getElementById('headerBack');
         backBtn.innerText = "← CLOSE VIEW";
         backBtn.href = "javascript:closeDetail()";
@@ -183,5 +180,4 @@
     renderItems();
 </script>
 </body>
-    </html>
-    
+</html>

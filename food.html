@@ -45,21 +45,21 @@
             text-align: center;
         }
 
-        .page-title-area h1 { margin: 0; font-size: 22px; text-transform: uppercase; letter-spacing: 2px; }
-        .page-title-area p { color: var(--neon-green); font-size: 11px; font-weight: bold; margin-top: 5px; text-transform: uppercase; }
+        .page-title-area h1 { margin: 0; font-size: 20px; text-transform: uppercase; letter-spacing: 1px; }
+        .page-title-area p { color: var(--neon-green); font-size: 10px; font-weight: bold; margin-top: 5px; text-transform: uppercase; opacity: 0.8; }
 
         /* --- 2-COLUMN GRID --- */
         .product-container {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr; /* Exact 2 per row */
             gap: 12px;
-            padding: 15px;
+            padding: 12px;
         }
 
         .card {
             background: var(--card-bg);
             border-radius: 12px;
-            padding: 12px;
+            padding: 10px;
             border: 1px solid #1f1f23;
             display: flex;
             flex-direction: column;
@@ -80,28 +80,28 @@
 
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
 
-        .p-name { font-size: 13px; font-weight: 600; height: 34px; overflow: hidden; margin-bottom: 4px; line-height: 1.3; }
-        .p-price { font-size: 15px; font-weight: 800; color: var(--royal-white); margin-bottom: 12px; }
+        .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; margin-bottom: 4px; line-height: 1.3; color: #eee; }
+        .p-price { font-size: 14px; font-weight: 800; color: var(--royal-white); margin-bottom: 10px; }
 
         .ig-btn {
             background: var(--neon-green);
             color: black;
             text-align: center;
             text-decoration: none;
-            font-size: 10px;
+            font-size: 9px;
             font-weight: 900;
-            padding: 10px 5px;
+            padding: 8px 4px;
             border-radius: 6px;
             text-transform: uppercase;
             margin-top: auto;
         }
 
         /* Stock Status */
-        .out-of-stock { opacity: 0.6; }
+        .out-of-stock { opacity: 0.5; filter: grayscale(1); }
         .stock-tag { 
-            position: absolute; top: 15px; right: 15px; 
-            background: #ff1744; color: white; font-size: 8px; 
-            padding: 4px 8px; border-radius: 4px; font-weight: 900; 
+            position: absolute; top: 10px; right: 10px; 
+            background: #ff1744; color: white; font-size: 7px; 
+            padding: 3px 6px; border-radius: 4px; font-weight: 900; 
             z-index: 5;
         }
 
@@ -113,7 +113,7 @@
         }
         .nav-item { color: var(--text-gray); text-decoration: none; font-size: 10px; text-align: center; }
         .nav-item.active { color: var(--neon-green); }
-        .nav-icon { font-size: 20px; display: block; margin-bottom: 2px; }
+        .nav-icon { font-size: 18px; display: block; margin-bottom: 2px; }
     </style>
 </head>
 <body>
@@ -121,7 +121,7 @@
 <header>
     <a href="merchandise.html" class="back-btn">← Back</a>
     <div class="logo">Organic Food</div>
-    <a href="cart.html" style="text-decoration: none; font-size: 22px;">🛒</a>
+    <a href="cart.html" style="text-decoration: none; font-size: 20px;">🛒</a>
 </header>
 
 <div class="page-title-area">
@@ -140,55 +140,49 @@
 </div>
 
 <script src="products.js"></script>
+
 <script>
     const foodGrid = document.getElementById('foodGrid');
 
     function renderFoodItems() {
-        // 1. Check if the file even loaded
+        // Verification: Check if 'merchandise' array exists in products.js
         if (typeof merchandise === 'undefined') {
-            console.error("The variable 'merchandise' does not exist. Check if products.js is linked correctly.");
-            foodGrid.innerHTML = "<p style='grid-column: span 2; text-align:center;'>Error: products.js file not found.</p>";
+            foodGrid.innerHTML = "<p style='grid-column: span 2; text-align:center; padding: 20px;'>Error: products.js not linked or 'merchandise' variable missing.</p>";
             return;
         }
 
-        console.log("Database loaded. Total items:", merchandise.length);
-
-        // 2. Filter using a safer, case-insensitive method
+        // Advanced Filter: Case-insensitive and trims any accidental whitespace
         const foodList = merchandise.filter(item => 
-            item.category && item.category.toLowerCase().trim() === "organic food"
+            item.category && item.category.toLowerCase().replace(/\s+/g, '') === "organicfood"
         );
-
-        console.log("Filtered items found:", foodList.length);
 
         if (foodList.length === 0) {
             foodGrid.innerHTML = `
                 <p style='grid-column: span 2; text-align:center; padding: 40px;'>
-                    Database loaded, but no items found with category: "Organic Food".<br>
-                    <span style="color:var(--text-gray); font-size:10px;">Check case-sensitivity in products.js</span>
+                    No products found.<br>
+                    <small style="color:var(--text-gray)">Make sure items in products.js have category: "Organic Food"</small>
                 </p>`;
             return;
         }
 
-        // 3. Render cards
         foodGrid.innerHTML = foodList.map(product => `
             <div class="card ${product.inStock ? '' : 'out-of-stock'}">
                 ${product.inStock ? '' : '<span class="stock-tag">OUT OF STOCK</span>'}
                 <div class="img-box">
-                    <img src="${product.image}" alt="${product.title}" onerror="this.src='https://via.placeholder.com/150?text=Image+Error'">
+                    <img src="${product.image}" alt="${product.title}" onerror="this.src='https://via.placeholder.com/150?text=Image+Missing'">
                 </div>
                 <div class="p-name">${product.title}</div>
                 <div class="p-price">${product.price}</div>
                 <a href="https://www.instagram.com/myfoodproductsputhukkadai?igsh=ODY5bGNmMzJnNmNz" class="ig-btn">
-                    ${product.inStock ? 'Order via Instagram' : 'Enquire Stock'}
+                    ${product.inStock ? 'Order on IG' : 'Enquire'}
                 </a>
             </div>
         `).join('');
     }
 
-    // Run the function
+    // Fire the renderer
     renderFoodItems();
 </script>
-
 
 </body>
 </html>

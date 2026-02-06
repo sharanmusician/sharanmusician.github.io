@@ -74,7 +74,7 @@ const merchandise = [
         price: "₹3,200",
         description: "Anti-static felt slipmat.",
         image: "vinyl-mat.jpg",
-        inStock: true
+        inStock: false
     }
 ];
 

@@ -13,7 +13,7 @@
             --text-gray: #a0a0a0;
         }
 
-        /* DISABLE SELECTION */
+        /* --- COPY PROTECTION CSS --- */
         * {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -25,12 +25,14 @@
         body {
             margin: 0;
             padding-bottom: 80px;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg-dark);
             color: var(--royal-white);
             scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
         }
 
+        /* --- HEADER --- */
         header {
             background-color: var(--bg-dark);
             padding: 12px 15px;
@@ -41,6 +43,7 @@
 
         .back-btn { color: var(--neon-green); text-decoration: none; font-size: 13px; font-weight: 800; text-transform: uppercase; }
 
+        /* --- PRODUCT DETAIL SECTION --- */
         #detailView {
             display: none;
             padding: 20px 15px;
@@ -48,7 +51,7 @@
             border-bottom: 2px solid #1f1f23;
         }
 
-        .detail-img { width: 100%; border-radius: 15px; aspect-ratio: 1/1; object-fit: cover; }
+        .detail-img { width: 100%; border-radius: 15px; aspect-ratio: 1/1; object-fit: cover; border: 1px solid #1f1f23; }
         .detail-title { font-size: 24px; font-weight: 800; margin: 15px 0 5px 0; }
         .detail-price { font-size: 20px; color: var(--neon-green); font-weight: 800; margin-bottom: 10px; }
         .detail-desc { font-size: 14px; line-height: 1.6; color: var(--text-gray); margin-bottom: 20px; }
@@ -68,7 +71,10 @@
             padding: 12px; border-radius: 8px; text-transform: uppercase;
         }
 
-        .section-label { padding: 20px 15px 5px; font-size: 14px; font-weight: 800; text-transform: uppercase; color: var(--neon-green); letter-spacing: 1px; }
+        /* --- BRANDED SECTION LABEL --- */
+        .brand-container { padding: 25px 15px 10px; text-align: center; }
+        .brand-main { font-size: 18px; font-weight: 900; text-transform: uppercase; color: var(--royal-white); letter-spacing: 1.5px; margin: 0; }
+        .brand-sub { font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--neon-green); letter-spacing: 0.5px; margin-top: 4px; opacity: 0.9; }
         
         .product-container {
             display: grid;
@@ -84,7 +90,7 @@
         }
 
         .img-box { width: 100%; aspect-ratio: 1/1; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; } /* Prevents image drag */
+        .img-box img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 
         .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; }
         .p-price { font-size: 14px; font-weight: 800; color: var(--royal-white); margin-bottom: 10px; }
@@ -120,7 +126,11 @@
     </div>
 </div>
 
-<div class="section-label" id="gridLabel">All Products</div>
+<div class="brand-container">
+    <h2 class="brand-main" id="brandMain">MY Food Products</h2>
+    <div class="brand-sub">A Unit of munchirai YMCA Trust</div>
+</div>
+
 <div class="product-container" id="foodGrid"></div>
 
 <div class="bottom-nav">
@@ -131,12 +141,14 @@
 
 <script src="products.js"></script>
 <script>
-    // DISABLE RIGHT CLICK
     document.addEventListener('contextmenu', event => event.preventDefault());
+    document.onkeydown = function(e) {
+        if (e.ctrlKey && (e.keyCode === 67 || e.keyCode === 85 || e.keyCode === 73)) return false;
+    };
 
     const foodGrid = document.getElementById('foodGrid');
     const detailView = document.getElementById('detailView');
-    const gridLabel = document.getElementById('gridLabel');
+    const brandMain = document.getElementById('brandMain');
 
     function renderItems() {
         if (typeof merchandise === 'undefined') return;
@@ -163,7 +175,7 @@
         document.getElementById('dDesc').innerText = p.description;
         document.getElementById('dIG').href = "https://instagram.com/myfoodproductsputhukkadai";
         detailView.style.display = 'block';
-        gridLabel.innerText = "Suggested Products";
+        brandMain.innerText = "Suggested for you";
         window.scrollTo({top: 0, behavior: 'smooth'});
         const backBtn = document.getElementById('headerBack');
         backBtn.innerText = "← CLOSE VIEW";
@@ -173,7 +185,7 @@
 
     function closeDetail() {
         detailView.style.display = 'none';
-        gridLabel.innerText = "All Products";
+        brandMain.innerText = "MY Food Products";
         const backBtn = document.getElementById('headerBack');
         backBtn.innerText = "← BACK";
         backBtn.href = "merchandise.html";
@@ -183,7 +195,7 @@
     window.onpopstate = function(event) {
         if (detailView.style.display === 'block') {
             detailView.style.display = 'none';
-            gridLabel.innerText = "All Products";
+            brandMain.innerText = "MY Food Products";
             const backBtn = document.getElementById('headerBack');
             backBtn.innerText = "← BACK";
             backBtn.href = "merchandise.html";

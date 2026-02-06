@@ -149,6 +149,30 @@
             transform: translateY(-5px);
         }
 
+        /* ================= BIG VIEW MODAL ================= */
+        #productModal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: #0b0b0f;
+            z-index: 2000;
+            padding: 30px;
+            box-sizing: border-box;
+            overflow-y: auto;
+        }
+        .modal-container { max-width: 500px; margin: 0 auto; text-align: center; }
+        .m-close { color: #fff; float: right; font-size: 32px; font-weight: bold; cursor: pointer; }
+        #m-img { width: 100%; border-radius: 16px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1); }
+        #m-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 5px; }
+        #m-price { color: #1db954; font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; }
+        #m-desc { color: #888; margin-bottom: 30px; font-size: 14px; line-height: 1.6; }
+        .modal-actions { display: flex; flex-direction: column; gap: 12px; }
+        .modal-actions button, .modal-actions a { 
+            padding: 16px; border-radius: 8px; font-weight: 700; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;
+        }
+        .btn-cart { background: #fff; color: #000; }
+        .btn-insta { background: #1db954; color: #fff; }
+
         /* ================= NEWS CARD ================= */
         .premium-news-card {
             margin-top: 60px; padding: 40px; background: #0d0d11;
@@ -253,23 +277,20 @@
         </section>
 
         <section class="products-section">
-    <h3 style="margin-bottom:20px; font-weight: 500;">Featured Items</h3>
-    <div class="products">  
-        <div class="product" onclick="openProductFromJS('Avalose Sweet')">
-            <div style="width: 100%; height: 210px; background: #1c1c21; border-radius: 12px; margin-bottom: 15px;"></div>
-            <h4>Avalose Sweet</h4>
-            <p style="color: #1db954; font-weight: 700;">View Details</p>
-        </div>
-
-        <div class="product" onclick="openProductFromJS('Black Kavuni Rice')">
-            <div style="width: 100%; height: 210px; background: #1c1c21; border-radius: 12px; margin-bottom: 15px;"></div>
-            <h4>Black Kavuni Rice</h4>
-            <p style="color: #1db954; font-weight: 700;">View Details</p>
-        </div>
-    </div>
-</section>
-
-        
+            <h3 style="margin-bottom:20px; font-weight: 500;">Featured Items</h3>
+            <div class="products">  
+                <div class="product" onclick="openBigView('Avalose Sweet')">
+                    <img id="img-Avalose Sweet" src="placeholder.jpg" alt="Avalose Sweet">
+                    <h4>Avalose Sweet</h4>
+                    <p id="price-Avalose Sweet" style="color: #1db954; font-weight: 700;">Loading...</p>
+                </div>
+                <div class="product" onclick="openBigView('Black Kavuni Rice')">
+                    <img id="img-Black Kavuni Rice" src="placeholder.jpg" alt="Black Kavuni Rice">
+                    <h4>Black Kavuni Rice</h4>
+                    <p id="price-Black Kavuni Rice" style="color: #1db954; font-weight: 700;">Loading...</p>
+                </div>
+            </div>
+        </section>
 
         <div class="premium-news-card" onclick="highlightItem(this)">
             <div class="news-header-flex">
@@ -285,10 +306,54 @@
     </div>
 </main>
 
+<div id="productModal">
+    <div class="modal-container">
+        <span class="m-close" onclick="closeModal()">&times;</span>
+        <img id="m-img" src="" alt="">
+        <h1 id="m-title"></h1>
+        <div id="m-price"></div>
+        <p id="m-desc"></p>
+        <div class="modal-actions">
+            <button class="btn-cart" onclick="alert('Added to cart!')">ADD TO CART</button>
+            <a href="https://www.instagram.com/myfoodproductsputhukkadai?igsh=ODY5bGNmMzJnNmNz" class="btn-insta">ORDER VIA INSTAGRAM</a>
+        </div>
+    </div>
+</div>
+
 <footer><div class="copyright">© 2026 Sharan Musician | All Rights Reserved.</div></footer>
 
 <script src="newsdata.js"></script>
-<script>
+<script src="products.js"></script> <script>
+    // Load Product Data from products.js into Featured Items
+    function initFeaturedItems() {
+        const featured = ["Avalose Sweet", "Black Kavuni Rice"];
+        featured.forEach(name => {
+            const item = products.find(p => p.name === name);
+            if (item) {
+                document.getElementById(`img-${name}`).src = item.image;
+                document.getElementById(`price-${name}`).innerText = item.price;
+            }
+        });
+    }
+
+    function openBigView(name) {
+        const item = products.find(p => p.name === name);
+        if (item) {
+            document.getElementById('m-img').src = item.image;
+            document.getElementById('m-title').innerText = item.name;
+            document.getElementById('m-price').innerText = item.price;
+            document.getElementById('m-desc').innerText = item.description || "A premium organic product from Mall of Royal Red Bull.";
+            
+            document.getElementById('productModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Lock scrolling
+        }
+    }
+
+    function closeModal() {
+        document.getElementById('productModal').style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore scrolling
+    }
+
     function loadNewsFast() {
         if (typeof newsArchive !== 'undefined' && newsArchive.length > 0) {
             const item = newsArchive.find(n => n.sl === 1) || newsArchive[0];
@@ -299,89 +364,15 @@
             document.getElementById('date-inject').innerText = item.date.toUpperCase();
         }
     }
-    window.addEventListener('DOMContentLoaded', loadNewsFast);
+
+    window.addEventListener('DOMContentLoaded', () => {
+        loadNewsFast();
+        if (typeof products !== 'undefined') initFeaturedItems();
+    });
 
     const video = document.getElementById('heroVideo');
     const heroWrapper = document.getElementById('heroWrapper');
     const muteBtn = document.getElementById('muteToggle');
     const muteIconContainer = document.getElementById('muteIconContainer');
     
-    const muteSVG = `<svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"></path></svg>`;
-    const unmuteSVG = `<svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"></path></svg>`;
-
-    // Set initial state since video starts muted
-    muteIconContainer.innerHTML = muteSVG;
-    muteBtn.classList.add('show');
-
-    let iconTimeout;
-    heroWrapper.addEventListener('click', () => {
-        clearTimeout(iconTimeout);
-        video.muted = !video.muted;
-        
-        if (video.muted) {
-            // If muted: Show icon and keep it there
-            muteIconContainer.innerHTML = muteSVG;
-            muteBtn.classList.add('show');
-        } else {
-            // If unmuted: Show icon, then hide after 0.5s
-            muteIconContainer.innerHTML = unmuteSVG;
-            muteBtn.classList.add('show');
-            iconTimeout = setTimeout(() => {
-                muteBtn.classList.remove('show');
-            }, 500);
-        }
-    });
-
-    function highlightItem(element) {
-        document.querySelectorAll('.product, .premium-news-card').forEach(p => p.classList.remove('active-glow'));
-        element.classList.add('active-glow');
-    }
-
-function openProductFromJS(productName) {
-    // Search for the product in the array from products.js
-    const product = products.find(p => p.name === productName);
-
-    if (product) {
-        document.getElementById('m-title').innerText = product.name;
-        document.getElementById('m-price').innerText = product.price;
-        document.getElementById('m-desc').innerText = product.description || "Premium Organic Product";
-        
-        // Show Modal
-        document.getElementById('productModal').style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    } else {
-        console.error("Product not found in products.js");
-    }
-}
-
-function closeModal() {
-    document.getElementById('productModal').style.display = 'none';
-    document.body.style.overflow = 'auto';
-}
-
-function addToCartFromModal() {
-    const name = document.getElementById('m-title').innerText;
-    // Call your existing cart function if you have one, or redirect
-    alert(name + " added to cart!");
-    }
-    
-</script>
-    
-<div id="productModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0b0b0f; z-index: 2000; padding: 40px; box-sizing: border-box; overflow-y: auto;">
-    <span onclick="closeModal()" style="color: #fff; float: right; font-size: 30px; cursor: pointer;">&times;</span>
-    <div style="max-width: 600px; margin: 0 auto; text-align: center;">
-        <div id="m-img" style="width: 100%; aspect-ratio: 1/1; background: #16161d; border-radius: 16px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.1);"></div>
-        <h1 id="m-title" style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 10px;"></h1>
-        <div id="m-price" style="font-size: 1.5rem; color: #1db954; font-weight: 700; margin-bottom: 20px;"></div>
-        <p id="m-desc" style="color: #aaa; line-height: 1.8; margin-bottom: 30px; font-size: 1.1rem;"></p>
-        
-        <div style="display: flex; flex-direction: column; gap: 15px;">
-            <button onclick="addToCartFromModal()" style="background: #1db954; color: white; padding: 18px; border-radius: 8px; font-weight: 700; text-transform: uppercase;">ADD TO CART</button>
-            <a href="https://www.instagram.com/myfoodproductsputhukkadai?igsh=ODY5bGNmMzJnNmNz" style="background: rgba(255,255,255,0.05); color: white; padding: 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); font-weight: 700; text-decoration: none;">ORDER VIA INSTAGRAM</a>
-        </div>
-    </div>
-</div>
-    
-</body>
-                </html>
-                
+    const muteSVG = `<svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81

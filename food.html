@@ -1,128 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Organic Food | Mall of Royal Red Bull</title>
-    <style>
-        :root {
-            --bg-dark: #0a0a0c;        
-            --card-bg: #111114;       
-            --neon-green: #00c853;    
-            --royal-white: #ffffff;
-        }
-
-        body {
-            margin: 0;
-            padding-bottom: 80px;
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--royal-white);
-        }
-
-        header {
-            background-color: var(--bg-dark);
-            padding: 15px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 1px solid #1f1f23;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .back-btn { color: var(--neon-green); text-decoration: none; font-weight: 800; font-size: 13px; }
-        .logo { font-size: 14px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
-
-        .page-title-area {
-            padding: 30px 15px;
-            text-align: center;
-            background: linear-gradient(to bottom, #004d0015, var(--bg-dark));
-        }
-
-        .page-title-area h1 { margin: 0; font-size: 20px; text-transform: uppercase; }
-        .page-title-area p { color: var(--neon-green); font-size: 10px; font-weight: bold; margin-top: 5px; }
-
-        /* 2 CARDS PER ROW */
-        .product-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            padding: 12px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 10px;
-            border: 1px solid #1f1f23;
-            display: flex;
-            flex-direction: column;
-            position: relative;
-        }
-
-        .img-box {
-            width: 100%;
-            aspect-ratio: 1/1;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            overflow: hidden;
-        }
-
-        .img-box img { width: 100%; height: 100%; object-fit: cover; }
-
-        .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; margin-bottom: 4px; }
-        .p-price { font-size: 14px; font-weight: 800; color: var(--neon-green); margin-bottom: 10px; }
-
-        .ig-btn {
-            background: var(--neon-green);
-            color: black;
-            text-align: center;
-            text-decoration: none;
-            font-size: 9px;
-            font-weight: 900;
-            padding: 10px 5px;
-            border-radius: 6px;
-            text-transform: uppercase;
-        }
-
-        .out-of-stock { opacity: 0.5; filter: grayscale(0.8); }
-        .stock-tag { 
-            position: absolute; top: 10px; right: 10px; 
-            background: #ff1744; color: white; font-size: 7px; 
-            padding: 3px 6px; border-radius: 4px; font-weight: 900; 
-        }
-    </style>
-</head>
-<body>
-
-<header>
-    <a href="merchandise.html" class="back-btn">← BACK</a>
-    <div class="logo">Organic Food</div>
-    <div style="font-size: 20px;">🛒</div>
-</header>
-
-<div class="page-title-area">
-    <h1>MY Food Products</h1>
-    <p>A UNIT OF MUNCHIRAI YMCA TRUST</p>
-</div>
-
-<div class="product-container" id="foodGrid"></div>
-
 <script src="products.js"></script>
 
 <script>
     const foodGrid = document.getElementById('foodGrid');
 
-    function displayProducts() {
-        // Direct reference to the 'merchandise' array in your products.js
+    function renderOrganicFood() {
+        // 1. Check if the database (merchandise) exists
         if (typeof merchandise !== 'undefined') {
             
-            // Filter: Finds anything labeled "Organic Food"
-            const items = merchandise.filter(item => item.category === "Organic Food");
+            // 2. The Filter: "Find only items where category is Organic Food"
+            const organicItems = merchandise.filter(item => item.category === "Organic Food");
 
-            foodGrid.innerHTML = items.map(product => `
+            // 3. Display those items as cards
+            foodGrid.innerHTML = organicItems.map(product => `
                 <div class="card ${product.inStock ? '' : 'out-of-stock'}">
                     ${product.inStock ? '' : '<span class="stock-tag">OUT OF STOCK</span>'}
                     <div class="img-box">
@@ -131,15 +20,13 @@
                     <div class="p-name">${product.title}</div>
                     <div class="p-price">${product.price}</div>
                     <a href="https://www.instagram.com/myfoodproductsputhukkadai" class="ig-btn">
-                        ${product.inStock ? 'Order Now' : 'Enquire'}
+                        ${product.inStock ? 'Order via Instagram' : 'Enquire Stock'}
                     </a>
                 </div>
             `).join('');
         }
     }
 
-    displayProducts();
+    // Start the process
+    renderOrganicFood();
 </script>
-
-</body>
-</html>

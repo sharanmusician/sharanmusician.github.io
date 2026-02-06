@@ -223,20 +223,21 @@
 
 <div class="booking-section" id="book-now">
     <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 40px; text-align: center;">Inquiry Form</h2>
-    <form action="#">
+    
+    <form action="https://formspree.io/f/sharanmusician@gmail.com" method="POST">
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
             <div class="form-group">
                 <label>Full Name</label>
-                <input type="text" placeholder="John Doe">
+                <input type="text" name="Client Name" placeholder="John Doe" required>
             </div>
             <div class="form-group">
                 <label>Email Address</label>
-                <input type="email" placeholder="john@agency.com">
+                <input type="email" name="_replyto" placeholder="john@agency.com" required>
             </div>
         </div>
         <div class="form-group">
             <label>Event Type</label>
-            <select>
+            <select name="Event Category">
                 <option>Corporate Event</option>
                 <option>Public Concert</option>
                 <option>Wedding / Private</option>
@@ -245,12 +246,15 @@
         </div>
         <div class="form-group">
             <label>Event Date & Location</label>
-            <input type="text" placeholder="MM/DD/YYYY - City, Country">
+            <input type="text" name="Schedule & Venue" placeholder="MM/DD/YYYY - City, Country" required>
         </div>
         <div class="form-group">
             <label>Message / Requirements</label>
-            <textarea rows="5" placeholder="Tell us about your vision..."></textarea>
+            <textarea rows="5" name="Message Detail" placeholder="Tell us about your vision..."></textarea>
         </div>
+        
+        <input type="hidden" name="_subject" value="New Website Booking Inquiry">
+        
         <button type="submit" class="btn btn-primary" style="width: 100%; border-radius: 10px;">Send Booking Request</button>
     </form>
 </div>

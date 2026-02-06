@@ -88,7 +88,7 @@ header {
 
 .map-window {
     width: 100%;
-    height: 220px; /* RECTANGULAR */
+    height: 280px; /* Adjusted to match your required zoom view */
     border-radius: 14px;
     overflow: hidden;
     border: 1px solid #2a2a2e;
@@ -114,6 +114,7 @@ header {
     letter-spacing: 1px;
     text-transform: uppercase;
     text-decoration: none;
+    z-index: 10;
 }
 
 /* INFO */
@@ -144,30 +145,36 @@ header {
     line-height: 1.7;
 }
 
-/* BOTTOM NAV */
+/* NEW REQUIRED BOTTOM NAV */
 .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
     background: #0f0f12;
-    display: flex;
-    justify-content: space-around;
-    padding: 15px 0;
-    border-top: 1px solid #1f1f23;
-    z-index: 1000;
+    display: flex; 
+    justify-content: space-around; 
+    padding: 10px 0; 
+    border-top: 1px solid #1f1f23; 
+    z-index: 1001; 
+    align-items: center;
 }
 
-.nav-item {
-    color: var(--text-gray);
-    text-decoration: none;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+.nav-item { 
+    color: var(--text-gray); 
+    text-decoration: none; 
+    font-size: 10px; 
+    text-align: center;
+    line-height: 1;
 }
 
-.nav-item.active {
-    color: var(--neon-green);
+.nav-item.active { color: var(--neon-green); }
+
+.nav-item img.logo-circle {
+    width: 34px; 
+    height: 34px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 1px solid #333; 
 }
 </style>
 </head>
@@ -182,7 +189,6 @@ header {
     <div class="verified-wrapper">
         <h1 class="store-name">MY Store</h1>
 
-        <!-- SPIKED INSTAGRAM VERIFIED BADGE -->
         <div class="ig-badge">
             <svg width="28" height="28" viewBox="0 0 24 24">
                 <path d="M12 2L14.4 4.8L18 4.6L18.6 8L22 9.6L20.2 12.8L22 16L18.6 17.6L18 21L14.4 20.8L12 23L9.6 20.8L6 21L5.4 17.6L2 16L3.8 12.8L2 9.6L5.4 8L6 4.6L9.6 4.8L12 2Z"
@@ -200,15 +206,14 @@ header {
     <span class="store-tagline">Organic Food Products Shop</span>
 </div>
 
-<!-- MAP -->
 <div class="map-section">
     <div class="map-window">
         <iframe
-            src="https://www.google.com/maps?q=MY+Food+Products+Opposite+Viha+Dance+Hub+Puthukkadai&output=embed"
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3945.744158933256!2d77.164835!3d8.318858!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05000a064f4745%3A0x23204fc449008577!2sMY%20FOOD%20PRODUCTS!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin"
             loading="lazy">
         </iframe>
 
-        <a href="https://maps.app.goo.gl/zNfpHSpacodsE32G6"
+        <a href="https://www.google.com/maps/dir/?api=1&destination=8.318858,77.164835"
            target="_blank"
            class="map-btn">
            Get Directions
@@ -216,9 +221,7 @@ header {
     </div>
 </div>
 
-<!-- INFO -->
 <div class="info-section">
-
     <div class="info-card">
         <span class="card-label">The Vision</span>
         <div class="card-content">
@@ -249,13 +252,24 @@ header {
             </a>
         </div>
     </div>
-
 </div>
 
 <div class="bottom-nav">
-    <a href="home.html" class="nav-item">Home</a>
-    <a href="store.html" class="nav-item active">Visit Store</a>
-    <a href="bestsellers.html" class="nav-item">Best Sellers</a>
+    <a href="merchandise.html" class="nav-item">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
+        <br>Home
+    </a>
+    <a href="bestsellers.html" class="nav-item">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+        <br>Best Sellers
+    </a>
+    <a href="store.html" class="nav-item active">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z"></path></svg>
+        <br>Visit Store
+    </a>
+    <a href="index.html" class="nav-item">
+        <img src="logo.png" class="logo-circle" alt="Logo">
+    </a>
 </div>
 
 </body>

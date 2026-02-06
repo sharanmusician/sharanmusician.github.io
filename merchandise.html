@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Mall of Royal Red Bull</title>
     <style>
         :root {
@@ -11,226 +11,238 @@
             --neon-green: #00c853;    
             --royal-white: #ffffff;
             --text-gray: #a0a0a0;
+            --amazon-orange: #ff9900;
         }
 
         body {
             margin: 0;
-            font-family: 'Inter', sans-serif;
+            padding-bottom: 70px; /* Space for bottom nav */
+            font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg-dark);
             color: var(--royal-white);
-            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* --- HEADER & NAV --- */
+        /* --- STICKY MOBILE HEADER --- */
         header {
             background-color: var(--bg-dark);
-            padding: 15px 20px;
-            border-bottom: 1px solid #1f1f23;
+            padding: 12px 15px;
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
+            border-bottom: 1px solid #1f1f23;
         }
 
-        .top-row {
+        .header-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
         }
 
-        .logo { font-size: 16px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
+        .logo { font-size: 14px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: var(--neon-green); }
 
-        .search-container {
+        .search-bar {
             display: flex;
             background: #18181b;
-            border: 1px solid #333;
             border-radius: 8px;
-            overflow: hidden;
+            padding: 2px;
+            border: 1px solid #333;
         }
 
-        .search-container input {
+        .search-bar input {
             flex-grow: 1;
             padding: 10px;
             background: transparent;
             border: none;
             color: white;
+            font-size: 14px;
             outline: none;
         }
 
-        .search-btn { background-color: var(--neon-green); border: none; padding: 0 15px; cursor: pointer; font-weight: bold; }
-
-        nav {
-            padding: 10px 20px;
-            background: #0f0f12;
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            border-bottom: 1px solid #1f1f23;
-        }
-
-        nav a { color: var(--royal-white); text-decoration: none; font-size: 11px; font-weight: 700; text-transform: uppercase; white-space: nowrap; }
-        nav .coming-soon { color: #444; font-size: 11px; text-transform: uppercase; }
-
-        /* --- SECTION HEADERS --- */
-        .section-header {
+        /* --- HERO BANNER --- */
+        .hero-slider {
+            width: 100%;
+            height: 160px;
+            background: linear-gradient(45deg, #004d00, #0a0a0c);
+            margin-top: 5px;
             display: flex;
             align-items: center;
-            gap: 10px;
-            margin: 25px 0 15px 0;
-        }
-
-        .accent-line { width: 3px; height: 20px; background-color: var(--neon-green); }
-        .section-title { font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 800; }
-
-        /* --- 1. HERO BANNER --- */
-        .hero-banner {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(to right, #00c85333, #0a0a0c), url('your-hero-image.jpg');
-            background-size: cover;
-            border-radius: 12px;
-            margin: 10px 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
             padding: 20px;
-            border: 1px solid #1f1f23;
+            box-sizing: border-box;
+            border-bottom: 4px solid var(--neon-green);
         }
 
-        .hero-banner h1 { font-size: 24px; margin: 0; color: var(--neon-green); }
-        .hero-banner p { font-size: 14px; color: var(--text-gray); margin: 5px 0; }
+        /* --- TRENDING: 2 PER ROW --- */
+        .section-header {
+            padding: 20px 15px 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-        /* --- 2. TRENDING (2 PRODUCTS IN A ROW) --- */
+        .accent-bar { width: 4px; height: 18px; background: var(--neon-green); }
+        .section-title { font-size: 15px; font-weight: 800; text-transform: uppercase; }
+
         .trending-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr; /* Exact 2 per row as requested */
-            gap: 15px;
-        }
-
-        /* --- 3. AMAZON-STYLE SHOWCASE (MORE LIKE AMAZON) --- */
-        .amazon-showcase {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 12px;
+            padding: 0 15px;
         }
 
-        /* --- CARDS --- */
-        .product-card {
+        /* --- HORIZONTAL SCROLL SECTION (More like Amazon) --- */
+        .horizontal-scroll {
+            display: flex;
+            overflow-x: auto;
+            gap: 12px;
+            padding: 10px 15px;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+
+        .horizontal-scroll::-webkit-scrollbar { display: none; }
+
+        /* --- PRODUCT CARDS --- */
+        .card {
             background: var(--card-bg);
-            border-radius: 10px;
+            border-radius: 12px;
             padding: 12px;
             border: 1px solid #1f1f23;
-            display: flex;
-            flex-direction: column;
+            min-width: 140px; /* For horizontal scroll */
         }
 
-        .img-box {
+        .img-placeholder {
             width: 100%;
             aspect-ratio: 1/1;
             background: #1c1c21;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center; justify-content: center;
-            font-size: 10px; color: #444;
+            border-radius: 8px;
+            margin-bottom: 8px;
         }
 
-        .p-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
-        .p-price { font-size: 15px; font-weight: 800; color: var(--royal-white); margin-bottom: 10px; }
+        .p-name { font-size: 13px; font-weight: 600; height: 32px; overflow: hidden; }
+        .p-price { font-size: 16px; font-weight: 800; margin: 5px 0; }
 
-        .order-link {
-            background-color: var(--neon-green);
+        .ig-btn {
+            display: block;
+            background: var(--neon-green);
             color: black;
-            text-decoration: none;
             text-align: center;
+            text-decoration: none;
             font-size: 10px;
-            font-weight: 800;
-            padding: 8px;
-            border-radius: 4px;
+            font-weight: 900;
+            padding: 10px 5px;
+            border-radius: 6px;
             text-transform: uppercase;
         }
 
-        .disabled-btn { background: #222; color: #555; cursor: not-allowed; }
+        /* --- BOTTOM NAVIGATION (Amazon Style) --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #0f0f12;
+            display: flex;
+            justify-content: space-around;
+            padding: 12px 0;
+            border-top: 1px solid #1f1f23;
+            z-index: 1001;
+        }
 
-        .container { padding: 0 15px 40px 15px; }
+        .nav-item { color: var(--text-gray); text-decoration: none; font-size: 10px; text-align: center; }
+        .nav-item.active { color: var(--neon-green); }
+        .nav-icon { font-size: 20px; display: block; margin-bottom: 2px; }
 
     </style>
 </head>
 <body>
 
 <header>
-    <div class="top-row">
-        <div class="logo">Mall of Royal Red Bull</div>
-        <div style="font-size: 18px;">🛒</div>
+    <div class="header-top">
+        <div class="logo">Royal Red Bull</div>
+        <a href="cart.html" style="text-decoration: none; font-size: 22px;">🛒</a>
     </div>
-    <div class="search-container">
+    <div class="search-bar">
         <input type="text" placeholder="Search Organic Provisions...">
-        <button class="search-btn">🔍</button>
+        <div style="padding: 10px;">🔍</div>
     </div>
 </header>
 
-<nav>
-    <a href="food.html">Organic Provisions</a>
-    <span class="coming-soon">Clothing</span>
-    <span class="coming-soon">Accessories</span>
-    <span class="coming-soon">Shoes</span>
-</nav>
-
-<div class="container">
-    
-    <div class="hero-banner">
-        <h1>Royal Provisions</h1>
-        <p>Pure. Organic. Exclusive.</p>
-        <a href="food.html" style="color: var(--neon-green); font-size: 12px; font-weight: bold; text-decoration: none;">Shop the collection →</a>
+<div class="hero-slider">
+    <div>
+        <h2 style="margin:0; font-size: 20px;">Organic <br><span style="color:var(--neon-green)">Provisions</span></h2>
+        <p style="font-size: 12px; color: var(--text-gray);">New Arrivals from the Royal Estate</p>
     </div>
+</div>
 
-    <div class="section-header">
-        <div class="accent-line"></div>
-        <div class="section-title">Trending Products</div>
-    </div>
-    
-    <div class="trending-grid">
-        <div class="product-card">
-            <div class="img-box">ORGANIC_01</div>
-            <div class="p-name">Royal Wild Honey</div>
-            <div class="p-price">₹1,499</div>
-            <a href="https://ig.me/m/mallofroyalredbull" class="order-link">Order via Instagram</a>
-        </div>
-        <div class="product-card">
-            <div class="img-box">ORGANIC_02</div>
-            <div class="p-name">Highland Matcha</div>
-            <div class="p-price">₹2,100</div>
-            <a href="https://ig.me/m/mallofroyalredbull" class="order-link">Order via Instagram</a>
-        </div>
-    </div>
+<div style="display:flex; gap:10px; padding:15px; overflow-x:auto; background:#0f0f12;">
+    <a href="food.html" style="background:var(--neon-green); color:black; padding:8px 15px; border-radius:20px; font-size:12px; font-weight:bold; text-decoration:none; white-space:nowrap;">Organic Provisions</a>
+    <span style="border:1px solid #333; padding:8px 15px; border-radius:20px; font-size:12px; color:#555; white-space:nowrap;">Clothing</span>
+    <span style="border:1px solid #333; padding:8px 15px; border-radius:20px; font-size:12px; color:#555; white-space:nowrap;">Accessories</span>
+</div>
 
-    <div class="section-header">
-        <div class="accent-line"></div>
-        <div class="section-title">More to Explore</div>
-    </div>
+<div class="section-header">
+    <div class="accent-bar"></div>
+    <div class="section-title">Trending Now</div>
+</div>
 
-    <div class="amazon-showcase">
-        <div class="product-card">
-            <div class="img-box">GEAR_01</div>
-            <div class="p-name">Royal Cap</div>
-            <div class="p-price">Soon</div>
-            <span class="order-link disabled-btn">Coming Soon</span>
-        </div>
-        <div class="product-card">
-            <div class="img-box">GEAR_02</div>
-            <div class="p-name">Signature Tee</div>
-            <div class="p-price">Soon</div>
-            <span class="order-link disabled-btn">Coming Soon</span>
-        </div>
-        <div class="product-card">
-            <div class="img-box">GEAR_03</div>
-            <div class="p-name">Bull Hoodie</div>
-            <div class="p-price">Soon</div>
-            <span class="order-link disabled-btn">Coming Soon</span>
-        </div>
+<div class="trending-grid">
+    <div class="card">
+        <div class="img-placeholder"></div>
+        <div class="p-name">Royal Estate Matcha</div>
+        <div class="p-price">₹2,499</div>
+        <a href="https://ig.me/m/mallofroyalredbull" class="ig-btn">Order via Instagram</a>
     </div>
+    <div class="card">
+        <div class="img-placeholder"></div>
+        <div class="p-name">Organic Wild Honey</div>
+        <div class="p-price">₹1,200</div>
+        <a href="https://ig.me/m/mallofroyalredbull" class="ig-btn">Order via Instagram</a>
+    </div>
+</div>
 
+<div class="section-header">
+    <div class="accent-bar"></div>
+    <div class="section-title">More to Explore</div>
+</div>
+
+<div class="horizontal-scroll">
+    <div class="card">
+        <div class="img-placeholder"></div>
+        <div class="p-name">Premium Cap</div>
+        <div class="p-price" style="color:#444">Coming</div>
+    </div>
+    <div class="card">
+        <div class="img-placeholder"></div>
+        <div class="p-name">Signature Hoodie</div>
+        <div class="p-price" style="color:#444">Coming</div>
+    </div>
+    <div class="card">
+        <div class="img-placeholder"></div>
+        <div class="p-name">Royal Sneakers</div>
+        <div class="p-price" style="color:#444">Coming</div>
+    </div>
+</div>
+
+<div class="bottom-nav">
+    <a href="index.html" class="nav-item active">
+        <span class="nav-icon">🏠</span>
+        Home
+    </a>
+    <a href="food.html" class="nav-item">
+        <span class="nav-icon">🌿</span>
+        Provisions
+    </a>
+    <a href="cart.html" class="nav-item">
+        <span class="nav-icon">🛒</span>
+        Cart
+    </a>
+    <a href="https://instagram.com/mallofroyalredbull" class="nav-item">
+        <span class="nav-icon">📸</span>
+        Follow
+    </a>
 </div>
 
 </body>
-</html>
+        </html>
+        

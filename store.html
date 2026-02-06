@@ -47,25 +47,26 @@
         }
 
         .verified-wrapper {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            vertical-align: middle;
+            gap: 8px; /* Precise gap between name and badge */
         }
 
         .store-name {
-            font-size: 34px;
+            font-size: 32px;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: -1px;
             margin: 0;
-            line-height: 1.2;
+            line-height: 1;
         }
 
+        /* Accurate Instagram Verified Badge SVG Styling */
         .ig-verified {
-            width: 26px;
-            height: 26px;
-            margin-left: 8px; /* Space from text */
+            width: 24px;
+            height: 24px;
+            display: block;
             flex-shrink: 0;
         }
 
@@ -79,7 +80,7 @@
             display: block;
         }
 
-        /* --- LIVE MAP WINDOW (REAL ROAD VISIBILITY) --- */
+        /* --- LIVE MAP WINDOW (EXACT ROAD COLORS) --- */
         .map-section {
             padding: 0 10px;
             margin: 25px 0;
@@ -87,9 +88,9 @@
 
         .map-window {
             width: 100%;
-            height: 280px; /* Increased for better visibility */
-            background: #18181b;
-            border-radius: 14px;
+            height: 280px;
+            background: #f0f0f0; /* Map loading background */
+            border-radius: 12px;
             overflow: hidden;
             position: relative;
             border: 1px solid #2a2a2e;
@@ -100,7 +101,7 @@
             width: 100%;
             height: 100%;
             border: 0;
-            /* Filter removed to show REAL map layout and road colors */
+            /* No filters here - shows exact road colors from Google */
         }
 
         .map-btn {
@@ -146,7 +147,7 @@
             color: var(--royal-white);
         }
 
-        /* --- COMPRESSED FOOTER --- */
+        /* --- FOOTER SYNC --- */
         .bottom-nav {
             position: fixed; 
             bottom: 0; 
@@ -189,9 +190,9 @@
 <div class="store-hero">
     <div class="verified-wrapper">
         <h1 class="store-name">MY Store</h1>
-        <svg class="ig-verified" viewBox="0 0 24 24">
-            <path fill="#0095f6" d="M12 2L14.4 4.8L17.8 4.4L18.4 7.8L21.4 9.2L20.2 12.4L22.2 15.2L19.4 17.4L18.6 20.8L15.2 20.6L12.8 23L10.4 20.6L7 20.8L6.2 17.4L3.4 15.2L5.4 12.4L4.2 9.2L7.2 7.8L7.8 4.4L11.2 4.8L12 2Z"/>
-            <path fill="white" d="M10.4 15.6L16.2 9.8L15 8.6L10.4 13.2L8.2 11L7 12.2L10.4 15.6Z"/>
+        <svg class="ig-verified" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.5 12.5L21.06 10.87L21.26 8.71L19.15 8.23L18.06 6.38L16 7.15L14.15 5.65L12.5 7.06L10.85 5.65L9 7.15L6.94 6.38L5.85 8.23L3.74 8.71L3.94 10.87L2.5 12.5L3.94 14.13L3.74 16.29L5.85 16.77L6.94 18.62L9 17.85L10.85 19.35L12.5 17.94L14.15 19.35L16 17.85L18.06 18.62L19.15 16.77L21.26 16.29L21.06 14.13L22.5 12.5Z" fill="#0095f6"/>
+            <path d="M10.1 14.85L7.4 12.15L8.4 11.15L10.1 12.85L14.6 8.35L15.6 9.35L10.1 14.85Z" fill="white"/>
         </svg>
     </div>
     <span class="store-tagline">Organic Food Products Shop</span>
@@ -199,14 +200,14 @@
 
 <div class="map-section">
     <div class="map-window">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.9676646736693!2d77.16542717582967!3d8.502500091539266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05a76646736693%3A0x0!2zOMKwMzAnMDkuMCJOIDc3wrAwOSc1Ni44IkU!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.922123456789!2d77.123456789!3d8.123456789!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwMDcnMjQuNCJOIDc3wrA0NSczNS43IkU!5e0!3m2!1sen!2sin!4v1234567890" allowfullscreen="" loading="lazy"></iframe>
         <a href="Https://maps.app.goo.gl/nPbwyiwKAJWEBTLY7" target="_blank" class="map-btn">Get Directions</a>
     </div>
 </div>
 
 <div class="info-section">
     <div class="info-card">
-        <span class="card-label">Store Details</span>
+        <span class="card-label">Store Location</span>
         <div class="card-content">
             <strong>MY Food Products</strong><br>
             <span style="color: var(--text-gray); font-size: 12px;">A Unit of Munchirai YMCA Trust</span><br><br>
@@ -219,12 +220,12 @@
         <span class="card-label">Business Hours</span>
         <div class="card-content">
             <span style="font-size: 18px; font-weight: 800;">9:00 AM – 8:30 PM</span><br>
-            <span style="color: var(--neon-green); font-size: 11px;">OPEN ALL DAYS</span>
+            <span style="color: var(--neon-green); font-size: 11px;">OPEN DAILY</span>
         </div>
     </div>
 
     <div class="info-card">
-        <span class="card-label">Direct Contact</span>
+        <span class="card-label">Direct Line</span>
         <div class="card-content">
             <a href="tel:+919345192020" style="color:white; text-decoration:none; display:block; margin-bottom:10px;">📞 +91 93451 92020</a>
             <a href="mailto:munchiraiymcaestore@gmail.com" style="color:white; text-decoration:none;">📧 munchiraiymcaestore@gmail.com</a>
@@ -251,4 +252,5 @@
 </div>
 
 </body>
-</html>
+        </html>
+        

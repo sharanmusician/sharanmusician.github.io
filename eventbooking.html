@@ -138,9 +138,14 @@
                 <input type="text" name="name" placeholder="John Doe" required>
             </div>
             <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" name="email" placeholder="john@agency.com" required>
+                <label>Contact Number</label>
+                <input type="tel" name="phone" placeholder="+91 00000-00000" required>
             </div>
+        </div>
+
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" placeholder="john@agency.com" required>
         </div>
 
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
@@ -154,7 +159,7 @@
                 </select>
             </div>
             <div class="form-group">
-                <label>Location / Venue</label>
+                <label>Venue Location</label>
                 <input type="text" name="location" placeholder="City, Country" required>
             </div>
         </div>
@@ -165,20 +170,21 @@
                 <input type="date" name="date" required>
             </div>
             <div class="form-group">
-                <label>Performance Time (From - To)</label>
+                <label>Performance Timing</label>
                 <input type="text" name="timing" placeholder="e.g. 7:00 PM - 9:00 PM" required>
             </div>
         </div>
 
         <div class="form-group">
-            <label>Message / Requirements</label>
-            <textarea rows="5" name="message" placeholder="Tell us about your vision..."></textarea>
+            <label>Message / Special Requirements</label>
+            <textarea rows="4" name="message" placeholder="Tell us about your vision (Stage size, sound gear available, etc...)"></textarea>
         </div>
         
-        <input type="hidden" name="_subject" value="New Booking Request">
+        <input type="hidden" name="_subject" value="New Booking Request - Sharan Musician">
         <button type="submit" class="btn btn-primary" style="width: 100%; border-radius: 10px;">Send Booking Request</button>
     </form>
 </div>
+
 
 <footer>
     © 2026 Sharan Musician | ALL RIGHTS RESERVED.

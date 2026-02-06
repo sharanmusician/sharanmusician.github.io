@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mall of Royal Red Bull</title>
+    <title>Best Sellers | Mall of Royal Red Bull</title>
     <style>
         :root {
             --bg-dark: #0a0a0c;        
@@ -13,9 +13,17 @@
             --text-gray: #a0a0a0;
         }
 
+        /* --- PROTECTION & GLOBAL --- */
+        * {
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            padding-bottom: 70px;
+            padding-bottom: 90px;
             font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg-dark);
             color: var(--royal-white);
@@ -23,271 +31,164 @@
             overflow-x: hidden;
         }
 
-        /* --- STICKY HEADER --- */
+        /* --- HEADER --- */
         header {
             background-color: var(--bg-dark);
             padding: 12px 15px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            position: sticky; top: 0; z-index: 1000;
             border-bottom: 1px solid #1f1f23;
+            display: flex; justify-content: center; align-items: center;
         }
 
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
+        .logo { font-size: 14px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--neon-green); }
 
-        .logo { font-size: 14px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: var(--neon-green); }
+        /* --- SECTION HEADERS --- */
+        .brand-container { padding: 25px 15px 10px; text-align: center; }
+        .brand-main { font-size: 18px; font-weight: 900; text-transform: uppercase; color: var(--royal-white); letter-spacing: 1.5px; margin: 0; }
+        .brand-sub { font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--neon-green); letter-spacing: 0.5px; margin-top: 4px; opacity: 0.9; }
 
-        .search-bar {
-            display: flex;
-            background: #18181b;
-            border-radius: 8px;
-            padding: 2px;
-            border: 1px solid #333;
-        }
-
-        .search-bar input {
-            flex-grow: 1;
-            padding: 10px;
-            background: transparent;
-            border: none;
-            color: white;
-            font-size: 14px;
-            outline: none;
-        }
-
-        /* --- AUTO SLIDING HERO --- */
-        .slider-container {
-            width: 100%;
-            height: 180px;
-            overflow: hidden;
-            position: relative;
-            border-bottom: 3px solid var(--neon-green);
-            touch-action: pan-y;
-        }
-
-        .slider-wrapper {
-            display: flex;
-            width: 300%;
-            height: 100%;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .slide {
-            width: 33.333%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 25px;
-            box-sizing: border-box;
-        }
-
-        .slide:nth-child(1) { background: linear-gradient(45deg, #004d00, #0a0a0c); }
-        .slide:nth-child(2) { background: linear-gradient(45deg, #002e00, #0a0a0c); }
-        .slide:nth-child(3) { background: linear-gradient(45deg, #001a00, #0a0a0c); }
-
-        /* --- CATEGORY BOX GRID --- */
-        .category-grid {
+        /* --- GRID SYSTEM --- */
+        .product-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
             padding: 15px;
-            background: #0a0a0c;
         }
 
-        .cat-box {
-            background: var(--card-bg);
-            border: 1px solid #1f1f23;
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            text-decoration: none;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
+        /* --- PREMIUM CARDS --- */
+        .card {
+            background: var(--card-bg); border-radius: 12px;
+            padding: 10px; border: 1px solid #1f1f23;
+            display: flex; flex-direction: column;
+            position: relative;
         }
 
-        .cat-box.active { border-color: var(--neon-green); }
-        .cat-icon { font-size: 24px; }
-        .cat-name { font-size: 12px; font-weight: 700; color: var(--royal-white); text-transform: uppercase; }
-        .cat-status { font-size: 9px; color: var(--neon-green); font-weight: 800; }
-        .locked { opacity: 0.5; cursor: not-allowed; }
+        .badge {
+            position: absolute; top: 8px; left: 8px;
+            background: var(--neon-green); color: black;
+            font-size: 8px; font-weight: 900; padding: 4px 8px;
+            border-radius: 4px; z-index: 2;
+        }
 
-        /* --- SECTIONS & CARDS --- */
-        .section-header { padding: 20px 15px 10px; display: flex; align-items: center; gap: 8px; }
-        .accent-bar { width: 4px; height: 18px; background: var(--neon-green); }
-        .section-title { font-size: 15px; font-weight: 800; text-transform: uppercase; }
+        .img-box { width: 100%; aspect-ratio: 1/1; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
 
-        .trending-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 15px; }
-
-        .card { background: var(--card-bg); border-radius: 12px; padding: 12px; border: 1px solid #1f1f23; }
-        .img-placeholder { width: 100%; aspect-ratio: 1/1; background: #1c1c21; border-radius: 8px; margin-bottom: 8px; }
-        .p-name { font-size: 13px; font-weight: 600; height: 32px; overflow: hidden; }
-        .p-price { font-size: 16px; font-weight: 800; margin: 5px 0; }
+        .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; }
+        .p-price { font-size: 14px; font-weight: 800; color: var(--royal-white); margin-bottom: 10px; }
+        
+        /* --- CARD BUTTONS --- */
+        .card-btns { display: flex; flex-direction: column; gap: 5px; margin-top: auto; }
+        
+        .cart-btn {
+            background: transparent; color: var(--neon-green);
+            border: 1px solid var(--neon-green); text-align: center;
+            font-size: 8px; font-weight: 900; padding: 8px 4px;
+            border-radius: 6px; text-transform: uppercase; cursor: pointer;
+        }
 
         .ig-btn {
-            display: block;
-            background: var(--neon-green);
-            color: black;
-            text-align: center;
-            text-decoration: none;
-            font-size: 10px;
-            font-weight: 900;
-            padding: 10px 5px;
-            border-radius: 6px;
-            text-transform: uppercase;
+            background: var(--neon-green); color: black; text-align: center;
+            text-decoration: none; font-size: 8px; font-weight: 900;
+            padding: 8px 4px; border-radius: 6px; text-transform: uppercase;
         }
 
-        /* --- BOTTOM NAV --- */
+        hr { border: 0; border-top: 1px solid #1f1f23; margin: 20px 15px; }
+
+        /* --- BOTTOM NAV UPDATED TO MATCH MERCHANDISE.HTML --- */
         .bottom-nav {
             position: fixed; bottom: 0; width: 100%; background: #0f0f12;
             display: flex; justify-content: space-around; padding: 12px 0;
             border-top: 1px solid #1f1f23; z-index: 1001;
         }
-        .nav-item { color: var(--text-gray); text-decoration: none; font-size: 10px; text-align: center; }
+        .nav-item { 
+            color: var(--text-gray); 
+            text-decoration: none; 
+            font-size: 10px; 
+            text-align: center; 
+        }
         .nav-item.active { color: var(--neon-green); }
-        .nav-icon { font-size: 20px; display: block; margin-bottom: 2px; }
+        .nav-item svg { display: block; margin: 0 auto 4px auto; }
 
     </style>
 </head>
 <body>
 
 <header>
-    <div class="header-top">
-        <div class="logo">Mall of Royal Red Bull</div>
-        <a href="cart.html" style="text-decoration: none; font-size: 22px;">🛒</a>
-    </div>
-    <div class="search-bar">
-        <input type="text" placeholder="Search Organic Provisions...">
-        <div style="padding: 10px;">🔍</div>
-    </div>
+    <div class="logo">Mall of Royal Red Bull</div>
 </header>
 
-<div class="slider-container" id="sliderContainer">
-    <div class="slider-wrapper" id="slider">
-        <div class="slide">
-            <h2 style="margin:0;">MY Food<br><span style="color:var(--neon-green)">Products</span></h2>
-            <p style="font-size: 12px; color: var(--text-gray);">New Arrivals from munchirai YMCA Trust</p>
-        </div>
-        <div class="slide">
-            <h2 style="margin:0;">Royal<br><span style="color:var(--neon-green)">Streetwear</span></h2>
-            <p style="font-size: 12px; color: var(--text-gray);">Exclusive Merch Coming Soon</p>
-        </div>
-        <div class="slide">
-            <h2 style="margin:0;">Premium<br><span style="color:var(--neon-green)">Accessories</span></h2>
-            <p style="font-size: 12px; color: var(--text-gray);">Crafted for the Royal Lifestyle</p>
-        </div>
-    </div>
+<div class="brand-container">
+    <h2 class="brand-main">Best Sellers</h2>
+    <div class="brand-sub">Handpicked Excellence</div>
 </div>
 
-<div class="category-grid">
-    <a href="food.html" class="cat-box active">
-        <span class="cat-icon">🌿</span>
-        <span class="cat-name">Organic Provisions</span>
-        <span class="cat-status">AVAILABLE NOW</span>
-    </a>
-    <div class="cat-box locked">
-        <span class="cat-icon">👕</span>
-        <span class="cat-name">Clothing</span>
-        <span class="cat-status" style="color:#444">COMING SOON</span>
-    </div>
-    <div class="cat-box locked">
-        <span class="cat-icon">⌚</span>
-        <span class="cat-name">Accessories</span>
-        <span class="cat-status" style="color:#444">COMING SOON</span>
-    </div>
-    <div class="cat-box locked">
-        <span class="cat-icon">👟</span>
-        <span class="cat-name">Shoes</span>
-        <span class="cat-status" style="color:#444">COMING SOON</span>
-    </div>
+<div class="product-container" id="bestSellersGrid"></div>
+
+<hr>
+
+<div class="brand-container">
+    <h2 class="brand-main">Full Collection</h2>
+    <div class="brand-sub">Explore the complete catalog</div>
 </div>
 
-<div class="section-header">
-    <div class="accent-bar"></div>
-    <div class="section-title">Trending Now</div>
-</div>
-
-<div class="trending-grid">
-    <div class="card">
-        <div class="img-placeholder"></div>
-        <div class="p-name">Royal Estate Matcha</div>
-        <div class="p-price">₹2,499</div>
-        <a href="https://www.instagram.com/myfoodproductsputhukkadai?igsh=ODY5bGNmMzJnNmNz" class="ig-btn">Order via Instagram</a>
-    </div>
-    <div class="card">
-        <div class="img-placeholder"></div>
-        <div class="p-name">Organic Wild Honey</div>
-        <div class="p-price">₹1,200</div>
-        <a href="https://www.instagram.com/myfoodproductsputhukkadai?igsh=ODY5bGNmMzJnNmNz" class="ig-btn">Order via Instagram</a>
-    </div>
-</div>
+<div class="product-container" id="fullInventoryGrid"></div>
 
 <div class="bottom-nav">
-    <a href="index.html" class="nav-item">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
-        <br>Home
+    <a href="merchandise.html" class="nav-item">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
+        Home
     </a>
-    <a href="bestsellers.html" class="nav-item">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
-        <br>Best Sellers
+    <a href="bestsellers.html" class="nav-item active">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+        Best Sellers
     </a>
     <a href="store.html" class="nav-item">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z"></path></svg>
-        <br>Visit Store
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z"></path></svg>
+        Visit Store
     </a>
     <a href="https://www.instagram.com/sharan.musician" target="_blank" class="nav-item">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
-        <br>Follow
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"></path></svg>
+        Follow
     </a>
 </div>
 
-
+<script src="products.js"></script>
 <script>
-    let currentSlide = 0;
-    const slider = document.getElementById('slider');
-    const container = document.getElementById('sliderContainer');
-    let startX = 0;
+    document.addEventListener('contextmenu', e => e.preventDefault());
 
-    // Auto-slide every 3 seconds
-    let slideTimer = setInterval(nextSlide, 3000);
+    function initPage() {
+        if (typeof merchandise === 'undefined') return;
 
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % 3;
-        updateSlider();
-    }
+        const activeInventory = merchandise.filter(m => m.inStock === true);
 
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + 3) % 3;
-        updateSlider();
-    }
-
-    function updateSlider() {
-        slider.style.transform = `translateX(-${currentSlide * 33.333}%)`;
-    }
-
-    // Manual Swipe Detection
-    container.addEventListener('touchstart', e => {
-        startX = e.touches[0].clientX;
-        clearInterval(slideTimer); // Stop auto-slide while interacting
-    });
-
-    container.addEventListener('touchend', e => {
-        let endX = e.changedTouches[0].clientX;
-        if (startX - endX > 50) nextSlide();
-        else if (endX - startX > 50) prevSlide();
+        const fixedIds = ["RRB-001", "RRB-002"];
+        const fixedItems = activeInventory.filter(m => fixedIds.includes(m.id));
+        const otherFood = activeInventory.filter(m => !fixedIds.includes(m.id) && m.category === "Organic Food");
         
-        // Restart auto-slide after interaction
-        slideTimer = setInterval(nextSlide, 3000);
-    });
-</script>
+        const randomBest = otherFood.sort(() => 0.5 - Math.random()).slice(0, 2);
+        const bestSellers = [...fixedItems, ...randomBest];
 
+        const bestSellerIds = bestSellers.map(b => b.id);
+        const fullInventory = activeInventory.filter(m => !bestSellerIds.includes(m.id));
+
+        const createCardHTML = (p, isBest) => `
+            <div class="card" onclick="window.location.href='food.html?id=${p.id}'">
+                ${isBest ? '<div class="badge">BEST SELLER</div>' : ''}
+                <div class="img-box"><img src="${p.image}"></div>
+                <div class="p-name">${p.title}</div>
+                <div class="p-price">${p.price}</div>
+                <div class="card-btns">
+                    <button class="cart-btn" onclick="event.stopPropagation(); alert('Item Added to Cart!')">Add to Cart</button>
+                    <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-btn" onclick="event.stopPropagation()">Order via Instagram</a>
+                </div>
+            </div>
+        `;
+
+        document.getElementById('bestSellersGrid').innerHTML = bestSellers.map(p => createCardHTML(p, true)).join('');
+        document.getElementById('fullInventoryGrid').innerHTML = fullInventory.map(p => createCardHTML(p, false)).join('');
+    }
+
+    window.onload = initPage;
+</script>
 </body>
-                                                                                </html>
-                                                                                
+</html>

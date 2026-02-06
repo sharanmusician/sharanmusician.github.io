@@ -88,7 +88,7 @@ header {
 
 .map-window {
     width: 100%;
-    height: 220px; /* RECTANGULAR */
+    height: 220px;
     border-radius: 14px;
     overflow: hidden;
     border: 1px solid #2a2a2e;
@@ -144,30 +144,39 @@ header {
     line-height: 1.7;
 }
 
-/* BOTTOM NAV */
+/* NEW COMPRESSED NAVIGATION FROM REFERENCE */
 .bottom-nav {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    position: fixed; 
+    bottom: 0; 
+    width: 100%; 
     background: #0f0f12;
-    display: flex;
-    justify-content: space-around;
-    padding: 15px 0;
-    border-top: 1px solid #1f1f23;
-    z-index: 1000;
+    display: flex; 
+    justify-content: space-around; 
+    padding: 10px 0; 
+    border-top: 1px solid #1f1f23; 
+    z-index: 1001; 
+    align-items: center;
 }
 
-.nav-item {
-    color: var(--text-gray);
-    text-decoration: none;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+.nav-item { 
+    color: var(--text-gray); 
+    text-decoration: none; 
+    font-size: 10px; 
+    text-align: center;
+    line-height: 1;
 }
 
-.nav-item.active {
-    color: var(--neon-green);
+.nav-item.active { 
+    color: var(--neon-green); 
+}
+
+.nav-item img.logo-circle {
+    width: 34px; 
+    height: 34px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 1px solid #333; 
+    vertical-align: middle;
 }
 </style>
 </head>
@@ -181,78 +190,62 @@ header {
 <div class="store-hero">
     <div class="verified-wrapper">
         <h1 class="store-name">MY Store</h1>
-
         <div class="ig-badge">
             <svg width="28" height="28" viewBox="0 0 24 24">
-                <path d="M12 2L14.4 4.8L18 4.6L18.6 8L22 9.6L20.2 12.8L22 16L18.6 17.6L18 21L14.4 20.8L12 23L9.6 20.8L6 21L5.4 17.6L2 16L3.8 12.8L2 9.6L5.4 8L6 4.6L9.6 4.8L12 2Z"
-                      fill="#0095F6"/>
-                <path d="M9 12.5L11 14.5L15 10.5"
-                      fill="none"
-                      stroke="#ffffff"
-                      stroke-width="2.4"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"/>
+                <path d="M12 2L14.4 4.8L18 4.6L18.6 8L22 9.6L20.2 12.8L22 16L18.6 17.6L18 21L14.4 20.8L12 23L9.6 20.8L6 21L5.4 17.6L2 16L3.8 12.8L2 9.6L5.4 8L6 4.6L9.6 4.8L12 2Z" fill="#0095F6"/>
+                <path d="M9 12.5L11 14.5L15 10.5" fill="none" stroke="#ffffff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </div>
     </div>
-
     <span class="store-tagline">Organic Food Products Shop</span>
 </div>
 
 <div class="map-section">
     <div class="map-window">
-        <iframe
-            src="https://www.google.com/maps?q=MY+Food+Products+Opposite+Viha+Dance+Hub+Puthukkadai&output=embed"
-            loading="lazy">
-        </iframe>
-
-        <a href="https://maps.app.goo.gl/zNfpHSpacodsE32G6"
-           target="_blank"
-           class="map-btn">
-           Get Directions
-        </a>
+        <iframe src="https://www.google.com/maps?q=MY+Food+Products+Opposite+Viha+Dance+Hub+Puthukkadai&output=embed" loading="lazy"></iframe>
+        <a href="https://maps.app.goo.gl/zNfpHSpacodsE32G6" target="_blank" class="map-btn">Get Directions</a>
     </div>
 </div>
 
 <div class="info-section">
-
     <div class="info-card">
         <span class="card-label">The Vision</span>
-        <div class="card-content">
-            Offering premium organic food products and natural items to ensure a healthy lifestyle for our community.
-        </div>
+        <div class="card-content">Offering premium organic food products and natural items to ensure a healthy lifestyle for our community.</div>
     </div>
-
     <div class="info-card">
         <span class="card-label">Store Location</span>
         <div class="card-content">
             <strong>MY Food Products</strong><br>
-            <span style="font-size:11px;color:var(--text-gray);">
-                (Opposite Viha Dance Hub)
-            </span><br>
+            <span style="font-size:11px;color:var(--text-gray);">(Opposite Viha Dance Hub)</span><br>
             KPN Lane, Kollemcode Road,<br>
             Puthukkadai – 629171
         </div>
     </div>
-
     <div class="info-card">
         <span class="card-label">Direct Support</span>
         <div class="card-content">
-            <a href="tel:+919345192020" style="color:#fff;text-decoration:none;">
-                📞 +91 93451 92020
-            </a><br>
-            <a href="mailto:munchiraiymcaestore@gmail.com" style="color:#fff;text-decoration:none;">
-                📧 munchiraiymcaestore@gmail.com
-            </a>
+            <a href="tel:+919345192020" style="color:#fff;text-decoration:none;">📞 +91 93451 92020</a><br>
+            <a href="mailto:munchiraiymcaestore@gmail.com" style="color:#fff;text-decoration:none;">📧 munchiraiymcaestore@gmail.com</a>
         </div>
     </div>
-
 </div>
 
 <div class="bottom-nav">
-    <a href="home.html" class="nav-item">Home</a>
-    <a href="merchandise.html" class="nav-item">Merchandise</a>
-    <a href="store.html" class="nav-item active">Visit Store</a>
+    <a href="merchandise.html" class="nav-item">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
+        <br>Home
+    </a>
+    <a href="bestsellers.html" class="nav-item">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+        <br>Best Sellers
+    </a>
+    <a href="store.html" class="nav-item active">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z"></path></svg>
+        <br>Visit Store
+    </a>
+    <a href="index.html" class="nav-item">
+        <img src="logo.png" class="logo-circle" alt="Logo">
+    </a>
 </div>
 
 </body>

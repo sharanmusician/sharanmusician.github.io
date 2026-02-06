@@ -150,7 +150,7 @@
     const detailView = document.getElementById('detailView');
     const brandMain = document.getElementById('brandMain');
 
-    // Updated to handle excluding the currently viewed product
+    // Filters current category and excludes the specific ID being viewed
     function renderItems(excludeId = null) {
         if (typeof merchandise === 'undefined') return;
         const foodItems = merchandise.filter(item => 
@@ -172,6 +172,7 @@
     function showProduct(id) {
         const p = merchandise.find(item => item.id === id);
         if (!p) return;
+        
         document.getElementById('dImg').src = p.image;
         document.getElementById('dTitle').innerText = p.title;
         document.getElementById('dPrice').innerText = p.price;
@@ -181,20 +182,25 @@
         detailView.style.display = 'block';
         brandMain.innerText = "Suggested for you";
         
-        // Hide the current product from the list below
+        // This ensures the triggered item is hidden from the grid below
         renderItems(id);
         
         window.scrollTo({top: 0, behavior: 'smooth'});
+        
         const backBtn = document.getElementById('headerBack');
         backBtn.innerText = "← CLOSE VIEW";
         backBtn.href = "javascript:closeDetail()";
-        history.pushState({ view: 'detail' }, '');
+        
+        // Push state only if we aren't already in detail view
+        if (!history.state || history.state.view !== 'detail') {
+            history.pushState({ view: 'detail' }, '');
+        }
     }
 
     function closeDetail() {
         detailView.style.display = 'none';
         brandMain.innerText = "MY Food Products";
-        // Restore all products to the grid
+        // Reset grid to show everything
         renderItems();
         const backBtn = document.getElementById('headerBack');
         backBtn.innerText = "← BACK";
@@ -213,14 +219,17 @@
         }
     };
 
-    // Initial load
+    // Initial render of all items
     renderItems();
 
-    // Trigger Big View if ID is in the URL (from Home Page click)
+    // HANDLES HOMEPAGE TRIGGER: 
+    // This reads the URL and hides the product from the list immediately
     window.addEventListener('DOMContentLoaded', () => {
         const params = new URLSearchParams(window.location.search);
         const productId = params.get('id');
-        if (productId) showProduct(productId);
+        if (productId) {
+            showProduct(productId); 
+        }
     });
 </script>
 </body>

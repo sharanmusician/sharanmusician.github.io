@@ -154,17 +154,21 @@
     function initPage() {
         if (typeof merchandise === 'undefined') return;
 
+        // --- FILTER 1: ONLY SHOW IN-STOCK ITEMS ---
+        const activeInventory = merchandise.filter(m => m.inStock === true);
+
+        // --- LOGIC FOR BEST SELLERS ---
         const fixedIds = ["RRB-001", "RRB-002"];
-        const fixedItems = merchandise.filter(m => fixedIds.includes(m.id));
-        const otherItems = merchandise.filter(m => !fixedIds.includes(m.id));
+        const fixedItems = activeInventory.filter(m => fixedIds.includes(m.id));
+        const otherFood = activeInventory.filter(m => !fixedIds.includes(m.id) && m.category === "Organic Food");
         
-        // Pick 2 randoms from the other food items specifically for the Best Seller top row
-        const otherFood = otherItems.filter(m => m.category === "Organic Food");
+        // Randomly pick 2 from remaining active food
         const randomBest = otherFood.sort(() => 0.5 - Math.random()).slice(0, 2);
-        
         const bestSellers = [...fixedItems, ...randomBest];
+
+        // --- LOGIC FOR FULL COLLECTION ---
         const bestSellerIds = bestSellers.map(b => b.id);
-        const fullInventory = merchandise.filter(m => !bestSellerIds.includes(m.id));
+        const fullInventory = activeInventory.filter(m => !bestSellerIds.includes(m.id));
 
         const createCardHTML = (p, isBest) => `
             <div class="card" onclick="window.location.href='food.html?id=${p.id}'">

@@ -127,32 +127,45 @@
         .cat-status { font-size: 9px; color: var(--neon-green); font-weight: 800; }
         .locked { opacity: 0.5; cursor: not-allowed; }
 
-        /* --- SECTIONS & CARDS --- */
+        /* --- SECTIONS & CARDS (SYNCED WITH FOOD.HTML) --- */
         .section-header { padding: 20px 15px 10px; display: flex; align-items: center; gap: 8px; }
         .accent-bar { width: 4px; height: 18px; background: var(--neon-green); }
         .section-title { font-size: 15px; font-weight: 800; text-transform: uppercase; }
 
-        .trending-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 15px; }
-
-        .card { background: var(--card-bg); border-radius: 12px; padding: 12px; border: 1px solid #1f1f23; }
-        .img-placeholder { width: 100%; aspect-ratio: 1/1; background: #1c1c21; border-radius: 8px; margin-bottom: 8px; }
-        .p-name { font-size: 13px; font-weight: 600; height: 32px; overflow: hidden; }
-        .p-price { font-size: 16px; font-weight: 800; margin: 5px 0; }
-
-        .ig-btn {
-            display: block;
-            background: var(--neon-green);
-            color: black;
-            text-align: center;
-            text-decoration: none;
-            font-size: 10px;
-            font-weight: 900;
-            padding: 10px 5px;
-            border-radius: 6px;
-            text-transform: uppercase;
+        .trending-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 12px; 
+            padding: 0 15px; 
         }
 
-        /* --- COMPRESSED NAVIGATION (MATCHING BEST SELLERS SCREENSHOT) --- */
+        .card {
+            background: var(--card-bg); border-radius: 12px;
+            padding: 10px; border: 1px solid #1f1f23;
+            display: flex; flex-direction: column;
+            text-decoration: none; color: inherit;
+        }
+
+        .img-box { width: 100%; aspect-ratio: 1/1; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; }
+        .p-price { font-size: 14px; font-weight: 800; color: var(--royal-white); margin-bottom: 10px; }
+        
+        .card-btns { display: flex; flex-direction: column; gap: 5px; margin-top: auto; }
+        .card-btns .ig-btn { 
+            background: var(--neon-green); 
+            color: black; 
+            text-align: center; 
+            text-decoration: none; 
+            font-size: 8px; 
+            font-weight: 900; 
+            padding: 8px 4px; 
+            border-radius: 6px; 
+            text-transform: uppercase; 
+        }
+
+        /* --- COMPRESSED NAVIGATION --- */
         .bottom-nav {
             position: fixed; 
             bottom: 0; 
@@ -171,7 +184,7 @@
             text-decoration: none; 
             font-size: 10px; 
             text-align: center;
-            line-height: 1; /* Compressed spacing */
+            line-height: 1;
         }
 
         .nav-item.active { 
@@ -247,20 +260,7 @@
     <div class="section-title">Trending Now</div>
 </div>
 
-<div class="trending-grid">
-    <div class="card">
-        <div class="img-placeholder"></div>
-        <div class="p-name">Royal Estate Matcha</div>
-        <div class="p-price">₹2,499</div>
-        <a href="https://www.instagram.com/myfoodproductsputhukkadai" class="ig-btn">Order via Instagram</a>
-    </div>
-    <div class="card">
-        <div class="img-placeholder"></div>
-        <div class="p-name">Organic Wild Honey</div>
-        <div class="p-price">₹1,200</div>
-        <a href="https://www.instagram.com/myfoodproductsputhukkadai" class="ig-btn">Order via Instagram</a>
-    </div>
-</div>
+<div class="trending-grid" id="trendingGrid"></div>
 
 <div class="bottom-nav">
     <a href="merchandise.html" class="nav-item active">
@@ -280,7 +280,9 @@
     </a>
 </div>
 
+<script src="products.js"></script>
 <script>
+    // Slider Logic
     let currentSlide = 0;
     const slider = document.getElementById('slider');
     const container = document.getElementById('sliderContainer');
@@ -302,6 +304,32 @@
         else if (endX - startX > 50) prevSlide();
         slideTimer = setInterval(nextSlide, 3000);
     });
+
+    // Trending Now Randomizer Logic
+    function renderTrending() {
+        if (typeof merchandise === 'undefined') return;
+        
+        // Get only Food products
+        const foodItems = merchandise.filter(item => item.category === "Organic Food");
+        
+        // Shuffle and pick 2
+        const shuffled = foodItems.sort(() => 0.5 - Math.random());
+        const selected = shuffled.slice(0, 2);
+        
+        const trendingGrid = document.getElementById('trendingGrid');
+        trendingGrid.innerHTML = selected.map(p => `
+            <a href="food.html?id=${p.id}" class="card">
+                <div class="img-box"><img src="${p.image}"></div>
+                <div class="p-name">${p.title}</div>
+                <div class="p-price">${p.price}</div>
+                <div class="card-btns">
+                    <div class="ig-btn">View Details</div>
+                </div>
+            </a>
+        `).join('');
+    }
+
+    renderTrending();
 </script>
 
 </body>

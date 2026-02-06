@@ -253,20 +253,23 @@
         </section>
 
         <section class="products-section">
-            <h3 style="margin-bottom:20px; font-weight: 500;">Featured Items</h3>
-            <div class="products">  
-                <div class="product" onclick="highlightItem(this)">
-                    <img src="https://via.placeholder.com/300x210">
-                    <h4>Official Vinyl</h4>
-                    <p style="color: #aaa; font-weight: 700;">₹3,499</p>
-                </div>
-                <div class="product" onclick="highlightItem(this)">
-                    <img src="https://via.placeholder.com/300x210">
-                    <h4>Premium Hoodie</h4>
-                    <p style="color: #aaa; font-weight: 700;">₹2,299</p>
-                </div>
-            </div>
-        </section>
+    <h3 style="margin-bottom:20px; font-weight: 500;">Featured Items</h3>
+    <div class="products">  
+        <div class="product" onclick="openProductFromJS('Avalose Sweet')">
+            <div style="width: 100%; height: 210px; background: #1c1c21; border-radius: 12px; margin-bottom: 15px;"></div>
+            <h4>Avalose Sweet</h4>
+            <p style="color: #1db954; font-weight: 700;">View Details</p>
+        </div>
+
+        <div class="product" onclick="openProductFromJS('Black Kavuni Rice')">
+            <div style="width: 100%; height: 210px; background: #1c1c21; border-radius: 12px; margin-bottom: 15px;"></div>
+            <h4>Black Kavuni Rice</h4>
+            <p style="color: #1db954; font-weight: 700;">View Details</p>
+        </div>
+    </div>
+</section>
+
+        
 
         <div class="premium-news-card" onclick="highlightItem(this)">
             <div class="news-header-flex">
@@ -333,9 +336,52 @@
         document.querySelectorAll('.product, .premium-news-card').forEach(p => p.classList.remove('active-glow'));
         element.classList.add('active-glow');
     }
+
+function openProductFromJS(productName) {
+    // Search for the product in the array from products.js
+    const product = products.find(p => p.name === productName);
+
+    if (product) {
+        document.getElementById('m-title').innerText = product.name;
+        document.getElementById('m-price').innerText = product.price;
+        document.getElementById('m-desc').innerText = product.description || "Premium Organic Product";
+        
+        // Show Modal
+        document.getElementById('productModal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    } else {
+        console.error("Product not found in products.js");
+    }
+}
+
+function closeModal() {
+    document.getElementById('productModal').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+function addToCartFromModal() {
+    const name = document.getElementById('m-title').innerText;
+    // Call your existing cart function if you have one, or redirect
+    alert(name + " added to cart!");
+    }
+    
 </script>
     
-
+<div id="productModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0b0b0f; z-index: 2000; padding: 40px; box-sizing: border-box; overflow-y: auto;">
+    <span onclick="closeModal()" style="color: #fff; float: right; font-size: 30px; cursor: pointer;">&times;</span>
+    <div style="max-width: 600px; margin: 0 auto; text-align: center;">
+        <div id="m-img" style="width: 100%; aspect-ratio: 1/1; background: #16161d; border-radius: 16px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.1);"></div>
+        <h1 id="m-title" style="font-family: 'Playfair Display', serif; font-size: 2.5rem; margin-bottom: 10px;"></h1>
+        <div id="m-price" style="font-size: 1.5rem; color: #1db954; font-weight: 700; margin-bottom: 20px;"></div>
+        <p id="m-desc" style="color: #aaa; line-height: 1.8; margin-bottom: 30px; font-size: 1.1rem;"></p>
+        
+        <div style="display: flex; flex-direction: column; gap: 15px;">
+            <button onclick="addToCartFromModal()" style="background: #1db954; color: white; padding: 18px; border-radius: 8px; font-weight: 700; text-transform: uppercase;">ADD TO CART</button>
+            <a href="https://www.instagram.com/myfoodproductsputhukkadai?igsh=ODY5bGNmMzJnNmNz" style="background: rgba(255,255,255,0.05); color: white; padding: 18px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); font-weight: 700; text-decoration: none;">ORDER VIA INSTAGRAM</a>
+        </div>
+    </div>
+</div>
+    
 </body>
                 </html>
                 

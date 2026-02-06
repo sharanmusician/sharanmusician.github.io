@@ -144,7 +144,7 @@
             text-transform: uppercase;
         }
 
-        /* --- BOTTOM NAV (EXACT SYNC) --- */
+        /* --- BOTTOM NAV (EXACT COPIED FROM BESTSELLERS.HTML) --- */
         .bottom-nav {
             position: fixed; bottom: 0; width: 100%; background: #0f0f12;
             display: flex; justify-content: space-around; padding: 10px 0;
@@ -189,6 +189,49 @@
     </div>
 </div>
 
+<div class="category-grid">
+    <a href="food.html" class="cat-box active">
+        <span class="cat-icon">🌿</span>
+        <span class="cat-name">Organic Provisions</span>
+        <span class="cat-status">AVAILABLE NOW</span>
+    </a>
+    <div class="cat-box locked">
+        <span class="cat-icon">👕</span>
+        <span class="cat-name">Clothing</span>
+        <span class="cat-status" style="color:#444">COMING SOON</span>
+    </div>
+    <div class="cat-box locked">
+        <span class="cat-icon">⌚</span>
+        <span class="cat-name">Accessories</span>
+        <span class="cat-status" style="color:#444">COMING SOON</span>
+    </div>
+    <div class="cat-box locked">
+        <span class="cat-icon">👟</span>
+        <span class="cat-name">Shoes</span>
+        <span class="cat-status" style="color:#444">COMING SOON</span>
+    </div>
+</div>
+
+<div class="section-header">
+    <div class="accent-bar"></div>
+    <div class="section-title">Trending Now</div>
+</div>
+
+<div class="trending-grid">
+    <div class="card">
+        <div class="img-placeholder"></div>
+        <div class="p-name">Royal Estate Matcha</div>
+        <div class="p-price">₹2,499</div>
+        <a href="https://www.instagram.com/myfoodproductsputhukkadai?igsh=ODY5bGNmMzJnNmNz" class="ig-btn">Order via Instagram</a>
+    </div>
+    <div class="card">
+        <div class="img-placeholder"></div>
+        <div class="p-name">Organic Wild Honey</div>
+        <div class="p-price">₹1,200</div>
+        <a href="https://www.instagram.com/myfoodproductsputhukkadai?igsh=ODY5bGNmMzJnNmNz" class="ig-btn">Order via Instagram</a>
+    </div>
+</div>
+
 <div class="bottom-nav">
     <a href="merchandise.html" class="nav-item active">
         <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
@@ -208,7 +251,38 @@
 </div>
 
 <script>
-    // Slider logic remains same
+    let currentSlide = 0;
+    const slider = document.getElementById('slider');
+    const container = document.getElementById('sliderContainer');
+    let startX = 0;
+
+    let slideTimer = setInterval(nextSlide, 3000);
+
+    function nextSlide() {
+        currentSlide = (currentSlide + 1) % 3;
+        updateSlider();
+    }
+
+    function prevSlide() {
+        currentSlide = (currentSlide - 1 + 3) % 3;
+        updateSlider();
+    }
+
+    function updateSlider() {
+        slider.style.transform = `translateX(-${currentSlide * 33.333}%)`;
+    }
+
+    container.addEventListener('touchstart', e => {
+        startX = e.touches[0].clientX;
+        clearInterval(slideTimer);
+    });
+
+    container.addEventListener('touchend', e => {
+        let endX = e.changedTouches[0].clientX;
+        if (startX - endX > 50) nextSlide();
+        else if (endX - startX > 50) prevSlide();
+        slideTimer = setInterval(nextSlide, 3000);
+    });
 </script>
 
 </body>

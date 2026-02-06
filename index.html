@@ -16,8 +16,6 @@
             overflow-x: hidden;
             user-select: none;
             -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
         }
         a { text-decoration: none; color: inherit; transition: all 0.2s ease; }
         button { cursor: pointer; border: none; transition: all 0.2s ease; outline: none; }
@@ -25,7 +23,6 @@
         .custom-scroll::-webkit-scrollbar { height: 3px; display: block; }
         .custom-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
         .custom-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
-        .custom-scroll { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.2) rgba(255,255,255,0.03); }
 
         /* ================= STICKY TOP BAR ================= */
         .top-bar {
@@ -50,9 +47,8 @@
             flex: 1; padding: 10px 18px; background: transparent; color: #fff; 
             border-radius: 8px 0 0 8px; border: 1px solid rgba(255,255,255,0.15); 
             border-right: none; outline: none; min-width: 0; 
-            user-select: text; -webkit-user-select: text;
         }
-        .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; white-space: nowrap; }
+        .search-bar button { padding: 10px 22px; background: #1db954; color: #fff; border-radius: 0 8px 8px 0; font-weight: 600; }
 
         /* ================= ACTION BAR ================= */
         .action-bar {
@@ -66,7 +62,7 @@
             margin: 0 auto;
         }
         .action-bar button { 
-            width: 100%; height: 38px; padding: 0 10px; 
+            width: 100%; height: 38px;
             background: rgba(255,255,255,0.06); 
             color: #fff; border-radius: 6px; font-size: 13px; 
             display: flex; align-items: center; justify-content: center;
@@ -74,22 +70,11 @@
 
         /* ================= NAVIGATION ================= */
         nav { 
-            display: flex; 
-            width: 100%; 
-            background: #111118; 
+            display: flex; width: 100%; background: #111118; 
             border-bottom: 1px solid rgba(255,255,255,0.03);
-            padding-top: 0;
-            padding-bottom: 0; 
             justify-content: space-evenly; 
         }
-        nav button, nav a { flex: 1; text-align: center; }
-        nav button { 
-            background: none; 
-            color: #999; 
-            font-size: 13px;
-            padding: 6px 0; 
-            width: 100%;
-        }
+        nav button { background: none; color: #999; font-size: 13px; padding: 10px 0; width: 100%; }
         nav button.active { color: #1db954; font-weight: 700; }
 
         /* ================= HERO ================= */
@@ -97,7 +82,6 @@
             position: relative; width: 100%; aspect-ratio: 16 / 9;
             max-height: 80vh; overflow: hidden; margin-bottom: 20px;
             background: #000; cursor: pointer;
-            -webkit-tap-highlight-color: transparent; 
         }
         .hero video { width: 100%; height: 100%; display: block; object-fit: contain; }
         .mute-btn {
@@ -105,19 +89,14 @@
             z-index: 10; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(10px);
             color: white; border-radius: 50%; width: 60px; height: 60px;
             display: flex; align-items: center; justify-content: center;
-            border: 1px solid rgba(255, 255, 255, 0.2); opacity: 0; transition: opacity 0.2s;
-            pointer-events: none; 
+            opacity: 0; transition: opacity 0.2s; pointer-events: none; 
         }
         .mute-btn.show { opacity: 1; }
-        #muteIconContainer { display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; }
 
         /* ================= MAIN LAYOUT ================= */
         main { 
-            display: grid; 
-            grid-template-columns: 260px 1fr; 
-            gap: 40px; padding: 40px; 
-            max-width: 1450px; margin: 0 auto;
-            width: 100%;
+            display: grid; grid-template-columns: 260px 1fr; 
+            gap: 40px; padding: 40px; max-width: 1450px; margin: 0 auto;
         }
         .category-box {
             background: rgba(255, 255, 255, 0.02);
@@ -127,85 +106,51 @@
         .category-box h4 { font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 1.5px; margin-bottom: 15px; }
         .category-box button { display: block; width: 100%; padding: 12px 15px; margin-bottom: 8px; background: rgba(255, 255, 255, 0.04); color: #ccc; border-radius: 8px; text-align: left; font-size: 14px; }
 
-        .content-area { min-width: 0; }
-        .profiles-section { margin-bottom: 50px; width: 100%; }
-        .profile-slider { display: flex; overflow-x: auto; padding-bottom: 15px; -webkit-overflow-scrolling: touch; }
+        .profiles-section { margin-bottom: 50px; }
+        .profile-slider { display: flex; overflow-x: auto; padding-bottom: 15px; }
         .profile-item { flex: 0 0 20%; text-align: center; } 
         .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.1); }
-        .profile-item div { font-size: 12px; color: #aaa; white-space: nowrap; }
+        .profile-item div { font-size: 12px; color: #aaa; }
 
-        .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
+        /* ================= FEATURED PRODUCTS ================= */
+        .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
         .product { 
-            background: #12121a; border-radius: 16px; padding: 24px; 
-            border: 1px solid rgba(255,255,255,0.05); 
-            transition: all 0.4s ease; cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
+            background: #12121a; border-radius: 16px; padding: 20px; 
+            border: 1px solid rgba(255,255,255,0.05); cursor: pointer;
         }
-        .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
-        .product.active-glow, .premium-news-card.active-glow {
-            border-color: #1db954;
-            box-shadow: 0 0 30px rgba(29, 185, 84, 0.2);
-            background: rgba(29, 185, 84, 0.02);
-            transform: translateY(-5px);
-        }
-
-        /* ================= BIG VIEW MODAL ================= */
-        #productModal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: #0b0b0f;
-            z-index: 2000;
-            padding: 30px;
-            box-sizing: border-box;
-            overflow-y: auto;
-        }
-        .modal-container { max-width: 500px; margin: 0 auto; text-align: center; }
-        .m-close { color: #fff; float: right; font-size: 32px; font-weight: bold; cursor: pointer; }
-        #m-img { width: 100%; border-radius: 16px; margin: 20px 0; border: 1px solid rgba(255,255,255,0.1); }
-        #m-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 5px; }
-        #m-price { color: #1db954; font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; }
-        #m-desc { color: #888; margin-bottom: 30px; font-size: 14px; line-height: 1.6; }
-        .modal-actions { display: flex; flex-direction: column; gap: 12px; }
-        .modal-actions button, .modal-actions a { 
-            padding: 16px; border-radius: 8px; font-weight: 700; text-transform: uppercase; font-size: 12px; letter-spacing: 1px;
-        }
-        .btn-cart { background: #fff; color: #000; }
-        .btn-insta { background: #1db954; color: #fff; }
+        .product img { width: 100%; height: 180px; object-fit: cover; border-radius: 10px; margin-bottom: 12px; }
+        .product h4 { font-size: 15px; margin-bottom: 5px; }
+        .product-price { color: #1db954; font-weight: 700; font-size: 14px; }
+        .feat-btn-group { display: flex; gap: 8px; margin-top: 15px; }
+        .btn-mini { flex: 1; padding: 10px 5px; font-size: 9px; font-weight: 700; border-radius: 4px; text-transform: uppercase; text-align: center;}
+        .btn-cart-mini { background: #fff; color: #000; }
+        .btn-insta-mini { background: #1db954; color: #fff; }
 
         /* ================= NEWS CARD ================= */
         .premium-news-card {
             margin-top: 60px; padding: 40px; background: #0d0d11;
             border-left: 2px solid #1db954; border-radius: 4px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.5); position: relative;
-            transition: all 0.4s ease; cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
+            cursor: pointer;
         }
         .news-header-flex { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
         .live-badge { display: flex; align-items: center; gap: 10px; font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: #1db954; font-weight: 800; }
         .dot { width: 6px; height: 6px; background: #1db954; border-radius: 50%; box-shadow: 0 0 10px #1db954; animation: pulse-blink 1.5s infinite; }
         @keyframes pulse-blink { 50% { opacity: 0.4; } }
-        .news-date-side { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #444; letter-spacing: 1px; }
-        .news-title { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: #fff; margin-bottom: 15px; font-weight: 700; letter-spacing: -0.5px; }
-        .news-desc { color: #888; font-size: 1.05rem; line-height: 1.8; max-width: 90%; margin-bottom: 30px; }
+        .news-date-side { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: #444; }
+        .news-title { font-family: 'Playfair Display', serif; font-size: 2.4rem; color: #fff; margin-bottom: 15px; }
+        .news-desc { color: #888; font-size: 1rem; line-height: 1.8; margin-bottom: 30px; }
         .btn-pro-dispatch {
             background: #141418; color: #f5f5f5; padding: 10px 22px; border: 1px solid #252529;
             border-radius: 4px; font-size: 10px; text-transform: uppercase;
-            letter-spacing: 2px; font-weight: 700; display: inline-flex; align-items: center; gap: 10px;
         }
 
         footer { padding: 40px 20px; background: #08080c; border-top: 1px solid rgba(255,255,255,0.05); text-align: center; }
-        .copyright { font-size: 11px; color: #444; text-transform: uppercase; }
+        .copyright { font-size: 11px; color: #444; }
 
         @media (max-width: 900px) {
             .top-bar { padding: 10px 15px; flex-direction: column; }
-            .action-bar { padding: 10px 15px; grid-template-columns: repeat(3, 1fr); }
-            nav { overflow-x: auto; white-space: nowrap; justify-content: flex-start; }
-            nav button, nav a { flex: 0 0 25%; }
             main { display: flex; flex-direction: column; padding: 20px; }
-            .profile-item { flex: 0 0 25%; } 
             .products { grid-template-columns: 1fr 1fr; }
-            .news-title { font-size: 1.8rem; }
         }
     </style>
 </head>
@@ -228,151 +173,117 @@
     <button>Cart</button>  
 </div>
 
-<nav class="custom-scroll" id="mainNav">  
+<nav id="mainNav">  
     <button class="active">All</button>
     <a href="projects.html"><button>Projects</button></a>
-    <a href="booktickets.html"><button>Book Tickets</button></a>
     <a href="news.html"><button>News</button></a>
     <a href="merchandise.html"><button>Merch</button></a>
     <a href="about.html"><button>About</button></a>
-    <a href="contact.html"><button>Contact</button></a>
 </nav>
 
 <section class="hero" id="heroWrapper">
     <video autoplay muted loop playsinline id="heroVideo">
         <source src="hero.mp4" type="video/mp4">
     </video>
-    <div class="mute-btn" id="muteToggle">
-        <div id="muteIconContainer"></div>
-    </div>
+    <div class="mute-btn" id="muteToggle"><div id="muteIconContainer"></div></div>
 </section>
 
 <main>
     <div class="category-box">  
         <h4>Sections</h4>
         <a href="albums.html"><button>Albums</button></a>  
-        <a href="booktickets.html"><button>Reserve Your Seat</button></a>
         <a href="musiccourses.html"><button>Music Courses</button></a>  
         <a href="merchandise.html"><button>Merchandise</button></a>  
-        <a href="community.html"><button>Community</button></a>
     </div>
 
     <div class="content-area">
         <section class="profiles-section">  
-            <h3 style="margin-bottom:20px; font-weight: 500;">Profiles</h3>
+            <h3 style="margin-bottom:20px;">Profiles</h3>
             <div class="profile-slider custom-scroll">  
-                <a href="https://open.spotify.com/artist/16XIcGxUwd0RaCkZE2mRPR?si=pRXJonnGRHWT5XegBTw-eA" target="_blank" class="profile-item"><img src="spotify.jpg" alt="Spotify"><div>Spotify</div></a>
-                <a href="https://g.co/kgs/gtv47AQ" target="_blank" class="profile-item"><img src="google.jpg" alt="Google"><div>Google</div></a>
-                <a href="https://www.instagram.com/sharan.musician?igsh=M2gyM25wMXF0eXQ0" target="_blank" class="profile-item"><img src="instagram.jpg" alt="Instagram"><div>Instagram</div></a>
-                <a href="https://youtube.com/@sharan.musician?si=wZlASMES3BCSoclb" target="_blank" class="profile-item"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
-                <a href="https://www.facebook.com/share/q4RM6ssA4W3QFqCF/?mibextid=qi2Omg" target="_blank" class="profile-item"><img src="facebook.jpg" alt="FaceBook"><div>FaceBook</div></a>
-                <a href="https://x.com/SharanMusician?t=IKPRN7yWHAJ9FvUG0FQGmA&s=09" target="_blank" class="profile-item"><img src="x.jpg" alt="X"><div>X (Twitter)</div></a>
-                <a href="https://www.imdb.com/name/nm17859010/?ref_=ext_shr" target="_blank" class="profile-item"><img src="imdb.jpg" alt="IMDb"><div>IMDb</div></a>
-                <a href="https://music.apple.com/us/artist/sharan-musician/1671976313" target="_blank" class="profile-item"><img src="applemusic.jpg" alt="Apple Music"><div>Apple Music</div></a>
-                <a href="https://music.amazon.in/artists/B0BVRTY3NT/sharan-musician?marketplaceId=A21TJRUUN4KGV&musicTerritory=IN&ref=dm_sh_gweJQXn29RCPnuig7hXbrTAHB" target="_blank" class="profile-item"><img src="amazonmusic.jpg" alt="Amazon Music"><div>Amazon Music</div></a>
-                <a href="https://www.jiosaavn.com/artist/sharan-musician-songs/VgKiJSk2Acg_" target="_blank" class="profile-item"><img src="jiosaavn.jpg" alt="JioSaavn"><div>JioSaavn</div></a>
-                <a href="https://gaana.com/artist/sharan-musician" target="_blank" class="profile-item"><img src="gaana.jpg" alt="Gaana"><div>Gaana</div></a>
-                <a href="https://music.youtube.com/channel/UC0MZGJWNgvN5NR0P07joNKA?si=VovJo-lE_uh7GwKz" target="_blank" class="profile-item"><img src="youtubemusic.jpg" alt="YouTube Music"><div>YouTube Music</div></a>
+                <a href="#" class="profile-item"><img src="spotify.jpg" alt="Spotify"><div>Spotify</div></a>
+                <a href="#" class="profile-item"><img src="instagram.jpg" alt="Instagram"><div>Instagram</div></a>
+                <a href="#" class="profile-item"><img src="youtube.jpg" alt="YouTube"><div>YouTube</div></a>
             </div>  
         </section>
 
         <section class="products-section">
-            <h3 style="margin-bottom:20px; font-weight: 500;">Featured Items</h3>
-            <div class="products">  
-                <div class="product" onclick="openBigView('Avalose Sweet')">
-                    <img id="img-Avalose Sweet" src="placeholder.jpg" alt="Avalose Sweet">
-                    <h4>Avalose Sweet</h4>
-                    <p id="price-Avalose Sweet" style="color: #1db954; font-weight: 700;">Loading...</p>
+            <h3 style="margin-bottom:20px;">Featured Items</h3>
+            <div class="products" id="featured-grid">
                 </div>
-                <div class="product" onclick="openBigView('Black Kavuni Rice')">
-                    <img id="img-Black Kavuni Rice" src="placeholder.jpg" alt="Black Kavuni Rice">
-                    <h4>Black Kavuni Rice</h4>
-                    <p id="price-Black Kavuni Rice" style="color: #1db954; font-weight: 700;">Loading...</p>
-                </div>
-            </div>
         </section>
 
-        <div class="premium-news-card" onclick="highlightItem(this)">
+        <div class="premium-news-card" onclick="location.href='news.html'">
             <div class="news-header-flex">
                 <div class="live-badge"><div class="dot"></div> Media Dispatch</div>
                 <div id="date-inject" class="news-date-side">SYNCING...</div>
             </div>
             <div id="instant-inject">
                 <h2 class="news-title">Loading...</h2>
-                <p class="news-desc">Fetching latest news dispatch...</p>
+                <p class="news-desc">Fetching latest dispatch...</p>
             </div>
-            <a href="news.html"><button class="btn-pro-dispatch">ALL UPDATES<span>→</span></button></a>
+            <button class="btn-pro-dispatch">ALL UPDATES<span>→</span></button>
         </div>
     </div>
 </main>
 
-<div id="productModal">
-    <div class="modal-container">
-        <span class="m-close" onclick="closeModal()">&times;</span>
-        <img id="m-img" src="" alt="">
-        <h1 id="m-title"></h1>
-        <div id="m-price"></div>
-        <p id="m-desc"></p>
-        <div class="modal-actions">
-            <button class="btn-cart" onclick="alert('Added to cart!')">ADD TO CART</button>
-            <a href="https://www.instagram.com/myfoodproductsputhukkadai?igsh=ODY5bGNmMzJnNmNz" class="btn-insta">ORDER VIA INSTAGRAM</a>
-        </div>
-    </div>
-</div>
-
 <footer><div class="copyright">© 2026 Sharan Musician | All Rights Reserved.</div></footer>
 
 <script src="newsdata.js"></script>
-<script src="products.js"></script> <script>
-    // Load Product Data from products.js into Featured Items
-    function initFeaturedItems() {
-        const featured = ["Avalose Sweet", "Black Kavuni Rice"];
-        featured.forEach(name => {
-            const item = products.find(p => p.name === name);
+<script src="products.js"></script>
+<script>
+    // 1. LOAD MEDIA DISPATCH (ONLY SL 1)
+    function loadNewsFast() {
+        if (typeof newsArchive !== 'undefined') {
+            const item = newsArchive.find(n => n.sl === 1);
             if (item) {
-                document.getElementById(`img-${name}`).src = item.image;
-                document.getElementById(`price-${name}`).innerText = item.price;
+                document.getElementById('instant-inject').innerHTML = `
+                    <h2 class="news-title">${item.heading}</h2>
+                    <p class="news-desc">${item.content}</p>
+                `;
+                document.getElementById('date-inject').innerText = item.date.toUpperCase();
+            }
+        }
+    }
+
+    // 2. LOAD FEATURED PRODUCTS (REDIRECT TO FOOD.HTML)
+    function initFeatured() {
+        const targetProducts = ["Avalose Sweet", "Milk"];
+        const grid = document.getElementById('featured-grid');
+        
+        targetProducts.forEach(name => {
+            const p = products.find(item => item.name === name);
+            if (p) {
+                const card = document.createElement('div');
+                card.className = 'product';
+                card.onclick = () => window.location.href = `food.html?open=${encodeURIComponent(p.name)}`;
+                
+                card.innerHTML = `
+                    <img src="${p.image}" alt="${p.name}">
+                    <h4>${p.name}</h4>
+                    <p class="product-price">${p.price}</p>
+                    <div class="feat-btn-group">
+                        <div class="btn-mini btn-cart-mini">ADD TO CART</div>
+                        <div class="btn-mini btn-insta-mini">INSTAGRAM</div>
+                    </div>
+                `;
+                grid.appendChild(card);
             }
         });
     }
 
-    function openBigView(name) {
-        const item = products.find(p => p.name === name);
-        if (item) {
-            document.getElementById('m-img').src = item.image;
-            document.getElementById('m-title').innerText = item.name;
-            document.getElementById('m-price').innerText = item.price;
-            document.getElementById('m-desc').innerText = item.description || "A premium organic product from Mall of Royal Red Bull.";
-            
-            document.getElementById('productModal').style.display = 'block';
-            document.body.style.overflow = 'hidden'; // Lock scrolling
-        }
-    }
+    // Initialize instantly
+    loadNewsFast();
+    if (typeof products !== 'undefined') initFeatured();
 
-    function closeModal() {
-        document.getElementById('productModal').style.display = 'none';
-        document.body.style.overflow = 'auto'; // Restore scrolling
-    }
-
-    function loadNewsFast() {
-        if (typeof newsArchive !== 'undefined' && newsArchive.length > 0) {
-            const item = newsArchive.find(n => n.sl === 1) || newsArchive[0];
-            document.getElementById('instant-inject').innerHTML = `
-                <h2 class="news-title">${item.heading}</h2>
-                <p class="news-desc">${item.content}</p>
-            `;
-            document.getElementById('date-inject').innerText = item.date.toUpperCase();
-        }
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-        loadNewsFast();
-        if (typeof products !== 'undefined') initFeaturedItems();
-    });
-
+    // Video Mute Logic
     const video = document.getElementById('heroVideo');
     const heroWrapper = document.getElementById('heroWrapper');
     const muteBtn = document.getElementById('muteToggle');
-    const muteIconContainer = document.getElementById('muteIconContainer');
-    
-    const muteSVG = `<svg viewBox="0 0 24 24" width="28" height="28" fill="white"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81
+    heroWrapper.addEventListener('click', () => {
+        video.muted = !video.muted;
+        muteBtn.classList.add('show');
+        setTimeout(() => muteBtn.classList.remove('show'), 600);
+    });
+</script>
+</body>
+</html>

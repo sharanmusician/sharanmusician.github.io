@@ -13,6 +13,15 @@
             --text-gray: #a0a0a0;
         }
 
+        /* DISABLE SELECTION */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
         body {
             margin: 0;
             padding-bottom: 80px;
@@ -32,7 +41,6 @@
 
         .back-btn { color: var(--neon-green); text-decoration: none; font-size: 13px; font-weight: 800; text-transform: uppercase; }
 
-        /* --- PRODUCT DETAIL SECTION (AMAZON STYLE) --- */
         #detailView {
             display: none;
             padding: 20px 15px;
@@ -45,7 +53,6 @@
         .detail-price { font-size: 20px; color: var(--neon-green); font-weight: 800; margin-bottom: 10px; }
         .detail-desc { font-size: 14px; line-height: 1.6; color: var(--text-gray); margin-bottom: 20px; }
 
-        /* --- STACKED BUTTONS --- */
         .btn-group { display: flex; flex-direction: column; gap: 8px; }
         
         .cart-btn {
@@ -61,7 +68,6 @@
             padding: 12px; border-radius: 8px; text-transform: uppercase;
         }
 
-        /* --- GRID STYLES --- */
         .section-label { padding: 20px 15px 5px; font-size: 14px; font-weight: 800; text-transform: uppercase; color: var(--neon-green); letter-spacing: 1px; }
         
         .product-container {
@@ -78,7 +84,8 @@
         }
 
         .img-box { width: 100%; aspect-ratio: 1/1; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; } /* Prevents image drag */
+
         .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; }
         .p-price { font-size: 14px; font-weight: 800; color: var(--royal-white); margin-bottom: 10px; }
         
@@ -124,16 +131,16 @@
 
 <script src="products.js"></script>
 <script>
+    // DISABLE RIGHT CLICK
+    document.addEventListener('contextmenu', event => event.preventDefault());
+
     const foodGrid = document.getElementById('foodGrid');
     const detailView = document.getElementById('detailView');
     const gridLabel = document.getElementById('gridLabel');
 
     function renderItems() {
         if (typeof merchandise === 'undefined') return;
-
-        // Filter strictly for Organic Food
         const foodItems = merchandise.filter(item => item.category === "Organic Food");
-
         foodGrid.innerHTML = foodItems.map(p => `
             <div class="card" onclick="showProduct('${p.id}')">
                 <div class="img-box"><img src="${p.image}"></div>
@@ -150,23 +157,18 @@
     function showProduct(id) {
         const p = merchandise.find(item => item.id === id);
         if (!p) return;
-
-        // Update Detail View from products.js
         document.getElementById('dImg').src = p.image;
         document.getElementById('dTitle').innerText = p.title;
         document.getElementById('dPrice').innerText = p.price;
         document.getElementById('dDesc').innerText = p.description;
         document.getElementById('dIG').href = "https://instagram.com/myfoodproductsputhukkadai";
-
-        // UI Changes
         detailView.style.display = 'block';
         gridLabel.innerText = "Suggested Products";
         window.scrollTo({top: 0, behavior: 'smooth'});
-
-        // Update Header
         const backBtn = document.getElementById('headerBack');
         backBtn.innerText = "← CLOSE VIEW";
         backBtn.href = "javascript:closeDetail()";
+        history.pushState({ view: 'detail' }, '');
     }
 
     function closeDetail() {
@@ -175,7 +177,18 @@
         const backBtn = document.getElementById('headerBack');
         backBtn.innerText = "← BACK";
         backBtn.href = "merchandise.html";
+        if (history.state && history.state.view === 'detail') history.back();
     }
+
+    window.onpopstate = function(event) {
+        if (detailView.style.display === 'block') {
+            detailView.style.display = 'none';
+            gridLabel.innerText = "All Products";
+            const backBtn = document.getElementById('headerBack');
+            backBtn.innerText = "← BACK";
+            backBtn.href = "merchandise.html";
+        }
+    };
 
     renderItems();
 </script>

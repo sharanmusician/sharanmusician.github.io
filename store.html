@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Our Store | Mall of Royal Red Bull</title>
+    <title>Visit Store | Mall of Royal Red Bull</title>
     <style>
         :root {
             --bg-dark: #0a0a0c;        
@@ -17,7 +17,7 @@
 
         body {
             margin: 0;
-            padding-bottom: 80px;
+            padding-bottom: 90px;
             font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg-dark);
             color: var(--royal-white);
@@ -25,21 +25,15 @@
             overflow-x: hidden;
         }
 
-        /* --- HEADER --- */
         header {
             background-color: var(--bg-dark);
             padding: 15px;
             text-align: center;
             border-bottom: 1px solid #1f1f23;
-            position: sticky; top: 0; z-index: 1000;
         }
         .logo { font-size: 13px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; color: var(--neon-green); }
 
-        /* --- HERO & PERFECT IG BADGE --- */
-        .store-hero {
-            padding: 40px 20px 20px;
-            text-align: center;
-        }
+        .store-hero { padding: 40px 20px 20px; text-align: center; }
 
         .verified-wrapper {
             display: flex;
@@ -54,16 +48,15 @@
             text-transform: uppercase;
             letter-spacing: -1px;
             margin: 0;
-            line-height: 1;
         }
 
-        /* Centered Tick Verification */
-        .ig-verified-container {
+        /* PERFECTLY CENTERED TICK */
+        .ig-badge {
+            width: 28px;
+            height: 28px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 30px;
-            height: 30px;
         }
 
         .store-tagline {
@@ -76,15 +69,11 @@
             display: block;
         }
 
-        /* --- MAP WINDOW (OPPOSITE VIHA DANCE HUB) --- */
-        .map-section {
-            padding: 0 10px;
-            margin: 25px 0;
-        }
+        .map-section { padding: 0 10px; margin: 25px 0; }
 
         .map-window {
             width: 100%;
-            height: 280px;
+            height: 320px; /* Taller for the requested zoom level */
             background: #e5e3df;
             border-radius: 14px;
             overflow: hidden;
@@ -92,11 +81,7 @@
             border: 1px solid #2a2a2e;
         }
 
-        .map-window iframe {
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }
+        .map-window iframe { width: 100%; height: 100%; border: 0; }
 
         .map-btn {
             position: absolute;
@@ -113,7 +98,6 @@
             z-index: 10;
         }
 
-        /* --- INFO CARDS --- */
         .info-section { padding: 0 15px; }
         
         .info-card {
@@ -134,59 +118,39 @@
             letter-spacing: 1.5px;
         }
 
-        .card-content {
-            font-size: 14px;
-            line-height: 1.7;
-            color: var(--royal-white);
-        }
+        .card-content { font-size: 14px; line-height: 1.7; }
 
-        /* --- FULL FOOTER NAVIGATION --- */
+        /* RESTORED ORIGINAL FOOTER */
         .bottom-nav {
-            position: fixed; 
-            bottom: 0; 
-            width: 100%; 
-            background: #0f0f12;
-            display: flex; 
-            justify-content: space-around; 
-            padding: 10px 0; 
-            border-top: 1px solid #1f1f23; 
-            z-index: 1001; 
-            align-items: center;
+            position: fixed; bottom: 0; width: 100%; 
+            background: #0f0f12; display: flex; 
+            justify-content: space-around; padding: 15px 0; 
+            border-top: 1px solid #1f1f23; z-index: 1001; 
         }
 
         .nav-item { 
             color: var(--text-gray); 
             text-decoration: none; 
-            font-size: 10px; 
-            text-align: center;
-            line-height: 1;
+            font-size: 11px; 
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-
         .nav-item.active { color: var(--neon-green); }
-
-        .nav-item img.logo-circle {
-            width: 34px; 
-            height: 34px; 
-            border-radius: 50%; 
-            object-fit: cover; 
-            border: 1px solid #333; 
-        }
 
     </style>
 </head>
 <body>
 
-<header>
-    <div class="logo">Mall of Royal Red Bull</div>
-</header>
+<header><div class="logo">Mall of Royal Red Bull</div></header>
 
 <div class="store-hero">
     <div class="verified-wrapper">
         <h1 class="store-name">MY Store</h1>
-        <div class="ig-verified-container">
+        <div class="ig-badge">
             <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
                 <path d="M12 2L14.4 4.8L17.8 4.4L18.4 7.8L21.4 9.2L20.2 12.4L22.2 15.2L19.4 17.4L18.6 20.8L15.2 20.6L12.8 23L10.4 20.6L7 20.8L6.2 17.4L3.4 15.2L5.4 12.4L4.2 9.2L7.2 7.8L7.8 4.4L11.2 4.8L12 2Z" fill="#0095f6"/>
-                <path d="M9 12L11 14L15 10" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9 12.5L11 14.5L15 10.5" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
         </div>
     </div>
@@ -196,11 +160,10 @@
 <div class="map-section">
     <div class="map-window">
         <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115.111!2d77.1611!3d8.2662!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04010a064f475d%3A0x23284fc949048577!2sMY%20FOOD%20PRODUCTS!5e0!3m2!1sen!2sin!4v1700000000000" 
-            allowfullscreen="" 
-            loading="lazy">
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1974.7937446338525!2d77.1695276!3d8.3188554!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b04010a06474b45%3A0x23204fcc49008577!2sMY%20FOOD%20PRODUCTS!5e0!3m2!1sen!2sin!4v1710000000000!5m2!1sen!2sin" 
+            allowfullscreen="" loading="lazy">
         </iframe>
-        <a href="https://maps.app.goo.gl/RadPBgoABTsRd4UES" target="_blank" class="map-btn">Get Directions</a>
+        <a href="https://maps.app.goo.gl/ChIJRadPBgoABTsRd4UEScxPKIM" target="_blank" class="map-btn">Get Directions</a>
     </div>
 </div>
 
@@ -208,7 +171,7 @@
     <div class="info-card">
         <span class="card-label">The Vision</span>
         <div class="card-content">
-            MY Store is a premium organic food outlet offering quality natural and healthy food items. We operate as both a physical store and an online outlet, ensuring elite accessibility for our community.
+            Offering premium organic food products and natural items to ensure a healthy lifestyle for our community.
         </div>
     </div>
 
@@ -216,39 +179,26 @@
         <span class="card-label">Store Location</span>
         <div class="card-content">
             <strong>MY Food Products</strong><br>
-            <span style="font-size: 11px; color: var(--text-gray);">(A Unit of Munchirai YMCA Trust)</span><br>
+            <span style="font-size: 11px; color: var(--text-gray);">(Opposite Viha Dance Hub)</span><br>
             KPN Lane, Kollemcode Road,<br>
-            Puthukkadai – 629171, India
+            Puthukkadai – 629171
         </div>
     </div>
 
     <div class="info-card">
         <span class="card-label">Direct Support</span>
         <div class="card-content">
-            <a href="tel:+919345192020" style="color:white; text-decoration:none; display:flex; align-items:center; gap:10px; margin-bottom:12px;">📞 +91 93451 92020</a>
-            <a href="mailto:munchiraiymcaestore@gmail.com" style="color:white; text-decoration:none; display:flex; align-items:center; gap:10px;">📧 munchiraiymcaestore@gmail.com</a>
+            <a href="tel:+919345192020" style="color:white; text-decoration:none;">📞 +91 93451 92020</a><br>
+            <a href="mailto:munchiraiymcaestore@gmail.com" style="color:white; text-decoration:none;">📧 munchiraiymcaestore@gmail.com</a>
         </div>
     </div>
 </div>
 
 <div class="bottom-nav">
-    <a href="merchandise.html" class="nav-item">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
-        <br>Home
-    </a>
-    <a href="bestsellers.html" class="nav-item">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
-        <br>Best Sellers
-    </a>
-    <a href="store.html" class="nav-item active">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z"></path></svg>
-        <br>Visit Store
-    </a>
-    <a href="index.html" class="nav-item">
-        <img src="logo.png" class="logo-circle" alt="Logo">
-    </a>
+    <a href="home.html" class="nav-item">Home</a>
+    <a href="store.html" class="nav-item active">Visit Store</a>
+    <a href="bestsellers.html" class="nav-item">Best Sellers</a>
 </div>
 
 </body>
-            </html>
-            
+</html>

@@ -134,30 +134,40 @@
         .profile-item img { width: 65px; height: 65px; border-radius: 50%; background: #16161d; padding: 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.1); }
         .profile-item div { font-size: 12px; color: #aaa; white-space: nowrap; }
 
-        .products { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
-        .product { 
-            background: #12121a; border-radius: 16px; padding: 24px; 
-            border: 1px solid rgba(255,255,255,0.05); 
-            transition: all 0.4s ease; cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
+        /* ================= FEATURED PRODUCTS (MATCHING FOOD.HTML) ================= */
+        .products { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 12px; 
         }
-        .product img { width: 100%; height: 210px; object-fit: cover; border-radius: 12px; margin-bottom: 15px; }
-        .product.active-glow, .premium-news-card.active-glow {
-            border-color: #1db954;
-            box-shadow: 0 0 30px rgba(29, 185, 84, 0.2);
-            background: rgba(29, 185, 84, 0.02);
-            transform: translateY(-5px);
+        .card {
+            background: #111114; border-radius: 12px;
+            padding: 10px; border: 1px solid #1f1f23;
+            display: flex; flex-direction: column;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .card:active { transform: scale(0.98); }
+        
+        .img-box { width: 100%; aspect-ratio: 1/1; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+
+        .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; color: #fff; }
+        .p-price { font-size: 14px; font-weight: 800; color: #fff; margin-bottom: 10px; }
+        
+        .card-btns { display: flex; flex-direction: column; gap: 5px; margin-top: auto; }
+        
+        .cart-btn {
+            background: transparent; color: #00c853;
+            border: 1px solid #00c853; text-align: center;
+            font-size: 8px; font-weight: 900; padding: 8px 4px;
+            border-radius: 6px; text-transform: uppercase; cursor: pointer;
         }
 
-        /* --- FEATURED BUTTON STYLES --- */
-        .feat-btns { display: flex; flex-direction: column; gap: 8px; margin-top: 15px; }
-        .feat-cart-btn {
-            background: transparent; color: #1db954; border: 1px solid #1db954;
-            font-size: 10px; font-weight: 900; padding: 10px; border-radius: 6px; text-transform: uppercase;
-        }
-        .feat-ig-btn {
-            background: #1db954; color: black; font-size: 10px; font-weight: 900; 
-            padding: 10px; border-radius: 6px; text-transform: uppercase; text-align: center;
+        .ig-btn {
+            background: #00c853; color: black; text-align: center;
+            text-decoration: none; font-size: 8px; font-weight: 900;
+            padding: 8px 4px; border-radius: 6px; text-transform: uppercase;
         }
 
         /* ================= NEWS CARD ================= */
@@ -191,7 +201,6 @@
             nav button, nav a { flex: 0 0 25%; }
             main { display: flex; flex-direction: column; padding: 20px; }
             .profile-item { flex: 0 0 25%; } 
-            .products { grid-template-columns: 1fr 1fr; }
             .news-title { font-size: 1.8rem; }
         }
     </style>
@@ -288,7 +297,7 @@
 <script src="newsdata.js"></script>
 <script src="products.js"></script>
 <script>
-    // LOAD FEATURED PRODUCTS FROM PRODUCTS.JS
+    // LOAD FEATURED PRODUCTS WITH FOOD.HTML STYLING
     function loadFeatured() {
         const featuredIDs = ["RRB-001", "RRB-002"];
         const grid = document.getElementById('featuredGrid');
@@ -296,20 +305,20 @@
         if (typeof merchandise !== 'undefined') {
             const items = merchandise.filter(m => featuredIDs.includes(m.id));
             grid.innerHTML = items.map(p => `
-                <div class="product" onclick="goToProduct('${p.id}')">
-                    <img src="${p.image}">
-                    <h4>${p.title}</h4>
-                    <p style="color: #1db954; font-weight: 700;">${p.price}</p>
-                    <div class="feat-btns">
-                        <button class="feat-cart-btn" onclick="event.stopPropagation(); alert('Added to Cart!')">ADD TO CART</button>
-                        <a href="https://instagram.com/myfoodproductsputhukkadai" class="feat-ig-btn" onclick="event.stopPropagation()">ORDER VIA INSTAGRAM</a>
+                <div class="card" onclick="goToProduct('${p.id}')">
+                    <div class="img-box"><img src="${p.image}"></div>
+                    <div class="p-name">${p.title}</div>
+                    <div class="p-price">${p.price}</div>
+                    <div class="card-btns">
+                        <button class="cart-btn" onclick="event.stopPropagation(); alert('Added!')">Add to Cart</button>
+                        <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-btn" onclick="event.stopPropagation()">Order via Instagram</a>
                     </div>
                 </div>
             `).join('');
         }
     }
 
-    // Redirect to food.html and trigger detail view
+    // Redirect to food.html with URL parameter for automatic Big View
     function goToProduct(id) {
         window.location.href = `food.html?id=${id}`;
     }
@@ -364,4 +373,5 @@
     }
 </script>
 </body>
-</html>
+    </html>
+    

@@ -140,30 +140,41 @@
 </div>
 
 <script src="products.js"></script>
-
 <script>
     const foodGrid = document.getElementById('foodGrid');
 
     function renderFoodItems() {
-        // We look for 'merchandise' because that is the name used in your products.js
+        // 1. Check if the file even loaded
         if (typeof merchandise === 'undefined') {
-            foodGrid.innerHTML = "<p style='grid-column: span 2; text-align:center;'>Error: merchandise database not found.</p>";
+            console.error("The variable 'merchandise' does not exist. Check if products.js is linked correctly.");
+            foodGrid.innerHTML = "<p style='grid-column: span 2; text-align:center;'>Error: products.js file not found.</p>";
             return;
         }
 
-        // Filter strictly for the "Organic Food" category
-        const foodList = merchandise.filter(item => item.category === "Organic Food");
+        console.log("Database loaded. Total items:", merchandise.length);
+
+        // 2. Filter using a safer, case-insensitive method
+        const foodList = merchandise.filter(item => 
+            item.category && item.category.toLowerCase().trim() === "organic food"
+        );
+
+        console.log("Filtered items found:", foodList.length);
 
         if (foodList.length === 0) {
-            foodGrid.innerHTML = "<p style='grid-column: span 2; text-align:center; padding: 40px;'>No items found in this category.</p>";
+            foodGrid.innerHTML = `
+                <p style='grid-column: span 2; text-align:center; padding: 40px;'>
+                    Database loaded, but no items found with category: "Organic Food".<br>
+                    <span style="color:var(--text-gray); font-size:10px;">Check case-sensitivity in products.js</span>
+                </p>`;
             return;
         }
 
+        // 3. Render cards
         foodGrid.innerHTML = foodList.map(product => `
             <div class="card ${product.inStock ? '' : 'out-of-stock'}">
                 ${product.inStock ? '' : '<span class="stock-tag">OUT OF STOCK</span>'}
                 <div class="img-box">
-                    <img src="${product.image}" alt="${product.title}">
+                    <img src="${product.image}" alt="${product.title}" onerror="this.src='https://via.placeholder.com/150?text=Image+Error'">
                 </div>
                 <div class="p-name">${product.title}</div>
                 <div class="p-price">${product.price}</div>
@@ -177,6 +188,7 @@
     // Run the function
     renderFoodItems();
 </script>
+
 
 </body>
 </html>

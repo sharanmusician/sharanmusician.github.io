@@ -22,6 +22,7 @@
             scroll-behavior: smooth;
         }
 
+        /* --- HEADER --- */
         header {
             background-color: var(--bg-dark);
             padding: 12px 15px;
@@ -30,9 +31,9 @@
             display: flex; justify-content: space-between; align-items: center;
         }
 
-        .back-btn { color: var(--neon-green); text-decoration: none; font-size: 13px; font-weight: 800; }
+        .back-btn { color: var(--neon-green); text-decoration: none; font-size: 13px; font-weight: 800; text-transform: uppercase; }
 
-        /* --- SELECTED PRODUCT VIEW (AMAZON STYLE) --- */
+        /* --- TOP DETAIL VIEW (AMAZON STYLE) --- */
         #detailView {
             display: none;
             padding: 20px 15px;
@@ -40,18 +41,14 @@
             border-bottom: 1px solid #1f1f23;
         }
 
-        .detail-img { width: 100%; border-radius: 15px; aspect-ratio: 1/1; object-fit: cover; }
+        .detail-img { width: 100%; border-radius: 15px; aspect-ratio: 1/1; object-fit: cover; border: 1px solid #1f1f23; }
         .detail-title { font-size: 24px; font-weight: 800; margin: 15px 0 5px 0; }
         .detail-price { font-size: 20px; color: var(--neon-green); font-weight: 800; margin-bottom: 10px; }
         .detail-desc { font-size: 14px; line-height: 1.6; color: var(--text-gray); margin-bottom: 20px; }
 
-        /* --- COMMON BUTTONS --- */
+        /* --- GLOBAL BUTTON STYLES --- */
         .btn-group { display: flex; flex-direction: column; gap: 8px; }
-        .ig-btn {
-            background: var(--neon-green); color: black; text-align: center;
-            text-decoration: none; font-size: 11px; font-weight: 900;
-            padding: 12px; border-radius: 8px; text-transform: uppercase;
-        }
+        
         .cart-btn {
             background: transparent; color: var(--neon-green);
             border: 1px solid var(--neon-green); text-align: center;
@@ -59,8 +56,14 @@
             border-radius: 8px; text-transform: uppercase; cursor: pointer;
         }
 
+        .ig-btn {
+            background: var(--neon-green); color: black; text-align: center;
+            text-decoration: none; font-size: 11px; font-weight: 900;
+            padding: 12px; border-radius: 8px; text-transform: uppercase;
+        }
+
         /* --- SUGGESTED GRID --- */
-        .section-label { padding: 20px 15px 5px; font-size: 14px; font-weight: 800; text-transform: uppercase; color: var(--neon-green); }
+        .section-label { padding: 20px 15px 5px; font-size: 14px; font-weight: 800; text-transform: uppercase; color: var(--neon-green); letter-spacing: 1px; }
         
         .product-container {
             display: grid;
@@ -73,22 +76,33 @@
             background: var(--card-bg); border-radius: 12px;
             padding: 10px; border: 1px solid #1f1f23;
             display: flex; flex-direction: column;
+            transition: transform 0.2s;
         }
 
-        .img-box { width: 100%; aspect-ratio: 1/1; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
+        .img-box { width: 100%; aspect-ratio: 1/1; border-radius: 8px; overflow: hidden; margin-bottom: 8px; background: #000; }
         .img-box img { width: 100%; height: 100%; object-fit: cover; }
-        .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; }
-        .p-price { font-size: 14px; font-weight: 800; color: var(--royal-white); margin: 5px 0; }
+        .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; margin-bottom: 2px; }
+        .p-price { font-size: 14px; font-weight: 800; color: var(--royal-white); margin-bottom: 8px; }
         
-        .card-btns { display: flex; flex-direction: column; gap: 4px; margin-top: auto; }
-        .card-btns .ig-btn, .card-btns .cart-btn { padding: 6px; font-size: 8px; border-radius: 4px; }
+        /* Small buttons for Grid cards */
+        .card-btns { display: flex; flex-direction: column; gap: 5px; margin-top: auto; }
+        .card-btns .cart-btn, .card-btns .ig-btn { padding: 8px 4px; font-size: 8px; border-radius: 6px; }
+
+        /* --- BOTTOM NAV --- */
+        .bottom-nav {
+            position: fixed; bottom: 0; width: 100%; background: #0f0f12;
+            display: flex; justify-content: space-around; padding: 12px 0;
+            border-top: 1px solid #1f1f23; z-index: 1001;
+        }
+        .nav-item { color: var(--text-gray); text-decoration: none; font-size: 10px; text-align: center; }
+        .nav-item.active { color: var(--neon-green); }
     </style>
 </head>
 <body>
 
 <header>
     <a href="merchandise.html" class="back-btn" id="headerBack">← BACK</a>
-    <div style="font-weight: 900; font-size: 14px;">ORGANIC FOOD</div>
+    <div style="font-weight: 900; font-size: 14px; letter-spacing: 1px;">ORGANIC FOOD</div>
     <div style="font-size: 20px;">🛒</div>
 </header>
 
@@ -98,13 +112,19 @@
     <div id="dPrice" class="detail-price"></div>
     <p id="dDesc" class="detail-desc"></p>
     <div class="btn-group">
+        <button class="cart-btn" onclick="alert('Item Added to Cart!')">Add to Cart</button>
         <a id="dIG" href="" class="ig-btn">Order via Instagram</a>
-        <button class="cart-btn" onclick="alert('Added to cart!')">Add to Cart</button>
     </div>
 </div>
 
-<div class="section-label" id="gridLabel">All Organic Products</div>
+<div class="section-label" id="gridLabel">All Products</div>
 <div class="product-container" id="foodGrid"></div>
+
+<div class="bottom-nav">
+    <a href="index.html" class="nav-item">🏠<br>Home</a>
+    <a href="food.html" class="nav-item active">🌿<br>Food</a>
+    <a href="cart.html" class="nav-item">🛒<br>Cart</a>
+</div>
 
 <script src="products.js"></script>
 <script>
@@ -123,8 +143,8 @@
                 <div class="p-name">${p.title}</div>
                 <div class="p-price">${p.price}</div>
                 <div class="card-btns">
+                    <button class="cart-btn" onclick="event.stopPropagation(); alert('Added to cart!')">Add to Cart</button>
                     <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-btn" onclick="event.stopPropagation()">Instagram</a>
-                    <button class="cart-btn" onclick="event.stopPropagation(); alert('Added!')">Cart</button>
                 </div>
             </div>
         `).join('');
@@ -134,19 +154,19 @@
         const p = merchandise.find(item => item.id === id);
         if (!p) return;
 
-        // Update Detail View
+        // Populate Detail View using data from products.js
         document.getElementById('dImg').src = p.image;
         document.getElementById('dTitle').innerText = p.title;
         document.getElementById('dPrice').innerText = p.price;
-        document.getElementById('dDesc').innerText = p.description; // Taken from products.js
+        document.getElementById('dDesc').innerText = p.description; // Directly from your JS
         document.getElementById('dIG').href = "https://instagram.com/myfoodproductsputhukkadai";
 
-        // Show UI Changes
+        // UI Transition
         detailView.style.display = 'block';
-        gridLabel.innerText = "Suggested Products";
-        window.scrollTo(0, 0);
+        gridLabel.innerText = "Suggested for you";
+        window.scrollTo({top: 0, behavior: 'smooth'});
 
-        // Change Header Back Button Behavior
+        // Update Header Button
         const backBtn = document.getElementById('headerBack');
         backBtn.innerText = "← CLOSE VIEW";
         backBtn.href = "javascript:closeDetail()";
@@ -154,7 +174,7 @@
 
     function closeDetail() {
         detailView.style.display = 'none';
-        gridLabel.innerText = "All Organic Products";
+        gridLabel.innerText = "All Products";
         const backBtn = document.getElementById('headerBack');
         backBtn.innerText = "← BACK";
         backBtn.href = "merchandise.html";
@@ -163,4 +183,5 @@
     renderItems();
 </script>
 </body>
-</html>
+    </html>
+    

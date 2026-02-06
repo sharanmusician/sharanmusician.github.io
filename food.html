@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Organic Provisions | Mall of Royal Red Bull</title>
+    <title>Organic Food | Mall of Royal Red Bull</title>
     <style>
         :root {
             --bg-dark: #0a0a0c;        
@@ -99,9 +99,10 @@
         /* Stock Overlay */
         .out-of-stock { opacity: 0.6; }
         .stock-tag { 
-            position: absolute; top: 20px; right: 20px; 
+            position: absolute; top: 15px; right: 15px; 
             background: #ff1744; color: white; font-size: 8px; 
             padding: 4px 8px; border-radius: 4px; font-weight: 900; 
+            z-index: 5;
         }
 
         /* --- BOTTOM NAV --- */
@@ -119,13 +120,13 @@
 
 <header>
     <a href="merchandise.html" class="back-btn">← Back</a>
-    <div class="logo">Organic Provisions</div>
+    <div class="logo">Organic Food</div>
     <a href="cart.html" style="text-decoration: none; font-size: 22px;">🛒</a>
 </header>
 
 <div class="page-title-area">
     <h1>The Royal Pantry</h1>
-    <p>Premium Organic Provisions</p>
+    <p>Premium Organic Food Selection</p>
 </div>
 
 <div class="product-container" id="foodGrid">
@@ -133,7 +134,7 @@
 
 <div class="bottom-nav">
     <a href="index.html" class="nav-item"><span class="nav-icon">🏠</span>Home</a>
-    <a href="food.html" class="nav-item active"><span class="nav-icon">🌿</span>Provisions</a>
+    <a href="food.html" class="nav-item active"><span class="nav-icon">🌿</span>Food</a>
     <a href="cart.html" class="nav-item"><span class="nav-icon">🛒</span>Cart</a>
     <a href="https://instagram.com/mallofroyalredbull" class="nav-item"><span class="nav-icon">📸</span>Follow</a>
 </div>
@@ -144,34 +145,34 @@
     const foodGrid = document.getElementById('foodGrid');
 
     function renderFood() {
-        // Only pull items that don't have ID starting with RRB-008 (Clothing)
-        // Or you can check description for "Food" related keywords
-        const foodItems = merchandise.filter(item => {
-            // Logic: ID 1 through 7 are your food items based on the provided JS
-            const idNum = parseInt(item.id.replace("RRB-", ""));
-            return idNum < 8; 
-        });
+        // Filter strictly by the category "Organic Food"
+        const foodItems = merchandise.filter(item => item.category === "Organic Food");
+
+        if (foodItems.length === 0) {
+            foodGrid.innerHTML = "<p style='grid-column: span 2; text-align:center; padding: 50px 0;'>No organic food found.</p>";
+            return;
+        }
 
         foodGrid.innerHTML = foodItems.map(product => `
             <div class="card ${product.inStock ? '' : 'out-of-stock'}">
-                ${product.inStock ? '' : '<span class="stock-tag">OUT OF STOCK</span>'}
+                ${product.inStock ? '' : '<span class="stock-tag">SOLD OUT</span>'}
                 <div class="img-box">
                     <img src="${product.image}" alt="${product.title}">
                 </div>
                 <div class="p-name">${product.title}</div>
                 <div class="p-price">${product.price}</div>
                 <a href="https://www.instagram.com/myfoodproductsputhukkadai?igsh=ODY5bGNmMzJnNmNz" class="ig-btn">
-                    ${product.inStock ? 'Order via Instagram' : 'Enquire Availability'}
+                    ${product.inStock ? 'Order via Instagram' : 'Request Stock'}
                 </a>
             </div>
         `).join('');
     }
 
-    // Initialize
+    // Initialize display
     if (typeof merchandise !== 'undefined') {
         renderFood();
     } else {
-        foodGrid.innerHTML = "<p style='grid-column: span 2; text-align:center;'>Loading Provisions...</p>";
+        foodGrid.innerHTML = "<p style='grid-column: span 2; text-align:center;'>Database not found...</p>";
     }
 </script>
 

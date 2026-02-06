@@ -15,10 +15,50 @@
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
+
+            /* STRICT FIX: DISBALE SELECTION FOR ENTIRE PAGE */
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
+        }
+
+        /* --- PROFESSIONAL SCROLL-AWAY HOME BUTTON --- */
+        .nav-home {
+            position: absolute; 
+            top: 40px;
+            left: 40px;
+            text-decoration: none;
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px; 
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .nav-home svg {
+            transition: transform 0.3s ease;
+        }
+
+        .nav-home:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: #1db954;
+            color: #fff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        .nav-home:hover svg {
+            transform: translateX(-4px);
+            color: #1db954;
         }
 
         /* --- BACKGROUND GRADIENT --- */
@@ -28,74 +68,112 @@
             z-index: -1;
         }
 
-        /* --- NAVIGATION --- */
-        .nav-home {
-            position: absolute; top: 40px; left: 40px;
-            text-decoration: none; color: rgba(255, 255, 255, 0.9);
-            font-size: 11px; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 2px; display: flex; align-items: center; gap: 12px;
-            padding: 12px 24px; background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px; 
-            transition: all 0.3s ease; z-index: 100;
-        }
-        .nav-home:hover { background: rgba(255, 255, 255, 0.08); border-color: #1db954; color: #fff; }
-
         /* --- HEADER --- */
-        header { padding: 140px 20px 40px 20px; text-align: center; max-width: 1200px; margin: 0 auto; }
+        header {
+            padding: 140px 20px 40px 20px;
+            text-align: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
         .musician-name { 
-            font-family: 'Playfair Display', serif; font-size: 3.5rem; margin-bottom: 10px;
+            font-family: 'Playfair Display', serif; 
+            font-size: 3.5rem; 
+            margin-bottom: 10px;
             background: linear-gradient(to bottom, #fff, #888);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         .subtitle { letter-spacing: 5px; text-transform: uppercase; color: #1db954; font-weight: 700; font-size: 0.8rem; }
 
-        .cta-container { display: flex; justify-content: center; gap: 20px; margin: 40px 0; }
-
-        /* --- BUTTONS --- */
-        .btn {
-            padding: 16px 35px; border-radius: 50px; font-weight: 700;
-            text-transform: uppercase; font-size: 12px; letter-spacing: 2px;
-            cursor: pointer; transition: all 0.3s ease; text-decoration: none;
-            display: inline-block; border: none;
+        /* --- CTA SECTION --- */
+        .cta-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 40px 0;
         }
-        .btn-primary { background: #1db954; color: white; box-shadow: 0 10px 20px rgba(29, 185, 84, 0.2); }
+        .btn {
+            padding: 16px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-primary { background: #1db954; color: white; border: none; box-shadow: 0 10px 20px rgba(29, 185, 84, 0.2); }
         .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(29, 185, 84, 0.4); }
         .btn-outline { background: transparent; color: white; border: 1px solid rgba(255,255,255,0.2); }
         .btn-outline:hover { background: white; color: black; }
 
-        /* --- EVENT TIERS (Restored Look) --- */
-        .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 60px auto; padding: 0 20px; }
-        .tier-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; text-align: center; transition: all 0.4s ease; }
+        /* --- EVENT TIERS --- */
+        .tiers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+        .tier-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        
+        .tier-card:hover, .tier-card:active { 
+            border-color: #1db954; 
+            box-shadow: 0 0 30px rgba(29, 185, 84, 0.2);
+            background: rgba(29, 185, 84, 0.02);
+            transform: translateY(-5px);
+        }
+
         .tier-card h3 { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 15px; }
+        .tier-card p { color: #888; font-size: 0.95rem; margin-bottom: 25px; }
         .tier-price { font-size: 1.5rem; font-weight: 700; color: #fff; display: block; margin-bottom: 20px; }
 
-        /* --- BOOKING SECTION & FORM --- */
+        /* --- BOOKING FORM --- */
         .booking-section {
-            max-width: 800px; margin: 100px auto; background: #0a0a0e;
-            padding: 60px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.05);
+            max-width: 800px;
+            margin: 100px auto;
+            background: #0a0a0e;
+            padding: 60px;
+            border-radius: 30px;
+            border: 1px solid rgba(255,255,255,0.05);
             position: relative;
         }
-        .form-row { display: flex; gap: 20px; margin-bottom: 25px; }
-        .form-row > div { flex: 1; }
         .form-group { margin-bottom: 25px; }
-        .form-group label, .form-row label { display: block; font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 2px; margin-bottom: 8px; }
-
+        .form-group label { display: block; font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 2px; margin-bottom: 8px; }
+        
         input, select, textarea {
-            width: 100%; padding: 15px; background: rgba(255,255,255,0.02);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 10px;
-            color: #fff; outline: none; font-family: 'Inter', sans-serif;
-            user-select: text; -webkit-user-select: text; height: 54px;
+            width: 100%;
+            padding: 15px;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 10px;
+            color: #fff;
+            outline: none;
+            font-family: 'Inter', sans-serif;
+            user-select: text; 
+            -webkit-user-select: text;
         }
-        textarea { height: auto; }
-        input:focus, select:focus, textarea:focus { border-color: #1db954; }
+        input:focus { border-color: #1db954; }
 
-        /* --- HIGH-BUDGET SUCCESS STATE --- */
+        /* --- SUCCESS STATE STYLES --- */
         #success-state {
-            display: none; text-align: center; padding: 40px 0;
+            display: none;
+            text-align: center;
+            padding: 40px 0;
             animation: cinematicFade 0.8s cubic-bezier(0.165, 0.84, 0.44, 1) forwards;
         }
         @keyframes cinematicFade { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        
         .success-icon {
             width: 80px; height: 80px; background: #1db954; color: white;
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -108,11 +186,12 @@
 
         @media (max-width: 768px) {
             .nav-home { top: 20px; left: 20px; padding: 10px 16px; font-size: 10px; }
+            header { padding-top: 100px; }
             .musician-name { font-size: 2.2rem; }
             .booking-section { padding: 30px; margin: 40px 20px; }
-            .form-row { flex-direction: column; gap: 25px; }
             .cta-container { flex-direction: column; align-items: center; }
             .btn { width: 100%; text-align: center; }
+            #booking-container-grid { grid-template-columns: 1fr !important; }
         }
     </style>
 </head>
@@ -139,71 +218,58 @@
 <section class="tiers">
     <div class="tier-card">
         <h3>Private Lounge</h3>
-        <p>Ideal for luxury weddings and intimate gatherings.</p>
+        <p>Ideal for luxury weddings, corporate mixers, and intimate gatherings.</p>
         <span class="tier-price">₹2,999.00</span>
+        <ul style="list-style: none; color: #666; font-size: 13px; line-height: 2;">
+            <li>• 120 Minute Performance</li>
+            <li>• Solo Acoustic/Electronic Setup</li>
+            <li>• Custom Setlist Curation</li>
+        </ul>
     </div>
     <div class="tier-card">
         <h3>Concert / Festival</h3>
-        <p>Full-scale stage production with high-impact visuals.</p>
+        <p>Full-scale stage production with high-impact visuals and sound.</p>
         <span class="tier-price">₹19,999.00</span>
+        <ul style="list-style: none; color: #666; font-size: 13px; line-height: 2;">
+            <li>• Full Band Integration</li>
+            <li>• Synchronized Visuals</li>
+            <li>• Global Travel Ready</li>
+        </ul>
     </div>
 </section>
 
-<div class="booking-section" id="booking-container">
+<div class="booking-section" id="book-now">
     <div id="form-state">
         <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 40px; text-align: center;">Inquiry Form</h2>
-        
         <form id="ajax-form" action="https://formspree.io/f/mpqjzapb" method="POST">
-            <div class="form-row">
-                <div>
+            <div id="booking-container-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="form-group">
                     <label>Full Name</label>
                     <input type="text" name="name" placeholder="John Doe" required>
                 </div>
-                <div>
-                    <label>Contact Number</label>
-                    <input type="tel" name="phone" placeholder="+91 00000-00000" required>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" placeholder="john@agency.com" required>
                 </div>
             </div>
-
             <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" name="email" placeholder="john@agency.com" required>
+                <label>Event Type</label>
+                <select name="event_type">
+                    <option>Corporate Event</option>
+                    <option>Public Concert</option>
+                    <option>Wedding / Private</option>
+                    <option>Other</option>
+                </select>
             </div>
-
-            <div class="form-row">
-                <div>
-                    <label>Event Type</label>
-                    <select name="event_type">
-                        <option>Corporate Event</option>
-                        <option>Public Concert</option>
-                        <option>Wedding / Private</option>
-                        <option>Other</option>
-                    </select>
-                </div>
-                <div>
-                    <label>Venue Location</label>
-                    <input type="text" name="location" placeholder="City, Country" required>
-                </div>
-            </div>
-
-            <div class="form-row">
-                <div>
-                    <label>Event Date</label>
-                    <input type="date" name="date" required>
-                </div>
-                <div>
-                    <label>Performance Timing</label>
-                    <input type="text" name="timing" placeholder="e.g. 7:00 PM - 9:00 PM" required>
-                </div>
-            </div>
-
             <div class="form-group">
-                <label>Message / Special Requirements</label>
-                <textarea rows="4" name="message" placeholder="Tell us about your vision..."></textarea>
+                <label>Event Date & Location</label>
+                <input type="text" name="details" placeholder="MM/DD/YYYY - City, Country" required>
             </div>
-            
-            <input type="hidden" name="_subject" value="New Booking Request - Sharan Musician">
-            <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%; border-radius: 10px; height: 60px;">Send Booking Request</button>
+            <div class="form-group">
+                <label>Message / Requirements</label>
+                <textarea name="message" rows="5" placeholder="Tell us about your vision..."></textarea>
+            </div>
+            <button type="submit" id="submit-btn" class="btn btn-primary" style="width: 100%; border-radius: 10px;">Send Booking Request</button>
         </form>
     </div>
 
@@ -229,7 +295,7 @@
 
     form.addEventListener("submit", async function(e) {
         e.preventDefault();
-        submitBtn.innerHTML = "Submitting Inquiry...";
+        submitBtn.innerHTML = "Processing...";
         submitBtn.disabled = true;
 
         const formData = new FormData(form);
@@ -244,14 +310,14 @@
             if (response.ok) {
                 formState.style.display = "none";
                 successState.style.display = "block";
-                window.scrollTo({ top: document.getElementById('booking-container').offsetTop - 120, behavior: 'smooth' });
+                window.scrollTo({ top: document.getElementById('book-now').offsetTop - 50, behavior: 'smooth' });
             } else {
-                alert("Our server is processing high demand. Please try again.");
+                alert("Submission failed. Please try again.");
                 submitBtn.innerHTML = "Send Booking Request";
                 submitBtn.disabled = false;
             }
         } catch (error) {
-            alert("Connection error. Please check your internet.");
+            alert("Error connecting to server.");
             submitBtn.innerHTML = "Send Booking Request";
             submitBtn.disabled = false;
         }

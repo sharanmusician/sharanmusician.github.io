@@ -137,23 +137,24 @@
         <div style="display: flex; gap: 20px; margin-bottom: 25px;">
             <div style="flex: 1;">
                 <label style="display: block; font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 2px; margin-bottom: 8px;">Full Name</label>
-                <input type="text" name="name" placeholder="John Doe" required>
+                <input type="text" name="name" placeholder="John Doe" required style="height: 52px;">
             </div>
             <div style="flex: 1;">
                 <label style="display: block; font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 2px; margin-bottom: 8px;">Contact Number</label>
-                <input type="tel" name="phone" placeholder="+91 00000-00000" required>
+                <input type="tel" name="phone" placeholder="+91 00000-00000" required style="height: 52px;">
             </div>
         </div>
 
         <div class="form-group">
-            <label>Email Address</label>
-            <input type="email" name="email" placeholder="john@agency.com" required>
+            <label style="display: block; font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 2px; margin-bottom: 8px;">Email Address</label>
+            <input type="email" name="email" placeholder="john@agency.com" required style="height: 52px;">
         </div>
 
         <div style="display: flex; gap: 20px; margin-bottom: 25px;">
             <div style="flex: 1;">
                 <label style="display: block; font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 2px; margin-bottom: 8px;">Event Type</label>
-                <select name="event_type" style="height: 52px;"> <option>Corporate Event</option>
+                <select name="event_type" style="height: 52px; width: 100%; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; padding: 0 15px;">
+                    <option>Corporate Event</option>
                     <option>Public Concert</option>
                     <option>Wedding / Private</option>
                     <option>Other</option>
@@ -161,28 +162,28 @@
             </div>
             <div style="flex: 1;">
                 <label style="display: block; font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 2px; margin-bottom: 8px;">Venue Location</label>
-                <input type="text" name="location" placeholder="City, Country" required>
+                <input type="text" name="location" placeholder="City, Country" required style="height: 52px;">
             </div>
         </div>
 
         <div style="display: flex; gap: 20px; margin-bottom: 25px;">
             <div style="flex: 1;">
                 <label style="display: block; font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 2px; margin-bottom: 8px;">Event Date</label>
-                <input type="date" name="date" required style="height: 52px;">
+                <input type="date" name="date" required style="height: 52px; width: 100%; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; padding: 0 15px;">
             </div>
             <div style="flex: 1;">
                 <label style="display: block; font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 2px; margin-bottom: 8px;">Performance Timing</label>
-                <input type="text" name="timing" placeholder="e.g. 7:00 PM - 9:00 PM" required>
+                <input type="text" name="timing" placeholder="e.g. 7:00 PM - 9:00 PM" required style="height: 52px;">
             </div>
         </div>
 
         <div class="form-group">
-            <label>Message / Special Requirements</label>
-            <textarea rows="4" name="message" placeholder="Tell us about your vision..."></textarea>
+            <label style="display: block; font-size: 11px; text-transform: uppercase; color: #555; letter-spacing: 2px; margin-bottom: 8px;">Message / Special Requirements</label>
+            <textarea rows="4" name="message" placeholder="Tell us about your vision..." style="width: 100%; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #fff; padding: 15px;"></textarea>
         </div>
         
         <input type="hidden" name="_subject" value="New Booking Request - Sharan Musician">
-        <button type="submit" class="btn btn-primary" style="width: 100%; border-radius: 10px;">Send Booking Request</button>
+        <button type="submit" class="btn btn-primary" style="width: 100%; border-radius: 10px; height: 55px;">Send Booking Request</button>
     </form>
 </div>
 

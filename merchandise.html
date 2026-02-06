@@ -6,43 +6,40 @@
     <title>Mall of Royal Red Bull</title>
     <style>
         :root {
-            --bg-dark: #0a0a0c;        /* Matches your background */
-            --card-bg: #111114;       /* Matches your product cards */
-            --neon-green: #00c853;    /* Matches your button/accent green */
+            --bg-dark: #0a0a0c;        
+            --card-bg: #111114;       
+            --neon-green: #00c853;    
             --royal-white: #ffffff;
             --text-gray: #a0a0a0;
         }
 
         body {
             margin: 0;
-            font-family: 'Inter', sans-serif; /* Clean sans-serif like yours */
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-dark);
             color: var(--royal-white);
+            line-height: 1.6;
         }
 
-        /* Amazon-Style Header with Your Colors */
+        /* --- HEADER & NAV --- */
         header {
             background-color: var(--bg-dark);
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            border-bottom: 1px solid #222;
+            padding: 15px 20px;
+            border-bottom: 1px solid #1f1f23;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
         .top-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            margin-bottom: 15px;
         }
 
-        .logo {
-            font-size: 20px;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
+        .logo { font-size: 16px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* Matching your search bar style */
         .search-container {
             display: flex;
             background: #18181b;
@@ -53,117 +50,109 @@
 
         .search-container input {
             flex-grow: 1;
-            padding: 12px;
+            padding: 10px;
             background: transparent;
             border: none;
             color: white;
             outline: none;
         }
 
-        .search-btn {
-            background-color: var(--neon-green);
-            color: black;
-            border: none;
-            padding: 0 20px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+        .search-btn { background-color: var(--neon-green); border: none; padding: 0 15px; cursor: pointer; font-weight: bold; }
 
-        /* Nav Bar */
         nav {
             padding: 10px 20px;
+            background: #0f0f12;
             display: flex;
             gap: 20px;
             overflow-x: auto;
-            white-space: nowrap;
+            border-bottom: 1px solid #1f1f23;
         }
 
-        nav a {
-            color: var(--royal-white);
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            text-transform: uppercase;
-        }
+        nav a { color: var(--royal-white); text-decoration: none; font-size: 11px; font-weight: 700; text-transform: uppercase; white-space: nowrap; }
+        nav .coming-soon { color: #444; font-size: 11px; text-transform: uppercase; }
 
-        nav .coming-soon {
-            color: #444;
-            cursor: not-allowed;
-            font-size: 13px;
-        }
-
-        /* Amazon "Trending" Panel */
-        .main-content {
-            padding: 20px;
-        }
-
+        /* --- SECTION HEADERS --- */
         .section-header {
             display: flex;
             align-items: center;
             gap: 10px;
-            margin-bottom: 20px;
+            margin: 25px 0 15px 0;
         }
 
-        .accent-line {
-            width: 4px;
-            height: 24px;
-            background-color: var(--neon-green);
+        .accent-line { width: 3px; height: 20px; background-color: var(--neon-green); }
+        .section-title { font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 800; }
+
+        /* --- 1. HERO BANNER --- */
+        .hero-banner {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to right, #00c85333, #0a0a0c), url('your-hero-image.jpg');
+            background-size: cover;
+            border-radius: 12px;
+            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 20px;
+            border: 1px solid #1f1f23;
         }
 
-        .product-grid {
+        .hero-banner h1 { font-size: 24px; margin: 0; color: var(--neon-green); }
+        .hero-banner p { font-size: 14px; color: var(--text-gray); margin: 5px 0; }
+
+        /* --- 2. TRENDING (2 PRODUCTS IN A ROW) --- */
+        .trending-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            grid-template-columns: 1fr 1fr; /* Exact 2 per row as requested */
             gap: 15px;
         }
 
-        /* Product Cards matching your image style */
+        /* --- 3. AMAZON-STYLE SHOWCASE (MORE LIKE AMAZON) --- */
+        .amazon-showcase {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+        }
+
+        /* --- CARDS --- */
         .product-card {
             background: var(--card-bg);
-            border-radius: 12px;
-            padding: 15px;
+            border-radius: 10px;
+            padding: 12px;
             border: 1px solid #1f1f23;
             display: flex;
             flex-direction: column;
         }
 
-        .img-placeholder {
+        .img-box {
             width: 100%;
             aspect-ratio: 1/1;
             background: #1c1c21;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            border: 1px solid #2d2d33;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center; justify-content: center;
+            font-size: 10px; color: #444;
         }
 
-        .product-name {
-            font-size: 15px;
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
+        .p-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+        .p-price { font-size: 15px; font-weight: 800; color: var(--royal-white); margin-bottom: 10px; }
 
-        .price {
-            color: var(--royal-white);
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-
-        .amazon-buy-btn {
+        .order-link {
             background-color: var(--neon-green);
             color: black;
-            border: none;
-            padding: 8px;
-            border-radius: 6px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 10px;
             font-weight: 800;
-            font-size: 12px;
-            cursor: pointer;
+            padding: 8px;
+            border-radius: 4px;
             text-transform: uppercase;
         }
 
-        .coming-soon-btn {
-            background-color: #222;
-            color: #555;
-            cursor: not-allowed;
-        }
+        .disabled-btn { background: #222; color: #555; cursor: not-allowed; }
+
+        .container { padding: 0 15px 40px 15px; }
 
     </style>
 </head>
@@ -171,12 +160,12 @@
 
 <header>
     <div class="top-row">
-        <div class="logo">MALL OF ROYAL RED BULL</div>
+        <div class="logo">Mall of Royal Red Bull</div>
         <div style="font-size: 18px;">🛒</div>
     </div>
     <div class="search-container">
-        <input type="text" placeholder="Search gear or provisions...">
-        <button class="search-btn">Search</button>
+        <input type="text" placeholder="Search Organic Provisions...">
+        <button class="search-btn">🔍</button>
     </div>
 </header>
 
@@ -187,36 +176,61 @@
     <span class="coming-soon">Shoes</span>
 </nav>
 
-<div class="main-content">
+<div class="container">
+    
+    <div class="hero-banner">
+        <h1>Royal Provisions</h1>
+        <p>Pure. Organic. Exclusive.</p>
+        <a href="food.html" style="color: var(--neon-green); font-size: 12px; font-weight: bold; text-decoration: none;">Shop the collection →</a>
+    </div>
+
     <div class="section-header">
         <div class="accent-line"></div>
-        <h2 style="margin:0; font-size: 18px; letter-spacing: 1px;">TRENDING NOW</h2>
+        <div class="section-title">Trending Products</div>
+    </div>
+    
+    <div class="trending-grid">
+        <div class="product-card">
+            <div class="img-box">ORGANIC_01</div>
+            <div class="p-name">Royal Wild Honey</div>
+            <div class="p-price">₹1,499</div>
+            <a href="https://ig.me/m/mallofroyalredbull" class="order-link">Order via Instagram</a>
+        </div>
+        <div class="product-card">
+            <div class="img-box">ORGANIC_02</div>
+            <div class="p-name">Highland Matcha</div>
+            <div class="p-price">₹2,100</div>
+            <a href="https://ig.me/m/mallofroyalredbull" class="order-link">Order via Instagram</a>
+        </div>
     </div>
 
-    <div class="product-grid">
-        <div class="product-card">
-            <div class="img-placeholder"></div>
-            <div class="product-name">Royal Honey</div>
-            <div class="price">₹1,499</div>
-            <button class="amazon-buy-btn" onclick="location.href='food.html'">Add to Cart</button>
-        </div>
+    <div class="section-header">
+        <div class="accent-line"></div>
+        <div class="section-title">More to Explore</div>
+    </div>
 
+    <div class="amazon-showcase">
         <div class="product-card">
-            <div class="img-placeholder"></div>
-            <div class="product-name">Bull Cap</div>
-            <div class="price">Coming Soon</div>
-            <button class="amazon-buy-btn coming-soon-btn">Coming Soon</button>
+            <div class="img-box">GEAR_01</div>
+            <div class="p-name">Royal Cap</div>
+            <div class="p-price">Soon</div>
+            <span class="order-link disabled-btn">Coming Soon</span>
         </div>
-
         <div class="product-card">
-            <div class="img-placeholder"></div>
-            <div class="product-name">Red Edition Tee</div>
-            <div class="price">Coming Soon</div>
-            <button class="amazon-buy-btn coming-soon-btn">Coming Soon</button>
+            <div class="img-box">GEAR_02</div>
+            <div class="p-name">Signature Tee</div>
+            <div class="p-price">Soon</div>
+            <span class="order-link disabled-btn">Coming Soon</span>
+        </div>
+        <div class="product-card">
+            <div class="img-box">GEAR_03</div>
+            <div class="p-name">Bull Hoodie</div>
+            <div class="p-price">Soon</div>
+            <span class="order-link disabled-btn">Coming Soon</span>
         </div>
     </div>
+
 </div>
 
 </body>
-              </html>
-              
+</html>

@@ -52,7 +52,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 6px;
+            gap: 8px;
             margin-bottom: 8px;
         }
 
@@ -64,10 +64,10 @@
             margin: 0;
         }
 
-        .blue-tick {
-            width: 22px;
-            height: 22px;
-            fill: var(--verified-blue);
+        /* Instagram Exact Verified Badge Icon */
+        .ig-verified {
+            width: 24px;
+            height: 24px;
         }
 
         .store-tagline {
@@ -81,7 +81,7 @@
         /* --- FULL WIDTH MAP WINDOW --- */
         .map-container {
             width: 100%;
-            padding: 0 10px; /* Slight margin for the "curved edge" look */
+            padding: 0 10px;
             margin: 20px 0;
         }
 
@@ -89,12 +89,13 @@
             width: 100%;
             height: 250px;
             background: #18181b;
-            border-radius: 12px; /* Curved edges */
+            border-radius: 12px;
             overflow: hidden;
             position: relative;
             border: 1px solid #333;
         }
 
+        /* Note: For the map to show, use a valid Google Embed API key or Iframe URL */
         .map-window iframe {
             width: 100%;
             height: 100%;
@@ -108,13 +109,13 @@
             right: 15px;
             background: var(--neon-green);
             color: black;
-            padding: 8px 16px;
+            padding: 10px 18px;
             border-radius: 6px;
             font-size: 10px;
             font-weight: 900;
             text-transform: uppercase;
             text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 200, 83, 0.4);
         }
 
         /* --- INFO CARDS --- */
@@ -154,7 +155,7 @@
             gap: 10px;
         }
 
-        /* --- COMPRESSED NAVIGATION (STRICT SYNC) --- */
+        /* --- STICKY FOOTER (STRICT SYNC) --- */
         .bottom-nav {
             position: fixed; 
             bottom: 0; 
@@ -198,8 +199,8 @@
 <div class="store-hero">
     <div class="verified-wrapper">
         <h1 class="store-name">MY Store</h1>
-        <svg class="blue-tick" viewBox="0 0 24 24">
-            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-1.9 14.7l-3.3-3.3c-.4-.4-.4-1 0-1.4s1-.4 1.4 0l1.9 1.9 4.9-4.9c.4-.4 1-.4 1.4 0s.4 1 0 1.4l-6.3 6.3z"/>
+        <svg class="ig-verified" viewBox="0 0 24 24" fill="var(--verified-blue)">
+            <path d="M12 2L14.4 4.8L17.8 4.4L18.4 7.8L21.4 9.2L20.2 12.4L22.2 15.2L19.4 17.4L18.6 20.8L15.2 20.6L12.8 23L10.4 20.6L7 20.8L6.2 17.4L3.4 15.2L5.4 12.4L4.2 9.2L7.2 7.8L7.8 4.4L11.2 4.8L12 2ZM10.4 15.6L16.2 9.8L15 8.6L10.4 13.2L8.2 11L7 12.2L10.4 15.6Z"/>
         </svg>
     </div>
     <div class="store-tagline">Organic Food Products Shop</div>
@@ -207,8 +208,8 @@
 
 <div class="map-container">
     <div class="map-window">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.867246231264!2d77.1610484!3d8.2662137!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwMTUnNTguNCJOIDc3wrAwOSczOS44IkU!5e0!3m2!1sen!2sin!4v1700000000000"></iframe>
-        <a href="https://maps.app.goo.gl/3f8H57XGfM1v8qNWA" target="_blank" class="map-btn">Get Directions</a>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15795.733502801458!2d77.161108!3d8.209444!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05096f9a06652b%3A0x6d9f38f7f02d5a0c!2sPuthukkadai%2C%20Tamil%20Nadu!5e0!3m2!1sen!2sin!4v1707246500000!5m2!1sen!2sin"></iframe>
+        <a href="Https://maps.app.goo.gl/nPbwyiwKAJWEBTLY7" target="_blank" class="map-btn">Get Directions</a>
     </div>
 </div>
 
@@ -216,29 +217,30 @@
     <div class="info-card">
         <span class="card-label">The Vision</span>
         <div class="card-content">
-            MY Store stands as a beacon of purity in the organic food industry. As a unit of the Munchirai YMCA Trust, we prioritize health, community, and quality above all else.
+            MY Store is a premium organic food outlet offering quality natural and healthy food items. We operate as both a physical store and an online outlet, ensuring elite accessibility.
         </div>
     </div>
 
     <div class="info-card">
-        <span class="card-label">Corporate Address</span>
+        <span class="card-label">Store Location</span>
         <div class="card-content">
-            <strong>MY Food Products HQ</strong><br>
+            <strong>MY Food Products</strong><br>
+            <span style="font-size: 11px; color: var(--text-gray);">(A Unit of Munchirai YMCA Trust)</span><br>
             KPN Lane, Kollemcode Road,<br>
             Puthukkadai – 629171, India
         </div>
     </div>
 
     <div class="info-card">
-        <span class="card-label">Operations</span>
+        <span class="card-label">Business Hours</span>
         <div class="card-content">
             <div style="font-weight: 800; font-size: 18px; margin-bottom: 5px;">9:00 AM – 8:30 PM</div>
-            <div style="font-size: 11px; color: var(--neon-green);">ACTIVE STATUS: OPEN NOW</div>
+            <div style="font-size: 11px; color: var(--neon-green); font-weight: 700;">OPEN EVERY DAY</div>
         </div>
     </div>
 
     <div class="info-card">
-        <span class="card-label">Direct Contact</span>
+        <span class="card-label">Direct Support</span>
         <div class="card-content">
             <a href="tel:+919345192020" class="contact-link"><span>📞</span> +91 93451 92020</a>
             <a href="mailto:munchiraiymcaestore@gmail.com" class="contact-link"><span>📧</span> munchiraiymcaestore@gmail.com</a>

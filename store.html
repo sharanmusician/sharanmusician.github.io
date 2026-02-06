@@ -50,7 +50,7 @@
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
+            vertical-align: middle;
         }
 
         .store-name {
@@ -59,14 +59,14 @@
             text-transform: uppercase;
             letter-spacing: -1px;
             margin: 0;
-            display: flex;
-            align-items: center;
+            line-height: 1.2;
         }
 
         .ig-verified {
-            width: 28px;
-            height: 28px;
-            margin-top: 2px; /* Fine-tuned vertical alignment */
+            width: 26px;
+            height: 26px;
+            margin-left: 8px; /* Space from text */
+            flex-shrink: 0;
         }
 
         .store-tagline {
@@ -79,15 +79,15 @@
             display: block;
         }
 
-        /* --- LIVE MAP WINDOW --- */
+        /* --- LIVE MAP WINDOW (REAL ROAD VISIBILITY) --- */
         .map-section {
-            padding: 0 15px;
+            padding: 0 10px;
             margin: 25px 0;
         }
 
         .map-window {
             width: 100%;
-            height: 240px;
+            height: 280px; /* Increased for better visibility */
             background: #18181b;
             border-radius: 14px;
             overflow: hidden;
@@ -100,23 +100,23 @@
             width: 100%;
             height: 100%;
             border: 0;
-            /* Inverts map for premium dark look */
-            filter: grayscale(1) invert(92%) contrast(100%);
+            /* Filter removed to show REAL map layout and road colors */
         }
 
         .map-btn {
             position: absolute;
-            bottom: 12px;
-            right: 12px;
+            bottom: 15px;
+            right: 15px;
             background: var(--neon-green);
             color: black;
             padding: 12px 20px;
             border-radius: 8px;
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 900;
             text-transform: uppercase;
             text-decoration: none;
             z-index: 10;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
         /* --- INFO CARDS --- */
@@ -199,7 +199,7 @@
 
 <div class="map-section">
     <div class="map-window">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3949.123456789!2d77.123456!3d8.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zOMKwMDcnMTIuNCJOIDc3wrAwNyc0OC40IkU!5e0!3m2!1sen!2sin!4v1625000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3945.9676646736693!2d77.16542717582967!3d8.502500091539266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3b05a76646736693%3A0x0!2zOMKwMzAnMDkuMCJOIDc3wrAwOSc1Ni44IkU!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin" allowfullscreen="" loading="lazy"></iframe>
         <a href="Https://maps.app.goo.gl/nPbwyiwKAJWEBTLY7" target="_blank" class="map-btn">Get Directions</a>
     </div>
 </div>
@@ -224,7 +224,7 @@
     </div>
 
     <div class="info-card">
-        <span class="card-label">Online Support</span>
+        <span class="card-label">Direct Contact</span>
         <div class="card-content">
             <a href="tel:+919345192020" style="color:white; text-decoration:none; display:block; margin-bottom:10px;">📞 +91 93451 92020</a>
             <a href="mailto:munchiraiymcaestore@gmail.com" style="color:white; text-decoration:none;">📧 munchiraiymcaestore@gmail.com</a>

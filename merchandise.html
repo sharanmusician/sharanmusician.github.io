@@ -127,19 +127,13 @@
         .cat-status { font-size: 9px; color: var(--neon-green); font-weight: 800; }
         .locked { opacity: 0.5; cursor: not-allowed; }
 
-        /* --- SECTIONS & CARDS --- */
+        /* --- SECTIONS & CARDS (STRICT SYNC WITH FOOD.HTML) --- */
         .section-header { padding: 20px 15px 10px; display: flex; align-items: center; gap: 8px; }
         .accent-bar { width: 4px; height: 18px; background: var(--neon-green); }
         .section-title { font-size: 15px; font-weight: 800; text-transform: uppercase; }
 
-        .trending-grid { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            gap: 12px; 
-            padding: 0 15px; 
-        }
+        .trending-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 0 15px; }
 
-        /* CARD STYLES SYNCED FROM FOOD.HTML */
         .card {
             background: var(--card-bg); border-radius: 12px;
             padding: 10px; border: 1px solid #1f1f23;
@@ -153,6 +147,7 @@
         .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; }
         .p-price { font-size: 14px; font-weight: 800; color: var(--royal-white); margin-bottom: 10px; }
         
+        /* BUTTON STYLES COPIED EXACTLY FROM FOOD.HTML */
         .card-btns { display: flex; flex-direction: column; gap: 5px; margin-top: auto; }
         
         .cart-btn {
@@ -160,12 +155,14 @@
             border: 1px solid var(--neon-green); text-align: center;
             font-size: 8px; font-weight: 900; padding: 8px 4px;
             border-radius: 6px; text-transform: uppercase; cursor: pointer;
+            width: 100%;
         }
 
         .ig-btn {
             background: var(--neon-green); color: black; text-align: center;
             text-decoration: none; font-size: 8px; font-weight: 900;
             padding: 8px 4px; border-radius: 6px; text-transform: uppercase;
+            width: 100%;
         }
 
         /* --- COMPRESSED NAVIGATION --- */
@@ -275,7 +272,7 @@
         <br>Best Sellers
     </a>
     <a href="store.html" class="nav-item">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z"></path></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h2v-6h1zm-9 4H6v-4h6v4z"></path></svg>
         <br>Visit Store
     </a>
     <a href="index.html" class="nav-item">
@@ -285,6 +282,7 @@
 
 <script src="products.js"></script>
 <script>
+    // Slider Logic
     let currentSlide = 0;
     const slider = document.getElementById('slider');
     const container = document.getElementById('sliderContainer');
@@ -307,23 +305,28 @@
         slideTimer = setInterval(nextSlide, 3000);
     });
 
+    // Dynamic Trending Logic
     function renderTrending() {
         if (typeof merchandise === 'undefined') return;
+        
+        // Filter food products and pick 2 random ones
         const foodItems = merchandise.filter(item => item.category === "Organic Food");
         const shuffled = foodItems.sort(() => 0.5 - Math.random());
         const selected = shuffled.slice(0, 2);
         
         const trendingGrid = document.getElementById('trendingGrid');
+        
+        // Render with EXACT button structure and padding from food.html
         trendingGrid.innerHTML = selected.map(p => `
-            <a href="food.html?id=${p.id}" class="card">
+            <div class="card" onclick="window.location.href='food.html?id=${p.id}'">
                 <div class="img-box"><img src="${p.image}"></div>
                 <div class="p-name">${p.title}</div>
                 <div class="p-price">${p.price}</div>
                 <div class="card-btns">
-                    <button class="cart-btn" onclick="event.preventDefault(); event.stopPropagation(); alert('Item Added to Cart!')">Add to Cart</button>
-                    <object><a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-btn" onclick="event.stopPropagation()">Order via Instagram</a></object>
+                    <button class="cart-btn" onclick="event.stopPropagation(); alert('Item Added to Cart!')">Add to Cart</button>
+                    <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-btn" onclick="event.stopPropagation()">Order via Instagram</a>
                 </div>
-            </a>
+            </div>
         `).join('');
     }
 

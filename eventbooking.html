@@ -192,6 +192,9 @@
             .booking-section { padding: 30px; margin: 40px 20px; }
             .cta-container { flex-direction: column; align-items: center; }
             .btn { width: 100%; text-align: center; }
+            
+            /* Responsive Grid Fix */
+            .form-grid-2 { grid-template-columns: 1fr !important; }
         }
     </style>
 </head>
@@ -242,7 +245,8 @@
     <div id="form-state">
         <h2 style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 40px; text-align: center;">Inquiry Form</h2>
         <form id="ajax-form" action="https://formspree.io/f/mpqjzapb" method="POST">
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            
+            <div class="form-grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group">
                     <label>Full Name</label>
                     <input type="text" name="name" placeholder="John Doe" required>
@@ -258,7 +262,7 @@
                 <input type="email" name="email" placeholder="john@agency.com" required>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="form-grid-2" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
                 <div class="form-group">
                     <label>Event Date</label>
                     <input type="date" name="date" required>
@@ -271,10 +275,15 @@
 
             <div class="form-group">
                 <label>Performance Timing</label>
-                <div style="display: flex; gap: 10px; align-items: center;">
-                    <input type="time" name="time_from" style="flex: 1;" required>
-                    <span style="color: #444;">to</span>
-                    <input type="time" name="time_to" style="flex: 1;" required>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <div style="flex: 1;">
+                        <span style="font-size: 9px; color: #444; text-transform: uppercase; margin-bottom: 5px; display: block;">From</span>
+                        <input type="time" name="time_from" required>
+                    </div>
+                    <div style="flex: 1;">
+                        <span style="font-size: 9px; color: #444; text-transform: uppercase; margin-bottom: 5px; display: block;">To</span>
+                        <input type="time" name="time_to" required>
+                    </div>
                 </div>
             </div>
 
@@ -348,5 +357,4 @@
 </script>
 
 </body>
-            </html>
-            
+</html>

@@ -13,9 +13,17 @@
             --text-gray: #a0a0a0;
         }
 
+        /* --- PROTECTION & GLOBAL --- */
+        * {
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            padding-bottom: 80px;
+            padding-bottom: 70px; 
             font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg-dark);
             color: var(--royal-white);
@@ -113,7 +121,7 @@
             gap: 10px;
         }
 
-        .cat-box.active { border-color: var(--neon-green); }
+        .cat-box.active { border-color: var(--neon-green); border-width: 1px; border-style: solid; }
         .cat-icon { font-size: 24px; }
         .cat-name { font-size: 12px; font-weight: 700; color: var(--royal-white); text-transform: uppercase; }
         .cat-status { font-size: 9px; color: var(--neon-green); font-weight: 800; }
@@ -144,18 +152,39 @@
             text-transform: uppercase;
         }
 
-        /* --- UNIVERSAL FOOTER SYNC --- */
+        /* --- COMPRESSED NAVIGATION (MATCHING BEST SELLERS SCREENSHOT) --- */
         .bottom-nav {
-            position: fixed; bottom: 0; width: 100%; background: #0f0f12;
-            display: flex; justify-content: space-around; padding: 8px 0;
-            border-top: 1px solid #1f1f23; z-index: 1001; align-items: center;
-            height: 65px;
+            position: fixed; 
+            bottom: 0; 
+            width: 100%; 
+            background: #0f0f12;
+            display: flex; 
+            justify-content: space-around; 
+            padding: 10px 0; 
+            border-top: 1px solid #1f1f23; 
+            z-index: 1001; 
+            align-items: center;
         }
-        .nav-item { color: var(--text-gray); text-decoration: none; font-size: 10px; text-align: center; flex: 1; }
-        .nav-item.active { color: var(--neon-green); }
+
+        .nav-item { 
+            color: var(--text-gray); 
+            text-decoration: none; 
+            font-size: 10px; 
+            text-align: center;
+            line-height: 1; /* Compressed spacing */
+        }
+
+        .nav-item.active { 
+            color: var(--neon-green); 
+        }
+
         .nav-item img.logo-circle {
-            width: 34px !important; height: 34px !important; border-radius: 50%; 
-            object-fit: cover; border: 1px solid #333; display: block; margin: 0 auto;
+            width: 34px; 
+            height: 34px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 1px solid #333; 
+            vertical-align: middle;
         }
 
     </style>
@@ -223,27 +252,27 @@
         <div class="img-placeholder"></div>
         <div class="p-name">Royal Estate Matcha</div>
         <div class="p-price">₹2,499</div>
-        <a href="https://www.instagram.com/myfoodproductsputhukkadai?igsh=ODY5bGNmMzJnNmNz" class="ig-btn">Order via Instagram</a>
+        <a href="https://www.instagram.com/myfoodproductsputhukkadai" class="ig-btn">Order via Instagram</a>
     </div>
     <div class="card">
         <div class="img-placeholder"></div>
         <div class="p-name">Organic Wild Honey</div>
         <div class="p-price">₹1,200</div>
-        <a href="https://www.instagram.com/myfoodproductsputhukkadai?igsh=ODY5bGNmMzJnNmNz" class="ig-btn">Order via Instagram</a>
+        <a href="https://www.instagram.com/myfoodproductsputhukkadai" class="ig-btn">Order via Instagram</a>
     </div>
 </div>
 
 <div class="bottom-nav">
     <a href="merchandise.html" class="nav-item active">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 2px;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
         <br>Home
     </a>
     <a href="bestsellers.html" class="nav-item">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 2px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
         <br>Best Sellers
     </a>
     <a href="store.html" class="nav-item">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 2px;"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z"></path></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z"></path></svg>
         <br>Visit Store
     </a>
     <a href="index.html" class="nav-item">

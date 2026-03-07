@@ -1,20 +1,53 @@
-// cart.js - Pure Logic
-let cart = JSON.parse(localStorage.getItem('cart_data')) || [];
+/**
+ * Royal Red Bull - Cart Logic Manager
+ * This file acts as the "Memory" between index.html and cart.html.
+ * It strictly saves only the Product IDs.
+ */
 
+// 1. Initialize the ID list from the browser's memory
+let cartIds = JSON.parse(localStorage.getItem('cart_data')) || [];
+
+/**
+ * Adds a product ID to the list and saves it
+ * @param {Object} product - The product object from products.js
+ */
 function addToCart(product) {
-    const existingItem = cart.find(item => item.id === product.id);
-    if (existingItem) {
-        existingItem.quantity = (existingItem.quantity || 1) + 1;
+    // We only save the ID to ensure we always pull fresh data from products.js
+    if (!cartIds.includes(product.id)) {
+        cartIds.push(product.id);
+        saveCart();
+        console.log("ID Added to Memory:", product.id);
     } else {
-        cart.push({ ...product, quantity: 1 });
+        console.log("Item already in cart list.");
     }
+}
+
+/**
+ * Saves the current list of IDs to LocalStorage
+ */
+function saveCart() {
+    localStorage.setItem('cart_data', JSON.stringify(cartIds));
+}
+
+/**
+ * Returns the count of unique items
+ */
+function getCartCount() {
+    return cartIds.length;
+}
+
+/**
+ * Removes a specific ID from the memory
+ */
+function removeFromCart(productId) {
+    cartIds = cartIds.filter(id => id !== productId);
     saveCart();
 }
 
-function saveCart() {
-    localStorage.setItem('cart_data', JSON.stringify(cart));
-}
-
-function getCartCount() {
-    return cart.reduce((total, item) => total + (item.quantity || 1), 0);
+/**
+ * Wipes the memory clean
+ */
+function clearCart() {
+    cartIds = [];
+    localStorage.removeItem('cart_data');
 }

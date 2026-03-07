@@ -297,7 +297,7 @@
 <script src="newsdata.js"></script>
 <script src="products.js"></script>
 <script>
-    // LOAD FEATURED PRODUCTS WITH FOOD.HTML STYLING
+    // LOAD FEATURED PRODUCTS WITH FUNCTIONAL ADD TO CART
     function loadFeatured() {
         const featuredIDs = ["RRB-001", "RRB-002"];
         const grid = document.getElementById('featuredGrid');
@@ -310,11 +310,26 @@
                     <div class="p-name">${p.title}</div>
                     <div class="p-price">${p.price}</div>
                     <div class="card-btns">
-                        <button class="cart-btn" onclick="event.stopPropagation(); alert('Added!')">Add to Cart</button>
+                        <button class="cart-btn" onclick="handleAddToCart(event, '${p.id}')">Add to Cart</button>
                         <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-btn" onclick="event.stopPropagation()">Order via Instagram</a>
                     </div>
                 </div>
             `).join('');
+        }
+    }
+
+    // Helper function to connect index.html to your cart.js logic
+    function handleAddToCart(event, productId) {
+        event.stopPropagation(); // Prevents opening the product page when clicking button
+        
+        // Find the full product data from the merchandise array
+        const productToAdd = merchandise.find(item => item.id === productId);
+        
+        if (productToAdd && typeof addToCart === 'function') {
+            addToCart(productToAdd); // Calls the function inside your cart.js
+            alert(productToAdd.title + " added to cart!");
+        } else {
+            console.error("Cart logic or Product not found.");
         }
     }
 

@@ -14,7 +14,7 @@
             --danger-red: #ff3b3b;
         }
 
-        /* --- GLOBAL PROTECTION & RESET --- */
+        /* --- GLOBAL RESET & PROTECTION --- */
         * { box-sizing: border-box; -webkit-user-select: none; user-select: none; margin: 0; padding: 0; }
 
         body {
@@ -33,7 +33,7 @@
             border-bottom: 1px solid #1f1f23;
             display: flex; align-items: center; justify-content: space-between;
         }
-        .back-link { color: var(--neon-green); text-decoration: none; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .back-link { color: var(--neon-green); text-decoration: none; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; }
         .page-title { font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
 
         /* --- CART LIST CONTAINER --- */
@@ -79,26 +79,28 @@
         /* --- PROFESSIONAL EMPTY STATE --- */
         .empty-cart { 
             text-align: center; 
-            padding: 100px 30px; 
+            padding: 120px 30px; 
             display: none; 
         }
-        .empty-icon { font-size: 60px; margin-bottom: 20px; filter: grayscale(1); opacity: 0.2; }
-        .empty-title { font-size: 22px; font-weight: 700; color: var(--royal-white); margin-bottom: 12px; letter-spacing: 0.5px; }
-        .empty-text { color: var(--text-gray); font-size: 14px; line-height: 1.6; max-width: 280px; margin: 0 auto 30px auto; }
+        .empty-icon { font-size: 50px; margin-bottom: 25px; filter: grayscale(1); opacity: 0.15; }
+        .empty-title { font-size: 20px; font-weight: 700; color: var(--royal-white); margin-bottom: 10px; letter-spacing: 0.5px; text-transform: uppercase; }
+        .empty-text { color: var(--text-gray); font-size: 13px; line-height: 1.8; max-width: 260px; margin: 0 auto 35px auto; font-weight: 300; }
         
         .return-btn { 
             display: inline-block; 
             background: transparent; 
             color: var(--neon-green); 
             border: 1px solid var(--neon-green);
-            padding: 12px 40px; 
+            padding: 12px 35px; 
             border-radius: 4px; 
             font-weight: 700; 
             text-decoration: none; 
-            font-size: 11px; 
+            font-size: 10px; 
             text-transform: uppercase; 
             letter-spacing: 2px;
+            transition: opacity 0.2s;
         }
+        .return-btn:active { opacity: 0.6; }
 
         /* --- STICKY SUMMARY BAR --- */
         .summary-bar {
@@ -120,9 +122,10 @@
 <body>
 
 <header>
-    <a href="javascript:history.back()" class="back-link">← Close</a>
-    <div class="page-title">Shopping Cart</div>
-    <div style="width: 50px;"></div> </header>
+    <a href="javascript:history.back()" class="back-link">← CLOSE</a>
+    <div class="page-title">SHOPPING CART</div>
+    <div style="width: 50px;"></div> 
+</header>
 
 <div class="cart-container" id="cartList">
     </div>
@@ -130,8 +133,8 @@
 <div class="empty-cart" id="emptyCart">
     <div class="empty-icon">🛍️</div>
     <h2 class="empty-title">Your Selection is Empty</h2>
-    <p class="empty-text">It looks like you haven't added any items to your cart yet. Explore our premium organic provisions to get started.</p>
-    <a href="merchandise.html" class="return-btn">Return to Store</a>
+    <p class="empty-text">It appears you haven't curated your collection yet. Explore our premium organic provisions to begin.</p>
+    <a href="merchandise.html" class="return-btn">RETURN TO STORE</a>
 </div>
 
 <div class="summary-bar" id="summaryBar">
@@ -139,7 +142,7 @@
         <div class="total-label">Subtotal</div>
         <div class="total-amount" id="cartTotal">0 Items</div>
     </div>
-    <a href="https://instagram.com/myfoodproductsputhukkadai" class="checkout-all-btn">Order All via Instagram</a>
+    <a href="https://instagram.com/myfoodproductsputhukkadai" class="checkout-all-btn">ORDER VIA INSTAGRAM</a>
 </div>
 
 <script src="products.js"></script>
@@ -152,24 +155,21 @@
     const totalElement = document.getElementById('cartTotal');
 
     function renderCartPage() {
-        // Clear list before re-rendering
         listElement.innerHTML = '';
         
-        // Handle Empty State
         if (cart.length === 0) {
             emptyElement.style.display = 'block';
             summaryElement.style.display = 'none';
             return;
         }
 
-        // Handle Active Cart State
         emptyElement.style.display = 'none';
         summaryElement.style.display = 'flex';
 
         cart.forEach(item => {
             const itemHTML = `
                 <div class="cart-item">
-                    <img src="${item.image}" class="item-img" alt="${item.title}">
+                    <img src="${item.image}" class="item-img">
                     <div class="item-details">
                         <div>
                             <div class="item-name">${item.title}</div>
@@ -177,7 +177,7 @@
                         </div>
                         <div class="item-actions">
                             <button class="remove-btn" onclick="removeItem('${item.id}')">Remove</button>
-                            <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-order-btn">Order Item</a>
+                            <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-order-btn">Direct Order</a>
                         </div>
                     </div>
                 </div>
@@ -185,21 +185,15 @@
             listElement.innerHTML += itemHTML;
         });
 
-        // Update Total Count (Using logic from cart.js)
         totalElement.innerText = `${getCartCount()} Items`;
     }
 
-    /**
-     * Remove item from cart and update storage
-     */
     function removeItem(id) {
-        // Update the 'cart' array (which is globally available via cart.js)
         cart = cart.filter(item => item.id !== id);
-        saveCart(); // Persist to LocalStorage
-        renderCartPage(); // Refresh UI
+        saveCart();
+        renderCartPage();
     }
 
-    // Load cart on page initialization
     window.addEventListener('DOMContentLoaded', renderCartPage);
 </script>
 

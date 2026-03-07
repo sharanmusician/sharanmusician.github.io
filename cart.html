@@ -112,19 +112,32 @@
 <div class="cart-container" id="cartList">
     </div>
 
-<div class="empty-cart" id="emptyCart">
-    <div class="empty-cart-icon">🛒</div>
-    <h2 style="margin-bottom: 10px;">Your cart is empty</h2>
-    <p>Selection is currently empty. Explore our organic provisions.</p>
-    <a href="merchandise.html" class="shop-now-btn">GO TO STORE</a>
-</div>
-
-<div class="summary-bar" id="summaryBar">
-    <div>
-        <div class="total-label">Subtotal</div>
-        <div class="total-count" id="cartTotal">0 Items</div>
-    </div>
-    <a href="https://instagram.com/myfoodproductsputhukkadai" class="checkout-all-btn">ORDER VIA INSTAGRAM</a>
+<div class="empty-cart" id="emptyCart" style="text-align: center; padding: 100px 30px; display: none;">
+    <div style="font-size: 60px; margin-bottom: 20px; filter: grayscale(1); opacity: 0.2;">🛍️</div>
+    
+    <h2 style="font-family: 'Playfair Display', serif; font-size: 22px; color: var(--royal-white); margin-bottom: 12px; letter-spacing: 0.5px;">
+        Your Selection is Empty
+    </h2>
+    
+    <p style="color: var(--text-gray); font-size: 14px; line-height: 1.6; max-width: 280px; margin: 0 auto 30px auto; font-weight: 300;">
+        It looks like you haven't added any items to your cart yet. Explore our premium organic provisions to get started.
+    </p>
+    
+    <a href="merchandise.html" class="shop-now-btn" style="
+        display: inline-block; 
+        background: transparent; 
+        color: var(--neon-green); 
+        border: 1px solid var(--neon-green);
+        padding: 12px 40px; 
+        border-radius: 4px; 
+        font-weight: 700; 
+        text-decoration: none; 
+        font-size: 11px; 
+        text-transform: uppercase; 
+        letter-spacing: 2px;
+        transition: all 0.3s ease;">
+        Return to Store
+    </a>
 </div>
 
 <script src="products.js"></script>

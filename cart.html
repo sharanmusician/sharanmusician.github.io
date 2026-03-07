@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Your Selection | Mall of Royal Red Bull</title>
+    <title>Shopping Cart | Royal Red Bull</title>
     <style>
         :root {
             --bg-dark: #0a0a0c;        
@@ -17,7 +17,7 @@
         * { box-sizing: border-box; -webkit-user-select: none; user-select: none; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-dark);
             color: var(--royal-white);
             line-height: 1.6;
@@ -31,12 +31,32 @@
             border-bottom: 1px solid #1f1f23;
             display: flex; align-items: center; justify-content: space-between;
         }
-        .back-link { color: var(--neon-green); text-decoration: none; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .back-link { color: var(--neon-green); text-decoration: none; font-size: 12px; font-weight: 800; text-transform: uppercase; }
         .page-title { font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* --- CONTENT AREA --- */
-        .cart-container { padding: 15px; max-width: 800px; margin: 0 auto; min-height: calc(100vh - 200px); }
+        /* --- CENTER CONTENT --- */
+        .cart-container { 
+            padding: 15px; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Centers the empty message vertically */
+        }
         
+        /* Empty State Styling */
+        .empty-box {
+            text-align: center;
+            padding: 40px 20px;
+            animation: fadeIn 0.5s ease;
+        }
+        .empty-icon { font-size: 60px; margin-bottom: 15px; opacity: 0.4; }
+        .empty-title { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+        .empty-msg { color: var(--text-gray); font-size: 14px; max-width: 280px; margin: 0 auto; }
+
+        /* --- PRODUCT LIST --- */
+        #cartItemsList { width: 100%; }
         .cart-item {
             background: var(--card-bg);
             border: 1px solid #1f1f23;
@@ -45,101 +65,86 @@
             display: flex;
             gap: 15px;
             margin-bottom: 12px;
+            text-align: left;
         }
+        .item-img { width: 70px; height: 70px; border-radius: 8px; object-fit: cover; }
 
-        .item-img { width: 80px; height: 80px; border-radius: 10px; object-fit: cover; }
-        .item-details { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-
-        /* --- PROFESSIONAL EMPTY MESSAGE --- */
-        #emptyCartMessage {
-            display: none;
-            text-align: center;
-            padding: 100px 20px;
-        }
-        .empty-icon { font-size: 60px; margin-bottom: 20px; filter: grayscale(1); opacity: 0.3; }
-        .empty-headline { font-size: 22px; font-weight: 800; margin-bottom: 10px; color: #fff; }
-        .empty-subtext { color: var(--text-gray); font-size: 14px; max-width: 280px; margin: 0 auto; line-height: 1.5; }
-
-        /* --- DYNAMIC BOTTOM BAR --- */
+        /* --- BOTTOM BAR --- */
         .summary-bar {
             position: fixed; bottom: 0; width: 100%;
             background: #0f0f12; border-top: 1px solid #1f1f23;
             padding: 20px 15px; display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
         }
         .total-amount { font-size: 22px; font-weight: 900; }
-        
-        /* The Action Button */
-        #dynamicActionButton {
+
+        #dynamicBtn {
             background: var(--neon-green);
             color: #000;
-            padding: 14px 25px;
+            padding: 14px 30px;
             border-radius: 8px;
             font-weight: 900;
             text-decoration: none;
-            font-size: 11px;
+            font-size: 12px;
             text-transform: uppercase;
-            transition: all 0.3s ease;
-            min-width: 150px;
+            min-width: 160px;
             text-align: center;
         }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="javascript:history.back()" class="back-link">← CONTINUE</a>
-    <div class="page-title">SHOPPING CART</div>
+    <a href="javascript:history.back()" class="back-link">← Continue</a>
+    <div class="page-title">Shopping Cart</div>
     <div style="width: 50px;"></div>
 </header>
 
-<div class="cart-container">
-    <div id="cartItemsList"></div>
-
-    <div id="emptyCartMessage">
-        <div class="empty-icon">🛍️</div>
-        <h1 class="empty-headline">Your cart is empty</h1>
-        <p class="empty-subtext">Add some premium organic provisions to your cart and start your healthy journey today!</p>
+<div class="cart-container" id="mainDisplay">
     </div>
-</div>
 
 <div class="summary-bar">
     <div>
         <div style="font-size: 10px; color: var(--text-gray); text-transform: uppercase;">Estimated Total</div>
-        <div class="total-amount" id="countDisplay">0 Items</div>
+        <div class="total-amount" id="itemCount">0 Items</div>
     </div>
-    <a href="merchandise.html" id="dynamicActionButton">Shop Now</a>
+    <a href="merchandise.html" id="dynamicBtn">Shop Now</a>
 </div>
 
 <script src="products.js"></script>
 <script src="cart.js"></script>
 
 <script>
-    function render() {
-        const list = document.getElementById('cartItemsList');
-        const emptyView = document.getElementById('emptyCartMessage');
-        const countText = document.getElementById('countDisplay');
-        const actionBtn = document.getElementById('dynamicActionButton');
+    function renderCart() {
+        const display = document.getElementById('mainDisplay');
+        const countText = document.getElementById('itemCount');
+        const actionBtn = document.getElementById('dynamicBtn');
 
-        list.innerHTML = '';
-
+        // Check if cart is empty
         if (!cart || cart.length === 0) {
-            // SHOW EMPTY MESSAGE
-            emptyView.style.display = 'block';
+            // 1. Show Professional Message at Center
+            display.innerHTML = `
+                <div class="empty-box">
+                    <div class="empty-icon">🛒</div>
+                    <div class="empty-title">Your cart is feeling light</div>
+                    <p class="empty-msg">Explore our premium organic collection and add your favorite treats to the bag!</p>
+                </div>
+            `;
             
-            // SET BUTTON TO "SHOP NOW"
+            // 2. Set Bottom Button to "Shop Now"
             actionBtn.innerText = "Shop Now";
             actionBtn.href = "merchandise.html";
-            
-            // RESET COUNT
             countText.innerText = "0 Items";
             return;
         }
 
-        // IF PRODUCTS EXIST
-        emptyView.style.display = 'none';
-        
-        // SET BUTTON TO "ORDER VIA INSTAGRAM"
+        // If products exist
+        display.style.justifyContent = "flex-start";
+        display.innerHTML = '<div id="cartItemsList"></div>';
+        const list = document.getElementById('cartItemsList');
+
+        // 3. Set Bottom Button to "Order via Instagram"
         actionBtn.innerText = "Order Via Instagram";
         actionBtn.href = "https://instagram.com/myfoodproductsputhukkadai";
 
@@ -147,13 +152,11 @@
             list.innerHTML += `
                 <div class="cart-item">
                     <img src="${item.image}" class="item-img">
-                    <div class="item-details">
-                        <div style="font-weight:600; font-size:15px;">${item.title}</div>
-                        <div style="display:flex; justify-content:space-between; align-items:center;">
-                             <div style="color:var(--neon-green); font-weight:800;">${item.price}</div>
-                             <button onclick="removeItem('${item.id}')" style="background:none; border:none; color:var(--danger-red); font-size:10px; font-weight:700; text-transform:uppercase;">Remove</button>
-                        </div>
+                    <div style="flex:1;">
+                        <div style="font-weight:600;">${item.title}</div>
+                        <div style="color:var(--neon-green); font-weight:800;">${item.price}</div>
                     </div>
+                    <button onclick="removeItem('${item.id}')" style="background:none; border:none; color:var(--danger-red); font-size:10px; font-weight:700;">REMOVE</button>
                 </div>
             `;
         });
@@ -164,10 +167,10 @@
     function removeItem(id) {
         cart = cart.filter(i => i.id !== id);
         saveCart();
-        render();
+        renderCart();
     }
 
-    window.onload = render;
+    window.onload = renderCart;
 </script>
 
 </body>

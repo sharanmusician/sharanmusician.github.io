@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Your Selection | Royal Red Bull Cart</title>
+    <title>Your Selection | Mall of Royal Red Bull</title>
     <style>
         :root {
             --bg-dark: #0a0a0c;        
@@ -14,11 +14,11 @@
             --danger-red: #ff3b3b;
         }
 
-        /* --- GLOBAL RESET & PROTECTION --- */
+        /* --- GLOBAL RESET --- */
         * { box-sizing: border-box; -webkit-user-select: none; user-select: none; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg-dark);
             color: var(--royal-white);
             line-height: 1.6;
@@ -33,10 +33,10 @@
             border-bottom: 1px solid #1f1f23;
             display: flex; align-items: center; justify-content: space-between;
         }
-        .back-link { color: var(--neon-green); text-decoration: none; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; }
+        .back-link { color: var(--neon-green); text-decoration: none; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
         .page-title { font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* --- CART LIST CONTAINER --- */
+        /* --- CART LIST --- */
         .cart-container { padding: 15px; max-width: 800px; margin: 0 auto; }
         
         .cart-item {
@@ -47,62 +47,63 @@
             display: flex;
             gap: 15px;
             margin-bottom: 12px;
-            animation: fadeIn 0.4s ease;
+            animation: slideUp 0.4s ease;
         }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
 
-        .item-img { width: 90px; height: 90px; border-radius: 8px; object-fit: cover; border: 1px solid #222; }
-        
+        .item-img { width: 95px; height: 95px; border-radius: 10px; object-fit: cover; border: 1px solid #222; }
         .item-details { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        
-        .item-name { font-size: 14px; font-weight: 600; color: var(--royal-white); }
-        .item-price { font-size: 15px; font-weight: 800; color: var(--neon-green); margin-top: 2px; }
+        .item-name { font-size: 15px; font-weight: 600; color: var(--royal-white); }
+        .item-price { font-size: 16px; font-weight: 800; color: var(--neon-green); margin-top: 2px; }
 
         .item-actions { display: flex; gap: 8px; margin-top: 10px; }
 
-        /* --- BUTTON STYLES --- */
+        /* --- BUTTONS --- */
         .remove-btn {
             background: transparent; color: var(--danger-red);
             border: 1px solid rgba(255, 59, 59, 0.2);
-            font-size: 9px; font-weight: 800; padding: 8px 12px;
+            font-size: 9px; font-weight: 800; padding: 10px 14px;
             border-radius: 6px; text-transform: uppercase; cursor: pointer;
         }
 
         .ig-order-btn {
             flex: 1; background: var(--neon-green); color: #000;
             text-align: center; text-decoration: none;
-            font-size: 9px; font-weight: 900; padding: 8px;
+            font-size: 9px; font-weight: 900; padding: 10px;
             border-radius: 6px; text-transform: uppercase;
         }
 
-        /* --- PROFESSIONAL EMPTY STATE --- */
-        .empty-cart { 
+        /* --- AMAZON/FLIPKART STYLE EMPTY STATE --- */
+        #emptyCart { 
             text-align: center; 
-            padding: 120px 30px; 
+            padding: 80px 20px; 
             display: none; 
+            animation: fadeIn 0.5s ease;
         }
-        .empty-icon { font-size: 50px; margin-bottom: 25px; filter: grayscale(1); opacity: 0.15; }
-        .empty-title { font-size: 20px; font-weight: 700; color: var(--royal-white); margin-bottom: 10px; letter-spacing: 0.5px; text-transform: uppercase; }
-        .empty-text { color: var(--text-gray); font-size: 13px; line-height: 1.8; max-width: 260px; margin: 0 auto 35px auto; font-weight: 300; }
+        .empty-circle {
+            background: #1a1a1e; width: 120px; height: 120px; border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center; 
+            margin: 0 auto 30px auto; border: 1px solid #222;
+        }
+        .empty-icon { font-size: 50px; filter: drop-shadow(0 0 10px rgba(0,200,83,0.3)); }
+        .empty-title { font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 10px; letter-spacing: -0.5px; }
+        .empty-text { color: #888; font-size: 14px; line-height: 1.6; max-width: 320px; margin: 0 auto 35px auto; }
         
-        .return-btn { 
-            display: inline-block; 
-            background: transparent; 
-            color: var(--neon-green); 
-            border: 1px solid var(--neon-green);
-            padding: 12px 35px; 
-            border-radius: 4px; 
-            font-weight: 700; 
-            text-decoration: none; 
-            font-size: 10px; 
-            text-transform: uppercase; 
-            letter-spacing: 2px;
-            transition: opacity 0.2s;
+        .shop-now-btn { 
+            display: inline-block; background: var(--neon-green); color: #000;
+            padding: 15px 60px; border-radius: 30px; font-weight: 900;
+            text-decoration: none; font-size: 12px; text-transform: uppercase;
+            letter-spacing: 1px; box-shadow: 0 10px 20px rgba(0,200,83,0.2);
         }
-        .return-btn:active { opacity: 0.6; }
 
-        /* --- STICKY SUMMARY BAR --- */
+        .trust-badges {
+            margin-top: 60px; display: flex; justify-content: center; gap: 20px; 
+            opacity: 0.4; border-top: 1px solid #1f1f23; padding-top: 30px;
+        }
+        .badge { font-size: 10px; color: #aaa; text-transform: uppercase; font-weight: 700; }
+
+        /* --- SUMMARY BAR --- */
         .summary-bar {
             position: fixed; bottom: 0; width: 100%;
             background: #0f0f12; border-top: 1px solid #1f1f23;
@@ -110,39 +111,50 @@
             box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
         }
         .total-label { font-size: 10px; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1px; }
-        .total-amount { font-size: 18px; font-weight: 900; color: var(--royal-white); }
+        .total-count { font-size: 18px; font-weight: 900; color: var(--royal-white); }
         
         .checkout-all-btn {
             background: var(--neon-green); color: #000;
             padding: 12px 25px; border-radius: 8px; font-weight: 900;
-            text-decoration: none; font-size: 12px; text-transform: uppercase;
+            text-decoration: none; font-size: 11px; text-transform: uppercase;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="javascript:history.back()" class="back-link">← CLOSE</a>
-    <div class="page-title">SHOPPING CART</div>
+    <a href="javascript:history.back()" class="back-link">← Close</a>
+    <div class="page-title">Shopping Cart</div>
     <div style="width: 50px;"></div> 
 </header>
 
 <div class="cart-container" id="cartList">
     </div>
 
-<div class="empty-cart" id="emptyCart">
-    <div class="empty-icon">🛍️</div>
-    <h2 class="empty-title">Your Selection is Empty</h2>
-    <p class="empty-text">It appears you haven't curated your collection yet. Explore our premium organic provisions to begin.</p>
-    <a href="merchandise.html" class="return-btn">RETURN TO STORE</a>
+<div id="emptyCart">
+    <div class="empty-circle">
+        <span class="empty-icon">🛒</span>
+    </div>
+    <h2 class="empty-title">Your selection is empty!</h2>
+    <p class="empty-text">
+        Looks like you haven't added anything to your cart yet. 
+        Explore our premium range of products and start your healthy journey today.
+    </p>
+    <a href="merchandise.html" class="shop-now-btn">Shop Now</a>
+
+    <div class="trust-badges">
+        <div class="badge">✨ Organic</div>
+        <div class="badge">🚀 Fast Service</div>
+        <div class="badge">🔒 Secure</div>
+    </div>
 </div>
 
 <div class="summary-bar" id="summaryBar">
     <div>
-        <div class="total-label">Subtotal</div>
-        <div class="total-amount" id="cartTotal">0 Items</div>
+        <div class="total-label">Total Selection</div>
+        <div class="total-count" id="cartTotal">0 Items</div>
     </div>
-    <a href="https://instagram.com/myfoodproductsputhukkadai" class="checkout-all-btn">ORDER VIA INSTAGRAM</a>
+    <a href="https://instagram.com/myfoodproductsputhukkadai" class="checkout-all-btn">Order All via Instagram</a>
 </div>
 
 <script src="products.js"></script>
@@ -157,12 +169,14 @@
     function renderCartPage() {
         listElement.innerHTML = '';
         
-        if (cart.length === 0) {
+        // Logical check for empty cart
+        if (!cart || cart.length === 0) {
             emptyElement.style.display = 'block';
             summaryElement.style.display = 'none';
             return;
         }
 
+        // Active state
         emptyElement.style.display = 'none';
         summaryElement.style.display = 'flex';
 
@@ -177,7 +191,7 @@
                         </div>
                         <div class="item-actions">
                             <button class="remove-btn" onclick="removeItem('${item.id}')">Remove</button>
-                            <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-order-btn">Direct Order</a>
+                            <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-order-btn">Order via IG</a>
                         </div>
                     </div>
                 </div>
@@ -185,15 +199,17 @@
             listElement.innerHTML += itemHTML;
         });
 
+        // Use the function from cart.js to get current total count
         totalElement.innerText = `${getCartCount()} Items`;
     }
 
     function removeItem(id) {
         cart = cart.filter(item => item.id !== id);
-        saveCart();
-        renderCartPage();
+        saveCart(); // Persist to LocalStorage
+        renderCartPage(); // Refresh the list
     }
 
+    // Initialize page
     window.addEventListener('DOMContentLoaded', renderCartPage);
 </script>
 

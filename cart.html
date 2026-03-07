@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Shopping Cart | Mall of Royal Red Bull</title>
+    <title>Your Selection | Mall of Royal Red Bull</title>
     <style>
         :root {
             --bg-dark: #0a0a0c;        
@@ -21,7 +21,6 @@
             background-color: var(--bg-dark);
             color: var(--royal-white);
             line-height: 1.6;
-            overflow-x: hidden;
         }
 
         /* --- HEADER --- */
@@ -35,8 +34,8 @@
         .back-link { color: var(--neon-green); text-decoration: none; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
         .page-title { font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* --- CONTAINER --- */
-        .cart-container { padding: 15px; max-width: 800px; margin: 0 auto; min-height: 60vh; }
+        /* --- CONTENT AREA --- */
+        .cart-container { padding: 15px; max-width: 800px; margin: 0 auto; min-height: calc(100vh - 200px); }
         
         .cart-item {
             background: var(--card-bg);
@@ -51,42 +50,17 @@
         .item-img { width: 80px; height: 80px; border-radius: 10px; object-fit: cover; }
         .item-details { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
 
-        /* --- PROFESSIONAL EMPTY STATE (The Fix) --- */
-        #emptyCartView {
-            display: none; /* Managed by JS */
+        /* --- PROFESSIONAL EMPTY MESSAGE --- */
+        #emptyCartMessage {
+            display: none;
             text-align: center;
-            padding: 80px 20px;
+            padding: 100px 20px;
         }
+        .empty-icon { font-size: 60px; margin-bottom: 20px; filter: grayscale(1); opacity: 0.3; }
+        .empty-headline { font-size: 22px; font-weight: 800; margin-bottom: 10px; color: #fff; }
+        .empty-subtext { color: var(--text-gray); font-size: 14px; max-width: 280px; margin: 0 auto; line-height: 1.5; }
 
-        .empty-illustration {
-            width: 140px; height: 140px;
-            background: #16161a;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            margin: 0 auto 25px auto;
-            border: 1px solid #222;
-            font-size: 50px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .empty-headline { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
-        .empty-subtext { color: var(--text-gray); font-size: 14px; margin-bottom: 30px; max-width: 250px; margin-left: auto; margin-right: auto; }
-
-        .shop-btn {
-            display: inline-block;
-            background: var(--neon-green);
-            color: #000;
-            padding: 16px 45px;
-            border-radius: 50px;
-            font-weight: 900;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 1px;
-            box-shadow: 0 8px 20px rgba(0, 200, 83, 0.3);
-        }
-
-        /* --- BOTTOM SUMMARY BAR --- */
+        /* --- DYNAMIC BOTTOM BAR --- */
         .summary-bar {
             position: fixed; bottom: 0; width: 100%;
             background: #0f0f12; border-top: 1px solid #1f1f23;
@@ -94,38 +68,47 @@
             box-shadow: 0 -10px 30px rgba(0,0,0,0.8);
         }
         .total-amount { font-size: 22px; font-weight: 900; }
-        .place-order-btn {
-            background: var(--neon-green); color: #000;
-            padding: 14px 30px; border-radius: 8px; font-weight: 900;
-            text-decoration: none; font-size: 11px; text-transform: uppercase;
+        
+        /* The Action Button */
+        #dynamicActionButton {
+            background: var(--neon-green);
+            color: #000;
+            padding: 14px 25px;
+            border-radius: 8px;
+            font-weight: 900;
+            text-decoration: none;
+            font-size: 11px;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            min-width: 150px;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <a href="javascript:history.back()" class="back-link">← Continue</a>
-    <div class="page-title">Shopping Cart</div>
+    <a href="javascript:history.back()" class="back-link">← CONTINUE</a>
+    <div class="page-title">SHOPPING CART</div>
     <div style="width: 50px;"></div>
 </header>
 
 <div class="cart-container">
     <div id="cartItemsList"></div>
 
-    <div id="emptyCartView">
-        <div class="empty-illustration">🛒</div>
-        <h1 class="empty-headline">Your cart is empty!</h1>
-        <p class="empty-subtext">Looks like you haven't added anything to your cart yet.</p>
-        <a href="merchandise.html" class="shop-btn">Start Shopping</a>
+    <div id="emptyCartMessage">
+        <div class="empty-icon">🛍️</div>
+        <h1 class="empty-headline">Your cart is empty</h1>
+        <p class="empty-subtext">Add some premium organic provisions to your cart and start your healthy journey today!</p>
     </div>
 </div>
 
-<div class="summary-bar" id="bottomBar">
+<div class="summary-bar">
     <div>
         <div style="font-size: 10px; color: var(--text-gray); text-transform: uppercase;">Estimated Total</div>
         <div class="total-amount" id="countDisplay">0 Items</div>
     </div>
-    <a href="https://instagram.com/myfoodproductsputhukkadai" class="place-order-btn">Place Order</a>
+    <a href="merchandise.html" id="dynamicActionButton">Shop Now</a>
 </div>
 
 <script src="products.js"></script>
@@ -134,32 +117,41 @@
 <script>
     function render() {
         const list = document.getElementById('cartItemsList');
-        const emptyView = document.getElementById('emptyCartView');
-        const bottomBar = document.getElementById('bottomBar');
+        const emptyView = document.getElementById('emptyCartMessage');
         const countText = document.getElementById('countDisplay');
+        const actionBtn = document.getElementById('dynamicActionButton');
 
         list.innerHTML = '';
 
         if (!cart || cart.length === 0) {
-            // Show the "Empty" message and hide the bottom bar
+            // SHOW EMPTY MESSAGE
             emptyView.style.display = 'block';
-            bottomBar.style.display = 'none';
+            
+            // SET BUTTON TO "SHOP NOW"
+            actionBtn.innerText = "Shop Now";
+            actionBtn.href = "merchandise.html";
+            
+            // RESET COUNT
+            countText.innerText = "0 Items";
             return;
         }
 
-        // If items exist, show them and the bottom bar
+        // IF PRODUCTS EXIST
         emptyView.style.display = 'none';
-        bottomBar.style.display = 'flex';
+        
+        // SET BUTTON TO "ORDER VIA INSTAGRAM"
+        actionBtn.innerText = "Order Via Instagram";
+        actionBtn.href = "https://instagram.com/myfoodproductsputhukkadai";
 
         cart.forEach(item => {
             list.innerHTML += `
                 <div class="cart-item">
                     <img src="${item.image}" class="item-img">
                     <div class="item-details">
-                        <div class="item-name">${item.title}</div>
+                        <div style="font-weight:600; font-size:15px;">${item.title}</div>
                         <div style="display:flex; justify-content:space-between; align-items:center;">
                              <div style="color:var(--neon-green); font-weight:800;">${item.price}</div>
-                             <button onclick="remove('${item.id}')" style="background:none; border:none; color:var(--danger-red); font-size:10px; font-weight:700; text-transform:uppercase;">Remove</button>
+                             <button onclick="removeItem('${item.id}')" style="background:none; border:none; color:var(--danger-red); font-size:10px; font-weight:700; text-transform:uppercase;">Remove</button>
                         </div>
                     </div>
                 </div>
@@ -169,7 +161,7 @@
         countText.innerText = `${getCartCount()} Items`;
     }
 
-    function remove(id) {
+    function removeItem(id) {
         cart = cart.filter(i => i.id !== id);
         saveCart();
         render();

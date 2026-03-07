@@ -14,18 +14,18 @@
             --danger-red: #ff3b3b;
         }
 
-        /* --- GLOBAL & PROTECTION --- */
-        * { box-sizing: border-box; -webkit-user-select: none; user-select: none; }
+        /* --- GLOBAL PROTECTION & RESET --- */
+        * { box-sizing: border-box; -webkit-user-select: none; user-select: none; margin: 0; padding: 0; }
 
         body {
-            margin: 0;
-            font-family: 'Inter', -apple-system, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-dark);
             color: var(--royal-white);
-            padding-bottom: 120px; /* Space for sticky summary */
+            line-height: 1.6;
+            padding-bottom: 120px;
         }
 
-        /* --- HEADER --- */
+        /* --- STICKY HEADER --- */
         header {
             background-color: var(--bg-dark);
             padding: 18px 15px;
@@ -33,10 +33,10 @@
             border-bottom: 1px solid #1f1f23;
             display: flex; align-items: center; justify-content: space-between;
         }
-        .back-link { color: var(--neon-green); text-decoration: none; font-size: 13px; font-weight: 800; text-transform: uppercase; }
-        .page-title { font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 1px; }
+        .back-link { color: var(--neon-green); text-decoration: none; font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .page-title { font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* --- CART LIST --- */
+        /* --- CART LIST CONTAINER --- */
         .cart-container { padding: 15px; max-width: 800px; margin: 0 auto; }
         
         .cart-item {
@@ -47,21 +47,21 @@
             display: flex;
             gap: 15px;
             margin-bottom: 12px;
-            animation: slideIn 0.3s ease-out;
+            animation: fadeIn 0.4s ease;
         }
 
-        @keyframes slideIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .item-img { width: 85px; height: 85px; border-radius: 8px; object-fit: cover; border: 1px solid #222; }
+        .item-img { width: 90px; height: 90px; border-radius: 8px; object-fit: cover; border: 1px solid #222; }
         
         .item-details { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
         
-        .item-name { font-size: 14px; font-weight: 600; color: var(--royal-white); margin-bottom: 4px; }
-        .item-price { font-size: 15px; font-weight: 800; color: var(--neon-green); }
+        .item-name { font-size: 14px; font-weight: 600; color: var(--royal-white); }
+        .item-price { font-size: 15px; font-weight: 800; color: var(--neon-green); margin-top: 2px; }
 
         .item-actions { display: flex; gap: 8px; margin-top: 10px; }
 
-        /* --- BUTTONS --- */
+        /* --- BUTTON STYLES --- */
         .remove-btn {
             background: transparent; color: var(--danger-red);
             border: 1px solid rgba(255, 59, 59, 0.2);
@@ -76,24 +76,39 @@
             border-radius: 6px; text-transform: uppercase;
         }
 
-        /* --- EMPTY STATE --- */
-        .empty-cart { text-align: center; padding: 80px 20px; display: none; }
-        .empty-cart-icon { font-size: 50px; margin-bottom: 20px; opacity: 0.3; }
-        .empty-cart p { color: var(--text-gray); margin-bottom: 25px; font-size: 14px; }
-        .shop-now-btn { 
-            display: inline-block; background: var(--neon-green); color: #000;
-            padding: 12px 35px; border-radius: 8px; font-weight: 800; text-decoration: none; font-size: 13px;
+        /* --- PROFESSIONAL EMPTY STATE --- */
+        .empty-cart { 
+            text-align: center; 
+            padding: 100px 30px; 
+            display: none; 
+        }
+        .empty-icon { font-size: 60px; margin-bottom: 20px; filter: grayscale(1); opacity: 0.2; }
+        .empty-title { font-size: 22px; font-weight: 700; color: var(--royal-white); margin-bottom: 12px; letter-spacing: 0.5px; }
+        .empty-text { color: var(--text-gray); font-size: 14px; line-height: 1.6; max-width: 280px; margin: 0 auto 30px auto; }
+        
+        .return-btn { 
+            display: inline-block; 
+            background: transparent; 
+            color: var(--neon-green); 
+            border: 1px solid var(--neon-green);
+            padding: 12px 40px; 
+            border-radius: 4px; 
+            font-weight: 700; 
+            text-decoration: none; 
+            font-size: 11px; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
         }
 
-        /* --- SUMMARY BAR --- */
+        /* --- STICKY SUMMARY BAR --- */
         .summary-bar {
             position: fixed; bottom: 0; width: 100%;
-            background: #0f0f12; border-top: 2px solid var(--neon-green);
+            background: #0f0f12; border-top: 1px solid #1f1f23;
             padding: 20px 15px; display: flex; justify-content: space-between; align-items: center;
             box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
         }
         .total-label { font-size: 10px; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1px; }
-        .total-count { font-size: 18px; font-weight: 900; color: var(--royal-white); }
+        .total-amount { font-size: 18px; font-weight: 900; color: var(--royal-white); }
         
         .checkout-all-btn {
             background: var(--neon-green); color: #000;
@@ -107,37 +122,24 @@
 <header>
     <a href="javascript:history.back()" class="back-link">← Close</a>
     <div class="page-title">Shopping Cart</div>
-    <div style="width: 40px;"></div> </header>
+    <div style="width: 50px;"></div> </header>
 
 <div class="cart-container" id="cartList">
     </div>
 
-<div class="empty-cart" id="emptyCart" style="text-align: center; padding: 100px 30px; display: none;">
-    <div style="font-size: 60px; margin-bottom: 20px; filter: grayscale(1); opacity: 0.2;">🛍️</div>
-    
-    <h2 style="font-family: 'Playfair Display', serif; font-size: 22px; color: var(--royal-white); margin-bottom: 12px; letter-spacing: 0.5px;">
-        Your Selection is Empty
-    </h2>
-    
-    <p style="color: var(--text-gray); font-size: 14px; line-height: 1.6; max-width: 280px; margin: 0 auto 30px auto; font-weight: 300;">
-        It looks like you haven't added any items to your cart yet. Explore our premium organic provisions to get started.
-    </p>
-    
-    <a href="merchandise.html" class="shop-now-btn" style="
-        display: inline-block; 
-        background: transparent; 
-        color: var(--neon-green); 
-        border: 1px solid var(--neon-green);
-        padding: 12px 40px; 
-        border-radius: 4px; 
-        font-weight: 700; 
-        text-decoration: none; 
-        font-size: 11px; 
-        text-transform: uppercase; 
-        letter-spacing: 2px;
-        transition: all 0.3s ease;">
-        Return to Store
-    </a>
+<div class="empty-cart" id="emptyCart">
+    <div class="empty-icon">🛍️</div>
+    <h2 class="empty-title">Your Selection is Empty</h2>
+    <p class="empty-text">It looks like you haven't added any items to your cart yet. Explore our premium organic provisions to get started.</p>
+    <a href="merchandise.html" class="return-btn">Return to Store</a>
+</div>
+
+<div class="summary-bar" id="summaryBar">
+    <div>
+        <div class="total-label">Subtotal</div>
+        <div class="total-amount" id="cartTotal">0 Items</div>
+    </div>
+    <a href="https://instagram.com/myfoodproductsputhukkadai" class="checkout-all-btn">Order All via Instagram</a>
 </div>
 
 <script src="products.js"></script>
@@ -150,32 +152,32 @@
     const totalElement = document.getElementById('cartTotal');
 
     function renderCartPage() {
-        // Clear list
+        // Clear list before re-rendering
         listElement.innerHTML = '';
         
-        // Show empty state if no items
+        // Handle Empty State
         if (cart.length === 0) {
             emptyElement.style.display = 'block';
             summaryElement.style.display = 'none';
             return;
         }
 
-        // Show items
+        // Handle Active Cart State
         emptyElement.style.display = 'none';
         summaryElement.style.display = 'flex';
 
         cart.forEach(item => {
             const itemHTML = `
-                <div class="cart-item" id="item-${item.id}">
-                    <img src="${item.image}" class="item-img">
+                <div class="cart-item">
+                    <img src="${item.image}" class="item-img" alt="${item.title}">
                     <div class="item-details">
                         <div>
                             <div class="item-name">${item.title}</div>
-                            <div class="item-price">${item.price} <span style="color:#555; font-size:11px;">(Qty: ${item.quantity})</span></div>
+                            <div class="item-price">${item.price} <span style="color:#555; font-size:10px;">QTY: ${item.quantity}</span></div>
                         </div>
                         <div class="item-actions">
                             <button class="remove-btn" onclick="removeItem('${item.id}')">Remove</button>
-                            <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-order-btn">Direct Order</a>
+                            <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-order-btn">Order Item</a>
                         </div>
                     </div>
                 </div>
@@ -183,20 +185,23 @@
             listElement.innerHTML += itemHTML;
         });
 
+        // Update Total Count (Using logic from cart.js)
         totalElement.innerText = `${getCartCount()} Items`;
     }
 
+    /**
+     * Remove item from cart and update storage
+     */
     function removeItem(id) {
-        // Filter the global cart array (defined in cart.js)
+        // Update the 'cart' array (which is globally available via cart.js)
         cart = cart.filter(item => item.id !== id);
-        saveCart(); // Function from cart.js
-        renderCartPage();
+        saveCart(); // Persist to LocalStorage
+        renderCartPage(); // Refresh UI
     }
 
-    // Initialize Page
-    window.onload = renderCartPage;
+    // Load cart on page initialization
+    window.addEventListener('DOMContentLoaded', renderCartPage);
 </script>
 
 </body>
-  </html>
-  
+</html>

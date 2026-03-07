@@ -14,13 +14,15 @@
             --danger-red: #ff3b3b;
         }
 
+        /* --- GLOBAL RESET --- */
         * { box-sizing: border-box; -webkit-user-select: none; user-select: none; margin: 0; padding: 0; }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg-dark);
             color: var(--royal-white);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* --- HEADER --- */
@@ -31,32 +33,23 @@
             border-bottom: 1px solid #1f1f23;
             display: flex; align-items: center; justify-content: space-between;
         }
-        .back-link { color: var(--neon-green); text-decoration: none; font-size: 12px; font-weight: 800; text-transform: uppercase; }
+        .back-link { color: var(--neon-green); text-decoration: none; font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
         .page-title { font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; }
 
-        /* --- CENTER CONTENT --- */
+        /* --- MAIN CONTAINER --- */
         .cart-container { 
             padding: 15px; 
             max-width: 800px; 
             margin: 0 auto; 
-            min-height: 70vh;
-            display: flex;
+            min-height: 70vh; 
+            display: flex; 
             flex-direction: column;
-            justify-content: center; /* Centers the empty message vertically */
+            justify-content: center; /* Vertical Center for Message */
         }
         
-        /* Empty State Styling */
-        .empty-box {
-            text-align: center;
-            padding: 40px 20px;
-            animation: fadeIn 0.5s ease;
-        }
-        .empty-icon { font-size: 60px; margin-bottom: 15px; opacity: 0.4; }
-        .empty-title { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
-        .empty-msg { color: var(--text-gray); font-size: 14px; max-width: 280px; margin: 0 auto; }
+        #cartItemsList { width: 100%; margin-top: 10px; }
 
-        /* --- PRODUCT LIST --- */
-        #cartItemsList { width: 100%; }
+        /* --- PRODUCT ITEM STYLING --- */
         .cart-item {
             background: var(--card-bg);
             border: 1px solid #1f1f23;
@@ -65,32 +58,56 @@
             display: flex;
             gap: 15px;
             margin-bottom: 12px;
-            text-align: left;
+            animation: slideIn 0.3s ease;
         }
-        .item-img { width: 70px; height: 70px; border-radius: 8px; object-fit: cover; }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- BOTTOM BAR --- */
+        .item-img { width: 75px; height: 75px; border-radius: 10px; object-fit: cover; }
+        .item-details { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+
+        /* --- PROFESSIONAL GLASS OPACITY BOX --- */
+        .glass-empty-box {
+            background: rgba(255, 255, 255, 0.03); 
+            border: 1px solid rgba(255, 255, 255, 0.08); 
+            backdrop-filter: blur(12px); 
+            padding: 45px 30px; 
+            border-radius: 28px; 
+            text-align: center; 
+            width: 100%; 
+            max-width: 330px;
+            margin: 0 auto;
+            animation: fadeIn 0.8s ease;
+        }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+
+        .empty-icon { font-size: 55px; margin-bottom: 20px; filter: drop-shadow(0 0 15px rgba(0, 200, 83, 0.25)); }
+        .empty-headline { font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 12px; letter-spacing: -0.5px; }
+        .empty-subtext { color: #888; font-size: 13px; line-height: 1.6; }
+
+        /* --- DYNAMIC BOTTOM BAR --- */
         .summary-bar {
             position: fixed; bottom: 0; width: 100%;
             background: #0f0f12; border-top: 1px solid #1f1f23;
             padding: 20px 15px; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.8);
         }
-        .total-amount { font-size: 22px; font-weight: 900; }
+        .total-label { font-size: 10px; color: var(--text-gray); text-transform: uppercase; letter-spacing: 1px; }
+        .total-count { font-size: 20px; font-weight: 900; }
 
-        #dynamicBtn {
+        #actionBtn {
             background: var(--neon-green);
             color: #000;
-            padding: 14px 30px;
-            border-radius: 8px;
+            padding: 15px 35px;
+            border-radius: 10px;
             font-weight: 900;
             text-decoration: none;
-            font-size: 12px;
+            font-size: 11px;
             text-transform: uppercase;
-            min-width: 160px;
+            letter-spacing: 0.5px;
+            transition: 0.3s;
             text-align: center;
+            min-width: 170px;
         }
-
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -106,71 +123,76 @@
 
 <div class="summary-bar">
     <div>
-        <div style="font-size: 10px; color: var(--text-gray); text-transform: uppercase;">Estimated Total</div>
-        <div class="total-amount" id="itemCount">0 Items</div>
+        <div class="total-label">Estimated Total</div>
+        <div class="total-count" id="countLabel">0 Items</div>
     </div>
-    <a href="merchandise.html" id="dynamicBtn">Shop Now</a>
+    <a href="merchandise.html" id="actionBtn">Shop Now</a>
 </div>
 
 <script src="products.js"></script>
 <script src="cart.js"></script>
 
 <script>
-    function renderCart() {
+    function render() {
         const display = document.getElementById('mainDisplay');
-        const countText = document.getElementById('itemCount');
-        const actionBtn = document.getElementById('dynamicBtn');
+        const countLabel = document.getElementById('countLabel');
+        const btn = document.getElementById('actionBtn');
 
-        // Check if cart is empty
+        // IF CART IS EMPTY
         if (!cart || cart.length === 0) {
-            // 1. Show Professional Message at Center
+            display.style.justifyContent = "center"; // Center the box
             display.innerHTML = `
-                <div class="empty-box">
-                    <div class="empty-icon">🛒</div>
-                    <div class="empty-title">Your cart is feeling light</div>
-                    <p class="empty-msg">Explore our premium organic collection and add your favorite treats to the bag!</p>
+                <div class="glass-empty-box">
+                    <div class="empty-icon">🛍️</div>
+                    <h2 class="empty-headline">Your bag is empty</h2>
+                    <p class="empty-subtext">
+                        Looks like you haven't added any premium products yet. 
+                        Explore our catalogue to find your favorites!
+                    </p>
                 </div>
             `;
             
-            // 2. Set Bottom Button to "Shop Now"
-            actionBtn.innerText = "Shop Now";
-            actionBtn.href = "merchandise.html";
-            countText.innerText = "0 Items";
+            // Set Bottom Button to "Shop Now"
+            btn.innerText = "Shop Now";
+            btn.href = "merchandise.html";
+            countLabel.innerText = "0 Items";
             return;
         }
 
-        // If products exist
-        display.style.justifyContent = "flex-start";
+        // IF CART HAS ITEMS
+        display.style.justifyContent = "flex-start"; // Align items to top
         display.innerHTML = '<div id="cartItemsList"></div>';
         const list = document.getElementById('cartItemsList');
 
-        // 3. Set Bottom Button to "Order via Instagram"
-        actionBtn.innerText = "Order Via Instagram";
-        actionBtn.href = "https://instagram.com/myfoodproductsputhukkadai";
+        // Set Bottom Button to "Order Via Instagram"
+        btn.innerText = "Order Via Instagram";
+        btn.href = "https://instagram.com/myfoodproductsputhukkadai";
 
         cart.forEach(item => {
             list.innerHTML += `
                 <div class="cart-item">
                     <img src="${item.image}" class="item-img">
-                    <div style="flex:1;">
-                        <div style="font-weight:600;">${item.title}</div>
-                        <div style="color:var(--neon-green); font-weight:800;">${item.price}</div>
+                    <div class="item-details">
+                        <div style="font-weight:600; font-size:15px;">${item.title}</div>
+                        <div style="display:flex; justify-content:space-between; align-items:center;">
+                            <div style="color:var(--neon-green); font-weight:800; font-size:16px;">${item.price}</div>
+                            <button onclick="deleteItem('${item.id}')" style="background:none; border:none; color:var(--danger-red); font-size:10px; font-weight:800; text-transform:uppercase;">Remove</button>
+                        </div>
                     </div>
-                    <button onclick="removeItem('${item.id}')" style="background:none; border:none; color:var(--danger-red); font-size:10px; font-weight:700;">REMOVE</button>
                 </div>
             `;
         });
 
-        countText.innerText = `${getCartCount()} Items`;
+        countLabel.innerText = `${getCartCount()} Items`;
     }
 
-    function removeItem(id) {
+    function deleteItem(id) {
         cart = cart.filter(i => i.id !== id);
         saveCart();
-        renderCart();
+        render();
     }
 
-    window.onload = renderCart;
+    window.onload = render;
 </script>
 
 </body>

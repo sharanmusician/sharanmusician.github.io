@@ -3,114 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - Mall Of Royal Red Bull</title>
+    <title>Admin - Mall Of Royal Red Bull</title>
     <style>
-        :root { --primary: #cc0000; --dark: #1a1a1a; --gray: #2d2d2d; }
+        :root { --red: #cc0000; --dark: #121212; --card: #1e1e1e; }
         body { font-family: 'Segoe UI', sans-serif; background: var(--dark); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .box { background: var(--gray); padding: 30px; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h2 { text-align: center; color: var(--primary); margin-bottom: 20px; }
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #444; border-radius: 6px; background: #111; color: white; box-sizing: border-box; font-size: 14px; }
-        textarea { height: 80px; resize: none; }
-        button { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s; }
-        button:hover { background: #ff0000; }
-        .logout-btn { background: #444; margin-top: 15px; font-size: 13px; }
+        .container { background: var(--card); padding: 30px; border-radius: 15px; width: 100%; max-width: 450px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h2 { text-align: center; color: var(--red); margin-bottom: 20px; }
+        input, textarea, select { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #333; border-radius: 8px; background: #000; color: white; box-sizing: border-box; }
+        label { font-size: 0.9rem; color: #aaa; margin-top: 10px; display: block; }
+        button { width: 100%; padding: 14px; background: var(--red); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; font-size: 1rem; margin-top: 15px; }
+        button:disabled { background: #555; cursor: not-allowed; }
         .hidden { display: none; }
-        .status-msg { font-size: 12px; text-align: center; margin-top: 10px; color: #aaa; }
+        #progress-bar { width: 0%; height: 5px; background: var(--red); transition: width 0.3s; margin-top: 5px; }
     </style>
 </head>
 <body>
 
-    <div id="login-section" class="box">
-        <h2>Admin Login</h2>
-        <input type="email" id="login-email" placeholder="Admin Email">
-        <input type="password" id="login-pass" placeholder="Password">
-        <button id="btn-login">Sign In</button>
-        <p class="status-msg">Authorized Access Only</p>
+    <div id="login-panel" class="container">
+        <h2>Admin Portal</h2>
+        <input type="email" id="email" placeholder="Admin Email">
+        <input type="password" id="password" placeholder="Password">
+        <button id="btn-login">Login to Dashboard</button>
     </div>
 
-    <div id="admin-section" class="box hidden">
-        <h2>Add New Merchandise</h2>
-        <input type="text" id="p-name" placeholder="Item Name (e.g. Red Bull Cap)">
-        <input type="text" id="p-price" placeholder="Price (e.g. $29.99)">
-        <input type="text" id="p-img" placeholder="Image URL (Link to photo)">
-        <textarea id="p-desc" placeholder="Product Description..."></textarea>
-        <button id="btn-save">Upload to Mall</button>
-        <button id="btn-logout" class="logout-btn">Logout</button>
+    <div id="upload-panel" class="container hidden">
+        <h2>Add New Item</h2>
+        
+        <label>Target Collection:</label>
+        <select id="category">
+            <option value="products">Merchandise Store</option>
+            <option value="food">Food Court</option>
+        </select>
+
+        <input type="text" id="name" placeholder="Item Name">
+        <input type="text" id="price" placeholder="Price (e.g. $15.00)">
+        <textarea id="desc" placeholder="Brief Description"></textarea>
+        
+        <label>Upload Image File:</label>
+        <input type="file" id="file-input" accept="image/*">
+        <div id="progress-container" style="background:#333; border-radius:5px; overflow:hidden;">
+            <div id="progress-bar"></div>
+        </div>
+
+        <button id="btn-upload">Upload to Live Site</button>
+        <button id="btn-logout" style="background:#333; margin-top:10px;">Logout</button>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+        import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-storage.js";
 
-        // Your verified Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAnUgYIKWUrF19cZrD50y39MxKTOrEaT1U",
             authDomain: "mall-of-royal-red-bull.firebaseapp.com",
             projectId: "mall-of-royal-red-bull",
             storageBucket: "mall-of-royal-red-bull.firebasestorage.app",
             messagingSenderId: "371387584316",
-            appId: "1:371387584316:web:d693c83d4628e3f5dd5839",
-            measurementId: "G-7VMLSFPY5Q"
+            appId: "1:371387584316:web:d693c83d4628e3f5dd5839"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
+        const storage = getStorage(app);
 
-        // UI Element Selectors
-        const loginSec = document.getElementById('login-section');
-        const adminSec = document.getElementById('admin-section');
-
-        // Check if user is logged in
+        // UI Toggle logic
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                loginSec.classList.add('hidden');
-                adminSec.classList.remove('hidden');
+                document.getElementById('login-panel').classList.add('hidden');
+                document.getElementById('upload-panel').classList.remove('hidden');
             } else {
-                loginSec.classList.remove('hidden');
-                adminSec.classList.add('hidden');
+                document.getElementById('login-panel').classList.remove('hidden');
+                document.getElementById('upload-panel').classList.add('hidden');
             }
         });
 
-        // Handle Login
+        // Login / Logout
         document.getElementById('btn-login').onclick = () => {
-            const email = document.getElementById('login-email').value;
-            const pass = document.getElementById('login-pass').value;
-            signInWithEmailAndPassword(auth, email, pass)
-                .catch(err => alert("Login Failed: " + err.message));
+            const e = document.getElementById('email').value;
+            const p = document.getElementById('password').value;
+            signInWithEmailAndPassword(auth, e, p).catch(err => alert(err.message));
         };
-
-        // Handle Logout
         document.getElementById('btn-logout').onclick = () => signOut(auth);
 
-        // Handle Product Upload
-        document.getElementById('btn-save').onclick = async () => {
-            const name = document.getElementById('p-name').value;
-            const price = document.getElementById('p-price').value;
-            const image = document.getElementById('p-img').value;
-            const description = document.getElementById('p-desc').value;
+        // Upload Logic
+        document.getElementById('btn-upload').onclick = async () => {
+            const file = document.getElementById('file-input').files[0];
+            const name = document.getElementById('name').value;
+            const price = document.getElementById('price').value;
+            const desc = document.getElementById('desc').value;
+            const collectionName = document.getElementById('category').value;
+            const btn = document.getElementById('btn-upload');
 
-            if (!name || !price) {
-                return alert("Please enter at least a name and price.");
-            }
+            if (!file || !name || !price) return alert("Fill in Name, Price, and Image!");
 
-            try {
-                await addDoc(collection(db, "products"), {
-                    name: name,
-                    price: price,
-                    image: image,
-                    description: description,
-                    createdAt: serverTimestamp()
-                });
-                alert("Product successfully added to Mall Of Royal Red Bull!");
-                // Clear fields
-                document.querySelectorAll('#admin-section input, #admin-section textarea').forEach(input => input.value = '');
-            } catch (error) {
-                console.error("Error adding document: ", error);
-                alert("Error saving product. Check your Firestore Rules.");
-            }
+            btn.disabled = true;
+            btn.innerText = "Uploading...";
+
+            // 1. Upload to Storage
+            const storageRef = ref(storage, `${collectionName}/${Date.now()}_${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on('state_changed', 
+                (snapshot) => {
+                    const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                    document.getElementById('progress-bar').style.width = progress + '%';
+                }, 
+                (error) => alert(error.message), 
+                async () => {
+                    // 2. Get URL and Save to Firestore
+                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                    await addDoc(collection(db, collectionName), {
+                        name, price, description: desc, image: downloadURL, createdAt: serverTimestamp()
+                    });
+
+                    alert("Successfully added to " + collectionName);
+                    location.reload(); // Refresh to clear form
+                }
+            );
         };
     </script>
 </body>

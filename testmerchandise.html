@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mall Of Royal Red Bull - Official Store</title>
+    <title>Mall Of Royal Red Bull - Merchandise</title>
     <style>
-        /* Modern Store Styling */
+        /* Modern Mall Styling */
         :root { --red-bull: #cc0000; --navy: #24292e; --light: #f4f4f4; }
         
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: var(--light); color: #333; }
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: var(--light); color: #333; }
         
         header { 
             background: var(--red-bull); 
@@ -21,13 +21,13 @@
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
 
         /* Product Grid */
-        .product-grid { 
+        #product-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
             gap: 30px; 
         }
 
-        /* Product Cards */
+        /* Product Cards - Matches the structure in testproducts.js */
         .card { 
             background: white; 
             border-radius: 12px; 
@@ -69,70 +69,28 @@
 
         button:hover { background: #000; }
 
-        #status { text-align: center; font-size: 1.2rem; color: #666; padding: 50px; }
+        .loading-msg { text-align: center; font-size: 1.2rem; color: #666; padding: 50px; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Mall Of Royal Red Bull</h1>
-    <p>Exclusive Merchandise & Gear</p>
+    <p>Premium Merchandise Collection</p>
 </header>
 
 <div class="container">
-    <div id="status">Connecting to Mall Database...</div>
-    <div class="product-grid" id="product-grid">
-        </div>
+    <div id="product-grid">
+        <p class="loading-msg">Opening the mall doors...</p>
+    </div>
 </div>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { loadCollection } from './testproducts.js';
 
-    // Your confirmed Firebase configuration
-    const firebaseConfig = {
-        apiKey: "AIzaSyAnUgYIKWUrF19cZrD50y39MxKTOrEaT1U",
-        authDomain: "mall-of-royal-red-bull.firebaseapp.com",
-        projectId: "mall-of-royal-red-bull",
-        storageBucket: "mall-of-royal-red-bull.firebasestorage.app",
-        messagingSenderId: "371387584316",
-        appId: "1:371387584316:web:d693c83d4628e3f5dd5839",
-        measurementId: "G-7VMLSFPY5Q"
-    };
-
-    // Initialize Firebase
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const grid = document.getElementById('product-grid');
-    const status = document.getElementById('status');
-
-    // Sync with Firestore "products" collection
-    const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
-    
-    onSnapshot(q, (snapshot) => {
-        status.style.display = 'none';
-        grid.innerHTML = ''; 
-
-        if (snapshot.empty) {
-            grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">The mall is currently empty. Check back soon!</p>';
-            return;
-        }
-
-        snapshot.forEach((doc) => {
-            const item = doc.data();
-            grid.innerHTML += `
-                <div class="card">
-                    <img src="${item.image || 'https://via.placeholder.com/300'}" alt="${item.name}">
-                    <h3>${item.name}</h3>
-                    <p>${item.description || ''}</p>
-                    <span class="price">${item.price}</span>
-                    <button onclick="alert('Added ${item.name} to cart!')">Add to Cart</button>
-                </div>`;
-        });
-    }, (error) => {
-        console.error("Firebase Error:", error);
-        status.innerHTML = "Error loading products. Check Firestore rules.";
-    });
+    // This command tells the script to look into your 'products' collection 
+    // and display them in the 'product-grid' div.
+    loadCollection('products', 'product-grid');
 </script>
 
 </body>

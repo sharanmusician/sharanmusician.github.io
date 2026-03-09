@@ -2,127 +2,134 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Product Details | Royal Red Bull Cloud</title>
-    
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Bull Food Court</title>
     <style>
-        :root {
-            --bg: #0a0a0c;
-            --card: #111114;
-            --accent: #00c853;
-            --text: #ffffff;
-            --dim: #a0a0a0;
+        :root { --red-bull: #cc0000; --dark-bg: #1a1a1a; --gold: #ffcc00; }
+        
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #fdfdfd; color: #222; }
+        
+        header { 
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white; 
+            padding: 60px 20px; 
+            text-align: center; 
         }
 
-        body {
-            margin: 0; padding: 0;
-            font-family: 'Inter', sans-serif;
-            background: var(--bg); color: var(--text);
-            line-height: 1.6;
+        .container { max-width: 1100px; margin: -30px auto 40px; padding: 0 20px; }
+
+        .food-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 25px; 
         }
 
-        .nav-header {
-            padding: 20px; border-bottom: 1px solid #1f1f23;
-            display: flex; align-items: center; gap: 15px;
+        .food-card { 
+            background: white; 
+            border-radius: 15px; 
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
+            transition: 0.3s;
         }
 
-        .back-btn {
-            color: var(--accent); text-decoration: none; font-weight: 800; font-size: 20px;
+        .food-card:hover { transform: translateY(-5px); }
+
+        .food-card img { 
+            width: 100%; 
+            height: 200px; 
+            object-fit: cover; 
         }
 
-        .product-container { padding: 20px; max-width: 600px; margin: 0 auto; }
+        .food-info { padding: 20px; text-align: left; }
 
-        .hero-img {
-            width: 100%; aspect-ratio: 1/1; border-radius: 15px;
-            object-fit: cover; border: 1px solid #1f1f23;
-            margin-bottom: 20px;
+        .food-info h3 { margin: 0 0 10px; color: var(--red-bull); }
+
+        .food-info p { color: #666; font-size: 0.9rem; height: 40px; overflow: hidden; }
+
+        .bottom-row { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            margin-top: 15px; 
         }
 
-        .p-category { color: var(--accent); font-size: 10px; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; }
-        .p-title { font-size: 24px; font-weight: 800; margin: 10px 0; }
-        .p-price { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 20px; }
-        .p-desc { color: var(--dim); font-size: 14px; margin-bottom: 30px; }
+        .price { font-size: 1.3rem; font-weight: bold; color: #333; }
 
-        .order-section {
-            position: fixed; bottom: 0; left: 0; width: 100%;
-            background: #0f0f12; padding: 20px; border-top: 1px solid #1f1f23;
-            display: flex; gap: 10px;
+        .order-btn { 
+            background: var(--red-bull); 
+            color: white; 
+            border: none; 
+            padding: 8px 20px; 
+            border-radius: 25px; 
+            cursor: pointer; 
+            font-weight: bold;
         }
 
-        .btn-main {
-            flex: 1; background: var(--accent); color: black;
-            border: none; padding: 15px; border-radius: 8px;
-            font-weight: 800; text-transform: uppercase; cursor: pointer;
-            text-align: center; text-decoration: none; font-size: 12px;
-        }
-
-        /* Loading State */
-        #loader { 
-            height: 80vh; display: flex; align-items: center; 
-            justify-content: center; color: var(--accent); font-weight: 800; 
-        }
+        #loading { text-align: center; padding: 50px; font-weight: bold; color: #999; }
     </style>
 </head>
 <body>
 
-<div id="loader">SYNCING CLOUD DATA...</div>
+<header>
+    <h1>Royal Red Bull Food Court</h1>
+    <p>Fuel your day with our premium menu</p>
+</header>
 
-<div id="main-content" style="display: none;">
-    <div class="nav-header">
-        <a href="testmerchandise.html" class="back-btn">←</a>
-        <div style="font-weight: 800; font-size: 12px; letter-spacing: 1px;">PRODUCT DETAILS</div>
-    </div>
-
-    <div class="product-container">
-        <img id="pImg" class="hero-img" src="" alt="">
-        <div id="pCat" class="p-category"></div>
-        <h1 id="pTitle" class="p-title"></h1>
-        <div id="pPrice" class="p-price"></div>
-        <p id="pDesc" class="p-desc"></p>
-    </div>
-
-    <div class="order-section">
-        <a href="https://instagram.com/myfoodproductsputhukkadai" class="btn-main">Order via Instagram</a>
-    </div>
+<div class="container">
+    <div id="loading">Browsing the kitchen...</div>
+    <div class="food-grid" id="food-grid">
+        </div>
 </div>
 
-<script src="testproducts.js"></script>
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-<script>
-    // 1. Initialize Firebase Connection
-    initializeFirebaseInventory(() => {
-        // 2. Extract ID from URL (?id=RRB-001)
-        const params = new URLSearchParams(window.location.search);
-        const productId = params.get('id');
-        
-        // 3. Find product using the utility in testproducts.js
-        const product = getProductById(productId);
-        
-        if (product) {
-            renderDetails(product);
-        } else {
-            document.getElementById('loader').innerText = "PRODUCT NOT FOUND";
+    const firebaseConfig = {
+        apiKey: "AIzaSyAnUgYIKWUrF19cZrD50y39MxKTOrEaT1U",
+        authDomain: "mall-of-royal-red-bull.firebaseapp.com",
+        projectId: "mall-of-royal-red-bull",
+        storageBucket: "mall-of-royal-red-bull.firebasestorage.app",
+        messagingSenderId: "371387584316",
+        appId: "1:371387584316:web:d693c83d4628e3f5dd5839",
+        measurementId: "G-7VMLSFPY5Q"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const grid = document.getElementById('food-grid');
+    const loader = document.getElementById('loading');
+
+    // We are using a new collection called "food"
+    const q = query(collection(db, "food"), orderBy("createdAt", "desc"));
+    
+    onSnapshot(q, (snapshot) => {
+        loader.style.display = 'none';
+        grid.innerHTML = ''; 
+
+        if (snapshot.empty) {
+            grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">Our menu is currently being prepared. Check back soon!</p>';
+            return;
         }
-    });
 
-    function renderDetails(p) {
-        // Update elements
-        document.getElementById('pImg').src = p.image;
-        document.getElementById('pCat').innerText = p.category;
-        document.getElementById('pTitle').innerText = p.title;
-        document.getElementById('pPrice').innerText = p.price;
-        document.getElementById('pDesc').innerText = p.description;
-        
-        // Switch views
-        document.getElementById('loader').style.display = "none";
-        document.getElementById('main-content').style.display = "block";
-        
-        // Update browser title
-        document.title = p.title + " | Royal Red Bull";
-    }
+        snapshot.forEach((doc) => {
+            const item = doc.data();
+            grid.innerHTML += `
+                <div class="food-card">
+                    <img src="${item.image || 'https://via.placeholder.com/400x200'}" alt="${item.name}">
+                    <div class="food-info">
+                        <h3>${item.name}</h3>
+                        <p>${item.description || 'Delicious freshly made food.'}</p>
+                        <div class="bottom-row">
+                            <span class="price">${item.price}</span>
+                            <button class="order-btn" onclick="alert('Ordering ${item.name}...')">Order Now</button>
+                        </div>
+                    </div>
+                </div>`;
+        });
+    });
 </script>
 
 </body>

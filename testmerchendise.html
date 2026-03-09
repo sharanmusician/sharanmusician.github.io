@@ -2,116 +2,109 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Firebase Live Test | Mall of Royal Red Bull</title>
-    
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Merchandise Store</title>
     <style>
-        :root {
-            --bg-dark: #0a0a0c;        
-            --card-bg: #111114;       
-            --neon-green: #00c853;    
-            --royal-white: #ffffff;
-            --text-gray: #a0a0a0;
-        }
-
-        * { -webkit-user-select: none; user-select: none; box-sizing: border-box; }
-
+        /* Simple Modern Styling */
         body {
-            margin: 0; padding-bottom: 70px; 
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark); color: var(--royal-white);
-            overflow-x: hidden;
-        }
-
-        #sync-status {
-            background: #ff9800; color: black; font-size: 11px; 
-            text-align: center; padding: 6px; font-weight: 800;
-            text-transform: uppercase; letter-spacing: 1px;
-            position: sticky; top: 0; z-index: 1001;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
 
         header {
-            background-color: var(--bg-dark); padding: 12px 15px;
-            border-bottom: 1px solid #1f1f23;
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
         }
 
-        .logo { font-size: 14px; font-weight: 900; color: var(--neon-green); text-transform: uppercase; }
-
-        .trending-grid { 
-            display: grid; grid-template-columns: 1fr 1fr; 
-            gap: 12px; padding: 20px 15px; 
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
         }
 
-        .card {
-            background: var(--card-bg); border-radius: 12px;
-            padding: 10px; border: 1px solid #1f1f23;
-            display: flex; flex-direction: column; cursor: pointer;
+        /* Product Grid */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
         }
 
-        .img-box { width: 100%; aspect-ratio: 1/1; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
-        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .product-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
 
-        .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; }
-        .p-price { font-size: 14px; font-weight: 800; color: var(--royal-white); margin-bottom: 10px; }
-        
-        .card-btns { display: flex; flex-direction: column; gap: 5px; margin-top: auto; }
-        .cart-btn {
-            background: transparent; color: var(--neon-green);
-            border: 1px solid var(--neon-green); font-size: 8px; font-weight: 900; 
-            padding: 8px 4px; border-radius: 6px; text-transform: uppercase;
+        .product-card img {
+            max-width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .price {
+            color: #27ae60;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        button {
+            background-color: #e67e22;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #d35400;
         }
     </style>
 </head>
 <body>
 
-<div id="sync-status">Attempting Cloud Connection...</div>
-
 <header>
-    <div class="logo">Royal Red Bull [Cloud Test]</div>
+    <h1>Official Merchandise Store</h1>
 </header>
 
-<div class="trending-grid" id="mainGrid">
-    </div>
-
-<script src="testproducts.js"></script>
-
-<script>
-    const statusBox = document.getElementById('sync-status');
-
-    // Start the Firebase loop
-    initializeFirebaseInventory((merchandise) => {
-        if (merchandise.length > 0) {
-            statusBox.innerText = "● Live Sync Active";
-            statusBox.style.background = "#00c853";
-            renderGrid();
-        } else {
-            statusBox.innerText = "○ Database Connected (Empty)";
-            statusBox.style.background = "#2196f3";
-            document.getElementById('mainGrid').innerHTML = "<p>No products found.</p>";
-        }
-    });
-
-    function renderGrid() {
-        const grid = document.getElementById('mainGrid');
+<div class="container">
+    <h2>Available Items</h2>
+    <div class="product-grid">
         
-        // Render Organic Food items
-        const items = window.merchandise.filter(item => item.category === "Organic Food");
+        <div class="product-card">
+            <img src="https://via.placeholder.com/250" alt="T-Shirt">
+            <h3>Classic Logo T-Shirt</h3>
+            <p>Premium cotton, unisex fit.</p>
+            <p class="price">$25.00</p>
+            <button onclick="alert('Added to cart!')">Add to Cart</button>
+        </div>
 
-        grid.innerHTML = items.map(p => `
-            <div class="card" onclick="window.location.href='food.html?id=${p.id}'">
-                <div class="img-box"><img src="${p.image}"></div>
-                <div class="p-name">${p.title}</div>
-                <div class="p-price">${p.price}</div>
-                <div class="card-btns">
-                    <button class="cart-btn" onclick="event.stopPropagation(); alert('Added!')">Add to Cart</button>
-                </div>
-            </div>
-        `).join('');
-    }
-</script>
+        <div class="product-card">
+            <img src="https://via.placeholder.com/250" alt="Hoodie">
+            <h3>Heavyweight Hoodie</h3>
+            <p>Perfect for those cold coding nights.</p>
+            <p class="price">$45.00</p>
+            <button onclick="alert('Added to cart!')">Add to Cart</button>
+        </div>
+
+        <div class="product-card">
+            <img src="https://via.placeholder.com/250" alt="Mug">
+            <h3>Developer Mug</h3>
+            <p>Guaranteed to hold coffee.</p>
+            <p class="price">$15.00</p>
+            <button onclick="alert('Added to cart!')">Add to Cart</button>
+        </div>
+
+    </div>
+</div>
 
 </body>
 </html>

@@ -2,63 +2,116 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Store Admin - Add Items</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Mall Of Royal Red Bull</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .admin-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
-        h2 { color: #333; text-align: center; }
-        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #e67e22; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 16px; font-weight: bold; }
-        button:hover { background: #d35400; }
+        :root { --primary: #cc0000; --dark: #1a1a1a; --gray: #2d2d2d; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--dark); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .box { background: var(--gray); padding: 30px; border-radius: 12px; width: 100%; max-width: 400px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h2 { text-align: center; color: var(--primary); margin-bottom: 20px; }
+        input, textarea { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #444; border-radius: 6px; background: #111; color: white; box-sizing: border-box; font-size: 14px; }
+        textarea { height: 80px; resize: none; }
+        button { width: 100%; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 16px; transition: 0.3s; }
+        button:hover { background: #ff0000; }
+        .logout-btn { background: #444; margin-top: 15px; font-size: 13px; }
+        .hidden { display: none; }
+        .status-msg { font-size: 12px; text-align: center; margin-top: 10px; color: #aaa; }
     </style>
 </head>
 <body>
 
-<div class="admin-card">
-    <h2>Add New Item</h2>
-    <input type="text" id="itemName" placeholder="Product Name (e.g., Cool Shirt)">
-    <input type="text" id="itemPrice" placeholder="Price (e.g., $25.00)">
-    <input type="text" id="itemImg" placeholder="Image URL (Link to a photo)">
-    <textarea id="itemDesc" placeholder="Brief description..."></textarea>
-    <button id="uploadBtn">List Product Locally</button>
-</div>
+    <div id="login-section" class="box">
+        <h2>Admin Login</h2>
+        <input type="email" id="login-email" placeholder="Admin Email">
+        <input type="password" id="login-pass" placeholder="Password">
+        <button id="btn-login">Sign In</button>
+        <p class="status-msg">Authorized Access Only</p>
+    </div>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    <div id="admin-section" class="box hidden">
+        <h2>Add New Merchandise</h2>
+        <input type="text" id="p-name" placeholder="Item Name (e.g. Red Bull Cap)">
+        <input type="text" id="p-price" placeholder="Price (e.g. $29.99)">
+        <input type="text" id="p-img" placeholder="Image URL (Link to photo)">
+        <textarea id="p-desc" placeholder="Product Description..."></textarea>
+        <button id="btn-save">Upload to Mall</button>
+        <button id="btn-logout" class="logout-btn">Logout</button>
+    </div>
 
-    // PASTE YOUR FIREBASE CONFIG HERE
-    const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_PROJECT.firebaseapp.com",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_PROJECT.appspot.com",
-        messagingSenderId: "...",
-        appId: "..."
-    };
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+        // Your verified Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyAnUgYIKWUrF19cZrD50y39MxKTOrEaT1U",
+            authDomain: "mall-of-royal-red-bull.firebaseapp.com",
+            projectId: "mall-of-royal-red-bull",
+            storageBucket: "mall-of-royal-red-bull.firebasestorage.app",
+            messagingSenderId: "371387584316",
+            appId: "1:371387584316:web:d693c83d4628e3f5dd5839",
+            measurementId: "G-7VMLSFPY5Q"
+        };
 
-    document.getElementById('uploadBtn').onclick = async () => {
-        const name = document.getElementById('itemName').value;
-        const price = document.getElementById('itemPrice').value;
-        const img = document.getElementById('itemImg').value;
-        const desc = document.getElementById('itemDesc').value;
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
 
-        if(!name || !price) return alert("Name and Price are required!");
+        // UI Element Selectors
+        const loginSec = document.getElementById('login-section');
+        const adminSec = document.getElementById('admin-section');
 
-        try {
-            await addDoc(collection(db, "merchandise"), {
-                name, price, img, desc,
-                createdAt: serverTimestamp()
-            });
-            alert("Success! Item added to store.");
-            document.querySelectorAll('input, textarea').forEach(i => i.value = '');
-        } catch (e) {
-            alert("Error: " + e.message);
-        }
-    };
-</script>
+        // Check if user is logged in
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                loginSec.classList.add('hidden');
+                adminSec.classList.remove('hidden');
+            } else {
+                loginSec.classList.remove('hidden');
+                adminSec.classList.add('hidden');
+            }
+        });
+
+        // Handle Login
+        document.getElementById('btn-login').onclick = () => {
+            const email = document.getElementById('login-email').value;
+            const pass = document.getElementById('login-pass').value;
+            signInWithEmailAndPassword(auth, email, pass)
+                .catch(err => alert("Login Failed: " + err.message));
+        };
+
+        // Handle Logout
+        document.getElementById('btn-logout').onclick = () => signOut(auth);
+
+        // Handle Product Upload
+        document.getElementById('btn-save').onclick = async () => {
+            const name = document.getElementById('p-name').value;
+            const price = document.getElementById('p-price').value;
+            const image = document.getElementById('p-img').value;
+            const description = document.getElementById('p-desc').value;
+
+            if (!name || !price) {
+                return alert("Please enter at least a name and price.");
+            }
+
+            try {
+                await addDoc(collection(db, "products"), {
+                    name: name,
+                    price: price,
+                    image: image,
+                    description: description,
+                    createdAt: serverTimestamp()
+                });
+                alert("Product successfully added to Mall Of Royal Red Bull!");
+                // Clear fields
+                document.querySelectorAll('#admin-section input, #admin-section textarea').forEach(input => input.value = '');
+            } catch (error) {
+                console.error("Error adding document: ", error);
+                alert("Error saving product. Check your Firestore Rules.");
+            }
+        };
+    </script>
 </body>
 </html>

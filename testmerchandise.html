@@ -3,65 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Merchandise Store</title>
+    <title>Official Merchandise Store</title>
     <style>
-        /* Simple Modern Styling */
+        /* Base Styles */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background-color: #f9f9f9;
+            color: #333;
         }
 
         header {
-            background-color: #333;
+            background-color: #24292e;
             color: white;
-            padding: 1rem;
+            padding: 2rem;
             text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
         .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
         }
 
-        /* Product Grid */
+        /* Loading Spinner */
+        #loader {
+            text-align: center;
+            font-size: 1.2rem;
+            margin-top: 50px;
+            color: #666;
+        }
+
+        /* Responsive Product Grid */
         .product-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
         }
 
+        /* Product Card Design */
         .product-card {
             background: white;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
         .product-card img {
-            max-width: 100%;
-            height: 200px;
+            width: 100%;
+            height: 250px;
             object-fit: cover;
-            border-radius: 4px;
+            border-radius: 8px;
+            background-color: #eee;
+        }
+
+        .product-card h3 {
+            margin: 15px 0 10px;
+            font-size: 1.25rem;
+        }
+
+        .product-card p {
+            color: #666;
+            font-size: 0.9rem;
+            flex-grow: 1;
         }
 
         .price {
-            color: #27ae60;
+            display: block;
+            font-size: 1.5rem;
             font-weight: bold;
-            font-size: 1.2rem;
+            color: #27ae60;
+            margin: 15px 0;
         }
 
         button {
             background-color: #e67e22;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px;
+            border-radius: 6px;
+            font-weight: bold;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.2s;
         }
 
         button:hover {
@@ -72,39 +106,69 @@
 <body>
 
 <header>
-    <h1>Official Merchandise Store</h1>
+    <h1>Our Merchandise Collection</h1>
 </header>
 
 <div class="container">
-    <h2>Available Items</h2>
-    <div class="product-grid">
-        
-        <div class="product-card">
-            <img src="https://via.placeholder.com/250" alt="T-Shirt">
-            <h3>Classic Logo T-Shirt</h3>
-            <p>Premium cotton, unisex fit.</p>
-            <p class="price">$25.00</p>
-            <button onclick="alert('Added to cart!')">Add to Cart</button>
+    <div id="loader">Fetching latest items...</div>
+    <div class="product-grid" id="product-container">
         </div>
-
-        <div class="product-card">
-            <img src="https://via.placeholder.com/250" alt="Hoodie">
-            <h3>Heavyweight Hoodie</h3>
-            <p>Perfect for those cold coding nights.</p>
-            <p class="price">$45.00</p>
-            <button onclick="alert('Added to cart!')">Add to Cart</button>
-        </div>
-
-        <div class="product-card">
-            <img src="https://via.placeholder.com/250" alt="Mug">
-            <h3>Developer Mug</h3>
-            <p>Guaranteed to hold coffee.</p>
-            <p class="price">$15.00</p>
-            <button onclick="alert('Added to cart!')">Add to Cart</button>
-        </div>
-
-    </div>
 </div>
+
+<script type="module">
+    // Import the functions you need from the SDKs
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // TODO: Replace the following with your app's Firebase project configuration
+    const firebaseConfig = {
+        apiKey: "YOUR_API_KEY",
+        authDomain: "YOUR_PROJECT.firebaseapp.com",
+        projectId: "YOUR_PROJECT_ID",
+        storageBucket: "YOUR_PROJECT.appspot.com",
+        messagingSenderId: "YOUR_SENDER_ID",
+        appId: "YOUR_APP_ID"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const container = document.getElementById('product-container');
+    const loader = document.getElementById('loader');
+
+    // Create a query to get items, sorted by newest first
+    const q = query(collection(db, "merchandise"), orderBy("createdAt", "desc"));
+
+    // Real-time listener: this updates the page automatically when data changes
+    onSnapshot(q, (snapshot) => {
+        loader.style.display = 'none'; // Hide loader once data arrives
+        container.innerHTML = ''; // Clear existing items to avoid duplicates
+        
+        if (snapshot.empty) {
+            container.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">No products found. Add some in the Admin page!</p>';
+            return;
+        }
+
+        snapshot.forEach((doc) => {
+            const item = doc.data();
+            
+            // Create the HTML for each product card
+            const cardHTML = `
+                <div class="product-card">
+                    <img src="${item.img || 'https://via.placeholder.com/300'}" alt="${item.name}">
+                    <h3>${item.name}</h3>
+                    <p>${item.desc || 'No description provided.'}</p>
+                    <span class="price">${item.price}</span>
+                    <button onclick="alert('Item added to cart!')">Add to Cart</button>
+                </div>
+            `;
+            container.innerHTML += cardHTML;
+        });
+    }, (error) => {
+        console.error("Error fetching products: ", error);
+        loader.innerHTML = "Error loading products. Check your Firebase console.";
+    });
+</script>
 
 </body>
 </html>

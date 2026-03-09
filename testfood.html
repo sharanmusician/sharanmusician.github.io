@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Product Details | Royal Red Bull Cloud</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <style>
+        :root {
+            --bg: #0a0a0c;
+            --card: #111114;
+            --accent: #00c853;
+            --text: #ffffff;
+            --dim: #a0a0a0;
+        }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Inter', sans-serif;
+            background: var(--bg); color: var(--text);
+            line-height: 1.6;
+        }
+
+        .nav-header {
+            padding: 20px; border-bottom: 1px solid #1f1f23;
+            display: flex; align-items: center; gap: 15px;
+        }
+
+        .back-btn {
+            color: var(--accent); text-decoration: none; font-weight: 800; font-size: 20px;
+        }
+
+        .product-container { padding: 20px; max-width: 600px; margin: 0 auto; }
+
+        .hero-img {
+            width: 100%; aspect-ratio: 1/1; border-radius: 15px;
+            object-fit: cover; border: 1px solid #1f1f23;
+            margin-bottom: 20px;
+        }
+
+        .p-category { color: var(--accent); font-size: 10px; text-transform: uppercase; letter-spacing: 2px; font-weight: 800; }
+        .p-title { font-size: 24px; font-weight: 800; margin: 10px 0; }
+        .p-price { font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 20px; }
+        .p-desc { color: var(--dim); font-size: 14px; margin-bottom: 30px; }
+
+        .order-section {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: #0f0f12; padding: 20px; border-top: 1px solid #1f1f23;
+            display: flex; gap: 10px;
+        }
+
+        .btn-main {
+            flex: 1; background: var(--accent); color: black;
+            border: none; padding: 15px; border-radius: 8px;
+            font-weight: 800; text-transform: uppercase; cursor: pointer;
+            text-align: center; text-decoration: none; font-size: 12px;
+        }
+
+        /* Loading State */
+        #loader { 
+            height: 80vh; display: flex; align-items: center; 
+            justify-content: center; color: var(--accent); font-weight: 800; 
+        }
+    </style>
+</head>
+<body>
+
+<div id="loader">SYNCING CLOUD DATA...</div>
+
+<div id="main-content" style="display: none;">
+    <div class="nav-header">
+        <a href="testmerchandise.html" class="back-btn">←</a>
+        <div style="font-weight: 800; font-size: 12px; letter-spacing: 1px;">PRODUCT DETAILS</div>
+    </div>
+
+    <div class="product-container">
+        <img id="pImg" class="hero-img" src="" alt="">
+        <div id="pCat" class="p-category"></div>
+        <h1 id="pTitle" class="p-title"></h1>
+        <div id="pPrice" class="p-price"></div>
+        <p id="pDesc" class="p-desc"></p>
+    </div>
+
+    <div class="order-section">
+        <a href="https://instagram.com/myfoodproductsputhukkadai" class="btn-main">Order via Instagram</a>
+    </div>
+</div>
+
+<script src="testproducts.js"></script>
+
+<script>
+    // 1. Initialize Firebase Connection
+    initializeFirebaseInventory(() => {
+        // 2. Extract ID from URL (?id=RRB-001)
+        const params = new URLSearchParams(window.location.search);
+        const productId = params.get('id');
+        
+        // 3. Find product using the utility in testproducts.js
+        const product = getProductById(productId);
+        
+        if (product) {
+            renderDetails(product);
+        } else {
+            document.getElementById('loader').innerText = "PRODUCT NOT FOUND";
+        }
+    });
+
+    function renderDetails(p) {
+        // Update elements
+        document.getElementById('pImg').src = p.image;
+        document.getElementById('pCat').innerText = p.category;
+        document.getElementById('pTitle').innerText = p.title;
+        document.getElementById('pPrice').innerText = p.price;
+        document.getElementById('pDesc').innerText = p.description;
+        
+        // Switch views
+        document.getElementById('loader').style.display = "none";
+        document.getElementById('main-content').style.display = "block";
+        
+        // Update browser title
+        document.title = p.title + " | Royal Red Bull";
+    }
+</script>
+
+</body>
+</html>

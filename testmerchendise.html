@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Firebase Live Test | Mall of Royal Red Bull</title>
+    
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+    <style>
+        :root {
+            --bg-dark: #0a0a0c;        
+            --card-bg: #111114;       
+            --neon-green: #00c853;    
+            --royal-white: #ffffff;
+            --text-gray: #a0a0a0;
+        }
+
+        /* Prevent Selection & Global Styles */
+        * {
+            -webkit-user-select: none;
+            user-select: none;
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding-bottom: 70px; 
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--royal-white);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* Connection Status Bar */
+        #sync-status {
+            background: #ff9800; /* Orange while connecting */
+            color: black;
+            font-size: 11px;
+            text-align: center;
+            padding: 6px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: sticky;
+            top: 0;
+            z-index: 1001;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: var(--bg-dark);
+            padding: 12px 15px;
+            border-bottom: 1px solid #1f1f23;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-size: 14px; font-weight: 900; color: var(--neon-green); text-transform: uppercase; }
+
+        /* --- SECTION STYLING --- */
+        .section-header { padding: 20px 15px 10px; display: flex; align-items: center; gap: 8px; }
+        .accent-bar { width: 4px; height: 18px; background: var(--neon-green); }
+        .section-title { font-size: 15px; font-weight: 800; text-transform: uppercase; }
+
+        .trending-grid { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 12px; 
+            padding: 0 15px; 
+        }
+
+        /* --- PRODUCT CARDS --- */
+        .card {
+            background: var(--card-bg); border-radius: 12px;
+            padding: 10px; border: 1px solid #1f1f23;
+            display: flex; flex-direction: column;
+            text-decoration: none; color: inherit;
+        }
+
+        .img-box { width: 100%; aspect-ratio: 1/1; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
+        .img-box img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
+
+        .p-name { font-size: 12px; font-weight: 600; height: 32px; overflow: hidden; }
+        .p-price { font-size: 14px; font-weight: 800; color: var(--royal-white); margin-bottom: 10px; }
+        
+        .card-btns { display: flex; flex-direction: column; gap: 5px; margin-top: auto; }
+        
+        .cart-btn {
+            background: transparent; color: var(--neon-green);
+            border: 1px solid var(--neon-green); text-align: center;
+            font-size: 8px; font-weight: 900; padding: 8px 4px;
+            border-radius: 6px; text-transform: uppercase; cursor: pointer;
+        }
+
+        .ig-btn {
+            background: var(--neon-green); color: black; text-align: center;
+            text-decoration: none; font-size: 8px; font-weight: 900;
+            padding: 8px 4px; border-radius: 6px; text-transform: uppercase;
+        }
+
+        /* --- BOTTOM NAV --- */
+        .bottom-nav {
+            position: fixed; bottom: 0; width: 100%; 
+            background: #0f0f12; display: flex; 
+            justify-content: space-around; padding: 10px 0; 
+            border-top: 1px solid #1f1f23; z-index: 1001; 
+        }
+
+        .nav-item { color: var(--text-gray); text-decoration: none; font-size: 10px; text-align: center; }
+        .nav-item.active { color: var(--neon-green); }
+
+    </style>
+</head>
+<body>
+
+<div id="sync-status">Attempting Cloud Connection...</div>
+
+<header>
+    <div class="logo">Royal Red Bull [Firebase Test]</div>
+    <div style="font-size: 20px;">🛒</div>
+</header>
+
+<div class="section-header">
+    <div class="accent-bar"></div>
+    <div class="section-title">Real-Time Inventory</div>
+</div>
+
+<div class="trending-grid" id="mainGrid">
+    </div>
+
+<div class="bottom-nav">
+    <a href="#" class="nav-item active">Home</a>
+    <a href="#" class="nav-item">Best Sellers</a>
+    <a href="#" class="nav-item">Store</a>
+</div>
+
+<script>
+    // 1. CONFIGURATION (Pulled from your app registration)
+    const firebaseConfig = {
+        apiKey: "AIzaSyAnUgYIKMUzf19cZrD60yD9MeKTOreAt1U",
+        authDomain: "mall-of-royal-red-bull.firebaseapp.com",
+        databaseURL: "https://mall-of-royal-red-bull-default-rtdb.firebaseio.com",
+        projectId: "mall-of-royal-red-bull",
+        storageBucket: "mall-of-royal-red-bull.firebasestorage.app",
+        messagingSenderId: "371387584316",
+        appId: "1:371387584316:web:d693c83d4628e3f5dd5839"
+    };
+
+    // 2. INITIALIZE
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const statusBox = document.getElementById('sync-status');
+
+    // 3. LISTEN FOR DATA (REALTIME)
+    db.ref('inventory').on('value', (snapshot) => {
+        const data = snapshot.val();
+        
+        if (data) {
+            statusBox.innerText = "● Live Sync Active";
+            statusBox.style.background = "#00c853";
+            
+            // Convert Object to Array for compatibility with your existing logic
+            window.merchandise = Object.values(data);
+            renderTestGrid();
+        } else {
+            statusBox.innerText = "○ Database Empty - Run Bulk Uploader";
+            statusBox.style.background = "#f44336";
+        }
+    }, (error) => {
+        statusBox.innerText = "Connection Failed: " + error.message;
+        statusBox.style.background = "#f44336";
+    });
+
+    // 4. RENDER FUNCTION (Your original card structure)
+    function renderTestGrid() {
+        const grid = document.getElementById('mainGrid');
+        
+        // Render only available food items for this test
+        const items = window.merchandise.filter(item => item.category === "Organic Food");
+
+        grid.innerHTML = items.map(p => `
+            <div class="card" onclick="window.location.href='food.html?id=${p.id}'">
+                <div class="img-box"><img src="${p.image}"></div>
+                <div class="p-name">${p.title}</div>
+                <div class="p-price">${p.price}</div>
+                <div class="card-btns">
+                    <button class="cart-btn" onclick="event.stopPropagation(); alert('Added!')">Add to Cart</button>
+                    <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-btn" onclick="event.stopPropagation()">Order via Instagram</a>
+                </div>
+            </div>
+        `).join('');
+    }
+</script>
+
+</body>
+</html>

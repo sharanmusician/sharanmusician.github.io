@@ -3,170 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Official Merchandise Store</title>
+    <title>Mall Of Royal Red Bull - Official Store</title>
     <style>
-        /* Base Styles */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
+        /* Modern Store Styling */
+        :root { --red-bull: #cc0000; --navy: #24292e; --light: #f4f4f4; }
+        
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: var(--light); color: #333; }
+        
+        header { 
+            background: var(--red-bull); 
+            color: white; 
+            padding: 30px 20px; 
+            text-align: center; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); 
         }
 
-        header {
-            background-color: #24292e;
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+
+        /* Product Grid */
+        .product-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 30px; 
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
+        /* Product Cards */
+        .card { 
+            background: white; 
+            border-radius: 12px; 
+            padding: 20px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            text-align: center; 
+            transition: transform 0.3s ease;
         }
 
-        /* Loading Spinner */
-        #loader {
-            text-align: center;
-            font-size: 1.2rem;
-            margin-top: 50px;
-            color: #666;
+        .card:hover { transform: translateY(-8px); }
+
+        .card img { 
+            width: 100%; 
+            height: 220px; 
+            object-fit: cover; 
+            border-radius: 8px; 
+            background: #eee;
         }
 
-        /* Responsive Product Grid */
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-
-        /* Product Card Design */
-        .product-card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        }
-
-        .product-card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-            border-radius: 8px;
-            background-color: #eee;
-        }
-
-        .product-card h3 {
-            margin: 15px 0 10px;
-            font-size: 1.25rem;
-        }
-
-        .product-card p {
-            color: #666;
-            font-size: 0.9rem;
-            flex-grow: 1;
-        }
-
-        .price {
+        .price { 
+            font-size: 1.5rem; 
+            font-weight: bold; 
+            color: var(--red-bull); 
+            margin: 15px 0; 
             display: block;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #27ae60;
-            margin: 15px 0;
         }
 
-        button {
-            background-color: #e67e22;
-            color: white;
-            border: none;
-            padding: 12px;
-            border-radius: 6px;
+        button { 
+            background: var(--navy); 
+            color: white; 
+            border: none; 
+            padding: 12px; 
+            width: 100%; 
+            border-radius: 6px; 
+            cursor: pointer; 
             font-weight: bold;
-            cursor: pointer;
             transition: background 0.2s;
         }
 
-        button:hover {
-            background-color: #d35400;
-        }
+        button:hover { background: #000; }
+
+        #status { text-align: center; font-size: 1.2rem; color: #666; padding: 50px; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>Our Merchandise Collection</h1>
+    <h1>Mall Of Royal Red Bull</h1>
+    <p>Exclusive Merchandise & Gear</p>
 </header>
 
 <div class="container">
-    <div id="loader">Fetching latest items...</div>
-    <div class="product-grid" id="product-container">
+    <div id="status">Connecting to Mall Database...</div>
+    <div class="product-grid" id="product-grid">
         </div>
 </div>
 
 <script type="module">
-    // Import the functions you need from the SDKs
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-    // TODO: Replace the following with your app's Firebase project configuration
+    // Your confirmed Firebase configuration
     const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_PROJECT.firebaseapp.com",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_PROJECT.appspot.com",
-        messagingSenderId: "YOUR_SENDER_ID",
-        appId: "YOUR_APP_ID"
+        apiKey: "AIzaSyAnUgYIKWUrF19cZrD50y39MxKTOrEaT1U",
+        authDomain: "mall-of-royal-red-bull.firebaseapp.com",
+        projectId: "mall-of-royal-red-bull",
+        storageBucket: "mall-of-royal-red-bull.firebasestorage.app",
+        messagingSenderId: "371387584316",
+        appId: "1:371387584316:web:d693c83d4628e3f5dd5839",
+        measurementId: "G-7VMLSFPY5Q"
     };
 
     // Initialize Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-    const container = document.getElementById('product-container');
-    const loader = document.getElementById('loader');
+    const grid = document.getElementById('product-grid');
+    const status = document.getElementById('status');
 
-    // Create a query to get items, sorted by newest first
-    const q = query(collection(db, "merchandise"), orderBy("createdAt", "desc"));
-
-    // Real-time listener: this updates the page automatically when data changes
+    // Sync with Firestore "products" collection
+    const q = query(collection(db, "products"), orderBy("createdAt", "desc"));
+    
     onSnapshot(q, (snapshot) => {
-        loader.style.display = 'none'; // Hide loader once data arrives
-        container.innerHTML = ''; // Clear existing items to avoid duplicates
-        
+        status.style.display = 'none';
+        grid.innerHTML = ''; 
+
         if (snapshot.empty) {
-            container.innerHTML = '<p style="grid-column: 1/-1; text-align: center;">No products found. Add some in the Admin page!</p>';
+            grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">The mall is currently empty. Check back soon!</p>';
             return;
         }
 
         snapshot.forEach((doc) => {
             const item = doc.data();
-            
-            // Create the HTML for each product card
-            const cardHTML = `
-                <div class="product-card">
-                    <img src="${item.img || 'https://via.placeholder.com/300'}" alt="${item.name}">
+            grid.innerHTML += `
+                <div class="card">
+                    <img src="${item.image || 'https://via.placeholder.com/300'}" alt="${item.name}">
                     <h3>${item.name}</h3>
-                    <p>${item.desc || 'No description provided.'}</p>
+                    <p>${item.description || ''}</p>
                     <span class="price">${item.price}</span>
-                    <button onclick="alert('Item added to cart!')">Add to Cart</button>
-                </div>
-            `;
-            container.innerHTML += cardHTML;
+                    <button onclick="alert('Added ${item.name} to cart!')">Add to Cart</button>
+                </div>`;
         });
     }, (error) => {
-        console.error("Error fetching products: ", error);
-        loader.innerHTML = "Error loading products. Check your Firebase console.";
+        console.error("Firebase Error:", error);
+        status.innerHTML = "Error loading products. Check Firestore rules.";
     });
 </script>
 

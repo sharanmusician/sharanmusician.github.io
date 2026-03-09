@@ -3,133 +3,98 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Red Bull Food Court</title>
+    <title>Royal Red Bull - Food Court</title>
     <style>
-        :root { --red-bull: #cc0000; --dark-bg: #1a1a1a; --gold: #ffcc00; }
+        /* Food Court Branding */
+        :root { --red-bull: #cc0000; --gold: #ffcc00; --dark: #1a1a1a; }
         
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #fdfdfd; color: #222; }
         
         header { 
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1000&q=80');
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=1000&q=80');
             background-size: cover;
             background-position: center;
             color: white; 
-            padding: 60px 20px; 
+            padding: 80px 20px; 
             text-align: center; 
         }
 
-        .container { max-width: 1100px; margin: -30px auto 40px; padding: 0 20px; }
+        .container { max-width: 1100px; margin: -40px auto 50px; padding: 0 20px; }
 
-        .food-grid { 
+        /* Grid for Food Cards */
+        #food-grid { 
             display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
             gap: 25px; 
         }
 
-        .food-card { 
+        /* Card Styling (Matches testproducts.js structure) */
+        .card { 
             background: white; 
             border-radius: 15px; 
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05); 
-            transition: 0.3s;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); 
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
         }
 
-        .food-card:hover { transform: translateY(-5px); }
+        .card:hover { transform: translateY(-5px); }
 
-        .food-card img { 
+        .card img { 
             width: 100%; 
-            height: 200px; 
+            height: 220px; 
             object-fit: cover; 
         }
 
-        .food-info { padding: 20px; text-align: left; }
+        .card h3 { margin: 20px 20px 10px; color: var(--red-bull); }
 
-        .food-info h3 { margin: 0 0 10px; color: var(--red-bull); }
+        .card p { padding: 0 20px; color: #666; font-size: 0.95rem; flex-grow: 1; }
 
-        .food-info p { color: #666; font-size: 0.9rem; height: 40px; overflow: hidden; }
-
-        .bottom-row { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            margin-top: 15px; 
+        .price { 
+            font-size: 1.4rem; 
+            font-weight: bold; 
+            padding: 10px 20px; 
+            color: var(--dark); 
         }
 
-        .price { font-size: 1.3rem; font-weight: bold; color: #333; }
-
-        .order-btn { 
+        button { 
             background: var(--red-bull); 
             color: white; 
             border: none; 
-            padding: 8px 20px; 
-            border-radius: 25px; 
+            padding: 15px; 
+            width: calc(100% - 40px); 
+            margin: 0 20px 20px;
+            border-radius: 30px; 
             cursor: pointer; 
             font-weight: bold;
+            transition: background 0.2s;
         }
 
-        #loading { text-align: center; padding: 50px; font-weight: bold; color: #999; }
+        button:hover { background: #990000; }
+
+        .loader { text-align: center; padding: 100px; font-style: italic; color: #888; }
     </style>
 </head>
 <body>
 
 <header>
     <h1>Royal Red Bull Food Court</h1>
-    <p>Fuel your day with our premium menu</p>
+    <p>Premium Dining & Fast Fuel</p>
 </header>
 
 <div class="container">
-    <div id="loading">Browsing the kitchen...</div>
-    <div class="food-grid" id="food-grid">
-        </div>
+    <div id="food-grid">
+        <p class="loader">Preparing the menu...</p>
+    </div>
 </div>
 
 <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, collection, onSnapshot, query, orderBy } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+    import { loadCollection } from './testproducts.js';
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyAnUgYIKWUrF19cZrD50y39MxKTOrEaT1U",
-        authDomain: "mall-of-royal-red-bull.firebaseapp.com",
-        projectId: "mall-of-royal-red-bull",
-        storageBucket: "mall-of-royal-red-bull.firebasestorage.app",
-        messagingSenderId: "371387584316",
-        appId: "1:371387584316:web:d693c83d4628e3f5dd5839",
-        measurementId: "G-7VMLSFPY5Q"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const grid = document.getElementById('food-grid');
-    const loader = document.getElementById('loading');
-
-    // We are using a new collection called "food"
-    const q = query(collection(db, "food"), orderBy("createdAt", "desc"));
-    
-    onSnapshot(q, (snapshot) => {
-        loader.style.display = 'none';
-        grid.innerHTML = ''; 
-
-        if (snapshot.empty) {
-            grid.innerHTML = '<p style="text-align:center; grid-column: 1/-1;">Our menu is currently being prepared. Check back soon!</p>';
-            return;
-        }
-
-        snapshot.forEach((doc) => {
-            const item = doc.data();
-            grid.innerHTML += `
-                <div class="food-card">
-                    <img src="${item.image || 'https://via.placeholder.com/400x200'}" alt="${item.name}">
-                    <div class="food-info">
-                        <h3>${item.name}</h3>
-                        <p>${item.description || 'Delicious freshly made food.'}</p>
-                        <div class="bottom-row">
-                            <span class="price">${item.price}</span>
-                            <button class="order-btn" onclick="alert('Ordering ${item.name}...')">Order Now</button>
-                        </div>
-                    </div>
-                </div>`;
-        });
-    });
+    // This calls the 'food' collection from your Firestore database
+    loadCollection('food', 'food-grid');
 </script>
 
 </body>

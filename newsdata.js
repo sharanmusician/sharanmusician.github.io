@@ -14,7 +14,6 @@ const newsArchive = [
         heading: "Information",
         headline: "Collaboration Contact Information",
         content: "For professional collaborations, please contact sharanmusician@gmail.com."
-    }"
     },
     {
         sl: 3,

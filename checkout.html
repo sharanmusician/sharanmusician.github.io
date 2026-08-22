@@ -113,7 +113,7 @@
 
         textarea.form-input {
             resize: none;
-            height: 70px;
+            height: 60px;
         }
 
         /* Order Summary Preview Card */
@@ -237,8 +237,32 @@
                 <input type="email" id="emailId" class="form-input" placeholder="Enter your email address" required>
             </div>
             <div class="form-group">
-                <label class="form-label" for="shippingAddress">Delivery Address</label>
-                <textarea id="shippingAddress" class="form-input" placeholder="Street address, apartment, city, state, pin code" required></textarea>
+                <label class="form-label" for="doorNo">Door No / Flat No</label>
+                <input type="text" id="doorNo" class="form-input" placeholder="e.g. #42, Block B" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="street">Street Name</label>
+                <input type="text" id="street" class="form-input" placeholder="Enter street name" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="city">City / Town</label>
+                <input type="text" id="city" class="form-input" placeholder="Enter city" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="district">District</label>
+                <input type="text" id="district" class="form-input" placeholder="Enter district" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="state">State</label>
+                <input type="text" id="state" class="form-input" placeholder="Enter state" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="pinCode">Pin Code</label>
+                <input type="text" id="pinCode" class="form-input" placeholder="6-digit pin code" pattern="[0-9]{6}" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="instructions">Additional Instructions <span style="color: var(--text-gray); font-weight: normal;">(Optional)</span></label>
+                <textarea id="instructions" class="form-input" placeholder="Any special delivery instructions..."></textarea>
             </div>
         </div>
 
@@ -311,15 +335,32 @@
         const fullName = document.getElementById('fullName').value.trim();
         const phoneNumber = document.getElementById('phoneNumber').value.trim();
         const emailId = document.getElementById('emailId').value.trim();
-        const address = document.getElementById('shippingAddress').value.trim();
+        const doorNo = document.getElementById('doorNo').value.trim();
+        const street = document.getElementById('street').value.trim();
+        const city = document.getElementById('city').value.trim();
+        const district = document.getElementById('district').value.trim();
+        const state = document.getElementById('state').value.trim();
+        const pinCode = document.getElementById('pinCode').value.trim();
+        const instructions = document.getElementById('instructions').value.trim();
 
-        if (!fullName || !phoneNumber || !emailId || !address) {
-            alert('Please fill in all the required delivery details.');
+        if (!fullName || !phoneNumber || !emailId || !doorNo || !street || !city || !district || !state || !pinCode) {
+            alert('Please fill in all mandatory delivery details before placing your order.');
             return;
         }
 
-        // Save checkout profile if needed
-        const customerDetails = { fullName, phoneNumber, emailId, address };
+        const customerDetails = { 
+            fullName, 
+            phoneNumber, 
+            emailId, 
+            doorNo, 
+            street, 
+            city, 
+            district, 
+            state, 
+            pinCode, 
+            instructions 
+        };
+        
         localStorage.setItem('customerDetails', JSON.stringify(customerDetails));
 
         alert('Order placed successfully! Thank you for shopping with Mall of Royal Red Bull.');
@@ -331,5 +372,5 @@
 </script>
 
 </body>
-                                                                                                          </html>
-                                                                                                          
+                    </html>
+                    

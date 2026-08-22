@@ -179,6 +179,7 @@
             padding: 10px; border: 1px solid #1f1f23;
             display: flex; flex-direction: column;
             text-decoration: none; color: inherit;
+            cursor: pointer;
         }
 
         .img-box { width: 100%; aspect-ratio: 1/1; border-radius: 8px; overflow: hidden; margin-bottom: 8px; }
@@ -196,6 +197,33 @@
             font-size: 8px; font-weight: 900; padding: 8px 4px;
             border-radius: 6px; text-transform: uppercase; cursor: pointer;
             width: 100%;
+        }
+
+        .qty-control-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #18181b;
+            border: 1px solid var(--neon-green);
+            border-radius: 6px;
+            padding: 2px 4px;
+            width: 100%;
+        }
+
+        .qty-control-btn button {
+            background: transparent;
+            color: var(--neon-green);
+            border: none;
+            font-size: 9px;
+            font-weight: 900;
+            cursor: pointer;
+            padding: 2px 6px;
+        }
+
+        .qty-control-btn span {
+            font-size: 9px;
+            font-weight: 900;
+            color: var(--royal-white);
         }
 
         .ig-btn {
@@ -362,6 +390,28 @@
         }
     }
 
+    function updateTrendingCardUI(productId) {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const item = cart.find(i => i.id === productId);
+        const actionContainer = document.getElementById(`trending-action-${productId}`);
+        
+        if (actionContainer) {
+            if (item && item.quantity > 0) {
+                actionContainer.innerHTML = `
+                    <div class="qty-control-btn">
+                        <button onclick="event.stopPropagation(); changeQuantity('${productId}', -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="event.stopPropagation(); changeQuantity('${productId}', 1)">+</button>
+                    </div>
+                `;
+            } else {
+                actionContainer.innerHTML = `
+                    <button class="cart-btn" onclick="event.stopPropagation(); addToCartFromTrending('${productId}')">Add to Cart</button>
+                `;
+            }
+        }
+    }
+
     function addToCartFromTrending(productId) {
         if (typeof merchandise === 'undefined') return;
         const product = merchandise.find(item => item.id === productId);
@@ -378,10 +428,26 @@
 
         localStorage.setItem('cart', JSON.stringify(cart));
         updateCartBadge();
+        updateTrendingCardUI(productId);
 
         const badge = document.getElementById('cartBadge');
         badge.classList.add('pop');
         setTimeout(() => badge.classList.remove('pop'), 200);
+    }
+
+    function changeQuantity(productId, delta) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let item = cart.find(i => i.id === productId);
+        
+        if (item) {
+            item.quantity = (item.quantity || 1) + delta;
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.id !== productId);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            updateTrendingCardUI(productId);
+        }
     }
 
     // Dynamic Trending Logic
@@ -391,20 +457,36 @@
         const foodItems = merchandise.filter(item => item.category === "Organic Food");
         const shuffled = foodItems.sort(() => 0.5 - Math.random());
         const selected = shuffled.slice(0, 2);
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
         
         const trendingGrid = document.getElementById('trendingGrid');
         
-        trendingGrid.innerHTML = selected.map(p => `
-            <div class="card" onclick="window.location.href='food.html?id=${p.id}'">
-                <div class="img-box"><img src="${p.image}"></div>
-                <div class="p-name">${p.title}</div>
-                <div class="p-price">${p.price}</div>
-                <div class="card-btns">
-                    <button class="cart-btn" onclick="event.stopPropagation(); addToCartFromTrending('${p.id}')">Add to Cart</button>
-                    <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-btn" onclick="event.stopPropagation()">Order via Instagram</a>
+        trendingGrid.innerHTML = selected.map(p => {
+            const cartItem = cart.find(i => i.id === p.id);
+            const qty = cartItem ? cartItem.quantity : 0;
+
+            return `
+                <div class="card" onclick="window.location.href='food.html?id=${p.id}'">
+                    <div class="img-box"><img src="${p.image}"></div>
+                    <div class="p-name">${p.title}</div>
+                    <div class="p-price">${p.price}</div>
+                    <div class="card-btns">
+                        <div id="trending-action-${p.id}">
+                            ${qty > 0 ? `
+                                <div class="qty-control-btn">
+                                    <button onclick="event.stopPropagation(); changeQuantity('${p.id}', -1)">-</button>
+                                    <span>${qty}</span>
+                                    <button onclick="event.stopPropagation(); changeQuantity('${p.id}', 1)">+</button>
+                                </div>
+                            ` : `
+                                <button class="cart-btn" onclick="event.stopPropagation(); addToCartFromTrending('${p.id}')">Add to Cart</button>
+                            `}
+                        </div>
+                        <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-btn" onclick="event.stopPropagation()">Order via Instagram</a>
+                    </div>
                 </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
     }
 
     renderTrending();
@@ -414,6 +496,7 @@
     window.addEventListener('storage', (event) => {
         if (event.key === 'cart') {
             updateCartBadge();
+            renderTrending();
         }
     });
 </script>

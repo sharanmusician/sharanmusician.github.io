@@ -232,23 +232,28 @@
 
 <!-- Scrollable form section -->
 <div class="checkout-scroll-area">
-    <form id="checkoutForm" onsubmit="handlePlaceOrder(event)">
+    <!-- Replace 'YOUR_FORMSPREE_ENDPOINT_ID' with your actual Formspree form ID (e.g., https://formspree.io/f/xyz123abc) -->
+    <form id="checkoutForm" action="https://formspree.io/f/YOUR_FORMSPREE_ENDPOINT_ID" method="POST" onsubmit="handlePlaceOrder(event)">
         
+        <!-- Hidden input to pass cart details and total amount through Formspree -->
+        <input type="hidden" name="cart_items" id="formCartItems">
+        <input type="hidden" name="total_amount" id="formTotalAmount">
+
         <!-- Contact Information Card -->
         <div class="form-card">
             <div class="form-section-title">Contact Information</div>
             <div class="form-group">
                 <label class="form-label" for="fullName">Full Name</label>
-                <input type="text" id="fullName" class="form-input" placeholder="Enter your full name" required>
+                <input type="text" id="fullName" name="Full Name" class="form-input" placeholder="Enter your full name" required>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label" for="phoneNumber">Phone Number</label>
-                    <input type="tel" id="phoneNumber" class="form-input" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+                    <input type="tel" id="phoneNumber" name="Phone Number" class="form-input" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="emailId">Email Address</label>
-                    <input type="email" id="emailId" class="form-input" placeholder="Enter email address" required>
+                    <input type="email" id="emailId" name="email" class="form-input" placeholder="Enter email address" required>
                 </div>
             </div>
         </div>
@@ -259,36 +264,36 @@
             <div class="form-row">
                 <div class="form-group" style="flex: 0.8;">
                     <label class="form-label" for="doorNo">Door No</label>
-                    <input type="text" id="doorNo" class="form-input" placeholder="Flat / Door" required>
+                    <input type="text" id="doorNo" name="Door No" class="form-input" placeholder="Flat / Door" required>
                 </div>
                 <div class="form-group" style="flex: 1.2;">
                     <label class="form-label" for="street">Street Name</label>
-                    <input type="text" id="street" class="form-input" placeholder="Street / Area" required>
+                    <input type="text" id="street" name="Street Name" class="form-input" placeholder="Street / Area" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label" for="city">City / Town</label>
-                    <input type="text" id="city" class="form-input" placeholder="Enter city" required>
+                    <input type="text" id="city" name="City" class="form-input" placeholder="Enter city" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="district">District</label>
-                    <input type="text" id="district" class="form-input" placeholder="Enter district" required>
+                    <input type="text" id="district" name="District" class="form-input" placeholder="Enter district" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label class="form-label" for="state">State</label>
-                    <input type="text" id="state" class="form-input" placeholder="Enter state" required>
+                    <input type="text" id="state" name="State" class="form-input" placeholder="Enter state" required>
                 </div>
                 <div class="form-group">
                     <label class="form-label" for="pinCode">Pin Code</label>
-                    <input type="text" id="pinCode" class="form-input" placeholder="6-digit pin" pattern="[0-9]{6}" required>
+                    <input type="text" id="pinCode" name="Pin Code" class="form-input" placeholder="6-digit pin" pattern="[0-9]{6}" required>
                 </div>
             </div>
             <div class="form-group" style="margin-top: 4px;">
                 <label class="form-label" for="instructions">Additional Instructions <span style="color: var(--text-gray); font-weight: normal; text-transform: none;">(Optional)</span></label>
-                <textarea id="instructions" class="form-input" placeholder="Any special delivery instructions..."></textarea>
+                <textarea id="instructions" name="Additional Instructions" class="form-input" placeholder="Any special delivery instructions..."></textarea>
             </div>
         </div>
 
@@ -352,11 +357,17 @@
 
         document.getElementById('previewSubtotal').innerText = `₹${subtotal.toFixed(2)}`;
         document.getElementById('previewTotal').innerText = `₹${total.toFixed(2)}`;
+
+        // Populate hidden fields for Formspree
+        const cartSummaryString = cart.map(item => `${item.title} (Qty: ${item.quantity || 1}) - ${item.price}`).join(' | ');
+        document.getElementById('formCartItems').value = cartSummaryString || 'Empty Cart';
+        document.getElementById('formTotalAmount').value = `₹${total.toFixed(2)}`;
     }
 
-    function handlePlaceOrder(event) {
+    async function handlePlaceOrder(event) {
         event.preventDefault();
         
+        const form = document.getElementById('checkoutForm');
         const fullName = document.getElementById('fullName').value.trim();
         const phoneNumber = document.getElementById('phoneNumber').value.trim();
         const emailId = document.getElementById('emailId').value.trim();
@@ -388,7 +399,26 @@
         
         localStorage.setItem('customerDetails', JSON.stringify(customerDetails));
 
-        window.location.href = 'placeorder.html';
+        // Submit form data to Formspree via Fetch API so we can control redirection seamlessly
+        const formData = new FormData(form);
+
+        try {
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                window.location.href = 'placeorder.html';
+            } else {
+                alert('There was a problem submitting your order. Please try again.');
+            }
+        } catch (error) {
+            alert('Network error. Please check your connection and try again.');
+        }
     }
 
     loadOrderSummary();

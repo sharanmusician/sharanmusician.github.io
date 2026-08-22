@@ -134,7 +134,7 @@
             width: 100%;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 14px;
             opacity: 0;
             transform: translateY(15px);
             animation: fadeInUp 0.5s ease forwards;
@@ -168,8 +168,20 @@
             font-weight: 600;
         }
 
+        /* --- SEPARATED PROFESSIONAL THANK YOU LINE --- */
+        .thank-you-footer-text {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--neon-green);
+            border-top: 1px solid var(--border-color);
+            padding-top: 12px;
+            margin-top: 2px;
+        }
+
         .continue-btn {
-            margin-top: 15px;
+            margin-top: 5px;
             background: var(--neon-green);
             color: #000000;
             text-decoration: none;
@@ -209,7 +221,10 @@
     <div class="message-card">
         <div class="heading">Order Confirmed</div>
         <div class="description">
-            Your order has been successfully placed. A verification representative will <span class="highlight-text">contact you shortly</span> to confirm your details. Thank you for choosing us.
+            Your order has been successfully placed. Our Associate will <span class="highlight-text">contact you shortly</span> to confirm your details.
+        </div>
+        <div class="thank-you-footer-text">
+            Thank you for shopping with us!
         </div>
         <a href="merchandise.html" class="continue-btn" onclick="clearCartAndRedirect(event)">Continue Shopping</a>
     </div>

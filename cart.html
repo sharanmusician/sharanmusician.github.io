@@ -314,6 +314,15 @@
     }
 
     renderCart();
+
+    // Re-render cart automatically when returning via browser back button or page focus
+    window.addEventListener('pageshow', (event) => {
+        renderCart();
+    });
+
+    window.addEventListener('focus', () => {
+        renderCart();
+    });
 </script>
 
 </body>

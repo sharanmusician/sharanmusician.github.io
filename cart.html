@@ -1,54 +1,281 @@
-/**
- * Royal Red Bull - Cart Logic Manager
- * Handles persistent storage between index.html and cart.html
- */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Shopping Cart - Mall of Royal Red Bull</title>
+    <style>
+        :root {
+            --bg-dark: #0a0a0c;        
+            --card-bg: #111114;       
+            --neon-green: #00c853;    
+            --royal-white: #ffffff;
+            --text-gray: #a0a0a0;
+            --badge-red: #ff3b30;
+        }
 
-// 1. Initialize cart by pulling from LocalStorage (browser memory)
-// If nothing is saved, start with an empty array []
-let cart = JSON.parse(localStorage.getItem('cart_data')) || [];
+        * {
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            box-sizing: border-box;
+        }
 
-/**
- * Adds a product to the cart and saves it to memory
- * @param {Object} product - The product object from products.js
- */
-function addToCart(product) {
-    // Check if the item already exists in the cart using its ID
-    const existingItem = cart.find(item => item.id === product.id);
-    
-    if (existingItem) {
-        // If it exists, increase the quantity count
-        existingItem.quantity = (existingItem.quantity || 1) + 1;
-    } else {
-        // If it's a new item, add it to the list with quantity 1
-        cart.push({ 
-            ...product, 
-            quantity: 1 
-        });
+        body {
+            margin: 0;
+            padding-bottom: 90px; 
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--royal-white);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: var(--bg-dark);
+            padding: 12px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #1f1f23;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo { font-size: 14px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: var(--neon-green); text-decoration: none; }
+
+        .section-header { padding: 20px 15px 10px; display: flex; align-items: center; gap: 8px; }
+        .accent-bar { width: 4px; height: 18px; background: var(--neon-green); }
+        .section-title { font-size: 15px; font-weight: 800; text-transform: uppercase; }
+
+        .cart-container { padding: 0 15px; display: flex; flex-direction: column; gap: 12px; }
+
+        .cart-card {
+            background: var(--card-bg); border-radius: 12px;
+            padding: 10px; border: 1px solid #1f1f23;
+            display: flex; align-items: center; gap: 12px;
+        }
+
+        .cart-img-box { width: 60px; height: 60px; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+        .cart-img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        .cart-info { flex-grow: 1; display: flex; flex-direction: column; gap: 4px; }
+        .cart-p-name { font-size: 12px; font-weight: 600; color: var(--royal-white); }
+        .cart-p-price { font-size: 13px; font-weight: 800; color: var(--neon-green); }
+
+        .qty-control-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #18181b;
+            border: 1px solid var(--neon-green);
+            border-radius: 6px;
+            padding: 2px 6px;
+            width: 90px;
+        }
+
+        .qty-control-btn button {
+            background: transparent;
+            color: var(--neon-green);
+            border: none;
+            font-size: 11px;
+            font-weight: 900;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        .qty-control-btn span {
+            font-size: 10px;
+            font-weight: 900;
+            color: var(--royal-white);
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-gray);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .cart-summary {
+            margin: 20px 15px 0;
+            background: var(--card-bg);
+            border: 1px solid #1f1f23;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .summary-row.total {
+            font-size: 15px;
+            font-weight: 800;
+            color: var(--neon-green);
+            border-top: 1px solid #1f1f23;
+            padding-top: 10px;
+        }
+
+        .checkout-btn {
+            background: var(--neon-green);
+            color: black;
+            text-align: center;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 12px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        /* --- COMPRESSED NAVIGATION --- */
+        .bottom-nav {
+            position: fixed; 
+            bottom: 0; 
+            width: 100%; 
+            background: #0f0f12;
+            display: flex; 
+            justify-content: space-around; 
+            padding: 10px 0; 
+            border-top: 1px solid #1f1f23; 
+            z-index: 1001; 
+            align-items: center;
+        }
+
+        .nav-item { 
+            color: var(--text-gray); 
+            text-decoration: none; 
+            font-size: 10px; 
+            text-align: center;
+            line-height: 1;
+        }
+
+        .nav-item.active { 
+            color: var(--neon-green); 
+        }
+
+        .nav-item img.logo-circle {
+            width: 34px; 
+            height: 34px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 1px solid #333; 
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="merchandise.html" class="logo">Mall of Royal Red Bull</a>
+</header>
+
+<div class="section-header">
+    <div class="accent-bar"></div>
+    <div class="section-title">Your Cart</div>
+</div>
+
+<div class="cart-container" id="cartContainer"></div>
+<div id="cartSummaryContainer"></div>
+
+<div class="bottom-nav">
+    <a href="merchandise.html" class="nav-item">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
+        <br>Home
+    </a>
+    <a href="bestsellers.html" class="nav-item">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+        <br>Best Sellers
+    </a>
+    <a href="store.html" class="nav-item">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h2v-6h1zm-9 4H6v-4h6v4z"></path></svg>
+        <br>Visit Store
+    </a>
+    <a href="index.html" class="nav-item">
+        <img src="logo.png" class="logo-circle" alt="Logo">
+    </a>
+</div>
+
+<script src="products.js"></script>
+<script>
+    function parsePrice(priceStr) {
+        if (!priceStr) return 0;
+        const clean = priceStr.replace(/[^0-9.]/g, '');
+        return parseFloat(clean) || 0;
     }
-    
-    // Save the updated list to the browser's LocalStorage
-    saveCart();
-}
 
-/**
- * Saves the current cart array to LocalStorage as a string
- */
-function saveCart() {
-    localStorage.setItem('cart_data', JSON.stringify(cart));
-}
+    function renderCart() {
+        const cartContainer = document.getElementById('cartContainer');
+        const summaryContainer = document.getElementById('cartSummaryContainer');
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-/**
- * Calculates the total number of items currently in the cart
- * @returns {number} Total quantity
- */
-function getCartCount() {
-    return cart.reduce((total, item) => total + (item.quantity || 1), 0);
-}
+        if (cart.length === 0) {
+            cartContainer.innerHTML = `<div class="empty-cart">Your cart is empty.</div>`;
+            summaryContainer.innerHTML = '';
+            return;
+        }
 
-/**
- * Clears the entire cart (Optional helper)
- */
-function clearCart() {
-    cart = [];
-    localStorage.removeItem('cart_data');
-}
+        cartContainer.innerHTML = cart.map(item => `
+            <div class="cart-card">
+                <div class="cart-img-box"><img src="${item.image}"></div>
+                <div class="cart-info">
+                    <div class="cart-p-name">${item.title}</div>
+                    <div class="cart-p-price">${item.price}</div>
+                    <div class="qty-control-btn">
+                        <button onclick="changeQuantity('${item.id}', -1)">-</button>
+                        <span>${item.quantity}</span>
+                        <button onclick="changeQuantity('${item.id}', 1)">+</button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+
+        let subtotal = cart.reduce((sum, item) => sum + (parsePrice(item.price) * (item.quantity || 1)), 0);
+
+        summaryContainer.innerHTML = `
+            <div class="cart-summary">
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>₹${subtotal.toFixed(2)}</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span>₹${subtotal.toFixed(2)}</span>
+                </div>
+                <button class="checkout-btn" onclick="alert('Proceeding to checkout!')">Proceed to Checkout</button>
+            </div>
+        `;
+    }
+
+    function changeQuantity(productId, delta) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let item = cart.find(i => i.id === productId);
+        
+        if (item) {
+            item.quantity = (item.quantity || 1) + delta;
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.id !== productId);
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+    }
+
+    renderCart();
+</script>
+
+</body>
+    </html>

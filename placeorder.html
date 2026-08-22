@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Order Placed - Mall of Royal Red Bull</title>
+    <style>
+        :root {
+            --bg-dark: #0a0a0c;        
+            --card-bg: #111114;       
+            --neon-green: #00c853;    
+            --royal-white: #ffffff;
+            --text-gray: #a0a0a0;
+            --border-color: #1f1f23;
+        }
+
+        * {
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            height: 100dvh;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--royal-white);
+            -webkit-font-smoothing: antialiased;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        /* --- ULTRA PROFESSIONAL GOOGLE-PAY STYLE ANIMATION --- */
+        .loader-wrapper {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid var(--neon-green);
+            opacity: 0;
+            animation: gpayPulse 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+
+        .pulse-ring:nth-child(2) {
+            animation-delay: 1s;
+        }
+
+        @keyframes gpayPulse {
+            0% {
+                transform: scale(0.8);
+                opacity: 0.8;
+            }
+            100% {
+                transform: scale(1.6);
+                opacity: 0;
+            }
+        }
+
+        .success-circle {
+            width: 70px;
+            height: 70px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+            box-shadow: 0 0 25px rgba(0, 200, 83, 0.4);
+            transform: scale(0);
+            animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation-delay: 0.2s;
+        }
+
+        @keyframes popIn {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .checkmark {
+            width: 32px;
+            height: 32px;
+            stroke: #000000;
+            stroke-width: 3.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            fill: none;
+            stroke-dasharray: 50;
+            stroke-dashoffset: 50;
+            animation: drawCheck 0.4s ease-in-out forwards;
+            animation-delay: 0.7s;
+        }
+
+        @keyframes drawCheck {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* --- CONTENT CARD --- */
+        .message-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px 20px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(15px);
+            animation: fadeInUp 0.5s ease forwards;
+            animation-delay: 1s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .heading {
+            font-size: 16px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--royal-white);
+        }
+
+        .description {
+            font-size: 13px;
+            line-height: 1.5;
+            color: var(--text-gray);
+            font-weight: 500;
+        }
+
+        .highlight-text {
+            color: var(--neon-green);
+            font-weight: 700;
+        }
+
+        .continue-btn {
+            margin-top: 15px;
+            background: var(--neon-green);
+            color: #000000;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 900;
+            padding: 14px;
+            border-radius: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.1s ease, filter 0.2s ease;
+        }
+
+        .continue-btn:active {
+            transform: scale(0.98);
+            filter: brightness(0.9);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <!-- GPay Style Pulse & Checkmark Loader -->
+    <div class="loader-wrapper">
+        <div class="pulse-ring"></div>
+        <div class="pulse-ring"></div>
+        <div class="success-circle">
+            <svg class="checkmark" viewBox="0 0 24 24">
+                <polyline points="4 12 10 18 20 6"></polyline>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Message Box -->
+    <div class="message-card">
+        <div class="heading">Order Successfully Placed!</div>
+        <div class="description">
+            Your order has been safely transmitted. Our associate will <span class="highlight-text">contact you soon</span> for verification purposes. Thank you for shopping with us!
+        </div>
+        <a href="merchandise.html" class="continue-btn" onclick="clearCartAndRedirect(event)">Continue Shopping</a>
+    </div>
+</div>
+
+<script>
+    function clearCartAndRedirect(event) {
+        event.preventDefault();
+        // Clear local storage cart and customer details upon successful order completion
+        localStorage.removeItem('cart');
+        localStorage.removeItem('customerDetails');
+        window.location.href = 'merchandise.html';
+    }
+</script>
+
+</body>
+</html>

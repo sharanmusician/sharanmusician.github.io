@@ -21,43 +21,69 @@
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             margin: 0;
-            padding-bottom: 90px; 
+            padding: 0;
+            height: 100vh;
+            height: 100dvh;
             font-family: 'Inter', -apple-system, sans-serif;
             background-color: var(--bg-dark);
             color: var(--royal-white);
             -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
         }
 
         header {
             background-color: var(--bg-dark);
             padding: 12px 15px;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            flex-shrink: 0;
             border-bottom: 1px solid #1f1f23;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            z-index: 1000;
         }
 
         .logo { font-size: 14px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: var(--neon-green); text-decoration: none; }
 
-        .section-header { padding: 20px 15px 10px; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .section-header { 
+            padding: 15px 15px 10px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            flex-shrink: 0; 
+        }
         .accent-bar { width: 4px; height: 18px; background: var(--neon-green); }
         .section-title { font-size: 15px; font-weight: 800; text-transform: uppercase; }
 
-        .cart-container { padding: 0 15px; display: flex; flex-direction: column; gap: 12px; }
+        /* Scrollable area exclusively for products */
+        .cart-scroll-area {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 0 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .cart-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
         .cart-card {
-            background: var(--card-bg); border-radius: 12px;
-            padding: 10px; border: 1px solid #1f1f23;
-            display: flex; align-items: center; gap: 12px;
+            background: var(--card-bg); 
+            border-radius: 12px;
+            padding: 10px; 
+            border: 1px solid #1f1f23;
+            display: flex; 
+            align-items: center; 
+            gap: 12px;
+            flex-shrink: 0;
         }
 
         .cart-img-box { width: 60px; height: 60px; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
@@ -122,30 +148,37 @@
             display: inline-block;
         }
 
+        /* Pinned bottom summary container (above bottom nav) */
+        .cart-summary-wrapper {
+            flex-shrink: 0;
+            padding: 10px 15px;
+            background: var(--bg-dark);
+            border-top: 1px solid #1f1f23;
+        }
+
         .cart-summary {
-            margin: 20px 15px 0;
             background: var(--card-bg);
             border: 1px solid #1f1f23;
             border-radius: 12px;
-            padding: 15px;
+            padding: 12px 15px;
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 8px;
         }
 
         .summary-row {
             display: flex;
             justify-content: space-between;
-            font-size: 13px;
+            font-size: 12px;
             font-weight: 600;
         }
 
         .summary-row.total {
-            font-size: 15px;
+            font-size: 14px;
             font-weight: 800;
             color: var(--neon-green);
             border-top: 1px solid #1f1f23;
-            padding-top: 10px;
+            padding-top: 8px;
         }
 
         .checkout-btn {
@@ -155,19 +188,18 @@
             text-decoration: none;
             font-size: 11px;
             font-weight: 900;
-            padding: 12px;
+            padding: 10px;
             border-radius: 8px;
             text-transform: uppercase;
             border: none;
             cursor: pointer;
             width: 100%;
-            margin-top: 10px;
+            margin-top: 6px;
         }
 
         /* --- COMPRESSED NAVIGATION --- */
         .bottom-nav {
-            position: fixed; 
-            bottom: 0; 
+            flex-shrink: 0;
             width: 100%; 
             background: #0f0f12;
             display: flex; 
@@ -211,8 +243,13 @@
     <div class="section-title">Your Cart</div>
 </div>
 
-<div class="cart-container" id="cartContainer"></div>
-<div id="cartSummaryContainer"></div>
+<!-- Scrollable container for products only -->
+<div class="cart-scroll-area">
+    <div class="cart-container" id="cartContainer"></div>
+</div>
+
+<!-- Pinned summary section right above the task bar -->
+<div class="cart-summary-wrapper" id="cartSummaryContainer"></div>
 
 <div class="bottom-nav">
     <a href="merchandise.html" class="nav-item">

@@ -48,11 +48,11 @@
 
         .logo { font-size: 14px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: var(--neon-green); text-decoration: none; }
 
-        .section-header { padding: 20px 15px 10px; display: flex; align-items: center; gap: 8px; }
+        .section-header { padding: 20px 15px 10px; display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
         .accent-bar { width: 4px; height: 18px; background: var(--neon-green); }
         .section-title { font-size: 15px; font-weight: 800; text-transform: uppercase; }
 
-        .cart-container { padding: 0 15px; display: flex; flex-direction: column; gap: 12px; flex-grow: 1; }
+        .cart-container { padding: 0 15px; display: flex; flex-direction: column; gap: 12px; }
 
         .cart-card {
             background: var(--card-bg); border-radius: 12px;
@@ -315,8 +315,7 @@
 
     renderCart();
 
-    // Re-render cart automatically when returning via browser back button or page focus
-    window.addEventListener('pageshow', (event) => {
+    window.addEventListener('pageshow', () => {
         renderCart();
     });
 

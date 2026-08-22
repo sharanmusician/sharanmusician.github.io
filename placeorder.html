@@ -53,7 +53,7 @@
             position: relative;
             width: 90px;
             height: 90px;
-            margin-bottom: 50px; /* Increased space further between animation and card */
+            margin-bottom: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -164,8 +164,8 @@
         }
 
         .highlight-text {
-            color: var(--neon-green);
-            font-weight: 700;
+            color: var(--royal-white);
+            font-weight: 600;
         }
 
         .continue-btn {
@@ -207,9 +207,9 @@
 
     <!-- Message Box -->
     <div class="message-card">
-        <div class="heading">Order Successfully Placed!</div>
+        <div class="heading">Order Confirmed</div>
         <div class="description">
-            Your order has been safely transmitted. Our associate will <span class="highlight-text">contact you soon</span> for verification purposes. Thank you for shopping with us!
+            Your order has been successfully placed. A verification representative will <span class="highlight-text">contact you shortly</span> to confirm your details. Thank you for choosing us.
         </div>
         <a href="merchandise.html" class="continue-btn" onclick="clearCartAndRedirect(event)">Continue Shopping</a>
     </div>
@@ -218,7 +218,6 @@
 <script>
     function clearCartAndRedirect(event) {
         event.preventDefault();
-        // Clear local storage cart and customer details upon successful order completion
         localStorage.removeItem('cart');
         localStorage.removeItem('customerDetails');
         window.location.href = 'merchandise.html';

@@ -232,10 +232,12 @@
 
 <!-- Scrollable form section -->
 <div class="checkout-scroll-area">
-    <!-- Replace 'YOUR_FORMSPREE_ENDPOINT_ID' with your actual Formspree form ID (e.g., https://formspree.io/f/xyz123abc) -->
-    <form id="checkoutForm" action="https://formspree.io/f/YOUR_FORMSPREE_ENDPOINT_ID" method="POST" onsubmit="handlePlaceOrder(event)">
+    <form id="checkoutForm" action="https://formspree.io/f/xnparrje" method="POST" onsubmit="handlePlaceOrder(event)">
         
-        <!-- Hidden input to pass cart details and total amount through Formspree -->
+        <!-- Form Subject / Title for Email Notification -->
+        <input type="hidden" name="_subject" value="Mall of Royal Red Bull - New Order">
+
+        <!-- Hidden inputs to pass cart details and total amount through Formspree -->
         <input type="hidden" name="cart_items" id="formCartItems">
         <input type="hidden" name="total_amount" id="formTotalAmount">
 
@@ -399,7 +401,7 @@
         
         localStorage.setItem('customerDetails', JSON.stringify(customerDetails));
 
-        // Submit form data to Formspree via Fetch API so we can control redirection seamlessly
+        // Submit form data to Formspree via Fetch API and redirect to placeorder.html on success
         const formData = new FormData(form);
 
         try {

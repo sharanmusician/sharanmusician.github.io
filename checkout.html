@@ -79,10 +79,25 @@
             gap: 12px;
         }
 
+        .form-section-title {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--neon-green);
+            margin-bottom: 2px;
+            letter-spacing: 0.5px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 10px;
+        }
+
         .form-group {
             display: flex;
             flex-direction: column;
             gap: 6px;
+            flex-grow: 1;
         }
 
         .form-label {
@@ -105,6 +120,7 @@
             transition: border-color 0.2s;
             -webkit-user-select: text;
             user-select: text;
+            width: 100%;
         }
 
         .form-input:focus {
@@ -116,47 +132,41 @@
             height: 60px;
         }
 
-        /* Order Summary Preview Card */
+        /* Pinned Order Summary Preview Card & Footer Wrapper */
+        .checkout-footer-wrapper {
+            flex-shrink: 0;
+            padding: 12px 15px;
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
         .summary-preview {
             background: var(--card-bg);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 15px;
+            border-radius: 10px;
+            padding: 10px 12px;
             display: flex;
             flex-direction: column;
-            gap: 8px;
-        }
-
-        .summary-title {
-            font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            color: var(--neon-green);
-            margin-bottom: 4px;
+            gap: 6px;
         }
 
         .summary-row {
             display: flex;
             justify-content: space-between;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 600;
         }
 
         .summary-row.total {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 800;
             color: var(--neon-green);
             border-top: 1px solid var(--border-color);
-            padding-top: 8px;
-            margin-top: 4px;
-        }
-
-        /* Fixed Footer Wrapper */
-        .checkout-footer-wrapper {
-            flex-shrink: 0;
-            padding: 10px 15px;
-            background: var(--bg-dark);
-            border-top: 1px solid var(--border-color);
+            padding-top: 6px;
+            margin-top: 2px;
         }
 
         .place-order-btn {
@@ -223,73 +233,88 @@
 <!-- Scrollable form section -->
 <div class="checkout-scroll-area">
     <form id="checkoutForm" onsubmit="handlePlaceOrder(event)">
+        
+        <!-- Contact Information Card -->
         <div class="form-card">
+            <div class="form-section-title">Contact Information</div>
             <div class="form-group">
                 <label class="form-label" for="fullName">Full Name</label>
                 <input type="text" id="fullName" class="form-input" placeholder="Enter your full name" required>
             </div>
-            <div class="form-group">
-                <label class="form-label" for="phoneNumber">Phone Number</label>
-                <input type="tel" id="phoneNumber" class="form-input" placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}" required>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="phoneNumber">Phone Number</label>
+                    <input type="tel" id="phoneNumber" class="form-input" placeholder="10-digit mobile number" pattern="[0-9]{10}" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="emailId">Email Address</label>
+                    <input type="email" id="emailId" class="form-input" placeholder="Enter email address" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label class="form-label" for="emailId">Email Address</label>
-                <input type="email" id="emailId" class="form-input" placeholder="Enter your email address" required>
+        </div>
+
+        <!-- Delivery Address Card -->
+        <div class="form-card">
+            <div class="form-section-title">Delivery Address</div>
+            <div class="form-row">
+                <div class="form-group" style="flex: 0.8;">
+                    <label class="form-label" for="doorNo">Door No</label>
+                    <input type="text" id="doorNo" class="form-input" placeholder="Flat / Door" required>
+                </div>
+                <div class="form-group" style="flex: 1.2;">
+                    <label class="form-label" for="street">Street Name</label>
+                    <input type="text" id="street" class="form-input" placeholder="Street / Area" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label class="form-label" for="doorNo">Door No / Flat No</label>
-                <input type="text" id="doorNo" class="form-input" placeholder="e.g. #42, Block B" required>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="city">City / Town</label>
+                    <input type="text" id="city" class="form-input" placeholder="Enter city" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="district">District</label>
+                    <input type="text" id="district" class="form-input" placeholder="Enter district" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label class="form-label" for="street">Street Name</label>
-                <input type="text" id="street" class="form-input" placeholder="Enter street name" required>
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label" for="state">State</label>
+                    <input type="text" id="state" class="form-input" placeholder="Enter state" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="pinCode">Pin Code</label>
+                    <input type="text" id="pinCode" class="form-input" placeholder="6-digit pin" pattern="[0-9]{6}" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label class="form-label" for="city">City / Town</label>
-                <input type="text" id="city" class="form-input" placeholder="Enter city" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label" for="district">District</label>
-                <input type="text" id="district" class="form-input" placeholder="Enter district" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label" for="state">State</label>
-                <input type="text" id="state" class="form-input" placeholder="Enter state" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label" for="pinCode">Pin Code</label>
-                <input type="text" id="pinCode" class="form-input" placeholder="6-digit pin code" pattern="[0-9]{6}" required>
-            </div>
-            <div class="form-group">
-                <label class="form-label" for="instructions">Additional Instructions <span style="color: var(--text-gray); font-weight: normal;">(Optional)</span></label>
+            <div class="form-group" style="margin-top: 4px;">
+                <label class="form-label" for="instructions">Additional Instructions <span style="color: var(--text-gray); font-weight: normal; text-transform: none;">(Optional)</span></label>
                 <textarea id="instructions" class="form-input" placeholder="Any special delivery instructions..."></textarea>
             </div>
         </div>
 
-        <div class="summary-preview" id="orderSummaryPreview">
-            <div class="summary-title">Order Overview</div>
-            <div class="summary-row">
-                <span>Subtotal</span>
-                <span id="previewSubtotal">₹0.00</span>
-            </div>
-            <div class="summary-row">
-                <span>Delivery Charges</span>
-                <span>₹60.00</span>
-            </div>
-            <div class="summary-row" style="color: var(--neon-green);">
-                <span>Discount</span>
-                <span>- ₹15.00</span>
-            </div>
-            <div class="summary-row total">
-                <span>Total Amount</span>
-                <span id="previewTotal">₹0.00</span>
-            </div>
-        </div>
     </form>
 </div>
 
-<!-- Pinned footer button -->
+<!-- Pinned footer wrapper containing order summary preview and place order button -->
 <div class="checkout-footer-wrapper">
+    <div class="summary-preview" id="orderSummaryPreview">
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="previewSubtotal">₹0.00</span>
+        </div>
+        <div class="summary-row">
+            <span>Delivery Charges</span>
+            <span>₹60.00</span>
+        </div>
+        <div class="summary-row" style="color: var(--neon-green);">
+            <span>Discount</span>
+            <span>- ₹15.00</span>
+        </div>
+        <div class="summary-row total">
+            <span>Total Amount</span>
+            <span id="previewTotal">₹0.00</span>
+        </div>
+    </div>
     <button type="submit" form="checkoutForm" class="place-order-btn">Place Order</button>
 </div>
 

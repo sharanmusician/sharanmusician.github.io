@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Checkout - Mall of Royal Red Bull</title>
+    <style>
+        :root {
+            --bg-dark: #0a0a0c;        
+            --card-bg: #111114;       
+            --neon-green: #00c853;    
+            --royal-white: #ffffff;
+            --text-gray: #a0a0a0;
+            --border-color: #1f1f23;
+        }
+
+        * {
+            -webkit-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            height: 100dvh;
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--royal-white);
+            -webkit-font-smoothing: antialiased;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: var(--bg-dark);
+            padding: 12px 15px;
+            flex-shrink: 0;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .logo { font-size: 14px; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; color: var(--neon-green); text-decoration: none; }
+
+        .section-header { 
+            padding: 15px 15px 10px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            flex-shrink: 0; 
+        }
+        .accent-bar { width: 4px; height: 18px; background: var(--neon-green); }
+        .section-title { font-size: 15px; font-weight: 800; text-transform: uppercase; }
+
+        /* Scrollable form area */
+        .checkout-scroll-area {
+            flex-grow: 1;
+            overflow-y: auto;
+            padding: 0 15px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .form-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-label {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-gray);
+            letter-spacing: 0.5px;
+        }
+
+        .form-input {
+            background: #18181b;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 10px 12px;
+            color: var(--royal-white);
+            font-size: 13px;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+            -webkit-user-select: text;
+            user-select: text;
+        }
+
+        .form-input:focus {
+            border-color: var(--neon-green);
+        }
+
+        textarea.form-input {
+            resize: none;
+            height: 70px;
+        }
+
+        /* Order Summary Preview Card */
+        .summary-preview {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .summary-title {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--neon-green);
+            margin-bottom: 4px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .summary-row.total {
+            font-size: 14px;
+            font-weight: 800;
+            color: var(--neon-green);
+            border-top: 1px solid var(--border-color);
+            padding-top: 8px;
+            margin-top: 4px;
+        }
+
+        /* Fixed Footer Wrapper */
+        .checkout-footer-wrapper {
+            flex-shrink: 0;
+            padding: 10px 15px;
+            background: var(--bg-dark);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .place-order-btn {
+            background: var(--neon-green);
+            color: black;
+            text-align: center;
+            text-decoration: none;
+            font-size: 11px;
+            font-weight: 900;
+            padding: 12px;
+            border-radius: 8px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        /* --- COMPRESSED NAVIGATION --- */
+        .bottom-nav {
+            flex-shrink: 0;
+            width: 100%; 
+            background: #0f0f12;
+            display: flex; 
+            justify-content: space-around; 
+            padding: 10px 0; 
+            border-top: 1px solid var(--border-color); 
+            z-index: 1001; 
+            align-items: center;
+        }
+
+        .nav-item { 
+            color: var(--text-gray); 
+            text-decoration: none; 
+            font-size: 10px; 
+            text-align: center;
+            line-height: 1;
+        }
+
+        .nav-item.active { 
+            color: var(--neon-green); 
+        }
+
+        .nav-item img.logo-circle {
+            width: 34px; 
+            height: 34px; 
+            border-radius: 50%; 
+            object-fit: cover; 
+            border: 1px solid #333; 
+            vertical-align: middle;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="merchandise.html" class="logo">Mall of Royal Red Bull</a>
+</header>
+
+<div class="section-header">
+    <div class="accent-bar"></div>
+    <div class="section-title">Shipping Details</div>
+</div>
+
+<!-- Scrollable form section -->
+<div class="checkout-scroll-area">
+    <form id="checkoutForm" onsubmit="handlePlaceOrder(event)">
+        <div class="form-card">
+            <div class="form-group">
+                <label class="form-label" for="fullName">Full Name</label>
+                <input type="text" id="fullName" class="form-input" placeholder="Enter your full name" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="phoneNumber">Phone Number</label>
+                <input type="tel" id="phoneNumber" class="form-input" placeholder="Enter 10-digit mobile number" pattern="[0-9]{10}" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="emailId">Email Address</label>
+                <input type="email" id="emailId" class="form-input" placeholder="Enter your email address" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="shippingAddress">Delivery Address</label>
+                <textarea id="shippingAddress" class="form-input" placeholder="Street address, apartment, city, state, pin code" required></textarea>
+            </div>
+        </div>
+
+        <div class="summary-preview" id="orderSummaryPreview">
+            <div class="summary-title">Order Overview</div>
+            <div class="summary-row">
+                <span>Subtotal</span>
+                <span id="previewSubtotal">₹0.00</span>
+            </div>
+            <div class="summary-row">
+                <span>Delivery Charges</span>
+                <span>₹60.00</span>
+            </div>
+            <div class="summary-row" style="color: var(--neon-green);">
+                <span>Discount</span>
+                <span>- ₹15.00</span>
+            </div>
+            <div class="summary-row total">
+                <span>Total Amount</span>
+                <span id="previewTotal">₹0.00</span>
+            </div>
+        </div>
+    </form>
+</div>
+
+<!-- Pinned footer button -->
+<div class="checkout-footer-wrapper">
+    <button type="submit" form="checkoutForm" class="place-order-btn">Place Order</button>
+</div>
+
+<div class="bottom-nav">
+    <a href="merchandise.html" class="nav-item">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
+        <br>Home
+    </a>
+    <a href="bestsellers.html" class="nav-item">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
+        <br>Best Sellers
+    </a>
+    <a href="store.html" class="nav-item">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h2v-6h1zm-9 4H6v-4h6v4z"></path></svg>
+        <br>Visit Store
+    </a>
+    <a href="index.html" class="nav-item">
+        <img src="logo.png" class="logo-circle" alt="Logo">
+    </a>
+</div>
+
+<script>
+    function parsePrice(priceStr) {
+        if (!priceStr) return 0;
+        const clean = priceStr.replace(/[^0-9.]/g, '');
+        return parseFloat(clean) || 0;
+    }
+
+    function loadOrderSummary() {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let subtotal = cart.reduce((sum, item) => sum + (parsePrice(item.price) * (item.quantity || 1)), 0);
+        let deliveryCharges = cart.length > 0 ? 60 : 0;
+        let discount = cart.length > 0 ? 15 : 0;
+        let total = subtotal > 0 ? subtotal + deliveryCharges - discount : 0;
+
+        document.getElementById('previewSubtotal').innerText = `₹${subtotal.toFixed(2)}`;
+        document.getElementById('previewTotal').innerText = `₹${total.toFixed(2)}`;
+    }
+
+    function handlePlaceOrder(event) {
+        event.preventDefault();
+        
+        const fullName = document.getElementById('fullName').value.trim();
+        const phoneNumber = document.getElementById('phoneNumber').value.trim();
+        const emailId = document.getElementById('emailId').value.trim();
+        const address = document.getElementById('shippingAddress').value.trim();
+
+        if (!fullName || !phoneNumber || !emailId || !address) {
+            alert('Please fill in all the required delivery details.');
+            return;
+        }
+
+        // Save checkout profile if needed
+        const customerDetails = { fullName, phoneNumber, emailId, address };
+        localStorage.setItem('customerDetails', JSON.stringify(customerDetails));
+
+        alert('Order placed successfully! Thank you for shopping with Mall of Royal Red Bull.');
+        localStorage.removeItem('cart');
+        window.location.href = 'merchandise.html';
+    }
+
+    loadOrderSummary();
+</script>
+
+</body>
+                                                                                                          </html>
+                                                                                                          

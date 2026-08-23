@@ -163,7 +163,7 @@
         <br>Best Sellers
     </a>
     <a href="store.html" class="nav-item">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h1zm-9 4H6v-4h6v4z"></path></svg>
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-bottom: 4px;"><path d="M20 4H4v2h16V4zm1 10v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6h2v-6h1zm-9 4H6v-4h6v4z"></path></svg>
         <br>Visit Store
     </a>
     <a href="index.html" class="nav-item">
@@ -174,6 +174,20 @@
 <script src="products.js"></script>
 <script>
     document.addEventListener('contextmenu', e => e.preventDefault());
+
+    function addToCart(id, title, price, image) {
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const existingItemIndex = cart.findIndex(item => item.id === id);
+
+        if (existingItemIndex > -1) {
+            cart[existingItemIndex].quantity = (cart[existingItemIndex].quantity || 1) + 1;
+        } else {
+            cart.push({ id, title, price, image, quantity: 1 });
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        alert('Item Added to Cart!');
+    }
 
     function initPage() {
         if (typeof merchandise === 'undefined') return;
@@ -196,7 +210,7 @@
                 <div class="p-name">${p.title}</div>
                 <div class="p-price">${p.price}</div>
                 <div class="card-btns">
-                    <button class="cart-btn" onclick="event.stopPropagation(); alert('Item Added to Cart!')">Add to Cart</button>
+                    <button class="cart-btn" onclick="event.stopPropagation(); addToCart('${p.id}', '${p.title.replace(/'/g, "\\'")}', '${p.price}', '${p.image}')">Add to Cart</button>
                     <a href="https://instagram.com/myfoodproductsputhukkadai" class="ig-btn" onclick="event.stopPropagation()">Order via Instagram</a>
                 </div>
             </div>
